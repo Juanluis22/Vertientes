@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center; /* Centra horizontalmente */
+            align-items: center; /* Centra verticalmente */
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://i.pinimg.com/originals/65/80/cd/6580cd3a558db160d9e01e9c8e810135.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: rgba(240, 240, 240, 0.7);
+        }
+        #contenedor {
+            display: flex;
+            align-items: center;
+            margin-left: 10%; 
+        }
+        #formulario {
+            background-color: #f0f0f0; 
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            width: 200%; 
+            height: 300px; 
+            margin-right: 4cm; 
+        }
+        .formulario form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #titulo {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        #logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 150px; 
+            height: auto;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #5b9dd9;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #enlaceOlvido {
+            font-size: 12px; 
+            margin-bottom: 10px;
+        }
+
+        #botonIngresar {
+            background-color: #4CAF50;
+            color: #fff;
+            margin-top: 10px;
+            margin-bottom: 20px; 
+        }
+        
+
+
+        #botonRegistrarse {
+            background-color: #6fbf73;
+            color: #fff;
+            margin-top: 40px; 
+        }
+        .botona {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="formulario">
+            <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Universidad-autonoma-de-chile.png" alt="Logo UACH">
+            <h2 id="titulo">Ingrese su cuenta</h2>
+            <form method="post">
+                {% csrf_token %}
+                RUT{{ form.a.label_tag }}:{{ form.username }}
+                Contraseña{{ form.v.label_tag }}:{{ form.password }}
+                <button id="botonIngresar" type="submit">Ingresar</button>
+                
+                
+            </form>
+            
+            <a href="{% url 'nucleo:registro' %}" class="botona">Registrarse</a>
+            <a id="enlaceOlvido" href="{% url 'nucleo:recuperar' %}">Olvidé la contraseña</a>
+        </div>
+        
+        </div>
+    </div>
+</body>
+</html>

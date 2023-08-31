@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://i.pinimg.com/originals/65/80/cd/6580cd3a558db160d9e01e9c8e810135.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: rgba(240, 240, 240, 0.7);
+        }
+        #contenedor {
+            display: flex;
+            align-items: center;
+            margin-left: 25%;
+        }
+        #formulario {
+            background-color: #f0f0f0; 
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            max-width: 30%;
+        }
+        #formulario form {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        #titulo {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        #logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 150px;
+            height: auto;
+        }
+        #imagen {
+            flex: 1;
+            max-width: 25%;
+            height: auto;
+        }
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #5b9dd9;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #botonRecuperar {
+            background-color: #6fbf73;
+            color: #fff;
+            margin-top: 10px;
+        }
+        #enlaceVolver {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        #recordatorio {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenedor">
+        <div id="formulario">
+            <img id="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Universidad-autonoma-de-chile.png" alt="Logo UACH">
+            <h2 id="titulo">Recuperar Contraseña</h2>
+            <form  method="post">
+                {% csrf_token %}
+                <input type="email" id="correo" name="correo" placeholder="Correo Electrónico" required>
+                <p id="recordatorio">Recuerda que la contraseña son los últimos 4 dígitos de tu RUT.</p>
+                <button id="botonRecuperar" type="submit">Recuperar</button>
+                
+            </form>
+            <a id="enlaceVolver" href="{% url 'nucleo:login' %}">Volver al inicio de sesión</a>
+        </div>
+        <img id="imagen" src="https://i.pinimg.com/originals/ab/39/c8/ab39c832f759bc3f1e35ccc6df704999.jpg" alt="Imagen de fondo">
+    </div>
+</body>
+</html>
+
+

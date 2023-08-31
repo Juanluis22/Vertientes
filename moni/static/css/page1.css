@@ -1,0 +1,132 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 50px 0;
+    }
+    .hero h1 {
+        font-size: 24px;
+    }
+    .hero p {
+        font-size: 14px;
+    }
+    /* Agrega más estilos según sea necesario */
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color celeste */
+}
+
+/* Estilos de la barra de navegación */
+header {
+    background-color: #333333;
+    color: white;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+/* Estilos del encabezado */
+.hero {
+    text-align: center;
+    padding: 100px 0;
+    background-image: url('https://www.explora.cl/biobio/wp-content/uploads/sites/14/2018/06/Vertientes-735x470.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.logo {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 110px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+}
+
+.hero h1 {
+    color: #ffffff; /* Cambia este color a tu preferencia */
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    color: #ffffff; /* Cambia este color a tu preferencia */
+    font-size: 25px;
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+/* Estilos de las características */
+.features {
+    display: flex;
+    justify-content: center;
+    padding: 80px 0;
+    background-color: #B0E2FF; /* Color celeste */
+}
+
+.feature {
+    background-color: white;
+    width: 300px; /* Ajusta el ancho de los cuadrados según tus preferencias */
+    padding: 20px;
+    margin: 0 10px; /* Espacio entre los cuadrados */
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.feature-content {
+    text-align: center;
+}
+
+.feature img {
+    max-width: 100%;
+    max-height: 250px; /* Ajusta la altura máxima según tus preferencias */
+    margin-top: 20px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+
+/* Estilos del pie de página */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+}
