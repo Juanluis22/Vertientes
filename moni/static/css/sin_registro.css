@@ -1,0 +1,242 @@
+/* Estilos generales*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color celeste */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Estilos para el encabezado de vertientes */
+.vertientes-header {
+    text-align: center; /* Centra horizontalmente el contenido del encabezado */
+}
+
+/* Estilos de la barra de navegación */
+.logo {
+
+    width: 110px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.nav-item a:hover {
+    color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+
+.cerrar-sesion {
+    top: 5px;
+    right: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border: 2px solid white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cerrar-sesion:hover {
+    background-color: white;
+    color: #333;
+}
+
+.main{
+    flex-grow: 1;
+    background-image: url('https://www.aguapiedras.cl/wp-content/uploads/2019/12/Pejerrey-Achibueno.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Estilos para el contenedor de vertientes */
+.vertientes-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center;
+    height: 100%; /* Asegúrate de que el elemento padre tenga una altura definida */
+    margin: auto;
+}
+
+/* Estilos para el contenedor de búsqueda */
+.vertientes-buscar {
+    display: flex;
+    flex-direction: row; /* Cambiar la dirección a fila */
+    align-items: center;
+    margin: 20px auto; /* Margen superior e inferior y centrado horizontalmente */
+    max-width: 600px; /* Ancho máximo del contenedor */
+    padding: 20px; /* Espacio interno */
+    border: 1px solid #ccc; /* Borde alrededor del contenedor */
+    border-radius: 10px; /* Borde redondeado */
+    background-color: #eaf7ff; /* Fondo blanco */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+
+
+/* Estilos para cada elemento de búsqueda */
+.buscar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px; /* Espacio horizontal entre elementos de búsqueda */
+    
+}
+
+/* Estilos para el botón "Ir" */
+.ir {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: auto; /* Espacio superior automático (centrado verticalmente) */
+    margin-left: auto; /* Espacio izquierdo automático (centrado horizontalmente) */
+    margin-right: 0; /* Restablecer margen derecho */
+    display: block; /* Asegurar que el botón sea un bloque y ocupe todo el ancho */
+}
+
+.ir:hover {
+    background-color: #1caa23;
+}
+
+/* Estilos para los parámetros de la vertiente */
+.parametros-columnas {
+    display: flex;
+    justify-content: space-between;
+}
+
+.columna {
+    flex: 1;
+    max-width: 45%; /* Ancho máximo para cada columna */
+}
+
+.parametro {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #B0E2FF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centra el contenido en horizontal */
+
+    /* Centrar contenido tanto horizontal como verticalmente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.parametro h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.parametro p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.vertientes-datos{
+    text-align: center; /* Centra horizontalmente la fecha actualizacion */
+}
+
+/* Estilos para el pie de página */
+.vertientes-footer {
+    text-align: center;
+    padding: 0px 79px;
+    background-color: #eaf7ff; /* Fondo gris claro */
+    color: #333; /* Color de texto */
+    border: 1px solid #ccc; /* Borde alrededor del cuadro */
+    border-radius: 10px; /* Borde redondeado */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin: 20px auto; /* Margen superior e inferior y centrado horizontalmente */
+    max-width: 600px; /* Ancho máximo del cuadro */
+}
+
+/*OPCION1*/
+/* Estilos para el estado de la vertiente */
+/*.estado-vertiente {
+/*    text-align: center;
+/*    padding: 10px;
+/*    margin: 20px auto;
+/*    max-width: 600px;
+/*    border-radius: 10px;
+/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+/*    font-weight: bold; /* Añadir negrita al texto */
+/*    background-color: #ffffff; /* Eliminar este fondo */
+/*}
+
+/* Estilos para cuando el agua está en óptimas condiciones */
+/*.estado-vertiente.condiciones-buenas {
+/*    background-color: #87D91F !important; /* Agrega !important para aumentar la especificidad */
+/*    color: white !important; /* Agrega !important para aumentar la especificidad */
+/*}
+
+/* Estilos para cuando el agua está en malas condiciones */
+/*.estado-vertiente.condiciones-malas {
+/*    background-color: #D40202 !important; /* Agrega !important para aumentar la especificidad */
+/*    color: white !important; /* Agrega !important para aumentar la especificidad */
+/*}
+/*OPCION1*/
+
+/*OPCION2*/
+/* Estilos para cuando el agua está en malas condiciones mio */
+.condiciones-malas {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; /* Añadir negrita al texto */
+    background-color: #D40202 !important; /* Agrega !important para aumentar la especificidad */
+    color: white !important; /* Agrega !important para aumentar la especificidad */
+}
+
+/* Estilos para cuando el agua está en buenas condiciones mio */
+.condiciones-buenas {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; /* Añadir negrita al texto */
+    background-color: #87D91F !important; /* Agrega !important para aumentar la especificidad */
+    color: white !important; /* Agrega !important para aumentar la especificidad */
+}
+/*OPCION2*/
+
+/* Estilos para el pie de página */
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+}
