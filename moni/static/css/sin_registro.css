@@ -67,7 +67,7 @@ body {
 
 .main{
     flex-grow: 1;
-    background-image: url('https://www.aguapiedras.cl/wp-content/uploads/2019/12/Pejerrey-Achibueno.jpg');
+    background-image: url('https://i.pinimg.com/originals/65/80/cd/6580cd3a558db160d9e01e9c8e810135.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -225,6 +225,8 @@ body {
     padding: 20px;
     margin: 20px auto;
     max-width: 600px;
+    border-width: 3px;
+    border-style: solid;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     font-weight: bold; /* Añadir negrita al texto */
