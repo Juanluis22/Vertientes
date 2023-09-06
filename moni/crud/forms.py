@@ -1,7 +1,7 @@
 from django.forms import *
 from django.contrib.auth.forms import UserCreationForm
 from nucleo.models import *
-from user.models import User
+from user.models import User,Profile
 
 
 class ComunidadForm(ModelForm):
@@ -76,20 +76,25 @@ class UserForm(ModelForm):
         }
 
     def save(self, commit=True):
-        data={}
-        form=super()   
+        data = {}
+        form = super()
         if form.is_valid():
-            pwd=self.cleaned_data['password']
-            u=form.save(commit=False)
+            pwd = self.cleaned_data['password']
+            u = form.save(commit=False)
             if u.pk is None:
                 u.set_password(pwd)
+                u.save()  # Save the user first to get a primary key (u.pk)
+                
+                # Create a Profile instance for the user
+                profile = Profile(user=u, group_id=2)
+                profile.save()
             else:
-                user=User.objects.get(pk=u.pk)
+                user = User.objects.get(pk=u.pk)
                 if user.password != pwd:
                     u.set_password(pwd)
-            u.save()
+                u.save()
         else:
-            data['error']=form.errors
+            data['error'] = form.errors
 
 
 

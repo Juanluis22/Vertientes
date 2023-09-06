@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, RedirectView
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView
-from user.models import User
+from user.models import User,Profile
 from crud.forms import UserForm
 from django.urls import reverse
 
@@ -58,8 +58,9 @@ class Cerrarsesion(RedirectView):
 
 #Funcion que detecta si quien inicia sesión es admin o no
 def revision(request):
+    profile = Profile.objects.get(user_id=request.user.id)
     if request.user.is_authenticated:
-        if request.user.is_superuser:
+        if profile.group_id == 1:
             return redirect('crud:select')  # Redirige al panel de administración
         else:
             return redirect('habi:detect')  # Redirige al perfil del usuario
