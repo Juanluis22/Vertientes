@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"Empresas",
+        "NAME":"monitoreo",
         "USER":"postgres",
-        "PASSWORD":"CerealPremium",
+        "PASSWORD":"13969",
         "HOST":"localhost",
-        "PORT":"5433",
+        "PORT":"5432",
     }
 }
 
