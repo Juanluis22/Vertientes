@@ -62,7 +62,7 @@
 
 
         <body>
-            
+
 <nav class="navbar">
     <ul class="navbar-nav">
         <li class="nav-item"><a href="page1.html">Inicio</a></li>
@@ -152,6 +152,11 @@
                 <a href="{% url 'crud:newuser' %}" class="acceder">Crear</a>
     
             </div>
+            <div class="col-lg-6">
+            <a href="{% url 'nucleo:users_massive_upload' %}" class="acceder" >
+                Carga masiva
+            </a>
+        </div>
             <div class="col-lg-6">
                 <a href="{% url 'crud:index' %}" class="volver">Volver</a>
     

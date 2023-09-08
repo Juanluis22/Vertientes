@@ -1,3 +1,5 @@
+import xlwt
+import pandas as pd
 from typing import Any
 from django import http
 from django.contrib.auth import logout
@@ -8,6 +10,9 @@ from django.views.generic.edit import CreateView
 from user.models import User,Profile
 from crud.forms import UserForm
 from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from user.models import User
+from nucleo.models import comunidad
 
 # Create your views here.
 
@@ -66,3 +71,87 @@ def revision(request):
             return redirect('habi:detect')  # Redirige al perfil del usuario
     else:
         return redirect('nucleo:login')  # Redirige al formulario de inicio de sesión
+    
+
+def users_massive_upload(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+    template_name = 'users_massive_upload.html'
+    return render(request,template_name,{'profiles':profiles})
+
+def users_massive_upload_save(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+
+    if request.method == 'POST':
+        #try:
+        print(request.FILES['myfile'])
+        data = pd.read_excel(request.FILES['myfile'])
+        df = pd.DataFrame(data)
+        acc = 0
+        for item in df.itertuples():
+            acc += 1
+            username = str(item[1])            
+            first_name = str(item[2])
+            last_name = str(item[3])
+            edad = int(item[4])
+            password = str(item[5])
+            is_active = bool(item[6])
+            email = str(item[6])
+            COMUNIDAD_DEFAULT = comunidad.objects.get(id=1)
+            user_save = User(
+                username = username,
+                first_name = first_name,
+                last_name = last_name,
+                edad = edad,
+                email= email,
+                is_active=is_active,
+                comunidad = COMUNIDAD_DEFAULT
+                )
+            user_save.set_password(password)
+            user_save.save()
+            profile = Profile(user=user_save, group_id=2)
+            profile.save()
+       
+        return redirect('nucleo:users_massive_upload')
+    
+def users_import_file(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+
+        return redirect('nucleo:login')
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Lista_de_Usuarios.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('carga_masiva')
+    row_num = 0
+    columns = ['Rut', 'Primer nombre', 'Apellido','Edad', 'Contraseña', 'Estado', 'Correo Electronico']
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    font_style = xlwt.XFStyle()
+    date_format = xlwt.XFStyle()
+    date_format.num_format_str = 'dd/MM/yyyy'
+    for row in range(1):
+        row_num += 1
+        for col_num in range(7): 
+            if col_num == 0:
+                ws.write(row_num, col_num, 'ej: 205916402' , font_style)
+            if col_num == 1:
+                ws.write(row_num, col_num, 'ej:Juan', font_style)
+            if col_num == 2:
+                ws.write(row_num, col_num, 'ej:Torres', font_style)
+            if col_num == 3:
+                ws.write(row_num, col_num, 'ej:28' , font_style)
+            if col_num == 4:
+                ws.write(row_num, col_num, 'ej:Juan231', font_style)
+            if col_num == 5:
+                ws.write(row_num, col_num, 'ej:true', font_style)
+            if col_num == 6:
+                ws.write(row_num, col_num, 'ej:JuanTorres@gmail.com', font_style)
+
+    wb.save(response)
+    return response  
