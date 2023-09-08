@@ -1,0 +1,102 @@
+// Inclusión de las bibliotecas necesarias
+#include "DHT.h"            // Biblioteca para el sensor DHT11 (temperatura y humedad)
+#include <WiFi.h>           // Biblioteca para la conexión WiFi del ESP32
+#include <WiFiUdp.h>        // Biblioteca para comunicación UDP
+#include <ArduinoJson.h>    // Biblioteca para manejar datos en formato JSON
+
+// Definición de pines y tipos de sensores
+#define DHTPIN 15           // Pin donde está conectado el sensor DHT11
+#define DHTTYPE DHT11       // Tipo de sensor DHT (en este caso DHT11)
+#define PH_PIN 2            // Pin para el sensor de pH
+#define FLOW_PIN 4          // Pin para el sensor de caudal
+#define TURBIDITY_PIN 13    // Pin para el sensor de turbidez
+
+// Datos de conexión WiFi
+const char* ssid = "tu_SSID";                       // Nombre de la red WiFi
+const char* password = "tu_PASSWORD";               // Contraseña de la red WiFi
+const char* udpAddress = "direccion_IP_del_servidor"; // Dirección IP del servidor al que se enviarán los datos
+const int udpPort = puerto_del_servidor;            // Puerto del servidor al que se enviarán los datos
+
+// Inicialización de objetos y variables
+DHT dht(DHTPIN, DHTTYPE);          // Objeto para el sensor DHT11
+volatile int pulseCount = 0;       // Contador de pulsos para el sensor de caudal
+float flowRate;                    // Tasa de flujo calculada
+unsigned long lastFlowRateCheck = 0; // Última vez que se comprobó la tasa de flujo
+WiFiUDP Udp;                       // Objeto para comunicación UDP
+
+void setup() {
+  Serial.begin(115200);  // Iniciar comunicación serial a 115200 baudios
+  Serial.println(F("DHT11, sensor de pH, sensor de caudal y sensor de turbidez test"));
+
+  // Conexión WiFi
+  WiFi.begin(ssid, password);  // Conectar a la red WiFi con los datos proporcionados
+  while (WiFi.status() != WL_CONNECTED) { // Esperar hasta que la conexión sea exitosa
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("WiFi connected"); // Confirmar que la conexión WiFi fue exitosa
+
+  dht.begin();  // Iniciar el sensor DHT11
+  pinMode(FLOW_PIN, INPUT_PULLUP);  // Configurar el pin del sensor de caudal como entrada con pull-up
+  attachInterrupt(digitalPinToInterrupt(FLOW_PIN), pulseCounter, RISING); // Configurar interrupción para el sensor de caudal
+}
+
+void loop() {
+  delay(1000);  // Esperar un segundo
+
+  // Desactivar la interrupción mientras se calcula la tasa de flujo
+  detachInterrupt(digitalPinToInterrupt(FLOW_PIN));
+  flowRate = ((1000.0 / (millis() - lastFlowRateCheck)) * pulseCount) / 450.0; // Calcular la tasa de flujo
+  lastFlowRateCheck = millis(); // Actualizar la última vez que se comprobó la tasa de flujo
+  pulseCount = 0; // Reiniciar el contador de pulsos
+  attachInterrupt(digitalPinToInterrupt(FLOW_PIN), pulseCounter, RISING); // Reactivar la interrupción
+
+  // Leer datos de los sensores
+  float h = dht.readHumidity();       // Leer humedad
+  float t = dht.readTemperature();    // Leer temperatura
+  float ph = sensor_ph();             // Leer pH
+  float turbidity = readTurbidity();  // Leer turbidez
+
+  // Comprobar si hubo algún error al leer los sensores
+  if (isnan(h) || isnan(t) || isnan(ph) || isnan(turbidity)) {
+    Serial.println(F("Failed to read from sensors!"));
+    return;
+  }
+
+  // Crear un objeto JSON con los datos de los sensores
+  DynamicJsonDocument doc(256);
+  doc["humidity"] = h;
+  doc["temperature"] = t;
+  doc["pH"] = ph;
+  doc["flowRate"] = flowRate;
+  doc["turbidity"] = turbidity;
+
+  String dataToSend;  // Cadena para almacenar los datos en formato JSON
+  serializeJson(doc, dataToSend); // Convertir el objeto JSON a una cadena
+
+  // Enviar los datos en formato JSON a través de UDP
+  Udp.beginPacket(udpAddress, udpPort);
+  Udp.write(dataToSend.c_str());
+  Udp.endPacket();
+
+  // Imprimir los datos en el monitor serial
+  Serial.println(dataToSend);
+}
+
+// Función para leer el valor de pH
+float sensor_ph() {
+  int valor = analogRead(PH_PIN);  // Leer el valor analógico del sensor de pH
+  float ph = map(valor, 0, 4095, 0, 140) / 10.0; // Convertir el valor analógico a pH
+  return ph;
+}
+
+// Función para contar los pulsos del sensor de caudal
+void pulseCounter() {
+  pulseCount++;  // Incrementar el contador de pulsos
+}
+
+// Función para leer la turbidez del agua
+float readTurbidity() {
+  int turbidityValue = analogRead(TURBIDITY_PIN);  // Leer el valor analógico del sensor de turbidez
+  return turbidityValue;  // Devolver el valor leído
+}
