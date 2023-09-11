@@ -30,6 +30,14 @@ class UserForm(ModelForm):
             'edad':'Edad',
             'password':'Contraseña',
         }
+        help_texts = {
+            'username': '',
+            'first_name': '',
+            'last_name': '',
+            'email': '',
+            'edad': '',
+            'password': '°Le recomendamos escribir una contraseña sencilla, como pueden ser, los ultimos 4 digitos de su RUT.',
+        }
         widgets={
             'username':TextInput( 
                 attrs={
@@ -148,7 +156,7 @@ class UpdateForm(ModelForm):
 
                 }
             ),
-            'password':TextInput( 
+            'password':PasswordInput( 
                 attrs={
                     'class':'form-control',
                     
