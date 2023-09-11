@@ -92,7 +92,9 @@ class ListaPeticion(ListView):
 
 def activar_estado(request, pk):
     registro = get_object_or_404(User, pk=pk)
-
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
     
     registro.is_active = True
     registro.save()
@@ -102,7 +104,9 @@ def activar_estado(request, pk):
 
 def desactivar_estado(request, pk):
     registro = get_object_or_404(User, pk=pk)
-
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
    
     registro.is_active = False
     registro.save()
@@ -127,7 +131,7 @@ class ActualizarPeticiones(UpdateView):
 
 #Indice para Comunidad
 class IndiceCom(TemplateView):
-    
+   
     template_name = 'comunidad/index/index.html'  
     context_object_name = 'listaUser'
 

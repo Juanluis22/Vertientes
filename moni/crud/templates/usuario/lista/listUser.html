@@ -128,10 +128,12 @@
                         <a href="{% url 'crud:updateuser' objeto.id %}" class="editar">Editar</a>
             
                         </div>
+                        {% if not objeto.is_staff %}
                         <div class="col-lg-6">
                             <a href="{% url 'crud:deactuser' objeto.id %}" class="desactivar">Desactivar</a>
                 
                         </div>
+                        {% endif %}
                 </td>
                        
             </tr>

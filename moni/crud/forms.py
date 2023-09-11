@@ -66,7 +66,7 @@ class UserForm(ModelForm):
 
                 }
             ),
-            'password':TextInput( 
+            'password':PasswordInput( 
                 attrs={
                     'class':'form-control',
                     
