@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+        <link rel="stylesheet" href="{% static 'css/sin_registro.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Seleccion vertiente</title>
+    </head>
+    <body>
+        <nav class="navbar">
+            <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="page1.html">Inicio</a></li>
+                <li class="nav-item"><a href="#">Servicios</a></li>
+                <li class="nav-item"><a href="#">Acerca de</a></li>
+                <li class="nav-item"><a href="#">Contacto</a></li>
+            </ul>
+            <a href="http://127.0.0.1:8000/#" class="cerrar-sesion">Volver</a>
+        </nav>
+        
+
+
+        <main class="main">
+            <div class="vertientes-contenedor">
+                <div class="vertientes-header">
+                    <h1>Seleccione vertiente a buscar</h1>
+                </div>
+
+                <div class="vertientes-buscar">
+                    <div class="buscar">
+                        
+                        
+
+
+                        <div class="form-group">
+                            <label>Comunidades</label>
+                            {{ form.comunidad }}
+            
+                        </div>
+
+
+
+                    </div>
+                    <div class="buscar">
+
+                        <div class="form-group">
+                            <label>Vertientes</label>
+                            {{ form.vertiente }}
+            
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+                <div class="vertientes-footer">
+                    <h1>Vertiente seleccionada</h1>
+                    <div class="parametros-columnas">
+                        <!-- Primera columna de parámetros -->
+                        <div class="columna">
+                            <div class="parametro">
+                                <h2>Caudal</h2>
+                                <p id="datosContainer2"></p>
+                            </div>
+                            <div class="parametro">
+                                <h2>pH</h2>
+                                <p id="datosContainer3"></p>
+                            </div>
+                            <div class="parametro">
+                                <h2>Conductividad</h2>
+                                <p id="datosContainer4"></p>
+                            </div>
+                        </div>
+                        <!-- Segunda columna de parámetros -->
+                        <div class="columna">
+                            <div class="parametro">
+                                <h2>Turbiedad</h2>
+                                <p id="datosContainer5"></p>
+                            </div>
+                            <div class="parametro">
+                                <h2>Humedad</h2>
+                                <p id="datosContainer6"></p>
+                            </div>
+                            <div class="parametro">
+                                <h2>Temperatura</h2>
+                                <p id="datosContainer7"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="vertientes-datos">
+                        <div class="vertientes-datos">
+                            <p id="fecha-hora-datos">
+                                
+                                <span id="fecha-hora"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+    
+            </div>
+
+        </main>
+
+
+        
+
+
+        <footer class="footer">
+            <p>&copy; 2023 U.autonoma. Todos los derechos reservados.</p>
+        </footer>
+        <script>
+        $(function(){
+            $('select[name="comunidad"]').on('change', function() {
+                var id=$(this).val();
+                var select_vertiente=$('select[name="vertiente"]');
+                var options='<option value="">------</option>';
+                
+                $.ajax({
+                    url:window.location.pathname,
+                    type:'POST',
+                    data:{
+                        'action':'search_comunidad_id',
+                        'id':id
+                    },
+                    dataType:'json',
+
+
+                }).done(function(data){
+                    $.each(data, function(key,value) {
+                            options+='<option value="'+value.id+'">'+value.name+'</option>';
+                            
+                        });
+                        select_vertiente.html(options);
+                    
+
+                        // Ahora, cuando cambie el valor de la vertiente seleccionada, obtén los datos asociados
+                        select_vertiente.on('change', function () {
+                        var vertienteId = $(this).val();
+                        
+
+                        // Realiza otra solicitud AJAX para obtener los datos asociados a la vertiente seleccionada
+                        $.ajax({
+                            url: window.location.pathname, // Reemplaza 'ruta_hacia_tu_vista' con la URL correcta para obtener los datos
+                            type: 'POST', // O el método que uses en tu vista de Django
+                            data: {
+                                'action': 'get_data_for_vertiente',
+                                'vertienteId': vertienteId
+                                },
+                            dataType: 'json',
+                         }).done(function (data) {
+                            
+                            
+                            var listaFormateada = JSON.stringify(data);
+                            
+                            
+                            
+
+                            var html = listaFormateada.split(",");
+                            
+
+                            var miLista = ["#datosContainer1", "#datosContainer2", "#datosContainer3", 
+                            "#datosContainer4", "#datosContainer5", "#datosContainer6", "#datosContainer7"];
+                            
+
+
+                            for (var i = 0; i < html.length; i++) {
+                                
+                                a=html.length;
+                                b=html[i];
+                                var b = b.match(/\d+/g);
+
+                                c=miLista[i];
+                                
+                                
+                                $(c).html(b);
+                         
+                            
+                            }
+
+                            
+                           
+                            
+
+                        }).fail(function (data) {
+                        
+                        });
+                        });
+                        
+                return false;
+                    
+                }).fail(function(data){
+                    
+
+                }).always(function(data){
+                    
+                    
+                });
+            });
+        });
+
+        </script>
+    </body>
+</html>

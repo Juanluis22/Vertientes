@@ -10,9 +10,12 @@ from django.views.generic.edit import CreateView
 from user.models import User,Profile
 from crud.forms import UserForm
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from user.models import User
-from nucleo.models import comunidad
+from nucleo.models import comunidad, vertiente, datos
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from nucleo.forms import TestForm
 
 # Create your views here.
 
@@ -155,3 +158,42 @@ def users_import_file(request):
 
     wb.save(response)
     return response  
+
+
+
+
+class Select_anidado(TemplateView):
+    template_name='anidado.html'
+    
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        data={}
+        try:
+            action=request.POST['action']
+            if action=='search_comunidad_id':
+                data=[]
+                for i in vertiente.objects.filter(comunidad_id=request.POST['id']):
+                    data.append({'id':i.id, 'name': i.nombre,'caudal': i.caudal })
+                    
+            elif action=='get_data_for_vertiente':
+                data=[]
+                for i in datos.objects.filter(vertiente_id=request.POST['vertienteId']):
+                    data.append({'id':i.id, 'caudal': i.caudal, 'pH': i.pH, 'conductividad': i.conductividad, 'turbiedad': i.turbiedad, 'temperatura': i.temperatura, 'humedad': i.humedad })
+                    
+            else:
+                data['error']='Ha ocurrido un error'
+        except Exception as e:
+            data['error']=str(e)
+        return JsonResponse(data, safe=False)
+        
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['title']='SELECT ANIDADOS' 
+        context['form']=TestForm()
+        return context
+
+
