@@ -44,11 +44,16 @@ def revision(request, objecto_id):
     #print(obj_id)
     id_foranea=obj_id.id
     #print(id_foranea)
-
-    objetos=vertiente.objects.filter(id=id_foranea)
+    objetos2=datos.objects.filter(vertiente_id=id_foranea).first()
+    
     #print(objetos)
 
-    return render(request, 'dashboard/dashboard.html', {'objetos': objetos})
+    data={
+        'objetos':objetos2,
+        'vertiente':vertiente.objects.get(id=id_foranea)
+    }
+
+    return render(request, 'dashboard/dashboard.html', data)
 
 
 def detector(request):

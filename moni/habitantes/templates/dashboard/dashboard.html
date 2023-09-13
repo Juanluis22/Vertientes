@@ -29,10 +29,10 @@
     <div class="vertientes-container">
 
 
-        {% for objeto in objetos %}
+        
         
         <div class="vertientes-header">
-            <h1>Vertiente "{{ objeto.nombre }}"</h1>
+            <h1>Vertiente "{{ vertiente.nombre }}"</h1>
         </div>
 
         
@@ -42,7 +42,7 @@
                     <i class="fas fa-times-circle"></i> 
                 </a>
                 <p>Caudal</p>
-                <p>{{ objeto.caudal }}</p>
+                <p>{{ objetos.caudal }}</p>
                 
                 
                     <i class="fas fa-arrow-alt-circle-right"></i>
@@ -62,7 +62,7 @@
                         <i class="fas fa-times-circle"></i> 
                     </a>
                     <p>pH</p>
-                    <p>{{ objeto.pH }}</p>
+                    <p>{{ objetos.pH }}</p>
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
@@ -75,7 +75,7 @@
                         <i class="fas fa-times-circle"></i> 
                     </a>
                     <p>Conductividad</p>
-                    <p>{{ objeto.conductividad }}</p>
+                    <p>{{ objetos.conductividad }}</p>
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
@@ -88,7 +88,7 @@
                         <i class="fas fa-times-circle"></i> 
                     </a>
                     <p>Turbiedad</p>
-                    <p>{{ objeto.turbiedad }}</p>
+                    <p>{{ objetos.turbiedad }}</p>
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
@@ -101,7 +101,7 @@
                         <i class="fas fa-times-circle"></i> 
                     </a>
                     <p>Temperatura</p>
-                    <p>{{ objeto.temperatura }}</p>
+                    <p>{{ objetos.temperatura }}</p>
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
@@ -114,7 +114,7 @@
                         <i class="fas fa-times-circle"></i> 
                     </a>
                     <p>Humedad</p>
-                    <p>{{ objeto.humedad }}</p>
+                    <p>{{ objetos.humedad }}</p>
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        {% endfor %}
+        
 
 
 

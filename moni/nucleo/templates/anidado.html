@@ -133,45 +133,33 @@
                     },
                     dataType:'json',
 
-
                 }).done(function(data){
                     $.each(data, function(key,value) {
                             options+='<option value="'+value.id+'">'+value.name+'</option>';
                             
                         });
                         select_vertiente.html(options);
-                    
-
-                        // Ahora, cuando cambie el valor de la vertiente seleccionada, obtén los datos asociados
+                
                         select_vertiente.on('change', function () {
                         var vertienteId = $(this).val();
-                        
 
-                        // Realiza otra solicitud AJAX para obtener los datos asociados a la vertiente seleccionada
                         $.ajax({
-                            url: window.location.pathname, // Reemplaza 'ruta_hacia_tu_vista' con la URL correcta para obtener los datos
-                            type: 'POST', // O el método que uses en tu vista de Django
+                            url: window.location.pathname, 
+                            type: 'POST',
                             data: {
                                 'action': 'get_data_for_vertiente',
                                 'vertienteId': vertienteId
                                 },
                             dataType: 'json',
                          }).done(function (data) {
-                            
-                            
+
                             var listaFormateada = JSON.stringify(data);
-                            
-                            
-                            
-
+ 
                             var html = listaFormateada.split(",");
-                            
-
+      
                             var miLista = ["#datosContainer1", "#datosContainer2", "#datosContainer3", 
                             "#datosContainer4", "#datosContainer5", "#datosContainer6", "#datosContainer7"];
-                            
-
-
+ 
                             for (var i = 0; i < html.length; i++) {
                                 
                                 a=html.length;
@@ -179,16 +167,11 @@
                                 var b = b.match(/\d+/g);
 
                                 c=miLista[i];
-                                
-                                
+          
                                 $(c).html(b);
-                         
-                            
+                                                  
                             }
-
-                            
-                           
-                            
+  
 
                         }).fail(function (data) {
                         
