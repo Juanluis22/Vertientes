@@ -52,9 +52,16 @@
             <div class="vertientes-footer">
                 <h1>Vertiente seleccionada</h1>
                 <div class="parametros-columnas">
+                    <!-- Cerrar todos modales -->
+                    <div id="modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="cerrarModal()">&times;</span>
+                            <p id="modal-info"></p>
+                        </div>
+                    </div>
                     <!-- Primera columna de parámetros -->
                     <div class="columna">
-                        <div class="parametro">
+                        <div class="parametro" onclick="mostrarModal('Información sobre el caudal')">
                             <h2>Caudal</h2>
                             <p>10 m³/s</p>
                         </div>
@@ -231,6 +238,23 @@
         };
 
         evaluarCalidadAgua(cambios);
+    </script>
+
+    <script>
+        // Función para mostrar el modal
+function mostrarModal(info) {
+    const modal = document.getElementById('modal');
+    const modalInfo = document.getElementById('modal-info');
+
+    modalInfo.innerHTML = info;
+    modal.style.display = 'block';
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'none';
+}
     </script>
 
 </body>
