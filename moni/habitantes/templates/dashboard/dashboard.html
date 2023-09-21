@@ -47,6 +47,7 @@
                 
                     <i class="fas fa-arrow-alt-circle-right"></i>
                 </a>
+                <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">ver grafico de caudal</a>
 
                 
             </div>
@@ -66,6 +67,8 @@
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
+                    <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="cerrar-sesion">ver grafico de ph</a>
+
         
                     
                 </div>
@@ -79,7 +82,7 @@
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
-        
+                    <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="cerrar-sesion">ver grafico de conductividad</a>
                     
                 </div>
             </div>
@@ -92,7 +95,7 @@
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
-        
+                    <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="cerrar-sesion">ver grafico de turbiedad</a>
                     
                 </div>
             </div>
@@ -105,6 +108,7 @@
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
+                    <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="cerrar-sesion">ver grafico de temperatura</a>
         
                     
                 </div>
@@ -118,7 +122,7 @@
                     
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
-        
+                    <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="cerrar-sesion">ver grafico de humedad</a>
                     
                 </div>
             </div>

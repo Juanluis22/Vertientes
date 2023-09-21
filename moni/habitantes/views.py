@@ -4,6 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from nucleo.models import *
 from crud.forms import VertienteForm
+from nucleo.models import datos
+from django.shortcuts import render
+from django.http import JsonResponse
+import json
+
 # Create your views here.
 
 #Selector de comunidades para el admin
@@ -45,6 +50,7 @@ def revision(request, objecto_id):
     id_foranea=obj_id.id
     #print(id_foranea)
     objetos2=datos.objects.filter(vertiente_id=id_foranea).first()
+   
     
     #print(objetos)
 
@@ -67,3 +73,78 @@ def detector(request):
 
 
     return render(request, 'dashboard/vert.html',{'objetos': objetos})
+
+def grafico_ph(request, vertiente_id):
+    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
+
+    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
+    valores_ph = [dato.pH for dato in datos_ph]
+
+    data = {
+        'labels': etiquetas_tiempo,
+        'values': valores_ph,
+    }
+    data_json = json.dumps(data)
+    return render(request, 'dashboard/grafico_ph.html', {'data_json': data_json})
+
+def grafico_caudal(request, vertiente_id):
+    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
+
+    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
+    valores_ph = [dato.caudal for dato in datos_ph]
+
+    data = {
+        'labels': etiquetas_tiempo,
+        'values': valores_ph,
+    }
+    data_json = json.dumps(data)
+    return render(request, 'dashboard/grafico_caudal.html', {'data_json': data_json})
+
+def grafico_conductividad(request, vertiente_id):
+    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
+
+    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
+    valores_ph = [dato.conductividad for dato in datos_ph]
+
+    data = {
+        'labels': etiquetas_tiempo,
+        'values': valores_ph,
+    }
+    data_json = json.dumps(data)
+    return render(request, 'dashboard/grafico_conductividad.html', {'data_json': data_json})
+def grafico_humedad(request, vertiente_id):
+    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
+
+    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
+    valores_ph = [dato.humedad for dato in datos_ph]
+
+    data = {
+        'labels': etiquetas_tiempo,
+        'values': valores_ph,
+    }
+    data_json = json.dumps(data)
+    return render(request, 'dashboard/grafico_humedad.html', {'data_json': data_json})
+def grafico_temperatura(request, vertiente_id):
+    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
+
+    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
+    valores_ph = [dato.temperatura for dato in datos_ph]
+
+    data = {
+        'labels': etiquetas_tiempo,
+        'values': valores_ph,
+    }
+    data_json = json.dumps(data)
+    return render(request, 'dashboard/grafico_temperatura.html', {'data_json': data_json})
+def grafico_turbiedad(request, vertiente_id):
+    datoss = datos.objects.filter(vertiente_id=vertiente_id)
+
+    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datoss]
+    valores = [dato.turbiedad for dato in datoss]
+
+    data = {
+        'labels': etiquetas_tiempo,
+        'values': valores,
+    }
+    data_json = json.dumps(data)
+    return render(request, 'dashboard/grafico_turbiedad.html', {'data_json': data_json})
