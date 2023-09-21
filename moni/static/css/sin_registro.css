@@ -44,10 +44,6 @@ body {
     transition: color 0.3s;
 }
 
-.nav-item a:hover {
-    color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
-}
-
 .cerrar-sesion {
     top: 5px;
     right: 10px;
@@ -94,6 +90,7 @@ body {
     border-radius: 10px; /* Borde redondeado */
     background-color: #eaf7ff; /* Fondo blanco */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    justify-content: center;
 }
 
 
@@ -103,8 +100,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-right: 20px; /* Espacio horizontal entre elementos de búsqueda */
-    
+    justify-content: center;
+    padding: 0px 20px;
 }
 
 /* Estilos para el botón "Ir" */
@@ -150,6 +147,11 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.parametro:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega sombreado al pasar el cursor */
+    cursor: pointer; /* Cambia el cursor a una mano (pointer) */
 }
 
 .parametro h2 {
@@ -244,3 +246,46 @@ body {
     background-color: #333;
     color: white;
 }
+
+/* Estilo para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal.active {
+    opacity: 1; /* Hacer el modal visible al agregar la clase "active" */
+    pointer-events: auto; /* Permitir interacciones con el modal */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 10px solid #0E7FE7; /* Borde celeste */
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    border-radius: 15px;
+    font-weight: bold; /* Texto en negrita */
+}
+
+.modal.active .modal-content {
+    transform: scale(1); /* Aumentar el tamaño al agregar la clase "active" al modal */
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+} 
+
