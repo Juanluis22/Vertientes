@@ -1,0 +1,233 @@
+#include <ArduinoJson.h>
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include "DHT.h"
+
+// Configuración de Pines
+#define DHTPIN 15
+#define DHTTYPE DHT11
+#define PH_PIN 2
+#define FLOW_PIN 4
+#define TURBIDITY_PIN 13
+
+WiFiClient espClient;
+PubSubClient mqttClient(espClient);
+
+// Configuración WiFi
+const char* ssid = "JESUS Y VALE-2.4G";
+const char* password = "eduardo1";
+
+// Configuración MQTT
+const char* mqtt_server = "broker.emqx.io";  // broker MQTT
+const int mqtt_port = 1883;
+const char* mqtt_user = "";  // Si tu broker no necesita usuario, déjalo vacío
+const char* mqtt_password = "";  // Si tu broker no necesita contraseña, déjalo vacío
+const char* mqtt_topic = "Entrada/01";
+
+//Variables
+DHT dht(DHTPIN, DHTTYPE);
+
+volatile int pulseCount = 0; //Variables de flujo
+float flowRate;//Variables de flujo
+unsigned long lastFlowRateCheck = 0;//Variables de flujo
+
+float factor_conversion = 7.5; // Factor de conversión para el sensor de flujo
+DynamicJsonDocument data(256);  // Crear un documento JSON para almacenar los datos
+
+// CONFIGURACION INICIAL
+void setup() {
+  Serial.begin(115200);
+  Serial.println(F("DHT11, sensor de pH, sensor de caudal y sensor de turbidez test KIT 1 CON MQTT"));
+
+  //Sensores
+  dht.begin();
+  pinMode(FLOW_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(FLOW_PIN), pulseCounter, RISING);
+
+  //Conexiones wi-fi y MQTT
+  wifiInit();
+  mqttClient.setServer(mqtt_server,mqtt_port);
+  mqttClient.setCallback(callback);
+}
+
+// LOOP PRINCIPAL
+void loop()
+{
+   if (!mqttClient.connected()) {
+    reconnect();
+  }
+  mqttClient.loop();
+
+  delay(2000); // Espera dos segundo
+
+  // Recopilar datos de todos los sensores
+  collectSensorData();
+
+  // Enviar datos recopilados
+  sendData();
+
+}
+
+//FUNCIONES DE CONEXION WI-FI Y MQTT
+void wifiInit() {
+    Serial.print("Conectándose a ");
+    Serial.println(ssid);
+
+    WiFi.begin(ssid, password);
+
+    while (WiFi.status() != WL_CONNECTED) {
+      Serial.print(".");
+        delay(500);  
+    }
+    Serial.println("");
+    Serial.println("Conectado a WiFi");
+    Serial.println("Dirección IP: ");
+    Serial.println(WiFi.localIP());
+}
+
+
+void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Mensaje recibido [");
+  Serial.print(topic);
+  Serial.print("] ");
+
+  char payload_string[length + 1];
+  memcpy(payload_string, payload, length);
+  payload_string[length] = '\0';
+
+  // Parsear el payload a un objeto JSON
+  DynamicJsonDocument receivedData(256);
+  DeserializationError error = deserializeJson(receivedData, payload_string);
+
+  // Verificar si hubo un error al parsear el JSON
+  if (error) {
+    Serial.print(F("deserializeJson() failed: "));
+    Serial.println(error.c_str());
+    return;
+  }
+
+  // Ahora puedes acceder a los valores del JSON usando receivedData
+  // Por ejemplo, si el JSON tiene un campo llamado "temperatura", puedes hacer:
+  float temperatura = receivedData["temperatura"];
+  Serial.println(temperatura);
+
+  // Puedes agregar más campos según lo que esperes recibir en el JSON
+}
+
+
+void reconnect() {
+  while (!mqttClient.connected()) {
+    Serial.print("Intentando conectarse MQTT...");
+
+    if (mqttClient.connect("arduinoClient")) {
+      Serial.println("Conectado");
+
+      mqttClient.subscribe("Entrada/01");
+      
+    } else {
+      Serial.print("Fallo, rc=");
+      Serial.print(mqttClient.state());
+      Serial.println(" intentar de nuevo en 5 segundos");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
+
+
+//PUBLICA EL DOCUMENTO JSON EN MQTT
+void sendData() {
+  if (mqttClient.connected()) { // Asegurarse de que hay una conexión MQTT activa
+    char buffer[256];
+    serializeJson(data, buffer);
+    mqttClient.publish(mqtt_topic, buffer);
+  } else {
+    Serial.println("No se pudo enviar datos: no conectado a MQTT.");
+  }
+}
+
+
+
+//FUNCIONES DE SENSORES
+void collectSensorData() { // Recopila datos de todos los sensores
+  medirDth11();
+  medirPh();
+  medirCaudal();
+  medirTurbidez();
+  
+  // Imprimir el documento JSON para depuración
+  serializeJson(data, Serial);
+  Serial.println();  // Nueva línea para una mejor visualización
+}
+
+void medirDth11() {
+  float h = dht.readHumidity();
+  float t = dht.readTemperature();
+
+  if (isnan(h) || isnan(t)) {
+    Serial.println(F("Failed to read from DHT11!"));
+    return;
+  }
+
+  data["humidity"] = h;
+  data["temperature"] = t;
+}
+
+void medirPh() {
+  float ph = sensor_ph();
+  if (isnan(ph)) {
+    Serial.println(F("Failed to read pH!"));
+    return;
+  }
+
+  data["pH"] = ph;
+}
+
+float sensor_ph() {
+  int valor = analogRead(PH_PIN);
+  float ph = map(valor, 0, 4095, 0, 140) / 10.0;
+  return ph;
+}
+
+void pulseCounter() {
+  pulseCount++;
+}
+
+float medirTurbidez() {
+  int turbidityValue = analogRead(TURBIDITY_PIN);
+
+  if (isnan(turbidityValue)) {
+    Serial.println(F("Failed to read from Turbidity sensor!"));
+    return 0.0;
+  }
+
+  data["turbidity"] = turbidityValue;
+  return turbidityValue;
+}
+
+void medirCaudal() {
+  // Desactivar interrupciones para medir el caudal
+  detachInterrupt(digitalPinToInterrupt(FLOW_PIN));
+
+  // Calcular el caudal en L/min
+  flowRate = ((1000.0 / (millis() - lastFlowRateCheck)) * pulseCount) / 450.0;
+
+  // Actualizar el tiempo de la última medición y resetear el contador de pulsos
+  lastFlowRateCheck = millis();
+  pulseCount = 0;
+
+  // Reactivar las interrupciones
+  attachInterrupt(digitalPinToInterrupt(FLOW_PIN), pulseCounter, RISING);
+
+  // Calcular el caudal en L/h
+  //float caudal_L_h = flowRate * 60;
+
+  // Verificar si el caudal es un número válido
+  if (isnan(flowRate)) {
+    Serial.println(F("Failed to read from Caudal!"));
+    return;
+  }
+
+  data["flowRate_L/min"] = flowRate;
+  //data["flowRate_L/h"] = caudal_L_h;
+}
