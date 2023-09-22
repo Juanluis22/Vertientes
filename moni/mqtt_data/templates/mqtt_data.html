@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos MQTT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .data-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f7f7f7;
+        }
+    </style>
+    <script>
+        const eventSource = new EventSource('/mqtt_data/data/');
+
+        eventSource.onmessage = function(event) {
+            console.log("Datos recibidos:", event.data);
+            const data = JSON.parse(event.data);
+            
+            if (data.humidity !== undefined) {
+                document.querySelector('#humidity').textContent = data.humidity + '%';
+            }
+            if (data.temperature !== undefined) {
+                document.querySelector('#temperature').textContent = data.temperature + '°C';
+            }
+            if (data.pH !== undefined) {
+                document.querySelector('#pH').textContent = data.pH;
+            }
+            if (data["flowrate_L/min"] !== undefined) {
+                document.querySelector('#flowrate').textContent = data["flowrate_L/min"] + ' L/min';
+            }
+            if (data.turbidity !== undefined) {
+                document.querySelector('#turbidity').textContent = data.turbidity + ' NTU';
+            }
+        };
+    </script>
+</head>
+<body>
+    <h1>Datos MQTT</h1>
+
+    <div class="data-card">
+        <h2>Humedad</h2>
+        <p id="humidity">0%</p>
+    </div>
+
+    <div class="data-card">
+        <h2>Temperatura</h2>
+        <p id="temperature">0°C</p>
+    </div>
+
+    <div class="data-card">
+        <h2>pH</h2>
+        <p id="pH">0</p>
+    </div>
+
+    <div class="data-card">
+        <h2>Caudal</h2>
+        <p id="flowrate">0 L/min</p>
+    </div>
+
+    <div class="data-card">
+        <h2>Turbiedad</h2>
+        <p id="turbidity">0 NTU</p>
+    </div>
+</body>
+</html>
