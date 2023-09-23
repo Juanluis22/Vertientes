@@ -167,15 +167,10 @@
         <div id="formulario">
             <h2 id="titulo">Recuperar Contraseña</h2>
             <form  method="post">
-                <p id="recordatorio">Ingrese su RUT</p>
                 {% csrf_token %}
-                {{ form.username }}
-                <p id="recordatorio">Si su RUT está registrado se enviará un link a su correo para restaurar su contraseña</p>
+                <input type="email" id="correo" name="correo" placeholder="Correo Electrónico" required>
+                <p id="recordatorio">Si su correo está registrado se enviará un link para restaurar su contraseña</p>
                 <button id="botonRecuperar" type="submit">Recuperar</button>
-
-
-               
-                
                 
             </form>
         </div>
@@ -187,3 +182,5 @@
     </footer>
 </body>
 </html>
+
+

@@ -7,7 +7,6 @@ class User(AbstractUser):
     comunidad=models.ForeignKey(comunidad, on_delete=models.SET_NULL, null=True)
     tipo=models.CharField(max_length=1,null=True,verbose_name='Tipo',default='a')
     is_active = models.BooleanField(default=False)
-    token=models.UUIDField(primary_key=False, editable=False, null=True, blank=True )
 
     #def save(self,*args, **kwargs):
     #    if self.pk is None:

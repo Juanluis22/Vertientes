@@ -84,13 +84,15 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"databaPERSONAL",
+        "NAME":"databa6",
         "USER":"postgres",
         "PASSWORD":"1234",
+>>>>>>> 9e01f6df487a2a65c2a95f6fdee16dd67a0bd470:moni/moni/settings.txt
         "HOST":"localhost",
-        "PORT":"5432",
+        "PORT":"5433",
     }
 }
+
 
 
 # Password validation
@@ -146,12 +148,3 @@ AUTH_USER_MODEL='user.User'
 LOGIN_REDIRECT_URL = 'nucleo:revision'
 
 LOGOUT_REDIRECT_URL = 'nucleo:login'
-
-# EMAIL
-
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT=587
-EMAIL_HOST_USER='c.quilodran.ignacio@gmail.com'
-EMAIL_HOST_PASSWORD='hwcy cywn xohv wdtt'
-
-DOMAIN=''
