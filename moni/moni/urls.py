@@ -26,5 +26,5 @@ urlpatterns = [
     path("evaluacion/", include('evaluacion.urls')),
     path("monitoreo/", include('habitantes.urls')),
 
-    path('mqtt_data/', include(mqtt_data_urls)),  # Incluye las URLs de la app mqtt_data
+    path('mqtt_data/', include('mqtt_data.urls')),    # Incluye las URLs de la app mqtt_data
 ]

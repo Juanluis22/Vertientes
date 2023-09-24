@@ -7,13 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
-        <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
+        <link rel="stylesheet" href="{% static 'css/desear visualizar.css' %}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 
     </head>
-    <style>
+    <!-- <style>
         .acceder {
     display: inline-block;
     padding: 10px 20px;
@@ -54,7 +54,7 @@
   text-align: center;
     }
 
-    </style>
+    </style> -->
 
 
     <body>
@@ -71,34 +71,45 @@
         </nav>
         
         <div class="vertientes-container">
-
-        <div class="row">
-            
-            
-            <div class="col-lg-6">
-
-            <div class="card1">
-                <div class="card-header">
-                <h4 class="card-title m-0">Gestion</h4>
-                </div>
-                <div class="card-body">
-                <h5 class="card-title">Gestion Usuarios / Habitantes / Comunidades / Vertientes </h5>
-                <p class="card-text"></p>
-                <a href="{% url 'crud:index' %}" class="acceder">Acceder</a>
+            <div class="vertientes-header">
+                <h1>Seleccione que desea visualizar</h1>
+            </div>
+            <div class="rectangulo rectangulo-verde">
+                <div class="contenido-rectangulo">
+                        <i class="fas fa-check"></i> 
+                    </a>
+                    <h2><font color="white">Gestión usuarios/habitantes/
+                        comunidades/vertientes</font></h2>
+                    <a href="{% url 'crud:index' %}">
+                        <i class="fas fa-arrow-alt-circle-right"></i>
+                    </a>
                 </div>
             </div>
-
+            <div class="cuadro-blanco">
+                <h4>Ingrese aquí para ver las peticiones de registro de usuarios, modificar correos de contacto, comunidades, vertientes, etc.</h4>
+            </div>
             
-
-            <div class="card2">
-                <div class="card-header">
-                <h4 class="card-title m-0">Visualización</h4>
+            
+            <div class="rectangulo rectangulo-celeste">
+                <div class="contenido-rectangulo">
+                    <i class="fas fa-check"></i> 
+                    <h2><font color="white">Visualizar todas las vertientes 
+                        monitorizadas</font></h2>
+                        <a href="{% url 'eva:comuni' %}">
+                    <i class="fas fa-arrow-alt-circle-right"></i>
+                </a>
                 </div>
-                <div class="card-body">
-                <h5 class="card-title">Visualice todas las vertientes monitorizadas</h5>
-                <p class="card-text"></p>
-                <a href="{% url 'eva:comuni' %}" class="acceder">Acceder</a>
-                </div>
+            </div>
+            <div class="cuadro-blanco">
+                <h4>Ingrese aqui para ver todas las vertientes de todas las comunidades monitorizadas.
+    
+                </h4>
+            </div>
+            <div class="cuadrado-blanco">
+                <h2>¿Qué es esto?</h2>
+                <h4>Aqui puedes elegir que apartado de la administración visualizar:<font color="87D91F">gestión de usuarios/comunidades/vertientes.</font> ó   <font color="56C4E7">todas las vertientes</font></h4>
+                </h4>
+            </div>
             </div>
 
             

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user',
     'evaluacion',
     'habitantes',
+    'mqtt_data',
     
     
 ]
@@ -86,11 +87,11 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"Empresas",
+        "NAME":"moni",
         "USER":"postgres",
-        "PASSWORD":"CerealPremium",
+        "PASSWORD":"1234",
         "HOST":"localhost",
-        "PORT":"5433",
+        "PORT":"5432",
     }
 }
 
