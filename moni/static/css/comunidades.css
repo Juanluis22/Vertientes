@@ -120,15 +120,18 @@ body {
 }
 
 .cuadrado-blanco {
-    position: fixed;
-    top: 80px; /* Ajusta el valor según sea necesario */
-    right: 0;
+    position: absolute;
+    top: 300px;
+    right: 100px; /* Ajusta este valor según sea necesario */
     width: 300px;
     height: 250px; 
     background-color: white;
     padding: 20px;
     text-align: center;
+    border-radius: 20px;
+    border: 8px solid blue; /* Agrega el contorno azul */
 }
+
 
 .cuadrado-blanco h2 {
     font-size: 24px;
