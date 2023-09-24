@@ -1,22 +1,29 @@
 import xlwt
+import uuid
+import smtplib
+import moni.settings as setting
 import pandas as pd
 from typing import Any
 from django import http
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, ListView, FormView
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView
 from user.models import User,Profile
 from crud.forms import UserForm
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from user.models import User
 from nucleo.models import comunidad, vertiente, datos
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from nucleo.forms import TestForm
+from nucleo.forms import TestForm, ResetPasswordForm, ChangePasswordForm
 
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+from django.template.loader import render_to_string
 # Create your views here.
 
 
@@ -35,6 +42,112 @@ class Recuperar(TemplateView):
     context_object_name = 'listaUser' 
     def get_success_url(self):
         return reverse('nucleo:login')
+
+
+#Vista para enviar email con cambio de contraseña
+class ResetPasswordView(FormView):
+    form_class=ResetPasswordForm
+    template_name='forgot.html'
+    success_url=reverse_lazy(setting.LOGOUT_REDIRECT_URL)
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+    
+
+    def send_email(self, user):
+        data={}
+        try:
+            URL=setting.DOMAIN if not setting.DEBUG else self.request.META['HTTP_HOST']
+
+            user.token=uuid.uuid4()
+            user.save()
+
+
+            mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
+            mailServer.starttls()
+            mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
+        
+            email_to=user.email
+            mensaje=MIMEMultipart()
+            mensaje['From']=setting.EMAIL_HOST_USER
+            mensaje['To']=email_to
+            mensaje['Subject']='Reseteo de contraseña'
+
+
+            content=render_to_string('send_email.html', {
+                'user':user,
+                'link_resetpwd':'http://{}/inicio/cambio/contraseña/{}'.format(URL, str(user.token)),
+                'link_home':'http://{}'.format(URL)
+            })
+            mensaje.attach(MIMEText(content,'html'))
+        
+            mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
+            print('Correo enviado correctamente')
+        
+        except Exception as e:
+            data['error']=str(e)
+        
+        return data
+        
+    def post(self, request, *args, **kwargs):
+        data={}
+        #form=request.POST['username']
+        form=ResetPasswordForm(request.POST)
+        #print( 'ES:'+  form)
+        #print(fa)
+        if form.is_valid():
+            user=form.get_user()
+            data=self.send_email(user)
+        else:
+            return HttpResponse('malo')
+        
+        return super().post(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        pass
+        return HttpResponseRedirect(self.success_url)
+    
+    
+
+
+#Cambio de contraseña
+class ChangePasswordView(FormView):
+    form_class=ChangePasswordForm
+    template_name='change.html'
+    success_url=reverse_lazy(setting.LOGOUT_REDIRECT_URL)
+
+
+    def get(self, request, *args, **kwargs):
+        token=self.kwargs['token']
+        if User.objects.filter(token=token).exists():
+            return super().get(request, *args, **kwargs)
+        return HttpResponseRedirect(self.success_url)
+
+        
+        
+
+    def post(self, request, *args, **kwargs):
+        data={}
+        try:
+            form=ChangePasswordForm(request.POST)
+            if form.is_valid():
+                user=User.objects.get(token=self.kwargs['token'])
+                user.set_password(request.POST['password'])
+                user.token=uuid.uuid4()
+                user.save()
+            else:
+                data['error']=form.errors
+        
+        except Exception as e:
+            data['error']=str(e)
+
+        return super().post(request, *args, **kwargs)
+
+
+
+
+
 
 
 

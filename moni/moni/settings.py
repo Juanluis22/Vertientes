@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"moni",
+        "NAME":"databaPERSONAL",
         "USER":"postgres",
         "PASSWORD":"1234",
         "HOST":"localhost",
@@ -150,3 +150,14 @@ AUTH_USER_MODEL='user.User'
 LOGIN_REDIRECT_URL = 'nucleo:revision'
 
 LOGOUT_REDIRECT_URL = 'nucleo:login'
+
+
+# EMAIL
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='c.quilodran.ignacio@gmail.com'
+EMAIL_HOST_PASSWORD='hwcy cywn xohv wdtt'
+
+DOMAIN=''
+

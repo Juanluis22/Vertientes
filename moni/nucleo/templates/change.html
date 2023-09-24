@@ -165,10 +165,11 @@
     <main>
     <div id="contenedor">
         <div id="formulario">
-            <h2 id="titulo">Recuperar Contraseña</h2>
+            <h2 id="titulo">Cambio de Contraseña</h2>
             <form  method="post">
                 {% csrf_token %}
-                {{ form.username }}
+                {{ form.password }}
+                {{ form.confirmPassword }}
                 <p id="recordatorio">Si su correo está registrado se enviará un link para restaurar su contraseña</p>
                 <button id="botonRecuperar" type="submit">Recuperar</button>
 
