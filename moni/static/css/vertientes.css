@@ -1,11 +1,17 @@
 /* Estilos generales y otros estilos */
 .navbar {
-    background-color: #333;
-    color: white;
+    background-color: white;
+    color: black; /* Color del texto en el Navbar */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+}
+
+.navbar-center {
+    flex: 1; /* Toma el espacio restante */
+    text-align: center;
+    font-weight: bold;
 }
 
 .navbar-nav {
@@ -21,14 +27,82 @@
 }
 
 .nav-item a:hover {
-    color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
+    color: #1c42aa; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+/* Barra blanca vertical en la parte izquierda */
+/* Estilo de la barra lateral izquierda */
+.vertical-bar {
+    background-color: white;
+    width: 70px; /* Ancho de la barra blanca vertical */
+    height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
 }
 
-.cerrar-sesion {
+/* Estilo de "HidroTech" en el Navbar */
+.hidro-tech {
+    color: blue; /* Texto azul para HidroTech */
+    font-weight: bold;
+    font-size: 20px; /* Tamaño de fuente opcional */
+    margin-left: 70px; /* Espacio a la izquierda de HidroTech */
+    margin-right: 0; /* Espacio a la derecha de HidroTech */
+}
+
+/* Estilo del rectángulo azul para "Vista Administrador" */
+.admin-box {
+    background-color: blue; /* Fondo azul */
+    color: white; /* Texto blanco */
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block; /* Hace que el rectángulo se ajuste al contenido */
+}
+
+
+/* Estilo de los enlaces de la barra lateral */
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px;
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 30px;
+}
+
+.sidebar-nav a {
     text-decoration: none;
+    color: blue;
+    display: block;
+    transition: color 0.3s;
+}
+
+.sidebar-nav a:hover {
+    color: #fd1d1d; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+/* Estilo de los iconos en la barra lateral */
+.sidebar-nav i {
+    font-size: 2.0rem; /* Tamaño del icono */
+    margin-right: 0px; /* Espacio a la derecha del icono */
+    color: blue; /* Cambia el color de los iconos a azul */
+}
+/* Estilo del Navbar */
+.navbar {
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Estilo del botón "Cerrar Sesión" */
+.cerrar-sesion {
+    background-color: blue; /* Botón azul */
     color: white;
     font-weight: bold;
-    border: 2px solid white;
+    border: 2px solid blue;
     padding: 5px 10px;
     border-radius: 5px;
     transition: background-color 0.3s, color 0.3s;
@@ -36,8 +110,11 @@
 
 .cerrar-sesion:hover {
     background-color: white;
-    color: #333;
+    color: blue;
 }
+
+/* Resto de los estilos */
+/* ... */
 
 /* Estilos para toda la página */
 body {
