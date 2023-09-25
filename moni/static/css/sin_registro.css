@@ -44,6 +44,10 @@ body {
     transition: color 0.3s;
 }
 
+.nav-item a:hover {
+    color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+
 .cerrar-sesion {
     top: 5px;
     right: 10px;
