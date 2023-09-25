@@ -35,60 +35,58 @@
 
                 <div class="vertientes-buscar">
                     <div class="buscar">
-                        
-                        
-
-
+                        <input type="text" class="filtro-comunidad" placeholder="Escriba una comunidad" style="margin-bottom: 5px;">
                         <div class="form-group">
                             <label>Comunidades</label>
                             {{ form.comunidad }}
-            
                         </div>
-
-
-
                     </div>
                     <div class="buscar">
-
+                        <input type="text" class="filtro-vertiente" placeholder="Escriba una vertiente" style="margin-bottom: 5px;">
                         <div class="form-group">
                             <label>Vertientes</label>
                             {{ form.vertiente }}
-            
                         </div>
-                        
                     </div>
-                    
                 </div>
 
                 <div class="vertientes-footer">
                     <h1>Vertiente seleccionada</h1>
                     <div class="parametros-columnas">
+                        <!-- Cerrar todos modales -->
+                        <div id="modal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="cerrarModal()">&times;</span>
+                                <h2 id="modal-titulo"></h2>
+                                <p id="modal-cuerpo"></p>
+                            </div>
+                        </div>
                         <!-- Primera columna de parámetros -->
                         <div class="columna">
-                            <div class="parametro">
+                            <div class="parametro" onclick="mostrarModal('¿Que es el caudal?', 'El caudal se refiere a la cantidad de agua que fluye por la vertiente en un período de tiempo específico. Se mide típicamente en metros cúbicos por segundo (m³/s) y es un indicador importante para evaluar el flujo de agua en la vertiente.')">
                                 <h2>Caudal</h2>
                                 <p id="datosContainer2"></p>
                             </div>
-                            <div class="parametro">
+                            <div class="parametro" onclick="mostrarModal('¿Que es el ph?', 'El pH es una medida de la acidez o alcalinidad del agua. Puede afectar la salud de los organismos acuáticos y la calidad del agua. Un pH de 7 se considera neutro, mientras que valores por debajo de 7 indican acidez y valores por encima de 7 indican alcalinidad.')">
                                 <h2>pH</h2>
                                 <p id="datosContainer3"></p>
                             </div>
-                            <div class="parametro">
+                            <div class="parametro" onclick="mostrarModal('¿Que es la Conductividad?', 'La conductividad eléctrica del agua es una medida de su capacidad para conducir corriente eléctrica. Se relaciona con la cantidad de sales disueltas en el agua. Valores más altos de conductividad suelen indicar la presencia de más sales disueltas en el agua.')">
                                 <h2>Conductividad</h2>
                                 <p id="datosContainer4"></p>
                             </div>
                         </div>
                         <!-- Segunda columna de parámetros -->
                         <div class="columna">
-                            <div class="parametro">
+                            <div class="parametro" onclick="mostrarModal('¿Que es la Turbiedad?', 'La turbiedad es una medida de la claridad del agua y se refiere a la cantidad de partículas suspendidas en ella. El agua turbia puede dificultar la penetración de la luz, lo que puede afectar a los organismos acuáticos y al ecosistema en general.')">
                                 <h2>Turbiedad</h2>
                                 <p id="datosContainer5"></p>
                             </div>
-                            <div class="parametro">
+                            <div class="parametro" onclick="mostrarModal('¿Que es la Humedad?', 'La humedad es la cantidad de vapor de agua presente en el aire. En el contexto de la vertiente, la humedad puede influir en las condiciones ambientales y en la disponibilidad de agua para las plantas y los organismos en el entorno.')">
                                 <h2>Humedad</h2>
                                 <p id="datosContainer6"></p>
                             </div>
-                            <div class="parametro">
+                            <div class="parametro" onclick="mostrarModal('¿Que es la Temperatura?', 'La temperatura del agua es un factor importante que afecta a los organismos acuáticos y a la química del agua. Puede influir en la tasa de crecimiento de los organismos y en la solubilidad de sustancias en el agua.')">
                                 <h2>Temperatura</h2>
                                 <p id="datosContainer7"></p>
                             </div>
@@ -97,15 +95,15 @@
                     <div class="vertientes-datos">
                         <div class="vertientes-datos">
                             <p id="fecha-hora-datos">
-                                
+                                Obtención de Datos:<br>
                                 <span id="fecha-hora"></span>
                             </p>
                         </div>
                     </div>
                 </div>
-
-
-    
+                <div class="estado-vertiente">
+                    <p id="estado-vertiente-texto"></p>
+                </div>
             </div>
 
         </main>
@@ -117,6 +115,7 @@
         <footer class="footer">
             <p>&copy; 2023 U.autonoma. Todos los derechos reservados.</p>
         </footer>
+
         <script>
         $(function(){
             $('select[name="comunidad"]').on('change', function() {
@@ -191,5 +190,174 @@
         });
 
         </script>
+
+<script>
+    // Obtén los elementos de entrada de texto y selectores
+    const filtroComunidad = document.querySelector('.filtro-comunidad');
+    const filtroVertiente = document.querySelector('.filtro-vertiente');
+    const selectComunidad = document.querySelector('select[name="comunidad"]');
+    const selectVertiente = document.querySelector('select[name="vertiente"]');
+
+    // Escucha el evento 'input' en el filtro de comunidad
+    filtroComunidad.addEventListener('input', () => {
+        const filtro = filtroComunidad.value.toLowerCase();
+        Array.from(selectComunidad.options).forEach((option) => {
+            const comunidad = option.textContent.toLowerCase();
+            if (comunidad.includes(filtro)) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+
+    // Escucha el evento 'input' en el filtro de vertiente
+    filtroVertiente.addEventListener('input', () => {
+        const filtro = filtroVertiente.value.toLowerCase();
+        Array.from(selectVertiente.options).forEach((option) => {
+            const vertiente = option.textContent.toLowerCase();
+            if (vertiente.includes(filtro)) {
+                option.style.display = 'block';
+            } else {
+                option.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    // Obtener el elemento de fecha y hora
+    const fechaHoraElemento = document.getElementById('fecha-hora');
+
+    // Función para actualizar la fecha y hora
+    function actualizarFechaHora() {
+        const ahora = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        const fechaHoraFormateada = ahora.toLocaleDateString('es-ES', options);
+        fechaHoraElemento.textContent = fechaHoraFormateada;
+    }
+
+    // Actualizar la fecha y hora inicial al cargar la página
+    actualizarFechaHora();
+</script>
+
+<script>
+    // Función para evaluar la calidad del agua
+    function evaluarCalidadAgua(cambios) {
+        const caudal = cambios.caudal;
+        const ph = cambios.ph;
+        const conductividad = cambios.conductividad;
+        const turbiedad = cambios.turbiedad;
+        const humedad = cambios.humedad;
+        const temperatura = cambios.temperatura;
+
+        // Definir criterios para condiciones óptimas o malas
+        const criterios = {
+            caudal: { min: 5, max: 20 }, // Ejemplo: caudal entre 5 y 20
+            ph: { min: 6.5, max: 8.5 }, // Ejemplo: pH entre 6.5 y 8.5
+            conductividad: { min: 100, max: 500 }, // Ejemplo: conductividad entre 100 y 500
+            turbiedad: { max: 10 }, // Ejemplo: turbiedad menor a 10
+            humedad: { min: 30, max: 70 }, // Ejemplo: humedad entre 30% y 70%
+            temperatura: { min: 10, max: 30 } // Ejemplo: temperatura entre 10°C y 30°C
+        };
+
+        // Evaluar cada parámetro
+        const condicionesBuenas = Object.keys(criterios).every(parametro => {
+            const valor = cambios[parametro];
+            if (valor !== undefined && criterios[parametro]) {
+                if (criterios[parametro].min !== undefined && valor < criterios[parametro].min) {
+                    return false;
+                }
+                if (criterios[parametro].max !== undefined && valor > criterios[parametro].max) {
+                    return false;
+                }
+            }
+            return true;
+        });
+
+        // Actualizar el estado de la vertiente en función de las condiciones
+        const estadoVertienteTexto = document.getElementById('estado-vertiente-texto');
+        if (condicionesBuenas) {
+            estadoVertienteTexto.textContent = "El agua de la vertiente está en óptimas condiciones";
+            estadoVertienteTexto.classList.add('condiciones-buenas');
+        } else {
+            estadoVertienteTexto.textContent = "El agua de la vertiente está en malas condiciones";
+            estadoVertienteTexto.classList.add('condiciones-malas');
+        }
+    }
+
+    // Obtener los valores de los parámetros desde los elementos HTML
+    const parametrosColumnas = $('.parametros-columnas');
+
+    // Expresión regular para extraer números con decimales de una cadena
+    const numeroRegex = /[-]{0,1}[\d]*[.]{0,1}[\d]+/g;
+
+    // Función para extraer y convertir un valor de cadena en un número
+    function obtenerNumeroDesdeCadena(cadena) {
+        const numeros = cadena.match(numeroRegex);
+        if (numeros && numeros.length > 0) {
+            return parseFloat(numeros[0]);
+        }
+        return undefined;
+    }
+
+    // Obtener y convertir los valores de los parámetros
+    const caudalElemento = parametrosColumnas.find('.parametro h2:contains("Caudal")').next('p');
+    const phElemento = parametrosColumnas.find('.parametro h2:contains("pH")').next('p');
+    const conductividadElemento = parametrosColumnas.find('.parametro h2:contains("Conductividad")').next('p');
+    const turbiedadElemento = parametrosColumnas.find('.parametro h2:contains("Turbiedad")').next('p');
+    const humedadElemento = parametrosColumnas.find('.parametro h2:contains("Humedad")').next('p');
+    const temperaturaElemento = parametrosColumnas.find('.parametro h2:contains("Temperatura")').next('p');
+
+    // Crear el objeto cambios con los valores obtenidos y convertidos
+    const cambios = {
+        caudal: obtenerNumeroDesdeCadena(caudalElemento.text()),
+        ph: obtenerNumeroDesdeCadena(phElemento.text()),
+        conductividad: obtenerNumeroDesdeCadena(conductividadElemento.text()),
+        turbiedad: obtenerNumeroDesdeCadena(turbiedadElemento.text()),
+        humedad: obtenerNumeroDesdeCadena(humedadElemento.text()),
+        temperatura: obtenerNumeroDesdeCadena(temperaturaElemento.text()),
+    };
+
+    evaluarCalidadAgua(cambios);
+</script>
+
+<script>
+    // Función para mostrar el modal
+    function mostrarModal(titulo, cuerpo) {
+        const modal = document.getElementById('modal');
+        const modalTitulo = document.getElementById('modal-titulo');
+        const modalCuerpo = document.getElementById('modal-cuerpo');
+
+        modalTitulo.innerHTML = titulo;
+        modalCuerpo.innerHTML = cuerpo;
+        modal.style.display = 'block';
+
+        // Agregar un evento para cerrar el modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                cerrarModal();
+            }
+        }
+
+        // Agregar un evento para cerrar el modal al presionar la tecla "Escape"
+        window.onkeydown = function(event) {
+            if (event.key === "Escape") {
+                cerrarModal();
+            }
+        }
+    }
+
+    // Función para cerrar el modal
+    function cerrarModal() {
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
+
+        // Remover los eventos para cerrar el modal
+        window.onclick = null;
+        window.onkeydown = null;
+    }
+</script>
+
     </body>
 </html>
