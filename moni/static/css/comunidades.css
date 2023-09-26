@@ -149,6 +149,31 @@ body {
 }
 
 
-
-
 /* Resto de los estilos */
+/* Estilos adicionales para la lista de vertientes */
+#example {
+    background-color: white;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#example th, #example td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#example th {
+    background-color: #333;
+    color: white;
+}
+
+#example tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#example tr:hover {
+    background-color: #1caa23;
+    color: white;
+}
