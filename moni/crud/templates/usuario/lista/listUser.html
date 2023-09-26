@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Vertientes.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!--extras-->
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
@@ -108,11 +108,6 @@
         }
 
         /* Estilos para el menú */
-        .navbar {
-            background-color: #333; /* Color de fondo del menú */
-            color: white; /* Color de texto del menú */
-            padding: 10px; /* Espaciado interno del menú */
-        }
 
         .navbar ul {
             list-style: none;
@@ -129,6 +124,7 @@
             text-decoration: none;
             color: white;
         }
+        
         .editar-button {
             padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
             background-color: #ff6600; /* Color de fondo del botón (puedes cambiarlo) */
@@ -142,16 +138,25 @@
 
         <body>
 
-<nav class="navbar">
-    <ul class="navbar-nav">
-        <li class="nav-item"><a href="page1.html">Inicio</a></li>
-        <li class="nav-item"><a href="#">Servicios</a></li>
-        <li class="nav-item"><a href="#">Acerca de</a></li>
-        <li class="nav-item"><a href="#">Contacto</a></li>
-    </ul>
-    <div class="navbar-center">Vista Administrador</div>
-    <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-</nav>
+            <div class="vertical-bar">
+                <div class="sidebar">
+                    <ul class="sidebar-nav">
+                        <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                        <li class="nav-item"><i class="fas fa-map"></i><a href="#">Mapa</a></li>
+                        <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                        <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+                    </ul>
+                </div>
+            </div>
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <span class="hidro-tech">HidroTech</span>
+                </div>
+                <div class="navbar-center">
+                    <div class="admin-box">Vista Administrador</div>
+                </div>
+                <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+            </nav>
 
 <div class="vertientes-container">
     <!-- Ajusta la posición vertical de "Administración de Vertientes" -->
