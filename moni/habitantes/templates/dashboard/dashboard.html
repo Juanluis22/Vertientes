@@ -15,14 +15,23 @@
     
 </head>
 <body>
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                <li class="nav-item"><i class="fas fa-map"></i><a href="#">Mapa</a></li>
+                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+            </ul>
+        </div>
+    </div>
     <nav class="navbar">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a href="page1.html">Inicio</a></li>
-            <li class="nav-item"><a href="#">Servicios</a></li>
-            <li class="nav-item"><a href="#">Acerca de</a></li>
-            <li class="nav-item"><a href="#">Contacto</a></li>
-        </ul>
-        <div class="navbar-center">Vista Administrador</div>
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
     
@@ -158,7 +167,7 @@
 
         <div class="cuadrado-blanco">
             <h2>¿Qué es esto?</h2>
-            <p>Aquí puedes elegir qué vertiente revisar. El color indica si la Comunidad en cuestión se encuentra en óptimas condiciones. Para más detalles, pulsa el botón:</p>
+            <p>Aqui puedes ver en detalle todas las mediciones a la vertiente que has escogido. Para más detalles, pulsa el botón:</p>
             <button class="boton-mismo-icono"><i class="fas fa-arrow-alt-circle-right"></i></button>
         </div>
         
