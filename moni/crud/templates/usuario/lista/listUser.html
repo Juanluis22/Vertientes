@@ -1,63 +1,142 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
-        <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!--extras-->
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+</head>
+<style>
+    /* Estilos para la lista de vertientes */
+    #example {
+        background-color: white;
+        border-collapse: collapse;
+        width: 100%;
+        border-radius: 10px;
+    }
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <!--extras-->
-        <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    </head>
-    <style>
+    #example th, #example td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+        white-space: nowrap; /* Evitar el salto de línea en el contenido largo */
+        overflow: hidden; /* Ocultar el contenido que se desborda */
+        text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para el contenido que se desborda */
+        max-width: 150px; /* Ancho máximo para las celdas */
+    }
+
+    #example th {
+        background-color: #333;
+        color: white;
+    }
+
+    #example tr:nth-child(even) {
+        background-color: #f2f2f2; /* Fondo de fila alternativo */
+    }
+
+    #example tr:hover {
+        background-color: #1caa23; /* Resaltado al pasar el cursor */
+        color: white;
+    }
+
+    /* Estilos para los separadores de columnas */
+    #example th div.separador {
+        padding: 10px; /* Ajusta el espaciado de los separadores */
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
         .acceder {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #4bc470;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-    }.volver {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #cc4242;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-    }
-    .editar {
-    display: inline-block;
-    padding: 1px 2px;
-    background-color: #3f8ae0;
-    color: white;
-    text-decoration: none;
-    border-radius: 1px;
-    margin-top: 5px;
-    }
-    .desactivar {
-    display: inline-block;
-    padding: 1px 2px;
-    background-color: #4bc470;
-    color: white;
-    text-decoration: none;
-    border-radius: 1px;
-    margin-top: 5px;
-    }#example {
-  background-color: white;
-}#example-td {
-  background-color: white;
-}#example-th {
-  background-color: white;
-}
+            display: inline-block;
+            padding: 30px 35px; /* Aumentamos el tamaño del botón */
+            background-color: #87D91F; /* Color especifico */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1px; /* Espacio superior */
+            margin-bottom: 50px; /* Espacio inferior */
+            margin-left: 0px; /* Espacio izquierdo */
+            margin-right: px; /* Espacio derecho */
+        }
+        .carga {
+            display: inline-block;
+            padding: 30px 35px; /* Aumentamos el tamaño del botón */
+            background-color: #87D91F; /* Color especifico */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1px; /* Espacio superior */
+            margin-bottom: 50px; /* Espacio inferior */
+            margin-left: 0px; /* Espacio izquierdo */
+            margin-right: px; /* Espacio derecho */
+        }
+        
+        .volver {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #cc4242; /* Color original */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1px; /* Espacio superior */
+            margin-bottom: 20px; /* Espacio inferior */
+            margin-left: 0px; /* Espacio izquierdo */
+        }
+        
+        .container {
+            text-align: center; /* Alineamos el contenido al centro */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alineamos a la izquierda */
+            margin-top: 20px; /* Espacio superior */
+            margin-right: auto; /* Centramos horizontalmente */
+            margin-left: auto; /* Centramos horizontalmente */
+        }
+        
+        .container h1 {
+            font-size: 24px; /* Tamaño del título */
+            margin-bottom: 10px; /* Espacio inferior del título */
+        }
 
+        /* Estilos para el menú */
+        .navbar {
+            background-color: #333; /* Color de fondo del menú */
+            color: white; /* Color de texto del menú */
+            padding: 10px; /* Espaciado interno del menú */
+        }
+
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centramos horizontalmente los elementos del menú */
+        }
+
+        .navbar li {
+            margin-right: 20px; /* Espacio entre elementos del menú */
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+        }
+        .editar-button {
+            padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
+            background-color: #ff6600; /* Color de fondo del botón (puedes cambiarlo) */
+            color: white; /* Color del texto del botón */
+            border: none; /* Quita el borde del botón si lo deseas */
+            border-radius: 5px; /* Borde redondeado del botón */
+            cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        } 
     </style>
 
 
@@ -75,15 +154,13 @@
 </nav>
 
 <div class="vertientes-container">
-
-            
-            <h1>Lista de usuarios y habitantes activos</h1>
-             
-    
-
-    
-    
-            
+    <!-- Ajusta la posición vertical de "Administración de Vertientes" -->
+    <h1 style="margin-left: 0px; margin-right: auto; margin-bottom: 1px;">Administración de Habitantes</h1>
+    <a href="{% url 'crud:newuser' %}" class="acceder">
+        <i class="bi bi-plus-circle"></i> Crear Manualmente un Habitante
+    </a>
+    <!-- Ajusta la posición vertical de "Listado de Vertientes" -->
+    <h1 style="margin-left: 0px; margin-right: auto; margin-bottom: 1px;">Listado de Habitantes</h1>
 
             
 
@@ -125,9 +202,8 @@
                     
                     <td>
                         <div class="col-lg-6">
-                        <a href="{% url 'crud:updateuser' objeto.id %}" class="editar">Editar</a>
-            
-                        </div>
+                                    <button onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</button>
+                                </div>
                         {% if not objeto.is_staff %}
                         <div class="col-lg-6">
                             <a href="{% url 'crud:deactuser' objeto.id %}" class="desactivar">Desactivar</a>
@@ -151,11 +227,7 @@
 
         <div class="section">
             <div class="col-lg-6">
-                <a href="{% url 'crud:newuser' %}" class="acceder">Crear</a>
-    
-            </div>
-            <div class="col-lg-6">
-            <a href="{% url 'nucleo:users_massive_upload' %}" class="acceder" >
+            <a href="{% url 'nucleo:users_massive_upload' %}" class="carga" >
                 Carga masiva
             </a>
         </div>
@@ -169,7 +241,7 @@
 
         
         <div class="col-lg-6">
-            <a href="{% url 'crud:listpet' %}" class="editar">Peticiones de registro</a>
+            <a href="{% url 'crud:listpet' %}" class="editar-button">Peticiones de registro</a>
 
         </div>
 
