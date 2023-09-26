@@ -65,30 +65,48 @@
                         <div class="columna">
                             <div class="parametro" onclick="mostrarModal('¿Que es el caudal?', 'El caudal se refiere a la cantidad de agua que fluye por la vertiente en un período de tiempo específico. Se mide típicamente en metros cúbicos por segundo (m³/s) y es un indicador importante para evaluar el flujo de agua en la vertiente.')">
                                 <h2>Caudal</h2>
+                                <div class="row">
                                 <p id="datosContainer2"></p>
+                                <span class="unidad">m³/s</span>
+                                </div>
                             </div>
                             <div class="parametro" onclick="mostrarModal('¿Que es el ph?', 'El pH es una medida de la acidez o alcalinidad del agua. Puede afectar la salud de los organismos acuáticos y la calidad del agua. Un pH de 7 se considera neutro, mientras que valores por debajo de 7 indican acidez y valores por encima de 7 indican alcalinidad.')">
                                 <h2>pH</h2>
+                                <div class="row">
                                 <p id="datosContainer3"></p>
+                                <span class="unidad">ph</span>
+                                </div>
                             </div>
-                            <div class="parametro" onclick="mostrarModal('¿Que es la Conductividad?', 'La conductividad eléctrica del agua es una medida de su capacidad para conducir corriente eléctrica. Se relaciona con la cantidad de sales disueltas en el agua. Valores más altos de conductividad suelen indicar la presencia de más sales disueltas en el agua.')">
+                            <div class="parametro" onclick="mostrarModal('¿Qué es la Conductividad?', 'La conductividad eléctrica del agua es una medida de su capacidad para conducir corriente eléctrica. Se relaciona con la cantidad de sales disueltas en el agua. Valores más altos de conductividad suelen indicar la presencia de más sales disueltas en el agua.')">
                                 <h2>Conductividad</h2>
-                                <p id="datosContainer4"></p>
+                                <div class="row">
+                                    <p id="datosContainer4"></p>
+                                    <span class="unidad">µS/cm</span>
+                                </div>
                             </div>
                         </div>
                         <!-- Segunda columna de parámetros -->
                         <div class="columna">
                             <div class="parametro" onclick="mostrarModal('¿Que es la Turbiedad?', 'La turbiedad es una medida de la claridad del agua y se refiere a la cantidad de partículas suspendidas en ella. El agua turbia puede dificultar la penetración de la luz, lo que puede afectar a los organismos acuáticos y al ecosistema en general.')">
                                 <h2>Turbiedad</h2>
+                                <div class="row">
                                 <p id="datosContainer5"></p>
+                                </div>
+                                <span class="unidad">NTU</span>
                             </div>
                             <div class="parametro" onclick="mostrarModal('¿Que es la Humedad?', 'La humedad es la cantidad de vapor de agua presente en el aire. En el contexto de la vertiente, la humedad puede influir en las condiciones ambientales y en la disponibilidad de agua para las plantas y los organismos en el entorno.')">
                                 <h2>Humedad</h2>
+                                <div class="row">
                                 <p id="datosContainer6"></p>
+                                <span class="unidad">%</span>
+                                </div>
                             </div>
                             <div class="parametro" onclick="mostrarModal('¿Que es la Temperatura?', 'La temperatura del agua es un factor importante que afecta a los organismos acuáticos y a la química del agua. Puede influir en la tasa de crecimiento de los organismos y en la solubilidad de sustancias en el agua.')">
                                 <h2>Temperatura</h2>
+                                <div class="row">
                                 <p id="datosContainer7"></p>
+                                <span class="unidad">°C</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -226,19 +244,50 @@
 </script>
 
 <script>
-    // Obtener el elemento de fecha y hora
-    const fechaHoraElemento = document.getElementById('fecha-hora');
+    // Asignar unidades a los parámetros
+    const unidades = {
+        caudal: 'm³/s',
+        ph: 'ph',
+        conductividad: 'µS/cm',
+        turbiedad: 'NTU',
+        humedad: '%',
+        temperatura: '°C'
+    };
 
-    // Función para actualizar la fecha y hora
-    function actualizarFechaHora() {
-        const ahora = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-        const fechaHoraFormateada = ahora.toLocaleDateString('es-ES', options);
-        fechaHoraElemento.textContent = fechaHoraFormateada;
+    // Actualizar las unidades en el HTML
+    for (const parametro in unidades) {
+        const unidadSpan = document.getElementById(`unidad${parametro.charAt(0).toUpperCase() + parametro.slice(1)}`);
+        if (unidadSpan) {
+            unidadSpan.textContent = unidades[parametro];
+        }
+    }
+</script>
+
+<script>
+    // Función para actualizar la hora y la fecha en el formato deseado
+    function actualizarHoraFecha() {
+        var fechaHora = new Date();
+        var opciones = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        };
+        var fechaHoraFormateada = fechaHora.toLocaleString('es-ES', opciones);
+        document.getElementById("fecha-hora").textContent = "\n" + fechaHoraFormateada;
     }
 
-    // Actualizar la fecha y hora inicial al cargar la página
-    actualizarFechaHora();
+    // Ejemplo de cómo llamar a la función para actualizar la hora y la fecha
+    actualizarHoraFecha();
+
+    // Agrega un evento de cambio al elemento de selección de vertiente
+    var vertienteSelect = document.getElementById("id_vertiente"); // Reemplaza con el ID correcto
+    vertienteSelect.addEventListener("change", function() {
+        // Llama a la función para actualizar la hora y la fecha cuando cambia la vertiente
+        actualizarHoraFecha();
+    });
 </script>
 
 <script>

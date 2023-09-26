@@ -292,3 +292,13 @@ body {
     font-weight: bold;
     cursor: pointer;
 } 
+
+/* Estilo para la unidad al lado de datosContainer */
+.parametro .row {
+    display: flex;
+    align-items: center;
+}
+
+.parametro .unidad {
+    margin-left: 5px; /* Ajusta el margen según tus preferencias */
+}
