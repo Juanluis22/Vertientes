@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mapa</title>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    </head>
+    <body>
+
+
+        <div id="map" style="height: 600px; width: 600px;"></div>
+
+        {{ vertientes|json_script:"vertientes_json" }}
+
+
+
+        <script>
+
+            var map=L.map('map').setView([-36.084726, -71.217422],11);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent)
+
+            function onMarkerClick(e, idi) {
+            let id=idi
+            window.location.href = `/monitoreo/vertiente/${id}/`;
+            
+
+            }
+
+
+            vertientes.forEach(vertiente => {
+                
+                estado=0
+                problema=0
+                caudal=vertiente.caudal
+                ph=vertiente.pH
+                conductividad=vertiente.conductividad
+                turbiedad=vertiente.turbiedad
+                temperatura=vertiente.temperatura
+                humedad=vertiente.humedad
+
+                if(caudal>10 || caudal<2 ){
+                    problema=problema+1
+                    
+                }if(ph>7 || ph<4 ){
+                    problema=problema+1
+                    
+                }if(conductividad>10 || conductividad<5 ){
+                    problema=problema+1
+                    
+                }if(turbiedad>23){
+                    problema=problema+1
+                    
+                }if(temperatura>50 || temperatura<2 ){
+                    problema=problema+1
+                    
+                }if(humedad>10 || humedad<2 ){
+                    problema=problema+1
+                    
+                }
+                
+                if(problema>=2){
+                    estado=3
+                }if(problema<2 && problema>0){
+                    estado=2
+                }if(problema==0){
+                    estado=1
+                }
+
+                
+
+                
+                if(estado==1){
+                    var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',  // Ruta de la imagen del marcador
+                iconAnchor: [12, 41],  // Punto de anclaje del icono
+                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                })
+
+                }if(estado==2){
+                    var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',  // Ruta de la imagen del marcador
+                iconAnchor: [12, 41],  // Punto de anclaje del icono
+                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                })
+
+                }if(estado==3){
+                    var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+                iconAnchor: [12, 41],  // Punto de anclaje del icono
+                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                })
+                }
+
+
+                
+                var marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(map)
+                nombre=vertiente.nombre.toString()
+                problem=problema.toString()
+                marcador.bindTooltip("Vertiente "+ nombre + " con " +problem + " problemas detectados.").openTooltip()
+                
+                marcador.on('click', function(e){
+                    onMarkerClick(e,vertiente.id)
+
+                })
+
+                
+            })
+
+           
+
+
+        </script>
+    </body>
+</html>

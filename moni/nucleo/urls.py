@@ -19,6 +19,6 @@ urlpatterns = [
     path('users_massive_upload_save/',views.users_massive_upload_save,name="users_massive_upload_save"),
     path('users_import_file/',views.users_import_file,name="users_import_file"),
     path("anidado/", Select_anidado.as_view(), name='select'),
-
+    path("mapa/", mapa, name='mapa'),
 
 ]

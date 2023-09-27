@@ -24,6 +24,10 @@ class vertiente(models.Model):
     desc=models.CharField(max_length=250,verbose_name='Descripcion')
     ubicación=models.CharField(max_length=200,verbose_name='Ubicación')
     comunidad=models.ForeignKey(comunidad, on_delete=models.SET_NULL, null=True)
+    latitud=models.FloatField(null=True, blank=True)
+    longitud=models.FloatField(null=True, blank=True)
+
+
 
     caudal=models.IntegerField(default=0)
     pH=models.IntegerField(default=0)

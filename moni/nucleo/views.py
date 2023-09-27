@@ -310,3 +310,8 @@ class Select_anidado(TemplateView):
         return context
 
 
+def mapa(request):
+    #list transforma el queryset en una lista
+    vertientes=list(vertiente.objects.values('id','nombre','pH','conductividad','turbiedad','temperatura','humedad','caudal','latitud','longitud')[:100])
+    context={'vertientes':vertientes}
+    return render(request,'mapa.html',context)
