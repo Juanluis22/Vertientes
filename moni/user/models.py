@@ -4,7 +4,7 @@ from nucleo.models import comunidad
 
 class User(AbstractUser):
     edad=models.IntegerField(blank=True,default=0)
-    comunidad=models.ForeignKey(comunidad, on_delete=models.SET_NULL, null=True)
+    comunidad=models.ForeignKey(comunidad, on_delete=models.SET_NULL, null=True, blank=True)
     tipo=models.CharField(max_length=1,null=True,verbose_name='Tipo',default='a')
     is_active = models.BooleanField(default=False)
     token=models.UUIDField(primary_key=False, editable=False, null=True, blank=True )

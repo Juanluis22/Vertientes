@@ -167,9 +167,10 @@
         <div id="formulario">
             <h2 id="titulo">Recuperar Contraseña</h2>
             <form  method="post">
+                <p id="recordatorio">Ingrese su RUT a continuación</p>
                 {% csrf_token %}
                 {{ form.username }}
-                <p id="recordatorio">Si su correo está registrado se enviará un link para restaurar su contraseña</p>
+                <p id="recordatorio">Si su correo asociado está registrado se enviará un link para restaurar su contraseña</p>
                 <button id="botonRecuperar" type="submit">Recuperar</button>
 
 
