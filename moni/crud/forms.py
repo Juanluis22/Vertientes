@@ -110,14 +110,13 @@ class UpdateForm(ModelForm):
     class Meta:
         model= User
         fields=['username','first_name','last_name','email',
-                'edad','comunidad','password','tipo','is_active']
+                'edad','comunidad','tipo','is_active']
         labels={
             'username':'RUT',
             'first_name':'Nombre',
             'last_name':'Apellido',
             'email':'Correo electronico',
             'edad':'Edad',
-            'password':'Contraseña',
             'is_active':'Estado',
         }
         widgets={
@@ -153,13 +152,6 @@ class UpdateForm(ModelForm):
                 attrs={
                     'class':'form-control',
                     'placeholder':'45'
-
-                }
-            ),
-            'password':PasswordInput( 
-                attrs={
-                    'class':'form-control',
-                    
 
                 }
             ),

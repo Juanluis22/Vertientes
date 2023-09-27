@@ -1,3 +1,5 @@
+from datetime import datetime
+from django.utils import timezone
 import xlwt
 import uuid
 import smtplib
@@ -292,10 +294,33 @@ class Select_anidado(TemplateView):
                     data.append({'id':i.id, 'name': i.nombre,'caudal': i.caudal })
                     
             elif action=='get_data_for_vertiente':
-                data=[]
+                #Se crea la lista que será enviada mendiante un JsonResponse al front
+                tamaño=8
+                data=[0]*tamaño
+
+                #Se asigna una fecha inicial que siempre será lejana a la realidad para iniciar el for correctamente
+                mi_fecha = datetime(2000, 9, 24, 15, 30, 0)
+                fecha= timezone.make_aware(mi_fecha)
+
+                #Se realiza un ciclo for para recorrer aquellos registros que cumplan con la id enviada mediante post
                 for i in datos.objects.filter(vertiente_id=request.POST['vertienteId']):
-                    data.append({'id':i.id, 'caudal': i.caudal, 'pH': i.pH, 'conductividad': i.conductividad, 'turbiedad': i.turbiedad, 'temperatura': i.temperatura, 'humedad': i.humedad })
-                    
+
+                    #Se comparan las fechas para escoger la más actual, luego se guarda el registro más actual en la lista data.
+                    if fecha<=i.fecha:
+                        data[0]=i.id
+                        data[1]=i.caudal
+                        data[2]=i.pH
+                        data[3]=i.conductividad
+                        data[4]=i.turbiedad
+                        data[5]=i.caudal
+                        data[6]=i.humedad
+                        fecha_sin_formato=i.fecha
+                        fecha_formateada= f'{fecha_sin_formato.day}/{fecha_sin_formato.month}/{fecha_sin_formato.year}'
+                        
+                        data[7]=fecha_formateada
+                        
+                        fecha=i.fecha
+    
             else:
                 data['error']='Ha ocurrido un error'
         except Exception as e:
