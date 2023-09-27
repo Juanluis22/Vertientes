@@ -6,14 +6,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
+    <link rel="stylesheet" href="{% static 'css/vertientes.css' %}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <title>Comunidad</title>
 
+
+<style>
+/* Estilos para los botones cuadrados */
+.boton-cuadrado {
+    width: 150px; /* Ancho deseado de los botones */
+    height: 150px; /* Altura deseada de los botones */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px; /* Espacio entre los botones */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: black; /* Color del texto */
+}
+
+/* Estilos para los iconos dentro de los botones */
+.boton-cuadrado i {
+    font-size: 24px; /* Tamaño del icono */
+}
+/* Estilo para la fila que contiene los botones */
+.row-boton {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Estilo para cada botón */
+.boton-cuadrado {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+}
+
+/* Estilo para los iconos dentro de los botones */
+.boton-cuadrado i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para los enlaces "Ver Gráfico" dentro de los botones */
+.boton-cuadrado a {
+    text-decoration: none;
+    color: #A6E3E9;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+/* Cambia el color del enlace al pasar el cursor sobre él */
+.boton-cuadrado a:hover {
+    color: #fd1d1d;
+}
+/* Estilos para los iconos de colores */
+        .icono-caudal {
+            color: blue; /* Cambiar el color a azul */
+        }
+
+        .icono-ph {
+            color: green; /* Cambiar el color a verde */
+        }
+
+        .icono-temperatura {
+            color: red; /* Cambiar el color a rojo */
+        }
+
+        .icono-conductividad {
+            color: orange; /* Cambiar el color a naranja */
+        }
+
+        .icono-turbiedad {
+            color: purple; /* Cambiar el color a morado */
+        }
+
+        .icono-humedad {
+            color: teal; /* Cambiar el color a verde azulado */
+        }
+</style>
+
     
 </head>
+
 <body>
     <div class="vertical-bar">
         <div class="sidebar">
@@ -46,98 +135,41 @@
 
         
 
-        <div class="rectangulo rectangulo-verde">
-            <div class="contenido-rectangulo">
-                    <i class="fas fa-times-circle"></i> 
-                </a>
-                <p>Caudal</p>
-                <p>{{ objetos.caudal }}</p>
-                
-                
-                    <i class="fas fa-arrow-alt-circle-right"></i>
-                </a>
-                <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">ver grafico de caudal</a>
-
-                
+        <div class="row-boton">
+            <div class="boton-cuadrado btn-primary">
+                <i class="fas fa-tint icono-caudal"></i>
+                Caudal
+                <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+            </div>
+            <div class="boton-cuadrado btn-success">
+                <i class="fas fa-flask icono-ph"></i>
+                pH
+                <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+            </div>
+            <div class="boton-cuadrado btn-danger">
+                <i class="fas fa-thermometer-half icono-temperatura"></i>
+                Temperatura
+                <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+            </div>
+            <div class="boton-cuadrado btn-warning">
+                <i class="fas fa-bolt icono-conductividad"></i>
+                Conductividad
+                <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+            </div>
+            <div class="boton-cuadrado btn-info">
+                <i class="fas fa-tint-slash icono-turbiedad"></i>
+                Turbiedad
+                <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+            </div>
+            <div class="boton-cuadrado btn-secondary">
+                <i class="fas fa-tint-slash icono-humedad"></i>
+                Humedad
+                <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
             </div>
         </div>
         
 
 
-        
-
-        <div class="row">
-            <div class="rectangulo rectangulo-verde">
-                <div class="contenido-rectangulo">
-                        <i class="fas fa-times-circle"></i> 
-                    </a>
-                    <p>pH</p>
-                    <p>{{ objetos.pH }}</p>
-                    
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                    <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="cerrar-sesion">ver grafico de ph</a>
-
-        
-                    
-                </div>
-            </div>
-            <div class="rectangulo rectangulo-verde">
-                <div class="contenido-rectangulo">
-                        <i class="fas fa-times-circle"></i> 
-                    </a>
-                    <p>Conductividad</p>
-                    <p>{{ objetos.conductividad }}</p>
-                    
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                    <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="cerrar-sesion">ver grafico de conductividad</a>
-                    
-                </div>
-            </div>
-            <div class="rectangulo rectangulo-verde">
-                <div class="contenido-rectangulo">
-                        <i class="fas fa-times-circle"></i> 
-                    </a>
-                    <p>Turbiedad</p>
-                    <p>{{ objetos.turbiedad }}</p>
-                    
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                    <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="cerrar-sesion">ver grafico de turbiedad</a>
-                    
-                </div>
-            </div>
-            <div class="rectangulo rectangulo-verde">
-                <div class="contenido-rectangulo">
-                        <i class="fas fa-times-circle"></i> 
-                    </a>
-                    <p>Temperatura</p>
-                    <p>{{ objetos.temperatura }}</p>
-                    
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                    <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="cerrar-sesion">ver grafico de temperatura</a>
-        
-                    
-                </div>
-            </div>
-            <div class="rectangulo rectangulo-verde">
-                <div class="contenido-rectangulo">
-                        <i class="fas fa-times-circle"></i> 
-                    </a>
-                    <p>Humedad</p>
-                    <p>{{ objetos.humedad }}</p>
-                    
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                    <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="cerrar-sesion">ver grafico de humedad</a>
-                    
-                </div>
-            </div>
-        </div>
-
-        
 
 
 
@@ -146,21 +178,6 @@
 
 
 
-
-
-        
-        
-
-
-
-
-
-        
-
-
-
-
-        
         
         
         
