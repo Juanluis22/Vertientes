@@ -10,40 +10,51 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>Gráfico de caudal</title>
-
-    
+    <title>Gráfico de caudal</title>   
+    <style>
+        /* Agregar un margen izquierdo para orientar el gráfico hacia la derecha */
+        .chart-container {
+            margin-left: 80px; /* Puedes ajustar este valor según tu preferencia */
+        }
+    </style>
 </head>
 <body>
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                <li class="nav-item"><i class="fas fa-map"></i><a href="#">Mapa</a></li>
+                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+            </ul>
+        </div>
+    </div>
     <nav class="navbar">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a href="page1.html">Inicio</a></li>
-            <li class="nav-item"><a href="#">Servicios</a></li>
-            <li class="nav-item"><a href="#">Acerca de</a></li>
-            <li class="nav-item"><a href="#">Contacto</a></li>
-        </ul>
-        <div class="navbar-center">Vista Administrador</div>
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
     
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 chart-container"> <!-- Agregar la clase chart-container y el margen izquierdo -->
+                <canvas id="lineChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
 
-    <canvas id="lineChart" width="400" height="400"></canvas>
     <div id="data-container" data-datajson="{{ data_json }}"></div>
 
     <script>
-            // Obtener el elemento con los datos JSON
-    var dataContainer = document.getElementById('data-container');
-    
-    // Obtener el atributo data-datajson y convertirlo en un objeto JavaScript
-    var dataFromDjango = JSON.parse(dataContainer.getAttribute('data-datajson'));
-
-    // Obtener etiquetas y valores de los datos
-    var labels = dataFromDjango.labels;
-    var values = dataFromDjango.values;
-
-    // Resto del código para crear el gráfico con Chart.js (como se mostró en el ejemplo anterior)
-        // Datos JSON proporcionados desde Django
-
+        // Obtener el elemento con los datos JSON
+        var dataContainer = document.getElementById('data-container');
+        
+        // Obtener el atributo data-datajson y convertirlo en un objeto JavaScript
+        var dataFromDjango = JSON.parse(dataContainer.getAttribute('data-datajson'));
 
         // Obtener etiquetas y valores de los datos
         var labels = dataFromDjango.labels;
@@ -66,35 +77,35 @@
 
         // Configurar opciones del gráfico
         var chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-        x: [{
-            type: 'time', // Configurar la escala X como escala de tiempo
-            time: {
-                unit: 'day',
-                tooltipFormat: 'DD/MM/YYYY',
-            },
-            title: {
-                display: true,
-                text: 'Fecha'
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: [{
+                    type: 'time', // Configurar la escala X como escala de tiempo
+                    time: {
+                        unit: 'day',
+                        tooltipFormat: 'DD/MM/YYYY',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Fecha'
+                    }
+                }],
+                y: {
+                    title: {
+                        display: true,
+                        text: 'caudal'
+                    }
+                }
             }
-        }],
-        y: {
-            title: {
-                display: true,
-                text: 'caudal'
-            }
-        }
-    }
-};
+        };
 
-// Crear el gráfico de línea
-var lineChart = new Chart(ctx, {
-    type: 'line',
-    data: chartData,
-    options: chartOptions
-});
+        // Crear el gráfico de línea
+        var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: chartOptions
+        });
     </script>
 </body>
 </html>
