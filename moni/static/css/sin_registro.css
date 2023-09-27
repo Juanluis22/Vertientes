@@ -185,35 +185,7 @@ body {
     max-width: 600px; /* Ancho máximo del cuadro */
 }
 
-/*OPCION1*/
-/* Estilos para el estado de la vertiente */
-/*.estado-vertiente {
-/*    text-align: center;
-/*    padding: 10px;
-/*    margin: 20px auto;
-/*    max-width: 600px;
-/*    border-radius: 10px;
-/*    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-/*    font-weight: bold; /* Añadir negrita al texto */
-/*    background-color: #ffffff; /* Eliminar este fondo */
-/*}
-
-/* Estilos para cuando el agua está en óptimas condiciones */
-/*.estado-vertiente.condiciones-buenas {
-/*    background-color: #87D91F !important; /* Agrega !important para aumentar la especificidad */
-/*    color: white !important; /* Agrega !important para aumentar la especificidad */
-/*}
-
-/* Estilos para cuando el agua está en malas condiciones */
-/*.estado-vertiente.condiciones-malas {
-/*    background-color: #D40202 !important; /* Agrega !important para aumentar la especificidad */
-/*    color: white !important; /* Agrega !important para aumentar la especificidad */
-/*}
-/*OPCION1*/
-
-/*OPCION2*/
-/* Estilos para cuando el agua está en malas condiciones mio */
-.condiciones-malas {
+.calidad-mala {
     text-align: center;
     padding: 20px;
     margin: 20px auto;
@@ -228,7 +200,7 @@ body {
 }
 
 /* Estilos para cuando el agua está en buenas condiciones mio */
-.condiciones-buenas {
+.calidad-buena {
     text-align: center;
     padding: 20px;
     margin: 20px auto;
@@ -241,7 +213,20 @@ body {
     background-color: #87D91F !important; /* Agrega !important para aumentar la especificidad */
     color: white !important; /* Agrega !important para aumentar la especificidad */
 }
-/*OPCION2*/
+
+.calidad-no-seleccionada {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; /* Añadir negrita al texto */
+    background-color: #1f51d9 !important; /* Agrega !important para aumentar la especificidad */
+    color: white !important; /* Agrega !important para aumentar la especificidad */
+}
 
 /* Estilos para el pie de página */
 .footer {
