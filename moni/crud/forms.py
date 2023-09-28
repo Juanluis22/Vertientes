@@ -76,6 +76,13 @@ class UserForm(ModelForm):
                 }
             ),
         }
+    
+
+    
+    
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['comunidad'].required = True
 
     def save(self, commit=True):
         data = {}
