@@ -142,13 +142,7 @@ class UpdateForm(ModelForm):
 
                 }
             ),
-            'edad':TextInput( 
-                attrs={
-                    'class':'form-control',
-                    'placeholder':'45'
-
-                }
-            ),
+            
             'tipo':TextInput( 
                 attrs={
                     'class':'form-control',
