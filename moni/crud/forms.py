@@ -21,13 +21,14 @@ class UserForm(ModelForm):
     class Meta:
         model= User
         fields=['username','first_name','last_name','email',
-                'edad','comunidad','password']
+                'edad','gender','comunidad','password']
         labels={
             'username':'RUT',
             'first_name':'Nombre',
             'last_name':'Apellido',
             'email':'Correo electronico',
-            'edad':'Edad',
+            'edad':'Rango de edad',
+            'gender':'Genero',
             'password':'Contraseña',
         }
         help_texts = {
@@ -64,13 +65,6 @@ class UserForm(ModelForm):
                 attrs={
                     'class':'form-control',
                     'placeholder':'Pedromuñoz@gmail.com'
-
-                }
-            ),
-            'edad':TextInput( 
-                attrs={
-                    'class':'form-control',
-                    'placeholder':'45'
 
                 }
             ),
