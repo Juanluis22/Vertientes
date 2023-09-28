@@ -214,21 +214,17 @@ def users_massive_upload_save(request):
             username = str(item[1])            
             first_name = str(item[2])
             last_name = str(item[3])
-            edad = int(item[4])
-            password = str(item[5])
-            is_active = bool(item[6])
-            email = str(item[6])
+            is_active = bool(item[4])
+            email = str(item[5])
             COMUNIDAD_DEFAULT = comunidad.objects.get(id=1)
             user_save = User(
                 username = username,
                 first_name = first_name,
                 last_name = last_name,
-                edad = edad,
                 email= email,
                 is_active=is_active,
                 comunidad = COMUNIDAD_DEFAULT
                 )
-            user_save.set_password(password)
             user_save.save()
             profile = Profile(user=user_save, group_id=2)
             profile.save()
@@ -245,7 +241,7 @@ def users_import_file(request):
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('carga_masiva')
     row_num = 0
-    columns = ['Rut', 'Primer nombre', 'Apellido','Edad', 'Contraseña', 'Estado', 'Correo Electronico']
+    columns = ['Rut', 'Primer nombre', 'Apellido', 'Estado', 'Correo Electronico']
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
     for col_num in range(len(columns)):
@@ -263,16 +259,162 @@ def users_import_file(request):
             if col_num == 2:
                 ws.write(row_num, col_num, 'ej:Torres', font_style)
             if col_num == 3:
-                ws.write(row_num, col_num, 'ej:28' , font_style)
-            if col_num == 4:
-                ws.write(row_num, col_num, 'ej:Juan231', font_style)
-            if col_num == 5:
                 ws.write(row_num, col_num, 'ej:true', font_style)
-            if col_num == 6:
+            if col_num == 4:
                 ws.write(row_num, col_num, 'ej:JuanTorres@gmail.com', font_style)
 
     wb.save(response)
+    return response
+def comunity_massive_upload(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+    template_name = 'comunity_massive_upload.html'
+    return render(request,template_name,{'profiles':profiles})
+
+def comunity_massive_upload_save(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+
+    if request.method == 'POST':
+        #try:
+        print(request.FILES['myfile'])
+        data = pd.read_excel(request.FILES['myfile'])
+        df = pd.DataFrame(data)
+        acc = 0
+        for item in df.itertuples():
+            acc += 1
+            nombre = str(item[1])            
+            vertientes = int(item[2])
+            ubicación = str(item[3])
+            comunity_save = comunidad(
+                nombre = nombre,
+                vertientes = vertientes,
+                ubicación = ubicación,
+                )
+            comunity_save.save()
+        return redirect('nucleo:comunity_massive_upload')
+    
+def comunity_import_file(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+
+        return redirect('nucleo:login')
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Lista_de_Comunidad.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('carga_masiva')
+    row_num = 0
+    columns = ['nombre', 'cantidad de vertientes', 'ubicación']
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    font_style = xlwt.XFStyle()
+    date_format = xlwt.XFStyle()
+    date_format.num_format_str = 'dd/MM/yyyy'
+    for row in range(1):
+        row_num += 1
+        for col_num in range(7): 
+            if col_num == 0:
+                ws.write(row_num, col_num, 'ej:Comunidad1' , font_style)
+            if col_num == 1:
+                ws.write(row_num, col_num, 'ej:5', font_style)
+            if col_num == 2:
+                ws.write(row_num, col_num, 'ej:Torres', font_style)
+    wb.save(response)
     return response  
+
+def vertiente_massive_upload(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+    template_name = 'vertiente_massive_upload.html'
+    return render(request,template_name,{'profiles':profiles})
+
+def vertiente_massive_upload_save(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+
+    if request.method == 'POST':
+        #try:
+        print(request.FILES['myfile'])
+        data = pd.read_excel(request.FILES['myfile'])
+        df = pd.DataFrame(data)
+        acc = 0
+        for index, row in df.iterrows():
+            acc += 1
+            nombre = str(row.iloc[0])  # Primera columna
+            desc = str(row.iloc[1])    # Segunda columna
+            ubicación = str(row.iloc[2])  # Tercera columna
+            comunidad_id = (row.iloc[3])  # Cuarta columna
+            if pd.isna(comunidad_id):
+                # Si está vacía, detén la iteración
+                break
+            comunidad_id = int(comunidad_id)
+            comunida = comunidad.objects.get(pk=comunidad_id)  
+            vertiente_save = vertiente(
+                nombre = nombre,
+                desc = desc,
+                ubicación = ubicación,
+                comunidad = comunida,
+                )
+            vertiente_save.save()
+
+       
+        return redirect('nucleo:vertiente_massive_upload')
+    
+def vertiente_import_file(request):
+    profiles = Profile.objects.get(user_id=request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+
+    # Get all communities and their IDs and names
+    communities = comunidad.objects.values('id', 'nombre')
+
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Lista_de_Vertientes.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('carga_masiva')
+    row_num = 0
+    columns = ['Nombre', 'Descripcion', 'Ubicacion', 'ID de la Comunidad']
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    # Example data for vertientes
+    font_style = xlwt.XFStyle()
+    date_format = xlwt.XFStyle()
+    date_format.num_format_str = 'dd/MM/yyyy'
+    row_num=+1
+    for col_num in range(4):
+        if col_num == 0:
+            ws.write(row_num, col_num , 'ej: Vertiente1', font_style)
+        if col_num == 1:
+            ws.write(row_num, col_num , 'ej: esta vertiente pertenece a Pedro', font_style)
+        if col_num == 2:
+            ws.write(row_num, col_num , 'ej: las Torres', font_style)
+        if col_num == 3:
+            ws.write(row_num, col_num , 'ej: 1', font_style)
+    # Add additional columns for vertientes
+    row_num = 0
+    columns = ['Nombre de la Comunidad', 'ID de Comunidad']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num +6, columns[col_num], font_style)
+
+    for community in communities:
+        row_num += 1
+        ws.write(row_num, 6, community['nombre'])
+        ws.write(row_num, 7, community['id'])
+    
+
+    wb.save(response)
+    return response
+
+
 
 
 
