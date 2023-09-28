@@ -36,6 +36,13 @@ urlpatterns = [
     path("actualizacion_vertientes/<int:pk>/", ActualizarVertiente.as_view(), name='updatevert'),
     path("actualizacion_comunidades/<int:pk>/", ActualizarComunidad.as_view(), name='updatecom'),
 
+    #Eliminación
+    path("eliminar_comunidad/<int:pk>/", EliminarComunidad.as_view(), name='deletecom'),
+    path("eliminar_vertiente/<int:pk>/", EliminarVertiente.as_view(), name='deletevert'),
+
+
+
+
     #Activación
     path("activación/<int:pk>/", activar_estado, name='activaruser'),
 

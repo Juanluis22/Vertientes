@@ -170,6 +170,9 @@
                                 <div class="col-lg-6">
                                     <button onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button">Editar</button>
                                 </div>
+                                <div class="col-lg-6">
+                                    <button onclick="window.location.href='{% url 'crud:deletevert' objeto.id %}'" class="editar-button">Eliminar</button>
+                                </div>
                             </td>
                         </tr>
                         {% endfor %}

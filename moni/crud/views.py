@@ -1,7 +1,7 @@
 from typing import Any
 from django import http
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, TemplateView, UpdateView
+from django.views.generic import ListView, TemplateView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -162,6 +162,12 @@ class ActualizarComunidad(UpdateView):
     def get_success_url(self):
         return reverse('crud:listcom')
 
+class EliminarComunidad(DeleteView):
+    model=comunidad
+    template_name='comunidad/delete/deleteComu.html'
+    success_url=reverse_lazy('crud:listcom')
+
+
 
 
 
@@ -201,6 +207,11 @@ class ActualizarVertiente(UpdateView):
     def get_success_url(self):
         return reverse('crud:listvert')
     
+class EliminarVertiente(DeleteView):
+    model=vertiente
+    template_name='vertiente/delete/deleteVert.html'
+    success_url=reverse_lazy('crud:listvert')
+
 
 
 
