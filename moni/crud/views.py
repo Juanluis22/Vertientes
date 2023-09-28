@@ -1,5 +1,6 @@
 from typing import Any
 from django import http
+import smtplib
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, TemplateView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
@@ -8,8 +9,11 @@ from django.contrib.auth.decorators import login_required
 from user.models import User
 from django.urls import reverse, reverse_lazy
 from crud.forms import *
+import moni.settings as setting
 from django.utils.decorators import method_decorator
-
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from django.template.loader import render_to_string
 # Create your views here.
 
 #Selector admin
@@ -98,6 +102,32 @@ def activar_estado(request, pk):
     
     registro.is_active = True
     registro.save()
+
+    #EMAIL
+    email=registro.email
+    usuario=registro
+    
+
+
+    mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
+    mailServer.starttls()
+    mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
+        
+    email_to=email
+    mensaje=MIMEMultipart()
+    mensaje['From']=setting.EMAIL_HOST_USER
+    mensaje['To']=email_to
+    mensaje['Subject']='Petición aprobada'
+
+
+    content=render_to_string('usuario/otros/accept_email.html', {
+        'user':usuario,
+    })
+    mensaje.attach(MIMEText(content,'html'))
+        
+    mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
+    print('Correo enviado correctamente')
+    
 
     return redirect('crud:listauser') 
 

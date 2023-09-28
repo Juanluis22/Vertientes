@@ -38,12 +38,7 @@ class Inicio(TemplateView):
 
 
 
-class Recuperar(TemplateView):
-    
-    template_name = 'forgot.html'  
-    context_object_name = 'listaUser' 
-    def get_success_url(self):
-        return reverse('nucleo:login')
+
 
 
 #Vista para enviar email con cambio de contraseña
@@ -168,6 +163,55 @@ class Registro(CreateView):
     def get_success_url(self):
         return reverse('nucleo:login')
     
+    def send_email(self, user):
+        data={}
+        try:
+            URL=setting.DOMAIN if not setting.DEBUG else self.request.META['HTTP_HOST']
+
+
+            mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
+            mailServer.starttls()
+            mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
+        
+            email_to=user
+            mensaje=MIMEMultipart()
+            mensaje['From']=setting.EMAIL_HOST_USER
+            mensaje['To']=email_to
+            mensaje['Subject']='Petición hecha a la administración'
+
+
+            content=render_to_string('warning_email.html', {
+                'user':user,
+                'link_home':'http://{}'.format(URL)
+            })
+            mensaje.attach(MIMEText(content,'html'))
+        
+            mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
+            print('Correo enviado correctamente')
+        
+        except Exception as e:
+            data['error']=str(e)
+        
+        return data
+
+
+
+    
+    def post(self, request, *args, **kwargs):
+        data={}
+        form=request.POST['email']
+        print(form)
+        #form=ResetPasswordForm(request.POST)
+        #print( 'ES:'+  form)
+        #print(fa)
+        data=self.send_email(form)
+
+        return super().post(request, *args, **kwargs)
+
+
+
+
+
 
 
 class Cerrarsesion(RedirectView):
