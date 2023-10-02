@@ -37,6 +37,7 @@
             list-style: none;
             display: flex;
             gap: 20px;
+            padding: 0; /* Elimina el relleno predeterminado de la lista */
         }
 
         .nav-item a {
@@ -66,6 +67,24 @@
             color: #333;
         }
 
+        /* Estilos para dispositivos pequeños (móviles) */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .navbar-nav {
+                margin-top: 10px;
+                gap: 10px;
+            }
+
+            .logo {
+                margin-bottom: 10px;
+            }
+        }
+
         #contenedor {
             background-image: url('https://i.pinimg.com/originals/65/80/cd/6580cd3a558db160d9e01e9c8e810135.jpg');
             background-size: cover;
@@ -81,7 +100,7 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            margin: 5px;
             max-width: 400px; /* Limita el ancho del formulario */
         }
 

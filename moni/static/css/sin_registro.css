@@ -16,7 +16,6 @@ body {
 
 /* Estilos de la barra de navegación */
 .logo {
-
     width: 110px; /* Ajusta el tamaño de la imagen */
     height: auto;
     margin: 0;
@@ -36,6 +35,7 @@ body {
     list-style: none;
     display: flex;
     gap: 20px;
+    padding: 0; /* Elimina el relleno predeterminado de la lista */
 }
 
 .nav-item a {
@@ -44,7 +44,7 @@ body {
     transition: color 0.3s;
 }
 
-.nav-item a:hover {
+.nav-item a:hover { 
     color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
 }
 
@@ -63,6 +63,24 @@ body {
 .cerrar-sesion:hover {
     background-color: white;
     color: #333;
+}
+
+/* Estilos para dispositivos pequeños (móviles) */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .navbar-nav {
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
 }
 
 .main{
@@ -95,6 +113,7 @@ body {
     background-color: #eaf7ff; /* Fondo blanco */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     justify-content: center;
+    text-align: center;
 }
 
 
@@ -175,7 +194,6 @@ body {
 /* Estilos para el pie de página */
 .vertientes-footer {
     text-align: center;
-    padding: 0px 79px;
     background-color: #eaf7ff; /* Fondo gris claro */
     color: #333; /* Color de texto */
     border: 1px solid #ccc; /* Borde alrededor del cuadro */
@@ -183,6 +201,55 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
     margin: 20px auto; /* Margen superior e inferior y centrado horizontalmente */
     max-width: 600px; /* Ancho máximo del cuadro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 77px;
+}
+
+@media (max-width: 520px) {
+    /* Estilos para vertientes-buscar en dispositivos móviles */
+    .vertientes-buscar {
+        flex-direction: column; /* Cambia la dirección a columna */
+        align-items: center; /* Centra horizontalmente el contenido */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .buscar{
+        text-align: center;
+        align-items: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    /* Estilos para vertientes-footer en dispositivos móviles */
+    .vertientes-footer {
+        text-align: center;
+        align-items: center;
+        width: 225px;
+        padding: 0px 20px;
+    }
+
+    .parametros-columnas{
+        flex-direction: column; /* Cambia la dirección a columna */
+        align-items: center;
+    }
+    .parametro{
+        align-items: center;
+    }
+    .columna{
+        flex: 1;
+        max-width: 150%; /* Ancho máximo para cada columna */
+    }
+    element.style{
+        padding: 0px;
+        margin: 0px;
+    }
+    select:not(:-internal-list-box) {
+        overflow: visible !important;
+        margin-bottom: 1000px;
+    }
 }
 
 .calidad-mala {
