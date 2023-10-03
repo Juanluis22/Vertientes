@@ -70,7 +70,6 @@ void loop() {
 
   //LECTURA DE SENSORES
   colectData();
-
   // Enviar datos recopilados
   sendData();
   
