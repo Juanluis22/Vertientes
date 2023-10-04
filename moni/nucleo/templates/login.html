@@ -120,15 +120,17 @@
         input[type="password"] {
             width: 100%;
             padding: 5px 0px 5px 5px;
-            margin: 4px 0px 4px 0px;
+            margin: 10px 0px 10px 0px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            outline: none; /* Elimina el contorno predeterminado al enfocar el elemento */
+            box-shadow: 0 0 5px rgba(102, 168, 255, 0.616); /* Agrega una sombra al enfocar */
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
             outline: none;
-            border-color: #5b9dd9;
+            border-color: #1c4eaa; /* Cambia el color del borde al enfocar */
         }
         
         button#botonIngresar{

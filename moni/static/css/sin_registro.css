@@ -124,7 +124,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0px 20px;
+    padding: 0px 15px;
 }
 
 /* Estilos para el botón "Ir" */
@@ -149,11 +149,12 @@ body {
 .parametros-columnas {
     display: flex;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 .columna {
     flex: 1;
-    max-width: 45%; /* Ancho máximo para cada columna */
+    min-width: 50%
 }
 
 .parametro {
@@ -205,7 +206,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0px 77px;
+    padding: 0px 80px;
 }
 
 @media (max-width: 520px) {
@@ -213,8 +214,8 @@ body {
     .vertientes-buscar {
         flex-direction: column; /* Cambia la dirección a columna */
         align-items: center; /* Centra horizontalmente el contenido */
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     .buscar{
@@ -222,6 +223,7 @@ body {
         align-items: center;
         margin-top: 15px;
         margin-bottom: 15px;
+        width: 190px;
     }
     /* Estilos para vertientes-footer en dispositivos móviles */
     .vertientes-footer {
@@ -240,7 +242,7 @@ body {
     }
     .columna{
         flex: 1;
-        max-width: 150%; /* Ancho máximo para cada columna */
+        min-width: 100%
     }
     element.style{
         padding: 0px;
@@ -264,6 +266,8 @@ body {
     font-weight: bold; /* Añadir negrita al texto */
     background-color: #D40202 !important; /* Agrega !important para aumentar la especificidad */
     color: white !important; /* Agrega !important para aumentar la especificidad */
+    margin: 0px 10px;
+    margin-bottom: 35px;
 }
 
 /* Estilos para cuando el agua está en buenas condiciones mio */
@@ -279,6 +283,8 @@ body {
     font-weight: bold; /* Añadir negrita al texto */
     background-color: #87D91F !important; /* Agrega !important para aumentar la especificidad */
     color: white !important; /* Agrega !important para aumentar la especificidad */
+    margin: 0px 10px;
+    margin-bottom: 35px;
 }
 
 .calidad-no-seleccionada {
@@ -293,6 +299,8 @@ body {
     font-weight: bold; /* Añadir negrita al texto */
     background-color: #1f51d9 !important; /* Agrega !important para aumentar la especificidad */
     color: white !important; /* Agrega !important para aumentar la especificidad */
+    margin: 0px 10px;
+    margin-bottom: 35px;
 }
 
 /* Estilos para el pie de página */
@@ -312,6 +320,9 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    z-index: 999; /* Asegura que esté en la parte superior */
 }
 
 .modal.active {
@@ -330,6 +341,21 @@ body {
     position: relative;
     border-radius: 15px;
     font-weight: bold; /* Texto en negrita */
+}
+@media (max-width: 520px) {
+ 
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: 10px solid #0E7FE7; /* Borde celeste */
+        width: 60%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        text-align: center;
+        position: relative;
+        border-radius: 15px;
+        font-weight: bold; /* Texto en negrita */
+    }
 }
 
 .modal.active .modal-content {
@@ -353,4 +379,36 @@ body {
 
 .parametro .unidad {
     margin-left: 5px; /* Ajusta el margen según tus preferencias */
+}
+
+.filtro-comunidad,
+.filtro-vertiente,
+.form-group select { /* Esto apuntará a los selectores dentro de .form-group */
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Estilos para los desplegables cuando están enfocados (resaltados) */
+.form-group select:focus {
+    outline: none; /* Elimina el contorno predeterminado al enfocar el elemento */
+    border-color: #1c4eaa; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(28, 73, 170, 0.616); /* Agrega una sombra al enfocar */
+}
+
+.filtro-comunidad{
+    width: max-content;
+}
+
+.filtro-vertiente{
+    width: max-content;
+}
+
+label{
+    font-size: 18px; /* Tamaño de fuente para h2 */
+    font-weight: bold; /* Opcional: Puedes agregar negrita */
+    margin-bottom: 10px;
 }

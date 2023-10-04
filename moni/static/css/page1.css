@@ -99,7 +99,8 @@ h1 {
 }
 
 p {
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .start-button {
@@ -125,22 +126,37 @@ p {
 .info-section {
     display: flex;
     justify-content: center;
-    gap: 20px;
     flex-wrap: wrap; /* Permite que los elementos se envuelvan si el espacio es insuficiente */
 }
 
 .info-box {
-    background-color: #fff;
-    padding: 10px;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    background-color: white;
+    width: 300px; /* Ajusta el ancho de los cuadrados según tus preferencias */
+    padding: 20px;
+    margin: 0 10px; /* Espacio entre los cuadrados */
     border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-content: center;
+    align-items: center;
     text-align: center;
-    flex: 0 0 calc(20% - 5px); /* Ocupa inicialmente el 25% del ancho del contenedor y se envuelve cuando no hay suficiente espacio */
-    margin-bottom: 20px; /* Añade margen inferior para separación vertical */
-    display: flex; /* Permite alinear elementos internos verticalmente */
-    flex-direction: column; /* Alinea elementos internos en una columna */
-    align-items: center; /* Centra elementos internos horizontalmente */
+}
+
+@media screen and (max-width: 480px) {
+    .info-box:nth-child(1) {
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .info-box:nth-child(2) {
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    .info-box:nth-child(3) {
+        margin-top: 15px;
+    }
 }
 
 .info-box p {
@@ -156,7 +172,6 @@ p {
 .info-box img {
     border-radius: 10%;
     border-style: double;
-    width: 240;
 }
 
 @media screen and (max-width: 480px) {
@@ -169,6 +184,7 @@ p {
     }
 
     .info-box p {
+        font-weight: bold;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -194,6 +210,7 @@ p {
 .info-box p {
     font-size: 14px; /* Reduce el tamaño del texto */
     flex-grow: 1; /* Hace que el texto ocupe el espacio disponible en la columna */
+    font-weight: bold;
 }
 
 img {
