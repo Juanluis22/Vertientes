@@ -18,6 +18,7 @@
     list-style: none;
     display: flex;
     gap: 20px;
+    
 }
 
 .nav-item a {
@@ -33,7 +34,7 @@
 /* Estilo de la barra lateral izquierda */
 .vertical-bar {
     background-color: white;
-    width: 70px; /* Ancho de la barra blanca vertical */
+    width: 77px; /* Ancho de la barra blanca vertical */
     height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
     position: fixed;
     top: 0;
@@ -63,7 +64,7 @@
 /* Estilo de los enlaces de la barra lateral */
 .sidebar-nav {
     list-style: none;
-    padding: 0;
+    padding: 7px;
     margin-top: 50px;
 }
 
@@ -195,22 +196,35 @@ body {
     font-size: 30px;
     color: rgb(247, 241, 241);
 }
+/* Estilo para los iconos de interrogación */
+/* Estilo para los iconos de interrogación */
+.fa-question-circle {
+    color: #fdd835; /* Cambia el color según tu preferencia */
+    font-size: 24px; /* Cambia el tamaño según tu preferencia */
+    cursor: pointer;
+    float: right; /* Alinea a la derecha */
+    margin-right: 40px; /* Espacio a la derecha del contenido */
+}
 
-.cuadrado-blanco {
+
+
+
+
+/* .cuadrado-blanco {
     position: absolute;
     top: 300px;
-    right: 100px; /* Ajusta este valor según sea necesario */
+    right: 100px;
     width: 300px;
     height: 250px; 
     background-color: white;
     padding: 20px;
     text-align: center;
     border-radius: 20px;
-    border: 8px solid blue; /* Agrega el contorno azul */
-}
+    border: 8px solid #0E7FE7;
+} */
 
 
-.cuadrado-blanco h2 {
+/* .cuadrado-blanco h2 {
     font-size: 24px;
 }
 .cuadro-blanco {
@@ -222,13 +236,13 @@ body {
     text-align: center;
     margin-bottom: 140px;
     border-radius: 30px;
-    border: 5px solid blue; /* Agrega el contorno azul */
+    border: 5px solid blue;
 }
 
 .cuadro-blanco h2 {
     font-size: 24px;
     margin-bottom: 10px;
-}
+} */
 
 .boton-mismo-icono {
     background-color: transparent;
@@ -239,6 +253,49 @@ body {
 .boton-mismo-icono i {
     font-size: 30px;
     color: rgb(12, 70, 231);
+}
+.hidden-text {
+    display: none;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 7px solid #0E7FE7;
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.fa-lightbulb {
+    color: #fdd835; /* Cambia el color según tu preferencia */
+    font-size: 24px; /* Cambia el tamaño según tu preferencia */
+    cursor: pointer;
+    margin-left: 10px; /* Añade margen para separar del título */
 }
 
 

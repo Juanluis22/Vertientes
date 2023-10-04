@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="{% static 'css/qdesea visualizar.css' %}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
+
 
 
     </head>
@@ -36,57 +38,67 @@
         
         <div class="vertientes-container">
             <div class="vertientes-header">
-                <h1>Seleccione que desea visualizar</h1>
+                <h1>
+                    Seleccione qué desea visualizar
+                    <i class="fas fa-lightbulb" onclick="toggleText('text3')"></i>
+                </h1>
+            </div>
+            
+            <div id="text3" class="hidden-text">
+                <h4>Aquí puedes elegir qué apartado de la administración visualizar: <font color="87D91F">gestión de usuarios/comunidades/vertientes.</font> ó <font color="56C4E7">todas las vertientes</font></h4>
             </div>
             <div class="rectangulo rectangulo-verde">
                 <div class="contenido-rectangulo">
-                        <i class="fas fa-check"></i> 
-                    </a>
+                    <i class="fas fa-check"></i> 
                     <h2><font color="white">Gestión usuarios/habitantes/
                         comunidades/vertientes</font></h2>
-                    <a href="{% url 'crud:index' %}">
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
+                    <i class="fas fa-question-circle" onclick="toggleText('text1')"></i>
                 </div>
+                <div id="text1" class="hidden-text">
+                    <h3>¿Para que sirve esto?</h3>
+                    <h4>esto sirve para ver las peticiones de registro de usuarios, modificar correos de contacto, comunidades, vertientes, etc.</h4>
+                </div>
+                <a href="{% url 'crud:index' %}">
+                    <i class="fas fa-arrow-alt-circle-right"></i>
+                </a>
             </div>
-            <div class="cuadro-blanco">
-                <h4>Ingrese aquí para ver las peticiones de registro de usuarios, modificar correos de contacto, comunidades, vertientes, etc.</h4>
-            </div>
-            
-            
             <div class="rectangulo rectangulo-celeste">
                 <div class="contenido-rectangulo">
                     <i class="fas fa-check"></i> 
                     <h2><font color="white">Visualizar todas las vertientes 
                         monitorizadas</font></h2>
-                        <a href="{% url 'eva:comuni' %}">
+                    <i class="fas fa-question-circle" onclick="toggleText('text2')"></i>
+                </div>
+                <div id="text2" class="hidden-text">
+                    <h3>¿Para que sirve esto?</h3>
+                    <h4>esto sirve para ver todas las vertientes de todas las comunidades monitorizadas.</h4>
+                </div>
+                <a href="{% url 'eva:comuni' %}">
                     <i class="fas fa-arrow-alt-circle-right"></i>
                 </a>
-                </div>
             </div>
-            <div class="cuadro-blanco">
-                <h4>Ingrese aqui para ver todas las vertientes de todas las comunidades monitorizadas.
+        </div>
+        <!-- Ventana emergente oculta -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modal-text"></div>
+    </div>
+</div>
     
-                </h4>
-            </div>
-            <div class="cuadrado-blanco">
-                <h2>¿Qué es esto?</h2>
-                <h4>Aqui puedes elegir que apartado de la administración visualizar:<font color="87D91F">gestión de usuarios/comunidades/vertientes.</font> ó   <font color="56C4E7">todas las vertientes</font></h4>
-                </h4>
-            </div>
-            </div>
+        <!-- Tu contenido posterior -->
+    
+        <script>
+            function toggleText(textId) {
+    var textElement = document.getElementById(textId);
+    var modalText = document.getElementById("modal-text");
+    modalText.innerHTML = textElement.innerHTML;
+    document.getElementById('modal').style.display='block';
+}
 
-            
-            </div>
-            
-            </div>
-
-            
-
-
-
-            
+function closeModal() {
+    document.getElementById('modal').style.display='none';
+}
+        </script>
     </body>
-
-
-</html>
+    </html>
