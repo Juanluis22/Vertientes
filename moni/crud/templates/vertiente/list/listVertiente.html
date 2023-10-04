@@ -14,32 +14,57 @@
 
     <!-- Agregamos estilos para la lista de vertientes -->
     <style>
+        .dataTables_wrapper .dataTables_filter .dataTables_filter_input[type="search"] {
+            background-color: #007BFF !important; /* !important para forzar la prioridad */
+            color: white !important;
+            border: none !important;
+            border-radius: 5px !important;
+            padding: 5px 10px !important;
+            cursor: pointer !important;
+            margin-right: 5px !important;
+        }
+
+
         /* Estilos para la lista de vertientes */
         #example {
-            background-color: white;
+            background-color: #f0f8ff; /* Azul claro - Día 1 */
             border-collapse: collapse;
             width: 100%;
             border-radius: 10px;
         }
-
+    
         #example th, #example td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+            white-space: nowrap; /* Evitar el salto de línea en el contenido largo */
+            overflow: hidden; /* Ocultar el contenido que se desborda */
+            text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para el contenido que se desborda */
+            max-width: 150px; /* Ancho máximo para las celdas */
         }
-
+    
         #example th {
-            background-color: #333;
-            color: white;
+            background-color: #b0e0e6; /* Turquesa claro - Día 2 */
+            color: #333; /* Texto oscuro - Día 2 */
         }
-
+    
         #example tr:nth-child(even) {
-            background-color: #f2f2f2; /* Fondo de fila alternativo */
+            background-color: #e0f8ff; /* Azul claro alternativo - Día 3 */
         }
-
+    
         #example tr:hover {
-            background-color: #1caa23; /* Resaltado al pasar el cursor */
+            background-color: #87ceeb; /* Azul celeste al pasar el cursor - Día 4 */
             color: white;
+        }
+    
+        /* Estilos para los separadores de columnas */
+        #example th div.separador {
+            padding: 10px; /* Ajusta el espaciado de los separadores */
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .acceder {
             display: inline-block;
@@ -50,7 +75,7 @@
             border-radius: 5px;
             margin-top: 1px; /* Espacio superior */
             margin-bottom: 50px; /* Espacio inferior */
-            margin-left: 345px; /* Espacio izquierdo */
+            margin-left: 600px; /* Espacio izquierdo */
             margin-right: 20px; /* Espacio derecho */
         }
         
@@ -63,7 +88,7 @@
             border-radius: 5px;
             margin-top: 1px; /* Espacio superior */
             margin-bottom: 20px; /* Espacio inferior */
-            margin-left: 460px; /* Espacio izquierdo */
+            margin-left: 600px; /* Espacio izquierdo */
         }
         
         .container {
@@ -101,12 +126,21 @@
         }
         .editar-button {
             padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
-            background-color: #ff6600; /* Color de fondo del botón (puedes cambiarlo) */
-            color: white; /* Color del texto del botón */
+            background-color: #6bb9ff; /* Fondo del botón de edición - Día 7 */
+            color: white; /* Texto del botón de edición - Día 7 */
             border: none; /* Quita el borde del botón si lo deseas */
             border-radius: 5px; /* Borde redondeado del botón */
             cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-        } 
+            margin-right: 5px; /* Agrega espacio a la derecha del botón Editar */
+        }
+        .Eliminar {
+            padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
+            background-color: #8bc34a; /* Fondo del botón de edición - Día 7 */
+            color: white; /* Texto del botón de edición - Día 7 */
+            border: none; /* Quita el borde del botón si lo deseas */
+            border-radius: 5px; /* Borde redondeado del botón */
+            cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        }
     </style>
 </head>
 <body>
