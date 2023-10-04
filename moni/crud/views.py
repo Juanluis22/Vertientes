@@ -76,10 +76,18 @@ class ActualizarUsuario(UpdateView):
     model = User
     form_class = UpdateForm
     template_name = 'usuario/update/updateUser.html'
-    #success_url=reverse_lazy('crud:listauser')
+    success_url = reverse_lazy('crud:listauser')
 
-    def get_success_url(self):
-        return reverse('crud:listauser')
+    def form_valid(self, form):
+        # Asigna el grupo basado en el valor seleccionado en el campo "Rol"
+        user = form.save(commit=False)
+        tipo = form.cleaned_data['tipo']
+        if tipo == '1':
+            user.profile.group_id = 2  # Usuario
+        else:
+            user.profile.group_id = 3  # Autoridad
+        user.profile.save()
+        return super().form_valid(form)
     
 
 
