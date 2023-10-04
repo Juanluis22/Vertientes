@@ -1,111 +1,121 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
-        <link rel="stylesheet" href="{% static 'css/Gestion usuarios.css' %}">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-    </head>
-
-
-    <body>
-        <div class="vertical-bar">
-            <div class="sidebar">
-                <ul class="sidebar-nav">
-                    <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
-                    <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
-                    <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
-                    <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
-                </ul>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/Gestion usuarios.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
+                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+            </ul>
         </div>
-        <nav class="navbar">
-            <div class="navbar-left">
-                <span class="hidro-tech">HidroTech</span>
-            </div>
-            <div class="navbar-center">
-                <div class="admin-box">Vista Administrador</div>
-            </div>
-            <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-        </nav>
-        <div class="vertientes-header">
-            <h1>Gestion de usuarios / habitantes / comunidades / vertientes</h1>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
         </div>
-        <div class="rectangulos-container">
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
+        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+    </nav>
+    <div class="vertientes-header">
+        <h1>Seleccione qué desea Administrar</h1>
+    </div>
+    <div class="rectangulos-container">
+        <div class="rectangulo-container">
+            <i class="fas fa-question-circle" onclick="toggleText('text1')"></i>
             <div class="rectangulo rectangulo-verde">
                 <div class="contenido-rectangulo">
-                    <h1><font color="white">Solicitudes de registro</font></h1>
-                    <a href="{% url 'crud:listpet' %}">
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                </div>
-                <div class="cuadro-blanco">
-                    <h3>¿Qué es esto?</h3>
-                    <p>Aqui puede ver las solicitudes de registro para aceptarlas o denegarlas según estime conveniente.
-                        Recuerde verificar si el solicitante pertenece a la comunidad que dice mencionar.</p>
-                </div>
-            </div>
-            <div class="rectangulo rectangulo-celeste">
-                <div class="contenido-rectangulo">
                     <h1><font color="white">Comunidades</font></h1>
+                    <div id="text1" class="hidden-text">
+                        <h3>¿Para que sirve esto?</h3>
+                        <h4>Aqui puede ver, crear, eliminar o actualizar el registro de las comunidades y cambiarle sus datos si lo encuentra necesario, estos datos incluyen el nombre de la comunidad, su localización y el numero de vertienes que la conforman.</h4>
+                    </div>
                     <a href="{% url 'crud:listcom' %}">
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
                 </div>
-                <div class="cuadro-blanco">
-                    <h3>¿Qué es esto?</h3>
-                    <p>Aqui puede ver, crear, eliminar o actualizar el registro de las comunidades y cambiarle sus datos si lo encuentra necesario, estos datos incluyen el nombre de la comunidad, su localización y el numero de vertienes que la conforman.</p>
-                </div>
             </div>
         </div>
-        <div class="rectangulos-container">
-            <div class="rectangulo rectangulo-rojo">
-                <div class="contenido-rectangulo">
-                    <h1><font color="white">Habitantes</font></h1>
-                    <a href="{% url 'crud:listauser' %}">
-                        <i class="fas fa-arrow-alt-circle-right"></i>
-                    </a>
-                </div>
-                <div class="cuadro-blanco">
-                    <h3>¿Qué es esto?</h3>
-                    <p>Aqui puede ver, crear, eliminar o actualizar el registro de habitantes creados y cambiarle sus datos si lo encuentra necesario, estos datos incluyen el nombre, edad y el correo de contacto para notificaciones.</p>
-                </div>
-            </div>
-            <div class="rectangulo rectangulo-amarillo">
+        <div class="rectangulo-container">
+            <i class="fas fa-question-circle" onclick="toggleText('text2')"></i>
+            <div class="rectangulo rectangulo-celeste">
                 <div class="contenido-rectangulo">
                     <h1><font color="white">Vertientes</font></h1>
+                    <div id="text2" class="hidden-text">
+                        <h3>¿Para que sirve esto?</h3>
+                        <h4>Aqui puede ver, crear, eliminar o actualizar el registro de las vertientes y cambiarle sus datos si lo encuentra necesario, estos datos incluyen el nombre de la vertiente, su ubicacion y la descripción.</h4>
+                    </div>
                     <a href="{% url 'crud:listvert' %}">
                         <i class="fas fa-arrow-alt-circle-right"></i>
                     </a>
                 </div>
-                <div class="cuadro-blanco">
-                    <h3>¿Qué es esto?</h3>
-                    <p>Aqui puede ver, crear, eliminar o actualizar el registro de las vertientes y cambiarle sus datos si lo encuentra necesario, estos datos incluyen el nombre de la vertiente, su ubicacion y el descripción.</p>
+            </div>
+        </div>
+        <div class="rectangulo-container">
+            <i class="fas fa-question-circle" onclick="toggleText('text3')"></i>
+            <div class="rectangulo rectangulo-rojo">
+                <div class="contenido-rectangulo">
+                    <h1><font color="white">Habitantes</font></h1>
+                    <div id="text3" class="hidden-text">
+                        <h3>¿Para que sirve esto?</h3>
+                        <h4>Aqui puede ver, crear, eliminar o actualizar el registro de habitantes creados y cambiarle sus datos si lo encuentra necesario, estos datos incluyen el nombre, edad y el correo de contacto para notificaciones.</h4>
+                    </div>
+                    <a href="{% url 'crud:listauser' %}">
+                        <i class="fas fa-arrow-alt-circle-right"></i>
+                    </a>
                 </div>
             </div>
-
         </div>
-
-        </div>
-            
-            
-
-            
-            <div class="col-lg-6">
-                <a href="{% url 'crud:select' %}" class="volver">Volver</a>
-
+        <div class="rectangulo-container">
+            <i class="fas fa-question-circle" onclick="toggleText('text4')"></i>
+            <div class="rectangulo rectangulo-amarillo">
+                <div class="contenido-rectangulo">
+                    <h1><font color="white">Solicitudes de registro</font></h1>
+                    <div id="text4" class="hidden-text">
+                        <h3>¿Para que sirve esto?</h3>
+                        <h4>Aqui puede ver las solicitudes de registro para aceptarlas o denegarlas según estime conveniente.
+                            Recuerde verificar si el solicitante pertenece a la comunidad que dice mencionar</h4>
+                    </div>
+                    <a href="{% url 'crud:listpet' %}">
+                        <i class="fas fa-arrow-alt-circle-right"></i>
+                    </a>
+                </div>
             </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <a href="{% url 'crud:select' %}" class="volver">Volver</a>
 
+    </div>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modal-text"></div>
+        </div>
+    </div>
+    <script>
+        function toggleText(textId) {
+            var textElement = document.getElementById(textId);
+            var modalText = document.getElementById("modal-text");
+            modalText.innerHTML = textElement.innerHTML;
+            document.getElementById('modal').style.display = 'block';
+        }
 
-
-            
-    </body>
-
-
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
+</body>
 </html>

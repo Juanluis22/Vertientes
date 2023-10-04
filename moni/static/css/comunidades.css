@@ -33,7 +33,7 @@
 /* Estilo de la barra lateral izquierda */
 .vertical-bar {
     background-color: white;
-    width: 70px; /* Ancho de la barra blanca vertical */
+    width: 77px; /* Ancho de la barra blanca vertical */
     height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
     position: fixed;
     top: 0;
@@ -63,7 +63,7 @@
 /* Estilo de los enlaces de la barra lateral */
 .sidebar-nav {
     list-style: none;
-    padding: 0;
+    padding: 7px;
     margin-top: 50px;
 }
 

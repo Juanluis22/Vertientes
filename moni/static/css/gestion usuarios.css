@@ -1,7 +1,7 @@
 /* Estilos generales y otros estilos */
 .navbar {
     background-color: white;
-    color: black; /* Color del texto en el Navbar */
+    color: black;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,7 +9,7 @@
 }
 
 .navbar-center {
-    flex: 1; /* Toma el espacio restante */
+    flex: 1;
     text-align: center;
     font-weight: bold;
 }
@@ -27,43 +27,38 @@
 }
 
 .nav-item a:hover {
-    color: #0E7FE7; /* Cambia el color al pasar el cursor sobre el enlace */
+    color: #0E7FE7;
 }
-/* Barra blanca vertical en la parte izquierda */
-/* Estilo de la barra lateral izquierda */
+
 .vertical-bar {
     background-color: white;
-    width: 70px; /* Ancho de la barra blanca vertical */
-    height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
+    width: 77px;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 999; /* Asegura que esté por encima de otros elementos */
+    z-index: 999;
 }
 
-/* Estilo de "HidroTech" en el Navbar */
 .hidro-tech {
-    color: #0E7FE7; /* Texto azul para HidroTech */
+    color: #0E7FE7;
     font-weight: bold;
-    font-size: 20px; /* Tamaño de fuente opcional */
-    margin-left: 70px; /* Espacio a la izquierda de HidroTech */
-    margin-right: 0; /* Espacio a la derecha de HidroTech */
+    font-size: 20px;
+    margin-left: 70px;
+    margin-right: 0;
 }
 
-/* Estilo del rectángulo azul para "Vista Administrador" */
 .admin-box {
-    background-color: #0E7FE7; /* Fondo azul */
-    color: white; /* Texto blanco */
+    background-color: #0E7FE7;
+    color: white;
     padding: 5px 10px;
     border-radius: 5px;
-    display: inline-block; /* Hace que el rectángulo se ajuste al contenido */
+    display: inline-block;
 }
 
-
-/* Estilo de los enlaces de la barra lateral */
 .sidebar-nav {
     list-style: none;
-    padding: 0;
+    padding: 7px;
     margin-top: 50px;
 }
 
@@ -79,28 +74,18 @@
 }
 
 .sidebar-nav a:hover {
-    color: #fd1d1d; /* Cambia el color al pasar el cursor sobre el enlace */
-}
-/* Estilo de los iconos en la barra lateral */
-.sidebar-nav i {
-    font-size: 2.0rem; /* Tamaño del icono */
-    margin-right: 0px; /* Espacio a la derecha del icono */
-    color: #0E7FE7; /* Cambia el color de los iconos a azul */
-    fill:#0E7FE7
-}
-/* Estilo del Navbar */
-.navbar {
-    background-color: white;
-    color: black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
+    color: #fd1d1d;
 }
 
-/* Estilo del botón "Cerrar Sesión" */
+.sidebar-nav i {
+    font-size: 2.0rem;
+    margin-right: 0px;
+    color: #0E7FE7;
+    fill: #0E7FE7;
+}
+
 .cerrar-sesion {
-    background-color: #0E7FE7; /* Botón azul */
+    background-color: #0E7FE7;
     color: white;
     font-weight: bold;
     border: 2px solid #0E7FE7;
@@ -114,7 +99,6 @@
     color: #0E7FE7;
 }
 
-/* Estilos para toda la página */
 body {
     margin: 0;
     padding: 0;
@@ -122,7 +106,6 @@ body {
     background-color: #B0E2FF;
 }
 
-/* Estilos de la página de vertientes */
 .vertientes-container {
     max-width: 960px;
     margin: 10px;
@@ -139,25 +122,38 @@ body {
 
 .rectangulos-container {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
     justify-content: space-between;
+    margin-left: 120px;
+    margin-bottom: 0px;
+    gap: 2px;
 }
 
-/* Estilos de los rectángulos */
+.rectangulo-container {
+    display: flex;
+    align-items: center; 
+    flex-basis: calc(50% - 2px); /* 50% del ancho con espacio entre ellos */
+    margin-bottom: 2px; /* Espacio entre las filas */
+}
+
+.rectangulo-container i {
+    font-size: 30px;
+    color: #0E7FE7;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
 .rectangulo {
     position: relative;
-    width: 600px;
+    width: 400px;
     height: 180px;
-    margin: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    margin-right: 50px;
     border-radius: 25px;
-    padding-right: 40px;
 }
 
-/* Estilos de los rectángulos de colores */
 .rectangulo-verde {
     background-color: #87D91F;
 }
@@ -182,6 +178,7 @@ body {
     width: 100%;
     padding: 0 10px;
 }
+
 .contenido-rectangulo p {
     margin: 1;
     font-size: 18px;
@@ -199,26 +196,44 @@ body {
     color: rgb(247, 241, 241);
 }
 
+.hidden-text {
+    display: none;
+}
 
-.cuadro-blanco {
-    position: absolute;
-    top: 190px; /* Ajusta este valor según sea necesario para alinearlos */
-    right: 10px;
-    width: 400px;
-    height: 130px;
-    background-color: white;
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
     padding: 20px;
+    border: 7px solid #0E7FE7;
+    width: 60%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
-    border-radius: 20px;
-    border: 8px solid blue;
 }
 
-
-.cuadro-blanco h4 {
-    font-size: 30px;
-    margin: 1000;
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
 }
 
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 .volver {
     display: inline-block;
     padding: 10px 20px;
@@ -229,5 +244,3 @@ body {
     margin-top: 200px;
     margin-left: 70px;
     }
-
-/* Resto de los estilos */
