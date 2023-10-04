@@ -2,7 +2,7 @@ from django.forms import *
 from django.contrib.auth.forms import UserCreationForm
 from nucleo.models import *
 from user.models import User,Profile
-
+from django import forms
 
 class ComunidadForm(ModelForm):
     class Meta:
@@ -108,6 +108,12 @@ class UserForm(ModelForm):
 
 
 class UpdateForm(ModelForm):
+    ROLES = (
+        (1, 'Usuario'),
+        (2, 'Autoridad'),
+    )
+
+    tipo = forms.ChoiceField(choices=ROLES, label='Rol')
     class Meta:
         model= User
         fields=['username','first_name','last_name','email',

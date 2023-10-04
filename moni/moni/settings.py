@@ -43,14 +43,11 @@ INSTALLED_APPS = [
     'user',
     'evaluacion',
     'habitantes',
-    'mqtt_data',
     
     
 ]
 
 MIDDLEWARE = [
-    'mqtt_data.middleware.MQTTMiddleware',
-    
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,11 +84,11 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"moni",
+        "NAME":"Empresas",
         "USER":"postgres",
-        "PASSWORD":"1234",
+        "PASSWORD":"CerealPremium",
         "HOST":"localhost",
-        "PORT":"5432",
+        "PORT":"5433",
     }
 }
 
@@ -150,8 +147,6 @@ AUTH_USER_MODEL='user.User'
 LOGIN_REDIRECT_URL = 'nucleo:revision'
 
 LOGOUT_REDIRECT_URL = 'nucleo:login'
-
-
 # EMAIL
 
 EMAIL_HOST='smtp.gmail.com'
@@ -160,4 +155,3 @@ EMAIL_HOST_USER='c.quilodran.ignacio@gmail.com'
 EMAIL_HOST_PASSWORD='hwcy cywn xohv wdtt'
 
 DOMAIN=''
-

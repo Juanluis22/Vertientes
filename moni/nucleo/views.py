@@ -229,8 +229,10 @@ def revision(request):
     if request.user.is_authenticated:
         if profile.group_id == 1:
             return redirect('crud:select')  # Redirige al panel de administración
-        else:
+        if profile.group_id == 2:
             return redirect('habi:detect')  # Redirige al perfil del usuario
+        if profile.group_id == 3:
+            return redirect('eva:comuni')  # Redirige al perfil del autoridad
     else:
         return redirect('nucleo:login')  # Redirige al formulario de inicio de sesión
     
