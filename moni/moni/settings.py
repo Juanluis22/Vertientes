@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-lxw&6j4r!nw6^et0g44xn#&anc3l&v@_f*n*#&&_rj5mxnhqx)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"Empresas",
+        "NAME":"databa4/10",
         "USER":"postgres",
-        "PASSWORD":"CerealPremium",
+        "PASSWORD":"1234",
         "HOST":"localhost",
-        "PORT":"5433",
+        "PORT":"5432",
     }
 }
 

@@ -8,7 +8,7 @@ app_name='nucleo'
 urlpatterns = [
 
     path("revision/", revision, name='revision'),
-
+    path("", Inicio.as_view(), name='inicio'),
     path("login/", InicioSesion.as_view(), name='login'),
     path("logout/", Cerrarsesion.as_view(), name='logout'),
     path("registro/", Registro.as_view(), name='registro'),
