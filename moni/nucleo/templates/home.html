@@ -1,15 +1,18 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/page1.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <title>Mi Landing Page</title>
+    <title>Home</title>
 </head>
 <body>
     <header>
+        <div class="logo">
+            <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo del Lago">
+        </div>
         <nav>
             <ul>
                 <li><a href="#">Inicio</a></li>
@@ -19,39 +22,39 @@
             </ul>
         </nav>
     </header>
-
-    <section class="hero">
-        <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
-        <h1>Bienvenido a nuestro Sistema de Monitoreo</h1>
-        <p>Descubre nuestras Vertientes.</p>
-        <a href="{% url 'nucleo:login' %}" class="cta-button">¡Empecemos!</a>
-    </section>
-
-    <section class="features">
-        <div class="feature">
-            <div class="feature-content">
-                <h2>Historial de registros</h2>
-                <p>El monitoreo en tiempo real de nuestras vertientes nos brinda una valiosa fuente de información sobre su comportamiento y tendencias a lo largo del tiempo.</p>
-            </div>
-        </div>
-        <div class="feature">
-            <div class="feature-content">
-                <h2>Monitor de vertientes</h2>
-                <img src="https://appassets.mvtdev.com/map/188/s/642/17449304.jpg">
-                <a href= "{% url 'nucleo:select' %}" class="cta-button">IR</a>
-            </div>
-        </div>
-        <div class="feature">
-            <div class="feature-content">
-                <h2>Contenido Exclusivo</h2>
-                <p>Si estás registrado como usuario correspondiente a una comunidad podrás revisar información adicional que te ayudará a desarrollar conclusiones del comportamiento de las vertientes en todas las variables que definen el estado de una vertiente para su consumo.</p>
-            </div>
-        </div>
-    </section>
     
-
+    <main>
+        <section class="welcome-section">
+            <div class="welcome-bg">
+                <h1>Bienvenido a nuestro Sistema de Monitoreo</h1>
+                <p>Descubre nuestras Vertientes.</p>
+                <a href="{% url 'nucleo:login' %}" class="start-button">¡Empecemos!</a>
+            </div>
+        </section>
+        
+        <section class="info-section">
+            <div class="info-box">
+                <h2>Contenido limitado</h2>
+                <p>"Puedes explorar nuestra plataforma y acceder a información limitada. Aquí encontrarás datos generales al actuales sobre el estado de las vertientes disponibles."</p>
+                <a href="{% url 'nucleo:login' %}" class="info-button">Ver más</a>
+            </div>
+            
+            <div class="info-box">
+                <h2>Monitor de vertientes</h2>
+                <img src="https://hydrocultura.com/cdn/shop/products/Capturadepantalla2020-07-23ala_s_19.19.07_1200x.png?v=1611864837" alt="Mapa de vertientes">
+                <a href="{% url 'nucleo:select' %}" class="info-button">IR</a>
+            </div>
+            
+            <div class="info-box">
+                <h2>Contenido Exclusivo</h2>
+                <p>"Si decides registrarte en nuestro sitio. Tendrás acceso a información detallada y actualizada, así podera analizar la calidad del agua en profundidad."</p>
+                <a href="{% url 'nucleo:login' %}" class="info-button">Ver más</a>
+            </div>
+        </section>
+    </main>
+    
     <footer>
-        <p>&copy; 2023 U.autonoma. Todos los derechos reservados.</p>
+        <p>© 2023 U. Autónoma. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>

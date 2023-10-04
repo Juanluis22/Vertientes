@@ -3,130 +3,229 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
-@media (max-width: 768px) {
-    .hero {
-        padding: 50px 0;
-    }
-    .hero h1 {
-        font-size: 24px;
-    }
-    .hero p {
-        font-size: 14px;
-    }
-    /* Agrega más estilos según sea necesario */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
-body {
+
+/* Header */
+header {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.logo img {
+    width: 100px; /* Ajusta el tamaño de la imagen */
+    height: auto;
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color celeste */
-}
-
-/* Estilos de la barra de navegación */
-header {
-    background-color: #333333;
-    color: white;
-    padding: 10px 0;
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    justify-content: center;
-    padding: 0;
+    gap: 20px;
+    justify-content: center !important; /* Centra horizontalmente los accesos */
+    margin: 0; /* Elimina el margen predeterminado de la lista */
+    padding: 0; /* Elimina el relleno predeterminado de la lista */
 }
 
-nav ul li {
-    margin-right: 20px;
-}
-
-nav ul li a {
+nav a {
     text-decoration: none;
-    color: white;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s;
+    justify-content: center !important; /* Centra horizontalmente los accesos */
 }
 
-/* Estilos del encabezado */
-.hero {
-    text-align: center;
-    padding: 100px 0;
-    background-image: url('https://www.explora.cl/biobio/wp-content/uploads/sites/14/2018/06/Vertientes-735x470.jpg');
+nav a:hover {
+    color: #ff5733;
+}
+
+/* Hacer el header responsive */
+@media screen and (max-width: 480px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+
+    nav ul {
+        align-items: center;
+        font-size: small;
+    }
+}
+
+/* Main */
+main {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.welcome-section {
+    background-image: url('vertiente.jpg');
     background-size: cover;
     background-position: center;
-    color: white;
+    text-align: center;
+    padding: 50px 0;
 }
 
-.logo {
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    width: 110px; /* Ajusta el tamaño de la imagen */
-    height: auto;
+.welcome-bg {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 15px;
 }
 
-.hero h1 {
-    color: #ffffff; /* Cambia este color a tu preferencia */
+h1 {
     font-size: 36px;
-    margin-bottom: 20px;
+    font-weight: bold;
 }
 
-.hero p {
-    color: #ffffff; /* Cambia este color a tu preferencia */
-    font-size: 25px;
-    margin-bottom: 40px;
+p {
+    font-size: 18px;
 }
 
-.cta-button {
+.start-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #333;
-    color: white;
+    background-color: #00a4e4; /* Cambia el color a celeste */
+    color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    font-size: 14px;
+    border: 2px solid #d0f2ff; /* Agrega un borde negro */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Agrega sombra */
 }
-/* Estilos de las características */
-.features {
+
+.start-button:hover {
+    background-color: #0077b3; /* Cambia el color al pasar el mouse */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Cambia la sombra al pasar el mouse */
+}
+
+.info-section {
     display: flex;
     justify-content: center;
-    padding: 80px 0;
-    background-color: #B0E2FF; /* Color celeste */
+    gap: 20px;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan si el espacio es insuficiente */
 }
 
-.feature {
-    background-color: white;
-    width: 300px; /* Ajusta el ancho de los cuadrados según tus preferencias */
-    padding: 20px;
-    margin: 0 10px; /* Espacio entre los cuadrados */
+.info-box {
+    background-color: #fff;
+    padding: 10px;
+    padding-left: 1rem;
+    padding-right: 1rem;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.feature-content {
     text-align: center;
+    flex: 0 0 calc(20% - 5px); /* Ocupa inicialmente el 25% del ancho del contenedor y se envuelve cuando no hay suficiente espacio */
+    margin-bottom: 20px; /* Añade margen inferior para separación vertical */
+    display: flex; /* Permite alinear elementos internos verticalmente */
+    flex-direction: column; /* Alinea elementos internos en una columna */
+    align-items: center; /* Centra elementos internos horizontalmente */
 }
 
-.feature img {
+.info-box p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.info-box img {
+    border-radius: 10%;
+    border-style: double;
+    width: 240;
+}
+
+@media screen and (max-width: 480px) {
+    .info-box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        flex: 1; /* Hace que los tres recuadros tengan el mismo tamaño */
+    }
+
+    .info-box p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0px;
+    }
+}
+
+.info-box:nth-child(2) img {
+    margin: 0 auto; /* Centra horizontalmente */
+    display: block; /* Quita cualquier margen o espacio adicional alrededor de la imagen */
+    max-height: 100%; /* Ajusta la altura máxima */
+    max-width: 100%; /* Ajusta el ancho máximo */
+}
+
+.info-box h2 {
+    font-size: 18px; /* Reduce el tamaño del título */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    font-size: 14px; /* Reduce el tamaño del texto */
+    flex-grow: 1; /* Hace que el texto ocupe el espacio disponible en la columna */
+}
+
+img {
     max-width: 100%;
-    max-height: 250px; /* Ajusta la altura máxima según tus preferencias */
-    margin-top: 20px;
+    max-height: 200px; /* Ajusta la altura máxima según tus preferencias */
 }
 
-.cta-button {
+.info-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #333;
-    color: white;
+    background-color: #00a4e4; /* Cambia el color a celeste */
+    color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    margin-top: 20px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    font-size: 14px;
+    border: 2px solid #d0f2ff; /* Agrega un borde negro */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Agrega sombra */
 }
 
+.info-button:hover {
+    background-color: #0077b3; /* Cambia el color al pasar el mouse */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Cambia la sombra al pasar el mouse */
+}
 
-/* Estilos del pie de página */
+/* Footer */
 footer {
-    text-align: center;
-    padding: 20px 0;
     background-color: #333;
-    color: white;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    font-size: small;
 }
