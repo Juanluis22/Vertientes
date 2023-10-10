@@ -2,302 +2,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/Vertientes.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
+    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!--extras-->
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-</head>
-<style>
-    /* Estilos para la lista de vertientes */
-    #example {
-        background-color: #f0f8ff; /* Azul claro - Día 1 */
-        border-collapse: collapse;
-        width: 100%;
-        border-radius: 10px;
-    }
 
-    #example th, #example td {
-        padding: 10px;
-        text-align: left;
-        border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
-        white-space: nowrap; /* Evitar el salto de línea en el contenido largo */
-        overflow: hidden; /* Ocultar el contenido que se desborda */
-        text-overflow: ellipsis; /* Mostrar puntos suspensivos (...) para el contenido que se desborda */
-        max-width: 150px; /* Ancho máximo para las celdas */
-    }
+    <!-- Estilos para la lista de habitantes -->
+    <style>
+        /* Alinea todo el contenido hacia la izquierda */
+        body, .vertical-bar, .navbar, .vertientes-container {
+            text-align: left;
+        }
+        /* Aplica un margen izquierdo de 3cm para mover el contenido a la derecha */
+        .vertientes-container {
+            margin-left: 1.8cm;
+        }
 
-    #example th {
-        background-color: #b0e0e6; /* Turquesa claro - Día 2 */
-        color: #333; /* Texto oscuro - Día 2 */
-    }
+        /* Estilo para el campo de búsqueda DataTables */
+        .dataTables_filter {
+            position: absolute;
+            top: 0;
+            right: 10px; /* Puedes ajustar este valor para controlar la posición horizontal del campo de búsqueda */
+        }
 
-    #example tr:nth-child(even) {
-        background-color: #e0f8ff; /* Azul claro alternativo - Día 3 */
-    }
-
-    #example tr:hover {
-        background-color: #87ceeb; /* Azul celeste al pasar el cursor - Día 4 */
-        color: white;
-    }
-
-    /* Estilos para los separadores de columnas */
-    #example th div.separador {
-        padding: 10px; /* Ajusta el espaciado de los separadores */
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Estilos para los separadores de columnas */
-    #example th div.separador {
-        padding: 10px; /* Ajusta el espaciado de los separadores */
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    /* Estilos para los botones */
-    .acceder,
-    .carga {
-        display: inline-block;
-        padding: 30px 35px; /* Aumentamos el tamaño del botón */
-        background-color: #87D91F; /* Fondo de los botones Acceder y Carga - Día 5 */
-        color: white; /* Texto de los botones Acceder y Carga - Día 5 */
-        text-decoration: none;
-        border-radius: 5px;
-        margin-top: 1px; /* Espacio superior */
-        margin-bottom: 50px; /* Espacio inferior */
-        margin-left: 0px; /* Espacio izquierdo */
-        margin-right: px; /* Espacio derecho */
-    }
-
-    .volver {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #cc4242; /* Fondo del botón Volver - Día 6 */
-        color: white; /* Texto del botón Volver - Día 6 */
-        text-decoration: none;
-        border-radius: 5px;
-        margin-top: 1px; /* Espacio superior */
-        margin-bottom: 20px; /* Espacio inferior */
-        margin-left: 0px; /* Espacio izquierdo */
-    }
-
-    .container {
-        text-align: center; /* Alineamos el contenido al centro */
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start; /* Alineamos a la izquierda */
-        margin-top: 20px; /* Espacio superior */
-        margin-right: auto; /* Centramos horizontalmente */
-        margin-left: auto; /* Centramos horizontalmente */
-    }
-
-    .container h1 {
-        font-size: 24px; /* Tamaño del título */
-        margin-bottom: 10px; /* Espacio inferior del título */
-    }
-
-    /* Estilos para el menú */
-    .navbar ul {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        justify-content: center; /* Centramos horizontalmente los elementos del menú */
-    }
-
-    .navbar li {
-        margin-right: 20px; /* Espacio entre elementos del menú */
-    }
-
-    .navbar a {
-        text-decoration: none;
-        color: white;
-    }
-
-    /* Estilos para el botón de edición */
-    /* Estilos para el botón de edición */
-.editar-button {
-    padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
-    background-color: #6bb9ff; /* Fondo del botón de edición - Día 7 */
-    color: white; /* Texto del botón de edición - Día 7 */
-    border: none; /* Quita el borde del botón si lo deseas */
-    border-radius: 5px; /* Borde redondeado del botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    margin-right: 5px; /* Agrega espacio a la derecha del botón Editar */
-    text-decoration: none;
-
-}
-
-.desactivar {
-    padding: 5px 5px; /* Ajusta el espaciado interno del botón según tus preferencias */
-    background-color: #8bc34a; /* Fondo del botón de edición - Día 7 */
-    color: white; /* Texto del botón de edición - Día 7 */
-    border: none; /* Quita el borde del botón si lo deseas */
-    border-radius: 5px; /* Borde redondeado del botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    text-decoration: none;
-    font-size: 14px;
-}
+        /* Mueve el texto "Buscar:" hacia la derecha */
+        .dataTables_filter label {
+            position: relative;
+            left: 427px; /* Puedes ajustar este valor para mover el texto "Buscar:" hacia la derecha */
+        }
+        /* Estilo para el campo de búsqueda DataTables */
+        .vertientes-container .dataTables_filter {
+            float: left;
+            margin-left: 220px; /* Ajusta este valor según tus necesidades */
+        }
     </style>
-
-
-        <body>
-
-            <div class="vertical-bar">
-                <div class="sidebar">
-                    <ul class="sidebar-nav">
-                        <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
-                        <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
-                        <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
-                        <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
-                    </ul>
-                </div>
-            </div>
-            <nav class="navbar">
-                <div class="navbar-left">
-                    <span class="hidro-tech">HidroTech</span>
-                </div>
-                <div class="navbar-center">
-                    <div class="admin-box">Vista Administrador</div>
-                </div>
-                <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-            </nav>
-
-<div class="vertientes-container">
-    <!-- Ajusta la posición vertical de "Administración de Vertientes" -->
-    <h1 style="margin-left: 0px; margin-right: auto; margin-bottom: 1px;">Administración de Habitantes</h1>
-    <a href="{% url 'crud:newuser' %}" class="acceder">
-        <i class="bi bi-plus-circle"></i> Crear Manualmente un Habitante
-    </a>
-    <!-- Ajusta la posición vertical de "Listado de Vertientes" -->
-    <h1 style="margin-left: 0px; margin-right: auto; margin-bottom: 1px;">Listado de Habitantes</h1>
-
-            
-
-    <div class="card-body">
-        
-        <table id="example" class="display" style="width:100%">
-
-        <thead>
-        <tr>
-
-        <th style="width: 10px">id</th>
-        <th>RUT</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th style="width: 300px">Correo</th>
-        <th>Edad</th>
-        <th>Genero</th>
-        <th>Comunidad</th>
-        <th>Tipo</th>
-        
-        <th>Opciones</th>
-        
-        </tr>
-        </thead>
-        
-        <tbody>
-            
-            {% for objeto in listaUsuarios %}   
-            {% if objeto.is_active %}
-            <tr>
-            
-                    <td>{{ objeto.id }}</td>
-                    <td>{{ objeto.username }}</td>
-                    <td>{{ objeto.first_name }}</td>
-                    <td>{{ objeto.last_name }}</td>
-                    <td>{{ objeto.email }}</td>
-                    <td>{{ objeto.edad }}</td>
-                    <td>{{ objeto.gender }}</td>
-                    <td>{{ objeto.comunidad }}</td>
-                    <td>{{ objeto.tipo }}</td>
-                    
-                    <td>
-                        <div class="col-lg-6">
-                                    <button onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</button>
-                                </div>
-                        {% if not objeto.is_staff %}
-                        <div class="col-lg-6">
-                            <a href="{% url 'crud:deactuser' objeto.id %}" class="desactivar">Desactivar</a>
-                
-                        </div>
-                        {% endif %}
-                </td>
-                       
-            </tr>
-            {% endif %}
-            {% endfor %}
-            
-            
-        </tbody>
-        
-        </table>
-        
-
-        
+</head>
+<body>
+    <!-- Menú de navegación -->
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
+                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+            </ul>
         </div>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
+        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+    </nav>
 
+    <!-- Tu código HTML reorganizado -->
+    <div class="vertientes-container">
+        <!-- Ajusta la posición vertical de "Administración de Habitantes" -->
+        <h1>Administración de Habitantes</h1>
+        <a href="{% url 'crud:newuser' %}" class="acceder"style="margin-left: 1px; "> 
+            <i class="bi bi-plus-circle"></i> Crear Manualmente un Habitante
+        </a>
         <div class="section">
             <div class="col-lg-6">
-            <a href="{% url 'nucleo:users_massive_upload' %}" class="carga" >
-                Carga masiva
-            </a>
+                <a href="{% url 'nucleo:users_massive_upload' %}" class="carga">Carga masiva</a>
+            </div>
+        <!-- Ajusta la posición vertical de "Listado de Habitantes" -->
+        <h1>Listado de Habitantes</h1>
+
+        <div class="card-body">
+            <table id="example" class="display">
+                <thead>
+                    <tr>
+                        <th><div class="separador">ID</div></th>
+                        <th><div class="separador">RUT</div></th>
+                        <th><div class="separador">Nombre</div></th>
+                        <th><div class="separador">Apellido</div></th>
+                        <th><div class="separador">Correo</div></th>
+                        <th><div class="separador">Edad</div></th>
+                        <th><div class="separador">Genero</div></th>
+                        <th><div class="separador">Comunidad</div></th>
+                        <th><div class="separador">Tipo</div></th>
+                        <th><div class="separador">Opciones</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for objeto in listaUsuarios %}
+                    {% if objeto.is_active %}
+                    <tr>
+                        <td><div class="separador">{{ objeto.id }}</div></td>
+                        <td><div class="separador">{{ objeto.username }}</div></td>
+                        <td><div class="separador">{{ objeto.first_name }}</div></td>
+                        <td><div class="separador">{{ objeto.last_name }}</div></td>
+                        <td><div class="separador">{{ objeto.email }}</div></td>
+                        <td><div class="separador">{{ objeto.edad }}</div></td>
+                        <td><div class="separador">{{ objeto.gender }}</div></td>
+                        <td><div class="separador">{{ objeto.comunidad }}</div></td>
+                        <td><div class="separador">{{ objeto.tipo }}</div></td>
+                        <td>
+                            <div class="col-lg-6">
+                                <button onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</button>
+                                {% if not objeto.is_staff %}
+                                <a href="{% url 'crud:deactuser' objeto.id  %}" class="desactivar">Desactivar</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
             <div class="col-lg-6">
                 <a href="{% url 'crud:index' %}" class="volver">Volver</a>
-    
             </div>
-            
         </div>
+    </div>
 
-
-        
-        <div class="col-lg-6">
-            <a href="{% url 'crud:listpet' %}" class="editar-button">Peticiones de registro</a>
-
-        </div>
-
-        <script>
-            new DataTable('#example',
-            {
-                language:{
-                    "sProcessing": "Procesando...",
-    "sLengthMenu": "Mostrar _MENU_ registros",
-    "sZeroRecords": "No se encontraron resultados",
-    "sEmptyTable": "Ningún dato disponible en esta tabla",
-    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-    "sInfoPostFix": "",
-    "sSearch": "Buscar:",
-    "sUrl": "",
-    "sInfoThousands": ",",
-    "sLoadingRecords": "Cargando...",
-    "oPaginate": {
-      "sFirst": "Primero",
-      "sLast": "Último",
-      "sNext": "Siguiente",
-      "sPrevious": "Anterior"
-    },
-    "oAria": {
-      "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    }
+    <script>
+        new DataTable('#example', {
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
-
-            });
-        </script>
-        </body>
+            }
+        });
+        var pagination = document.querySelector(".dataTables_paginate");
+        var previousButton = document.querySelector(".dataTables_paginate .previous");
+        var nextButton = document.querySelector(".dataTables_paginate .next");
+        
+        previousButton.style.position = "absolute";
+        previousButton.style.right = "1cm";
+        previousButton.style.top = "13px";  // Ajusta la posición vertical según tus necesidades
     
+        nextButton.style.position = "absolute";
+        nextButton.style.top = "10px"; // Ajusta la posición vertical según tus necesidades
+
+        pagination.style.position = "absolute";
+        pagination.style.left = "33cm";  // Ajusta la medida según tus necesidade
+</script>
+    </script>
+</body>
 </html>
