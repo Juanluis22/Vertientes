@@ -25,7 +25,7 @@
     <div class="vertientes-container">
             <div class="center-div">
               <div class="card-header">
-              <h3 class="card-title">Nuevo usuario</h3>
+              <h3 class="card-title">Nuevo Habitante</h3>
               </div>
               <form method="post">
               <div class="card-body">
@@ -42,8 +42,8 @@
               </div>
               <div class="card-footer">
               <button type="submit" class="btn btn-success">Crear</button>
-              <a href="#" class="button">
-              <!--  <button type="button" class="btn btn-danger">Volver</button>  -->
+              <a href="{% url 'crud:listauser' %}" class="button">
+              <button type="button" class="btn btn-danger">Volver</button>
               </a>
               </div>
               </form>

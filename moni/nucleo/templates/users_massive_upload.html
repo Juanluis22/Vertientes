@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{% static 'css/users_massive_upload.css' %}">
+    <link rel="stylesheet" href="{% static 'css/massive_upload.css' %}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!--extras-->
@@ -68,10 +68,10 @@ background-color: white;
 <main role="main">
     <div class="container col-12 mt-3">
         <div class="col-12  mt-3 border">
-            <h3>Carga Masiva de Usuarios</h3>
+            <h3>Carga Masiva de Habitante</h3>
             {%if profiles.group_id == 1 %}
             <div class="col-12">
-                <form action="{% url 'nucleo:users_massive_upload_save' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'nucleo:vertiente_massive_upload_save' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-12 col-sm-6 mb-3">
@@ -85,10 +85,10 @@ background-color: white;
             </div>
             <div class="col-12 mt-3 border">
                 <h4>Descargar archivo de importación</h4>
-                <a href="{% url 'nucleo:users_import_file' %}" class="acceder">Descargar</a>
+                <a href="{% url 'nucleo:vertiente_import_file' %}" class="acceder">Descargar</a>
             </div>
             <div class="col-lg-6 mt-3"> <!-- Mover el botón "Volver" aquí -->
-                <a href="{% url 'crud:listauser' %}" class="volver">Volver</a>
+                <a href="{% url 'crud:listvert' %}" class="volver">Volver</a>
             </div>
             {% endif %}
         </div>

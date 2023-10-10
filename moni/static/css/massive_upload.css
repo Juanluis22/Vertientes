@@ -3,7 +3,7 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-image: url('/static/img/imagen_(1).jpg'); /* Ruta de la imagen corregida */
+    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -48,7 +48,7 @@ h4 {
 
 a{
     text-decoration: none;
-    color: #ffffff;
+    color: #000000;
     font-weight: bold;
     font-size: 16px;
 }

@@ -1,0 +1,148 @@
+        /* Estilos generales comunes a todos los HTML */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ff5733;
+        }
+
+        .center-div {
+            /* Estilos para centrar contenido verticalmente */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #ffffff;
+            border-radius: 5px 5px 5px 5px;
+        }
+
+        .card-header {
+            color: #fff;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border-radius: 5px 5px 0 0;
+            background-color: #0077b3;
+            width: 100%;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-footer {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        #id_nombre,
+        #id_ubicación,
+        #id_desc,
+        #id_username,
+        #id_first_name,
+        #id_last_name,
+        #id_email {
+            width: 90%;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-success {
+            background-color: #00a4e4;
+            color: #fff;
+            border: 2px solid #d0f2ff;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-success:hover {
+            background-color: #0077b3;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .btn-danger {
+            background-color: #ff5733;
+            color: #fff;
+            border: 2px solid #ffbdaf;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-danger:hover {
+            background-color: #d63424;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .vertientes-container {
+            padding: 20px;
+            border-radius: 10px;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px; /* Ajusta el ancho máximo según tus preferencias */
+            margin: 0 auto; /* Centra horizontalmente */
+        }
