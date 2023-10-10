@@ -33,7 +33,7 @@
     </div>
     <div class="rectangulos-container">
         <div class="rectangulo-container">
-            <i class="fas fa-question-circle" onclick="toggleText('text1')"></i>
+            <i class="fas fa-question-circle incognito-icon" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
             <div class="rectangulo rectangulo-verde">
                 <div class="contenido-rectangulo">
                     <h1><font color="white">Comunidades</font></h1>
@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="rectangulo-container">
-            <i class="fas fa-question-circle" onclick="toggleText('text2')"></i>
+            <i class="fas fa-question-circle incognito-icon" onmouseover="showText('text2')" onmouseout="hideText('text2')"></i>
             <div class="rectangulo rectangulo-celeste">
                 <div class="contenido-rectangulo">
                     <h1><font color="white">Vertientes</font></h1>
@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="rectangulo-container">
-            <i class="fas fa-question-circle" onclick="toggleText('text3')"></i>
+            <i class="fas fa-question-circle incognito-icon" onmouseover="showText('text3')" onmouseout="hideText('text3')"></i>
             <div class="rectangulo rectangulo-rojo">
                 <div class="contenido-rectangulo">
                     <h1><font color="white">Habitantes</font></h1>
@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="rectangulo-container">
-            <i class="fas fa-question-circle" onclick="toggleText('text4')"></i>
+            <i class="fas fa-question-circle incognito-icon" onmouseover="showText('text4')" onmouseout="hideText('text4')"></i>
             <div class="rectangulo rectangulo-amarillo">
                 <div class="contenido-rectangulo">
                     <h1><font color="white">Solicitudes de registro</font></h1>
@@ -99,23 +99,17 @@
 
     </div>
     
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div id="modal-text"></div>
-        </div>
-    </div>
     <script>
-        function toggleText(textId) {
+        function showText(textId) {
             var textElement = document.getElementById(textId);
-            var modalText = document.getElementById("modal-text");
-            modalText.innerHTML = textElement.innerHTML;
-            document.getElementById('modal').style.display = 'block';
+            textElement.style.display = 'block';
         }
 
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+        function hideText(textId) {
+            var textElement = document.getElementById(textId);
+            textElement.style.display = 'none';
         }
     </script>
 </body>
 </html>
+

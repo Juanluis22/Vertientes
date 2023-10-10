@@ -133,7 +133,7 @@ body {
 
 .vertientes-header {
     text-align: center;
-    padding: 50px 0;
+    padding: 30px 0;
     background-color: #B0E2FF; /* Color celeste */
     color: rgb(0, 0, 0);
 }
@@ -210,6 +210,7 @@ body {
 
 
 
+
 /* .cuadrado-blanco {
     position: absolute;
     top: 300px;
@@ -253,9 +254,32 @@ body {
 .boton-mismo-icono i {
     font-size: 30px;
     color: rgb(12, 70, 231);
-}
+} 
+
 .hidden-text {
     display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 999;
+    margin-top: -30px; /* Ajusta esto según tu diseño */
+    margin-left: 10px; /* Ajusta esto según tu diseño */
+    box-shadow: 0 0 10px rgba(250, 2, 2, 0.89);
+    width: 400px; /* Ajusta el ancho a tu preferencia */
+    height: 110px; /* Ajusta la altura a tu preferencia */
+    border-radius: 25px;
+}
+.hidden-text2 {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 999;
+    margin-top: -30px; /* Ajusta esto según tu diseño */
+    margin-left: 10px; /* Ajusta esto según tu diseño */
+    box-shadow: 0 0 5px rgba(250, 2, 2, 0.89);
 }
 .modal {
     display: none;

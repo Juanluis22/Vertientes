@@ -115,7 +115,7 @@ body {
 
 .vertientes-header {
     text-align: center;
-    padding: 5px 0;
+    padding: 0px 0;
     background-color: #B0E2FF;
     color: rgb(0, 0, 0);
 }
@@ -198,6 +198,15 @@ body {
 
 .hidden-text {
     display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 999;
+    margin-top: -30px; /* Ajusta esto según tu diseño */
+    margin-left: 10px; /* Ajusta esto según tu diseño */
+    box-shadow: 0 0 5px rgba(250, 2, 2, 0.89);
+    border-radius: 25px;
 }
 
 .modal {
@@ -241,6 +250,6 @@ body {
     color: white;
     text-decoration: none;
     border-radius: 5px;
-    margin-top: 200px;
+    margin-top: -20px;
     margin-left: 70px;
     }
