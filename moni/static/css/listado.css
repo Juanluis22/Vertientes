@@ -152,25 +152,5 @@
     text-align: center;
     font-size: 14px;
 }
-.dataTables_paginate {
-    background-color: #3498db; /* Fondo azul */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    color: white; /* Texto en blanco */
-}
 
-/* Estilo para el input de búsqueda */
-.dataTables_filter input {
-    background-color: #3498db; /* Fondo azul */
-    color: white; /* Texto en blanco */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-}
 
-/* Estilo para el texto "Mostrando registros..." */
-.dataTables_info {
-    background-color: #3498db; /* Fondo azul */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    color: white; /* Texto en blanco */
-}
