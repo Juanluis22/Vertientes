@@ -43,16 +43,16 @@
     <!-- Tu código HTML reorganizado -->
     <div class="container">
         <!-- Ajusta la posición vertical de "Administración de Vertientes" -->
-        <h1 style="margin-left: 280px; margin-right: auto; margin-bottom: 1px;">Administración de Vertientes</h1>
-        <a href="{% url 'crud:newvert' %}" class="acceder" style="margin-left: 280px;">
+        <h1 style="margin-left: 340px; margin-right: auto; margin-bottom: 1px;">Administración de Vertientes</h1>
+        <a href="{% url 'crud:newvert' %}" class="acceder" style="margin-left: 340px;">
             <i class="bi bi-plus-circle"></i> Crear Manualmente La Vertiente
         </a>
         <br> <!-- Salto de línea -->
-        <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="carga" style="margin-left: 280px;">
+        <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="carga" style="margin-left: 340px;">
             <i class="bi bi-plus-circle"></i> Carga masiva
         </a>
         <!-- Ajusta la posición vertical de "Listado de Vertientes" -->
-        <h1 style="margin-left:280px; margin-right: auto; margin-bottom: 1px;">Listado de Vertientes</h1>
+        <h1 style="margin-left:340px; margin-right: auto; margin-bottom: 1px;">Listado de Vertientes</h1>
         <div class="vertientes-container">
             <div class="card-body">
                 <table id="example" class="display" style="width:100%">
@@ -92,7 +92,7 @@
             </div>
         </div>
         <!-- Ajusta la posición vertical de "Volver" -->
-        <a href="{% url 'crud:index' %}" class="volver"style="margin-left: 270px;">Volver</a>
+        <a href="{% url 'crud:index' %}" class="volver"style="margin-left: 340px;">Volver</a>
     </div>
     <script>
         var table = new DataTable('#example', {

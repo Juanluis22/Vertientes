@@ -55,9 +55,9 @@
     text-decoration: none;
     border-radius: 5px;
     margin-top: 1px; /* Espacio superior */
-    margin-bottom: 50px; /* Espacio inferior */
+    margin-bottom: 5px; /* Espacio inferior */
     margin-left: 20px; /* Espacio izquierdo */
-    margin-right: 20px; /* Espacio derecho */
+    margin-right: 5px; /* Espacio derecho */
 }
 .volver {
     display: inline-block;
@@ -137,7 +137,7 @@
     text-decoration: none;
     border-radius: 5px;
     margin-top: 1px; /* Espacio superior */
-    margin-bottom: 50px; /* Espacio inferior */
+    margin-bottom: 10px; /* Espacio inferior */
     margin-left: 0px; /* Espacio izquierdo */
     margin-right: px; /* Espacio derecho */
 }
@@ -151,4 +151,26 @@
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     text-align: center;
     font-size: 14px;
+}
+.dataTables_paginate {
+    background-color: #3498db; /* Fondo azul */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    color: white; /* Texto en blanco */
+}
+
+/* Estilo para el input de búsqueda */
+.dataTables_filter input {
+    background-color: #3498db; /* Fondo azul */
+    color: white; /* Texto en blanco */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* Estilo para el texto "Mostrando registros..." */
+.dataTables_info {
+    background-color: #3498db; /* Fondo azul */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    color: white; /* Texto en blanco */
 }
