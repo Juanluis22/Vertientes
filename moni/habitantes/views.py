@@ -7,6 +7,7 @@ from crud.forms import VertienteForm
 from nucleo.models import datos
 from django.shortcuts import render
 from django.http import JsonResponse
+from nucleo.models import vertiente, comunidad
 import json
 
 # Create your views here.
@@ -61,6 +62,22 @@ def revision(request, objecto_id):
 
     return render(request, 'dashboard/dashboard.html', data)
 
+#fusionar ambos def revision
+def revision(request, objecto_id):
+    obj_id = get_object_or_404(vertiente, pk=objecto_id)
+    id_foranea = obj_id.id
+    objetos2 = datos.objects.filter(vertiente_id=id_foranea).first()
+    vertiente_info = vertiente.objects.get(id=id_foranea)
+
+    comunidad_info = vertiente_info.comunidad
+    
+    data = {
+        'objetos': objetos2,
+        'vertiente': vertiente_info,
+        'comunidad': comunidad_info
+    }
+
+    return render(request, 'dashboard/dashboard.html', data)
 
 def detector(request):
     comu_id = request.user.comunidad_id
