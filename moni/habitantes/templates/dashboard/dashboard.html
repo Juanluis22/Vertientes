@@ -13,195 +13,212 @@
     <title>Comunidad</title>
 
 
-<style>
-/* Estilos para los botones cuadrados */
-.boton-cuadrado {
-    width: 150px; /* Ancho deseado de los botones */
-    height: 150px; /* Altura deseada de los botones */
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px; /* Espacio entre los botones */
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    color: black; /* Color del texto */
-}
-
-/* Estilos para los iconos dentro de los botones */
-.boton-cuadrado i {
-    font-size: 24px; /* Tamaño del icono */
-}
-/* Estilo para la fila que contiene los botones */
-.row-boton {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-/* Estilo para cada botón */
-.boton-cuadrado {
-    width: 150px;
-    height: 150px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    color: black;
-    text-align: center;
-}
-
-/* Estilo para los iconos dentro de los botones */
-.boton-cuadrado i {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-/* Estilo para los enlaces "Ver Gráfico" dentro de los botones */
-.boton-cuadrado a {
-    text-decoration: none;
-    color: #A6E3E9;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-/* Cambia el color del enlace al pasar el cursor sobre él */
-.boton-cuadrado a:hover {
-    color: #fd1d1d;
-}
-/* Estilos para los iconos de colores */
-        .icono-caudal {
-            color: blue; /* Cambiar el color a azul */
+    <style>
+        /* Estilos para los botones cuadrados */
+        .boton-cuadrado {
+            width: 150px; /* Ancho deseado de los botones */
+            height: 150px; /* Altura deseada de los botones */
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px; /* Espacio entre los botones */
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            color: black; /* Color del texto */
         }
-
-        .icono-ph {
-            color: green; /* Cambiar el color a verde */
+        
+        /* Estilos para los iconos dentro de los botones */
+        .boton-cuadrado i {
+            font-size: 24px; /* Tamaño del icono */
         }
-
-        .icono-temperatura {
-            color: red; /* Cambiar el color a rojo */
+        /* Estilo para la fila que contiene los botones */
+        .row-boton {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
-
-        .icono-conductividad {
-            color: orange; /* Cambiar el color a naranja */
+        
+        /* Estilo para cada botón */
+        .boton-cuadrado {
+            width: 150px;
+            height: 150px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            color: black;
+            text-align: center;
         }
-
-        .icono-turbiedad {
-            color: purple; /* Cambiar el color a morado */
+        
+        /* Estilo para los iconos dentro de los botones */
+        .boton-cuadrado i {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-
-        .icono-humedad {
-            color: teal; /* Cambiar el color a verde azulado */
+        
+        /* Estilo para los enlaces "Ver Gráfico" dentro de los botones */
+        .boton-cuadrado a {
+            text-decoration: none;
+            color: #A6E3E9;
+            font-weight: bold;
+            transition: color 0.3s;
         }
-        .cuadrado-blanco {
-            margin-top: 130px; /* Ajusta el valor según tu preferencia */
+        
+        /* Cambia el color del enlace al pasar el cursor sobre él */
+        .boton-cuadrado a:hover {
+            color: #fd1d1d;
+        }
+        /* Estilos para los iconos de colores */
+                .icono-caudal {
+                    color: blue; /* Cambiar el color a azul */
+                }
+        
+                .icono-ph {
+                    color: green; /* Cambiar el color a verde */
+                }
+        
+                .icono-temperatura {
+                    color: red; /* Cambiar el color a rojo */
+                }
+        
+                .icono-conductividad {
+                    color: orange; /* Cambiar el color a naranja */
+                }
+        
+                .icono-turbiedad {
+                    color: purple; /* Cambiar el color a morado */
+                }
+        
+                .icono-humedad {
+                    color: teal; /* Cambiar el color a verde azulado */
+                }
+                .cuadrado-blanco {
+                    margin-top: 130px; /* Ajusta el valor según tu preferencia */
+                    
+                }
+        </style>
+        
             
-        }
-</style>
-
-    
-</head>
-
-<body>
-    <div class="vertical-bar">
-        <div class="sidebar">
-            <ul class="sidebar-nav">
-                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
-                <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
-                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
-                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
-            </ul>
-        </div>
-    </div>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <span class="hidro-tech">HidroTech</span>
-        </div>
-        <div class="navbar-center">
-            <div class="admin-box">Vista Administrador</div>
-        </div>
-        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-    </nav>
-    
-    <div class="vertientes-container">
-
-
+        </head>
         
-        
-        <div class="vertientes-header">
-            <h1>Vertiente "{{ vertiente.nombre }}"</h1>
-        </div>
-
-        
-
-        <div class="row-boton">
-            <div class="boton-cuadrado btn-primary">
-                <i class="fas fa-tint icono-caudal"></i>
-                Caudal
-                <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+        <body>
+            <div class="vertical-bar">
+                <div class="sidebar">
+                    <ul class="sidebar-nav">
+                        <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                        <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
+                        <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                        <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="boton-cuadrado btn-success">
-                <i class="fas fa-flask icono-ph"></i>
-                pH
-                <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-danger">
-                <i class="fas fa-thermometer-half icono-temperatura"></i>
-                Temperatura
-                <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-warning">
-                <i class="fas fa-bolt icono-conductividad"></i>
-                Conductividad
-                <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-info">
-                <i class="fas fa-tint-slash icono-turbiedad"></i>
-                Turbiedad
-                <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-secondary">
-                <i class="fas fa-tint-slash icono-humedad"></i>
-                Humedad
-                <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-        </div>
-        
-
-
-
-
-
-
-
-
-
-
-        
-        
-        
-
-        <div class="cuadrado-blanco">
-            <h2>¿Qué es esto?</h2>
-            <p>Aqui puedes ver en detalle todas las mediciones a la vertiente que has escogido. Para más detalles, pulsa el botón:</p>
-            <button class="boton-mismo-icono"><i class="fas fa-arrow-alt-circle-right"></i></button>
-        </div>
-        
-
+            <nav class="navbar">
+                <div class="navbar-left">
+                    <span class="hidro-tech">HidroTech</span>
+                </div>
+                <div class="navbar-center">
+                    <div class="admin-box">Vista Administrador</div>
+                </div>
+                <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+            </nav>
             
-
-
-
-
-            <!-- Puedes agregar más rectángulos aquí -->
-        </div>
-    </div>
-</body>
-</html>
+            <div class="vertientes-container">
+        
+        
+                
+                
+                <div class="vertientes-header">
+                    <h1>Vertiente "{{ vertiente.nombre }}"</h1>
+                    <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
+                </div>
+                <div id="text1" class="hidden-text">
+                    <h4>Aqui puedes ver en detalle todas las mediciones a la vertiente que has escogido</h4>
+                </div>
+                
+        
+                
+        
+                <div class="row-boton">
+                    <div class="boton-cuadrado btn-primary">
+                        <i class="fas fa-tint icono-caudal"></i>
+                        Caudal
+                        <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+                    </div>
+                    <div class="boton-cuadrado btn-success">
+                        <i class="fas fa-flask icono-ph"></i>
+                        pH
+                        <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+                    </div>
+                    <div class="boton-cuadrado btn-danger">
+                        <i class="fas fa-thermometer-half icono-temperatura"></i>
+                        Temperatura
+                        <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+                    </div>
+                    <div class="boton-cuadrado btn-warning">
+                        <i class="fas fa-bolt icono-conductividad"></i>
+                        Conductividad
+                        <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+                    </div>
+                    <div class="boton-cuadrado btn-info">
+                        <i class="fas fa-tint-slash icono-turbiedad"></i>
+                        Turbiedad
+                        <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+                    </div>
+                    <div class="boton-cuadrado btn-secondary">
+                        <i class="fas fa-tint-slash icono-humedad"></i>
+                        Humedad
+                        <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
+                    </div>
+                </div>
+                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+                
+                
+                
+        
+                <!-- <div class="cuadrado-blanco">
+                    <h2>¿Qué es esto?</h2>
+                    <p>Aqui puedes ver en detalle todas las mediciones a la vertiente que has escogido. Para más detalles, pulsa el botón:</p>
+                    <button class="boton-mismo-icono"><i class="fas fa-arrow-alt-circle-right"></i></button>
+                </div> -->
+        
+                <script>
+                    function showText(textId) {
+                        var textElement = document.getElementById(textId);
+                        textElement.style.display = 'block';
+                    }
+            
+                    function hideText(textId) {
+                        var textElement = document.getElementById(textId);
+                        textElement.style.display = 'none';
+                    }
+                </script>
+                
+        
+                    
+        
+        
+        
+        
+                    <!-- Puedes agregar más rectángulos aquí -->
+                </div>
+            </div>
+        </body>
+        </html>
 
 
