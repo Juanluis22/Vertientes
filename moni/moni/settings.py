@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"databa4/10",
+        "NAME":"databa14/10",
         "USER":"postgres",
         "PASSWORD":"1234",
         "HOST":"localhost",
@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL='user.User'
 
-
+LOGIN_URL='nucleo:login'
 LOGIN_REDIRECT_URL = 'nucleo:revision'
 
 LOGOUT_REDIRECT_URL = 'nucleo:login'

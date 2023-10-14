@@ -22,14 +22,14 @@ class Vertiente(ListView):
 
 
 
-
+@method_decorator(login_required,name='dispatch')
 class VerVertientes(DetailView):
     model = comunidad
     template_name = 'vertientes/vertientes.html'
     context_object_name = 'vert'
     #success_url=reverse_lazy('crud:listauser')
 
-
+@login_required
 def filtro(request, object_id):
 
     obj_id=get_object_or_404(comunidad,pk=object_id)
@@ -43,7 +43,7 @@ def filtro(request, object_id):
     return render(request, 'vertientes/vertientes.html', {'objetos': objetos})
 
 
-
+@login_required
 def revision(request, objecto_id):
 
     obj_id=get_object_or_404(vertiente,pk=objecto_id)
@@ -63,6 +63,7 @@ def revision(request, objecto_id):
     return render(request, 'dashboard/dashboard.html', data)
 
 #fusionar ambos def revision
+@login_required
 def revision(request, objecto_id):
     obj_id = get_object_or_404(vertiente, pk=objecto_id)
     id_foranea = obj_id.id
@@ -78,7 +79,7 @@ def revision(request, objecto_id):
     }
 
     return render(request, 'dashboard/dashboard.html', data)
-
+@login_required
 def detector(request):
     comu_id = request.user.comunidad_id
     #print(user_id)
@@ -90,7 +91,7 @@ def detector(request):
 
 
     return render(request, 'dashboard/vert.html',{'objetos': objetos})
-
+@login_required
 def grafico_ph(request, vertiente_id):
     datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
 
@@ -103,7 +104,7 @@ def grafico_ph(request, vertiente_id):
     }
     data_json = json.dumps(data)
     return render(request, 'dashboard/grafico_ph.html', {'data_json': data_json})
-
+@login_required
 def grafico_caudal(request, vertiente_id):
     datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
 
@@ -116,7 +117,7 @@ def grafico_caudal(request, vertiente_id):
     }
     data_json = json.dumps(data)
     return render(request, 'dashboard/grafico_caudal.html', {'data_json': data_json})
-
+@login_required
 def grafico_conductividad(request, vertiente_id):
     datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
 
@@ -129,6 +130,7 @@ def grafico_conductividad(request, vertiente_id):
     }
     data_json = json.dumps(data)
     return render(request, 'dashboard/grafico_conductividad.html', {'data_json': data_json})
+@login_required
 def grafico_humedad(request, vertiente_id):
     datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
 
@@ -141,6 +143,7 @@ def grafico_humedad(request, vertiente_id):
     }
     data_json = json.dumps(data)
     return render(request, 'dashboard/grafico_humedad.html', {'data_json': data_json})
+@login_required
 def grafico_temperatura(request, vertiente_id):
     datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
 
@@ -153,6 +156,7 @@ def grafico_temperatura(request, vertiente_id):
     }
     data_json = json.dumps(data)
     return render(request, 'dashboard/grafico_temperatura.html', {'data_json': data_json})
+@login_required
 def grafico_turbiedad(request, vertiente_id):
     datoss = datos.objects.filter(vertiente_id=vertiente_id)
 

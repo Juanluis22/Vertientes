@@ -21,7 +21,8 @@ from nucleo.models import comunidad, vertiente, datos
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from nucleo.forms import TestForm, ResetPasswordForm, ChangePasswordForm
-
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -224,6 +225,7 @@ class Cerrarsesion(RedirectView):
     
 
 #Funcion que detecta si quien inicia sesión es admin o no
+@login_required
 def revision(request):
     profile = Profile.objects.get(user_id=request.user.id)
     if request.user.is_authenticated:
@@ -236,14 +238,14 @@ def revision(request):
     else:
         return redirect('nucleo:login')  # Redirige al formulario de inicio de sesión
     
-
+@login_required
 def users_massive_upload(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
         return redirect('nucleo:login')
     template_name = 'users_massive_upload.html'
     return render(request,template_name,{'profiles':profiles})
-
+@login_required
 def users_massive_upload_save(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
@@ -276,7 +278,7 @@ def users_massive_upload_save(request):
             profile.save()
        
         return redirect('nucleo:users_massive_upload')
-    
+@login_required
 def users_import_file(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
@@ -311,13 +313,14 @@ def users_import_file(request):
 
     wb.save(response)
     return response
+@login_required
 def comunity_massive_upload(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
         return redirect('nucleo:login')
     template_name = 'comunity_massive_upload.html'
     return render(request,template_name,{'profiles':profiles})
-
+@login_required
 def comunity_massive_upload_save(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
@@ -341,7 +344,7 @@ def comunity_massive_upload_save(request):
                 )
             comunity_save.save()
         return redirect('nucleo:comunity_massive_upload')
-    
+@login_required    
 def comunity_import_file(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
@@ -371,14 +374,14 @@ def comunity_import_file(request):
                 ws.write(row_num, col_num, 'ej:Torres', font_style)
     wb.save(response)
     return response  
-
+@login_required
 def vertiente_massive_upload(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
         return redirect('nucleo:login')
     template_name = 'vertiente_massive_upload.html'
     return render(request,template_name,{'profiles':profiles})
-
+@login_required
 def vertiente_massive_upload_save(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
@@ -411,7 +414,7 @@ def vertiente_massive_upload_save(request):
 
        
         return redirect('nucleo:vertiente_massive_upload')
-    
+@login_required   
 def vertiente_import_file(request):
     profiles = Profile.objects.get(user_id=request.user.id)
     if profiles.group_id != 1:
@@ -522,7 +525,7 @@ class Select_anidado(TemplateView):
         context['form']=TestForm()
         return context
 
-
+@login_required
 def mapa(request):
     #list transforma el queryset en una lista
     vertientes=list(vertiente.objects.values('id','nombre','pH','conductividad','turbiedad','temperatura','humedad','caudal','latitud','longitud')[:100])

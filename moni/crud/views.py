@@ -17,7 +17,7 @@ from django.template.loader import render_to_string
 # Create your views here.
 
 #Selector admin
-#@method_decorator(login_required,name='dispatch')
+@method_decorator(login_required,name='dispatch')
 class Select(TemplateView):
     
     template_name = 'select/select.html'  
@@ -26,7 +26,7 @@ class Select(TemplateView):
 
 #Indice principal
 
-#@method_decorator(login_required,name='dispatch')
+@method_decorator(login_required,name='dispatch')
 class Indice(TemplateView):
     
     template_name = 'index/index.html'  
@@ -40,7 +40,7 @@ class Indice(TemplateView):
 #USER
 
 #Indice para User
-#@method_decorator(login_required,name='dispatch')
+@method_decorator(login_required,name='dispatch')
 class IndiceUser(TemplateView):
     
     template_name = 'usuario/index/index.html'  
@@ -55,6 +55,7 @@ class Prueba(TemplateView):
 
 
 #Vista para crear un nuevo User
+@method_decorator(login_required,name='dispatch')
 class NuevoUser(CreateView):
     model = User
     form_class = UserForm
@@ -64,14 +65,14 @@ class NuevoUser(CreateView):
         return reverse('crud:listauser')
 
 
-#@method_decorator(login_required,name='dispatch')
+@method_decorator(login_required,name='dispatch')
 class ListaUsuarios(ListView):
     model = User  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'usuario/lista/listUser.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaUsuarios' 
 
 
-
+@method_decorator(login_required,name='dispatch')
 class ActualizarUsuario(UpdateView):
     model = User
     form_class = UpdateForm
@@ -95,7 +96,7 @@ class ActualizarUsuario(UpdateView):
 
 #PETICIONES PARA USUARIOS
 
-
+@method_decorator(login_required,name='dispatch')
 class ListaPeticion(ListView):
     model = User  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'usuario/lista/listPeticiones.html'  # Nombre de la plantilla a utilizar
@@ -168,6 +169,7 @@ class ActualizarPeticiones(UpdateView):
 #COMUNIDAD
 
 #Indice para Comunidad
+@method_decorator(login_required,name='dispatch')
 class IndiceCom(TemplateView):
    
     template_name = 'comunidad/index/index.html'  
@@ -177,6 +179,7 @@ class IndiceCom(TemplateView):
 
 
 #Vista para crear una nueva Comunidad
+@method_decorator(login_required,name='dispatch')
 class NuevaComunidad(CreateView):
     model = comunidad
     form_class = ComunidadForm
@@ -186,11 +189,13 @@ class NuevaComunidad(CreateView):
         return reverse('crud:listcom')
 
 #Vista para poder ver una lista de las comunidades
+@method_decorator(login_required,name='dispatch')
 class ListaComunidad(ListView):
     model = comunidad  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'comunidad/lista/listComunidad.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaComunidad' 
-    
+
+@method_decorator(login_required,name='dispatch')    
 class ActualizarComunidad(UpdateView):
     model = comunidad
     form_class = ComunidadForm
@@ -199,7 +204,8 @@ class ActualizarComunidad(UpdateView):
 
     def get_success_url(self):
         return reverse('crud:listcom')
-
+    
+@method_decorator(login_required,name='dispatch')
 class EliminarComunidad(DeleteView):
     model=comunidad
     template_name='comunidad/delete/deleteComu.html'
@@ -214,6 +220,7 @@ class EliminarComunidad(DeleteView):
 
 
 #Indice para Vertiente
+@method_decorator(login_required,name='dispatch')
 class IndiceVert(TemplateView):
     
     template_name = 'vertiente/index/index.html'  
@@ -221,6 +228,7 @@ class IndiceVert(TemplateView):
 
 
 #Vista para crear una nueva Vertiente
+@method_decorator(login_required,name='dispatch')
 class NuevaVertiente(CreateView):
     model = vertiente
     form_class = VertienteForm
@@ -230,12 +238,13 @@ class NuevaVertiente(CreateView):
         return reverse('crud:listvert') 
 
 #Vista para poder ver una lista de las vertientes
+@method_decorator(login_required,name='dispatch')
 class ListaVertiente(ListView):
     model = vertiente  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'vertiente/list/listVertiente.html' # Nombre de la plantilla a utilizar
     context_object_name = 'listaVertiente' 
 
-
+@method_decorator(login_required,name='dispatch')
 class ActualizarVertiente(UpdateView):
     model = vertiente
     form_class = VertienteForm
@@ -245,6 +254,7 @@ class ActualizarVertiente(UpdateView):
     def get_success_url(self):
         return reverse('crud:listvert')
     
+@method_decorator(login_required,name='dispatch')    
 class EliminarVertiente(DeleteView):
     model=vertiente
     template_name='vertiente/delete/deleteVert.html'
