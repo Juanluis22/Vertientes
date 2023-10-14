@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from nucleo.models import *
 from user.models import User,Profile
 from django import forms
+from django.core import validators
+from django.core.exceptions import ValidationError
 
 class ComunidadForm(ModelForm):
     class Meta:
@@ -17,7 +19,23 @@ class VertienteForm(ModelForm):
 
 
 
+def validate_rut(value):
+        value = value.replace('.', '')  # Elimina puntos
+        value = value.replace('-', '')  # Elimina guiones
+        
+        if len(value)>9:
+            raise ValidationError('RUT invalido, ingrese un RUT de 9 digitos maximo')
+
+        if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
+            raise ValidationError('Rut inválido')
+
+
+
+
 class UserForm(ModelForm):
+    email = forms.CharField(validators=[validators.EmailValidator(message="El correo electrónico debe ser válido.")])
+
+
     class Meta:
         model= User
         fields=['username','first_name','last_name','email',
@@ -39,6 +57,10 @@ class UserForm(ModelForm):
             'edad': '',
             'password': '°Le recomendamos escribir una contraseña sencilla, como pueden ser, los ultimos 4 digitos de su RUT.',
         }
+        
+
+
+
         widgets={
             'username':TextInput( 
                 attrs={
@@ -46,7 +68,9 @@ class UserForm(ModelForm):
                     'placeholder':'Escriba su rut con el formato: (203627904)'
 
                 }
-            ),
+            ), 
+            
+
             'first_name':TextInput( 
                 attrs={
                     'class':'form-control',
@@ -83,6 +107,23 @@ class UserForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         self.fields['comunidad'].required = True
+        self.fields['username'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['edad'].required = True
+        self.fields['email'].required = True
+        self.fields['gender'].required = True
+        self.fields['password'].required = True
+    
+
+    
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        validate_rut(username)  # Llama a la función de validación personalizada
+        return username
+
+
 
     def save(self, commit=True):
         data = {}
@@ -112,7 +153,7 @@ class UpdateForm(ModelForm):
         (1, 'Usuario'),
         (2, 'Autoridad'),
     )
-
+    email = forms.CharField(validators=[validators.EmailValidator(message="El correo electrónico debe ser válido.")])
     tipo = forms.ChoiceField(choices=ROLES, label='Rol')
     class Meta:
         model= User
@@ -165,5 +206,23 @@ class UpdateForm(ModelForm):
             ),
             
         }
+
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateForm, self).__init__(*args, **kwargs)
+        self.fields['comunidad'].required = True
+        self.fields['username'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['edad'].required = True
+        self.fields['email'].required = True
+        
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        validate_rut(username)  # Llama a la función de validación personalizada
+        return username
+    
+    
 
     

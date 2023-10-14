@@ -25,6 +25,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from django.core.exceptions import ValidationError
 
 from django.template.loader import render_to_string
 # Create your views here.
@@ -200,12 +201,26 @@ class Registro(CreateView):
     
     def post(self, request, *args, **kwargs):
         data={}
-        form=request.POST['email']
-        print(form)
+        
+        value=request.POST['username']
+        value = value.replace('.', '')  # Elimina puntos
+        value = value.replace('-', '')
+        if len(value)>9:
+            print('RUT invalido, ingrese un RUT de 9 digitos maximo')
+        else:
+            if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
+                print('RUT INVALIDO')
+            else:
+                form=request.POST['email']
+                print(form)
+                data=self.send_email(form)
+
+        
+
         #form=ResetPasswordForm(request.POST)
         #print( 'ES:'+  form)
         #print(fa)
-        data=self.send_email(form)
+        
 
         return super().post(request, *args, **kwargs)
 
