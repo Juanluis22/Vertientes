@@ -205,21 +205,19 @@ class Registro(CreateView):
         value=request.POST['username']
         value = value.replace('.', '')  # Elimina puntos
         value = value.replace('-', '')
-        if len(value)>9:
-            print('RUT invalido, ingrese un RUT de 9 digitos maximo')
-        else:
-            if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
-                print('RUT INVALIDO')
+        if not User.objects.filter(username=value).exists():
+            if len(value)>9:
+                print('RUT invalido, ingrese un RUT de 9 digitos maximo')
             else:
-                form=request.POST['email']
-                print(form)
-                data=self.send_email(form)
+                if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
+                    print('RUT INVALIDO')
+                else:
+                    form=request.POST['email']
+                    print(form)
+                    data=self.send_email(form)
 
-        
 
-        #form=ResetPasswordForm(request.POST)
-        #print( 'ES:'+  form)
-        #print(fa)
+
         
 
         return super().post(request, *args, **kwargs)

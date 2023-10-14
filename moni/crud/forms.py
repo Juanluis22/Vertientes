@@ -121,6 +121,8 @@ class UserForm(ModelForm):
     def clean_username(self):
         username = self.cleaned_data['username']
         validate_rut(username)  # Llama a la función de validación personalizada
+        username = username.replace('.', '')  # Elimina puntos
+        username = username.replace('-', '')  # Elimina guiones
         return username
 
 
