@@ -1,0 +1,147 @@
+/* Estilos generales y otros estilos */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #3393B7;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 40px;
+    z-index: 2; /* Asegura que esté por encima de otros elementos */
+}
+
+.navbar-center {
+    flex: 1; /* Toma el espacio restante */
+    text-align: center;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    
+}
+
+.nav-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+.nav-item .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+.icon-on-top {
+    font-size: 24px; /* Tamaño del icono */
+    margin-bottom: 0px; /* Espacio entre el icono y el texto */
+}
+
+.nav-item a:hover {
+    color: #195996; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+/* Barra blanca vertical en la parte izquierda */
+/* Estilo de la barra lateral izquierda */
+.vertical-bar {
+    background-color: #3393B7;
+    width: 83px; /* Ancho de la barra blanca vertical */
+    height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Estilo de "HidroTech" en el Navbar */
+.hidro-tech {
+    color: #ffffff; /* Texto azul para HidroTech */
+    font-weight: bold;
+    font-size: 20px; /* Tamaño de fuente opcional */
+    margin-left: 70px; /* Espacio a la izquierda de HidroTech */
+    margin-right: 0; /* Espacio a la derecha de HidroTech */
+}
+
+/* Estilo del rectángulo azul para "Vista Administrador" */
+.admin-box {
+    background-color: #16536A; /* Fondo azul */
+    color: white; /* Texto blanco */
+    padding: 21px 10px;
+    border-radius: 0px 0px 10px 10px; /* Aplicar border-radius solo en la parte inferior */
+    display: inline-block; /* Hace que el rectángulo se ajuste al contenido */
+    height: 100%;
+}
+
+
+/* Estilo de los enlaces de la barra lateral */
+.sidebar-nav {
+    list-style: none;
+    padding: 1px;
+    margin-top: 80px;
+    display: flex; /* Agrega display: flex; para centrar horizontalmente */
+    flex-direction: column; /* Alinea los elementos verticalmente */
+    text-align: center; /* Centra el texto horizontalmente */
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    transition: color 0.3s;
+    margin-left: px;
+}
+
+
+/* Estilo de los iconos en la barra lateral */
+.sidebar-nav i {
+    font-size: 2.0rem; /* Tamaño del icono */
+    margin-right: 0px; /* Espacio a la derecha del icono */
+    color: #ffffff; /* Cambia el color de los iconos  */
+    fill:#0E7FE7;
+}
+/* Estilo del Navbar */
+.navbar {
+    background-color: #3393B7;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Estilo del botón "Cerrar Sesión" */
+.cerrar-sesion {
+    background-color: #3393B7; /* Botón azul */
+    color: white;
+    font-weight: bold;
+    border: 2px solid #3393B7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cerrar-sesion:hover {
+    background-color: white;
+    color: #0E7FE7;
+}
+
+/* Estilos para toda la página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color celeste */
+}
