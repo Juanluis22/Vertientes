@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,12 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <!--extra-->
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+        
+        
        
     </head>
 
@@ -31,7 +38,7 @@
               <h3 class="card-title">Nueva vertiente</h3>
               </div>
               
-              <form method="post">
+              <form  method="post">
                 {{ form.errors }}
                 <div class="card-body">
                   {% csrf_token %}
@@ -42,18 +49,118 @@
                   </div>
                   {% endfor %}
                 </div>
+                <div class="contenido-rectangulo">
+                  <div id="map" style="height: 600px; width: 600px;"></div>
+  
+                {{ vertientes|json_script:"vertientes_json" }}
+
+                <input type="hidden" name="action" value="listo">
+  
+  
+  
+                </div>
+
+
+
+
                 <div class="card-footer">
                   <button type="submit" class="btn btn-success">Crear</button>
                   <a href="{% url 'crud:listvert' %}" class="button">
                     <button type="button" class="btn btn-danger">Volver</button>  
                   </a>
                   </div>
+                  
                 </form>
+
+
+                
+
               </div>
   </div>
+
+
+
+  <script>
+            
+            var lati = -36.084726;
+            var longi = -71.217422;
+            var map=L.map('map').setView([lati, longi],11);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent)
+            var currentMarker = null;
+            map.on('click', function(event) {
+
+              if (currentMarker) {
+              map.removeLayer(currentMarker);
+              }
+
+
+
+              currentMarker=L.marker([event.latlng.lat,event.latlng.lng]).addTo(map);
+              console.log(event.latlng);
+              var latlng = event.latlng;
+              var latitudField = document.getElementById('id_latitud');
+              var longitudField = document.getElementById('id_longitud');
+
+              if (latitudField && longitudField) {
+              // Actualiza los campos
+              latitudField.value = latlng.lat;
+              longitudField.value = latlng.lng;
+                }
+              else{
+                console.log('xdd');
+              }
+            });
+
+            $(function(){
+              $('select[name="comunidad"]').on('change', function(){  
+                var id=$(this).val();
+                console.log(id)
+                
+                
+                    
+                $.ajax({
+                        url:window.location.pathname,
+                        type:'POST',
+                        
+                        data:{
+                            'action':'seaid',
+                            'id':id
+                        },
+                        dataType:'json',
+    
+                }).done(function(data){
+                  console.log('weno');
+                  lati=data[0]
+                  longi=data[1]
+                  map.setView([lati,longi]);
+
+                        
+                }).fail(function(data){
+                  error=data['error']
+                  console.log(error);
+                        // Manejo de errores
+                }).always(function(data){
+                  
+                  console.log('siempre');
+                        // Código a ejecutar siempre
+                });
+
+
+
+
+
+              })
+                
+            });
+
+  </script>
     </body>
 </html>
-
 
 
 

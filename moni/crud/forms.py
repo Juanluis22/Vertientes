@@ -14,7 +14,7 @@ class ComunidadForm(ModelForm):
 class VertienteForm(ModelForm):
     class Meta:
         model= vertiente
-        fields=['nombre','desc','ubicación','comunidad']
+        fields=['nombre','desc','ubicación','comunidad','latitud','longitud']
         
 
 

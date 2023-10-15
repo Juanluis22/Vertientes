@@ -13,7 +13,9 @@ import moni.settings as setting
 from django.utils.decorators import method_decorator
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 #Selector admin
@@ -228,7 +230,7 @@ class IndiceVert(TemplateView):
 
 
 #Vista para crear una nueva Vertiente
-@method_decorator(login_required,name='dispatch')
+@method_decorator([csrf_exempt, login_required],name='dispatch')
 class NuevaVertiente(CreateView):
     model = vertiente
     form_class = VertienteForm
@@ -236,6 +238,21 @@ class NuevaVertiente(CreateView):
 
     def get_success_url(self):
         return reverse('crud:listvert') 
+    
+    def post(self, request, *args, **kwargs):
+        data={}
+        
+        action=request.POST['action']
+        print(action)
+        if action=='seaid':
+            comu=comunidad.objects.filter(id=request.POST['id'])
+            for i in comu:
+                data[0]=i.latitud
+                data[1]=i.longitud
+                
+        elif action=='listo':
+            return super().post(request, *args, **kwargs)
+        return JsonResponse(data, safe=False)
 
 #Vista para poder ver una lista de las vertientes
 @method_decorator(login_required,name='dispatch')

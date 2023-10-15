@@ -4,8 +4,10 @@ from datetime import datetime
 # Create your models here.
 class comunidad(models.Model):
     nombre=models.CharField(max_length=150,verbose_name='Nombre')
-    vertientes=models.PositiveIntegerField(default=0)
-    ubicación=models.CharField(max_length=200,verbose_name='Ubicación')
+    vertientes=models.PositiveIntegerField(default=0,null=True, blank=True)
+    ubicación=models.CharField(max_length=200,verbose_name='Ubicación',null=True, blank=True)
+    latitud=models.FloatField(null=True, blank=True)
+    longitud=models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.nombre
@@ -21,8 +23,8 @@ class comunidad(models.Model):
 
 class vertiente(models.Model):
     nombre=models.CharField(max_length=150,verbose_name='Nombre')
-    desc=models.CharField(max_length=250,verbose_name='Descripcion')
-    ubicación=models.CharField(max_length=200,verbose_name='Ubicación')
+    desc=models.CharField(max_length=250,verbose_name='Descripcion',null=True, blank=True)
+    ubicación=models.CharField(max_length=200,verbose_name='Ubicación',null=True, blank=True)
     comunidad=models.ForeignKey(comunidad, on_delete=models.SET_NULL, null=True)
     latitud=models.FloatField(null=True, blank=True)
     longitud=models.FloatField(null=True, blank=True)
