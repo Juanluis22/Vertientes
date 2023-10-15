@@ -28,11 +28,14 @@
 }
 
 .nav-item a {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    text-decoration: none;
-    color: white;
+    place-items: center;
+    margin: auto;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 10px;
+    transition: background-color 0.3s; /* Transición para el fondo */
 }
 .nav-item .nav-link {
     display: flex;
@@ -47,13 +50,13 @@
 }
 
 .nav-item a:hover {
-    color: #195996; /* Cambia el color al pasar el cursor sobre el enlace */
+    color: #ffffff; /* Cambia el color al pasar el cursor sobre el enlace */
 }
 /* Barra blanca vertical en la parte izquierda */
 /* Estilo de la barra lateral izquierda */
 .vertical-bar {
     background-color: #3393B7;
-    width: 83px; /* Ancho de la barra blanca vertical */
+    width: 110px; /* Ancho de la barra blanca vertical */
     height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
     position: fixed;
     top: 0;
@@ -66,7 +69,7 @@
     color: #ffffff; /* Texto azul para HidroTech */
     font-weight: bold;
     font-size: 20px; /* Tamaño de fuente opcional */
-    margin-left: 70px; /* Espacio a la izquierda de HidroTech */
+    margin-left: 11px; /* Espacio a la izquierda de HidroTech */
     margin-right: 0; /* Espacio a la derecha de HidroTech */
 }
 
@@ -107,7 +110,7 @@
 
 /* Estilo de los iconos en la barra lateral */
 .sidebar-nav i {
-    font-size: 2.0rem; /* Tamaño del icono */
+    font-size: 1.8rem; /* Tamaño del icono */
     margin-right: 0px; /* Espacio a la derecha del icono */
     color: #ffffff; /* Cambia el color de los iconos  */
     fill:#0E7FE7;
@@ -124,6 +127,7 @@
 
 /* Estilo del botón "Cerrar Sesión" */
 .cerrar-sesion {
+    text-decoration: none;
     background-color: #3393B7; /* Botón azul */
     color: white;
     font-weight: bold;
@@ -133,9 +137,13 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
+.nav-item a:hover{
+    background-color: #16536A;
+    transition: 0.3s;
+}
 .cerrar-sesion:hover {
-    background-color: white;
-    color: #0E7FE7;
+    background-color: #16536A;
+    color: #ffffff;
 }
 
 /* Estilos para toda la página */
@@ -144,4 +152,34 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #B0E2FF; /* Color celeste */
+}
+
+/* Media query para el sidebar en pantalla estrecha (menos de 520px) */
+@media (max-width: 280px) {
+    .vertical-bar {
+        width: 100%; /* Cambia el ancho a 100% para que el sidebar ocupe todo el ancho */
+        height: auto; /* Desactiva la altura fija para que se ajuste al contenido */
+    }
+    
+    .sidebar-nav {
+        flex-direction: row; /* Cambia la dirección a horizontal para los elementos del sidebar */
+        justify-content: space-around; /* Espaciado uniforme entre los elementos */
+    }
+
+    .sidebar-nav .nav-item {
+        margin-bottom: 0; /* Elimina el margen inferior entre los elementos */
+    }
+
+    .sidebar-nav a {
+        margin: 0 10px; /* Agrega margen a los elementos para separarlos */
+    }
+    .hidro-tech {
+        margin-left: 10px; /* Espacio a la izquierda de HidroTech */
+        margin-right: 10px; /* Espacio a la derecha de HidroTech */
+    }
+    .navbar {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    
 }
