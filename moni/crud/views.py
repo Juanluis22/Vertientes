@@ -187,8 +187,17 @@ class NuevaComunidad(CreateView):
     form_class = ComunidadForm
     template_name = 'comunidad/new/newComunidad.html'
 
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
+        context={'comunidades':comunidades}
+        context['form']=ComunidadForm()
+        return context
+
+
     def get_success_url(self):
         return reverse('crud:listcom')
+
 
 #Vista para poder ver una lista de las comunidades
 @method_decorator(login_required,name='dispatch')
@@ -197,7 +206,7 @@ class ListaComunidad(ListView):
     template_name = 'comunidad/lista/listComunidad.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaComunidad' 
 
-@method_decorator(login_required,name='dispatch')    
+@method_decorator(login_required,name='dispatch')      
 class ActualizarComunidad(UpdateView):
     model = comunidad
     form_class = ComunidadForm
@@ -206,6 +215,13 @@ class ActualizarComunidad(UpdateView):
 
     def get_success_url(self):
         return reverse('crud:listcom')
+    
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
+        context['comunidades'] = comunidades
+        
+        return context
     
 @method_decorator(login_required,name='dispatch')
 class EliminarComunidad(DeleteView):
@@ -253,6 +269,17 @@ class NuevaVertiente(CreateView):
         elif action=='listo':
             return super().post(request, *args, **kwargs)
         return JsonResponse(data, safe=False)
+    
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
+        
+        comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
+        context={'comunidades':comunidades,'vertientes':vertientes}
+        
+        context['form']=VertienteForm()
+        
+        return context
 
 #Vista para poder ver una lista de las vertientes
 @method_decorator(login_required,name='dispatch')
@@ -261,7 +288,7 @@ class ListaVertiente(ListView):
     template_name = 'vertiente/list/listVertiente.html' # Nombre de la plantilla a utilizar
     context_object_name = 'listaVertiente' 
 
-@method_decorator(login_required,name='dispatch')
+@method_decorator([csrf_exempt, login_required],name='dispatch')
 class ActualizarVertiente(UpdateView):
     model = vertiente
     form_class = VertienteForm
@@ -270,6 +297,36 @@ class ActualizarVertiente(UpdateView):
 
     def get_success_url(self):
         return reverse('crud:listvert')
+
+    
+
+
+    def post(self, request, *args, **kwargs):
+        data={}
+        
+        action=request.POST['action']
+        
+        if action=='seaid':
+            comu=comunidad.objects.filter(id=request.POST['id'])
+            for i in comu:
+                data[0]=i.latitud
+                data[1]=i.longitud
+                
+        elif action=='listo':
+            return super().post(request, *args, **kwargs)
+        return JsonResponse(data, safe=False)
+    
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
+        comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
+        context['comunidades'] = comunidades
+        context['vertientes'] = vertientes
+        return context
+    
+
+
+
     
 @method_decorator(login_required,name='dispatch')    
 class EliminarVertiente(DeleteView):
