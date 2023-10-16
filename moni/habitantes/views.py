@@ -48,6 +48,27 @@ def filtro(request, object_id):
 
 
 
+
+
+@login_required
+def revision_autoridad(request, objecto_id):
+    obj_id = get_object_or_404(vertiente, pk=objecto_id)
+    id_foranea = obj_id.id
+    objetos2 = datos.objects.filter(vertiente_id=id_foranea).first()
+    vertiente_info = vertiente.objects.get(id=id_foranea)
+    
+    comunidad_info = vertiente_info.comunidad
+    
+    data = {
+        'objetos': objetos2,
+        'vertiente': vertiente_info,
+        'comunidad': comunidad_info
+    }
+
+    return render(request, 'dashboard/dashboard_autoridad.html', data)
+
+
+
 #fusionar ambos def revision
 @login_required
 def revision(request, objecto_id,objecto_id_2):
