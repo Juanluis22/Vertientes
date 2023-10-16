@@ -16,13 +16,12 @@
     <body>
         <nav class="navbar">
             <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a href="page1.html">Inicio</a></li>
-                <li class="nav-item"><a href="#">Servicios</a></li>
-                <li class="nav-item"><a href="#">Acerca de</a></li>
-                <li class="nav-item"><a href="#">Contacto</a></li>
-            </ul>
+            <div class="izquierda">
+            <div class="login-button">
+                <a href="{% url 'nucleo:login' %}">Iniciar Sesión</a>
+            </div>
             <a href="{% url 'nucleo:inicio' %}" class="cerrar-sesion">Volver</a>
+            </div>
         </nav>
         
 
@@ -48,6 +47,11 @@
                             {{ form.vertiente }}
                         </div>
                     </div>
+                </div>
+
+                <div class="estado-vertiente">
+                    <p id="estado-vertiente-texto"></p>
+                    <p id="calidadAgua"></p>
                 </div>
 
                 <div class="vertientes-footer">
@@ -118,10 +122,6 @@
                             </p>
                         </div>
                     </div>
-                </div>
-                <div class="estado-vertiente">
-                    <p id="estado-vertiente-texto"></p>
-                    <p id="calidadAgua"></p>
                 </div>
             </div>
 
