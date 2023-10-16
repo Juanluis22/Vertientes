@@ -49,7 +49,7 @@
               <div class="contenido-rectangulo">
                 <div id="map" style="height: 600px; width: 600px;"></div>
 
-              {{ vertientes|json_script:"vertientes_json" }}
+              {{ comunidades|json_script:"comunidades_json" }}
 
 
 
@@ -72,7 +72,7 @@
             attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
             }).addTo(map);
 
-            let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent)
+            let comunidades = JSON.parse(document.getElementById('comunidades_json').textContent)
             var currentMarker = null;
             map.on('click', function(event) {
 
@@ -97,6 +97,24 @@
                 console.log('xdd');
               }
             });
+
+
+            comunidades.forEach(comunidad => { 
+
+
+
+
+              var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+                iconAnchor: [12, 41],  // Punto de anclaje del icono
+                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente  
+              } )
+              var marcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(map)
+              nombre=comunidad.nombre.toString()
+              marcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
+
+
+             } )
   </script>
     </body>
 </html>

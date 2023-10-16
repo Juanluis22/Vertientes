@@ -13,14 +13,9 @@
         <div class="logo">
             <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo del Lago">
         </div>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Acerca de</a></li>
-                <li><a href="#">Contacto</a></li>
-            </ul>
-        </nav>
+        <div class="login-button">
+            <a href="{% url 'nucleo:login' %}">Iniciar Sesión</a>
+        </div>
     </header>
     
     <main>
@@ -28,7 +23,7 @@
             <div class="welcome-bg">
                 <h1>Bienvenido a nuestro Sistema de Monitoreo</h1>
                 <p>Descubre nuestras Vertientes.</p>
-                <a href="{% url 'nucleo:login' %}" class="start-button">¡Empecemos!</a>
+                <a href="{% url 'nucleo:registro' %}" class="start-button">¡Registrarse!</a>
             </div>
         </section>
         

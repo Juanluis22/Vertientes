@@ -29,48 +29,29 @@ header {
 }
 
 .logo img {
-    width: 100px; /* Ajusta el tamaño de la imagen */
+    width: 100px;
     height: auto;
     margin: 0;
     padding: 0;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    justify-content: center !important; /* Centra horizontalmente los accesos */
-    margin: 0; /* Elimina el margen predeterminado de la lista */
-    padding: 0; /* Elimina el relleno predeterminado de la lista */
-}
-
-nav a {
-    text-decoration: none;
+.login-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00a4e4;
     color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
     font-weight: bold;
-    transition: color 0.3s;
-    justify-content: center !important; /* Centra horizontalmente los accesos */
+    transition: background-color 0.3s;
+    font-size: 14px;
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-nav a:hover {
-    color: #ff5733;
-}
-
-/* Hacer el header responsive */
-@media screen and (max-width: 480px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .logo {
-        margin-bottom: 10px;
-    }
-
-    nav ul {
-        align-items: center;
-        font-size: small;
-    }
+.login-button a:hover {
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 /* Main */
@@ -106,7 +87,7 @@ p {
 .start-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #00a4e4; /* Cambia el color a celeste */
+    background-color: #00a4e4;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -114,31 +95,38 @@ p {
     transition: background-color 0.3s;
     margin-top: 10px;
     font-size: 14px;
-    border: 2px solid #d0f2ff; /* Agrega un borde negro */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Agrega sombra */
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .start-button:hover {
-    background-color: #0077b3; /* Cambia el color al pasar el mouse */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Cambia la sombra al pasar el mouse */
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 .info-section {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan si el espacio es insuficiente */
+    flex-wrap: wrap;
 }
 
 .info-box {
     background-color: white;
-    width: 300px; /* Ajusta el ancho de los cuadrados según tus preferencias */
+    width: 300px;
     padding: 20px;
-    margin: 0 10px; /* Espacio entre los cuadrados */
+    margin: 0 10px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     align-content: center;
     align-items: center;
     text-align: center;
+}
+
+.info-box p{
+    background-color: rgba(101, 211, 255, 0.178);
+    border-radius: 10%;
+    padding-top: 20%;
+    padding-bottom: 20%;
 }
 
 @media screen and (max-width: 480px) {
@@ -180,7 +168,7 @@ p {
         padding: 20px;
         border-radius: 10px;
         text-align: center;
-        flex: 1; /* Hace que los tres recuadros tengan el mismo tamaño */
+        flex: 1;
     }
 
     .info-box p {
@@ -195,33 +183,33 @@ p {
 }
 
 .info-box:nth-child(2) img {
-    margin: 0 auto; /* Centra horizontalmente */
-    display: block; /* Quita cualquier margen o espacio adicional alrededor de la imagen */
-    max-height: 100%; /* Ajusta la altura máxima */
-    max-width: 100%; /* Ajusta el ancho máximo */
+    margin: 0 auto;
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
 }
 
 .info-box h2 {
-    font-size: 18px; /* Reduce el tamaño del título */
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .info-box p {
-    font-size: 14px; /* Reduce el tamaño del texto */
-    flex-grow: 1; /* Hace que el texto ocupe el espacio disponible en la columna */
+    font-size: 15px;
+    flex-grow: 1;
     font-weight: bold;
 }
 
 img {
     max-width: 100%;
-    max-height: 200px; /* Ajusta la altura máxima según tus preferencias */
+    max-height: 200px;
 }
 
 .info-button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #00a4e4; /* Cambia el color a celeste */
+    background-color: #00a4e4;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -229,20 +217,23 @@ img {
     transition: background-color 0.3s;
     margin-top: 10px;
     font-size: 14px;
-    border: 2px solid #d0f2ff; /* Agrega un borde negro */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Agrega sombra */
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
 .info-button:hover {
-    background-color: #0077b3; /* Cambia el color al pasar el mouse */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8); /* Cambia la sombra al pasar el mouse */
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 /* Footer */
+footer p {
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 13px;
+}
+
 footer {
     background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    font-size: small;
 }
