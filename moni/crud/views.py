@@ -13,7 +13,7 @@ import moni.settings as setting
 from django.utils.decorators import method_decorator
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from django.http import JsonResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
@@ -65,6 +65,12 @@ class NuevoUser(CreateView):
 
     def get_success_url(self):
         return reverse('crud:listauser')
+    
+
+    def form_valid(self, form):
+        # Establece el campo 'is_active' en True
+        form.instance.is_active = True
+        return super().form_valid(form)
 
 
 @method_decorator(login_required,name='dispatch')
@@ -165,6 +171,17 @@ class ActualizarPeticiones(UpdateView):
 
 
     
+@method_decorator(login_required,name='dispatch')
+class EliminarUsuario(DeleteView):
+    model=User
+    template_name='usuario/delete/deleteUser.html'
+    success_url=reverse_lazy('crud:listpet')
+
+
+
+
+
+
 
 
 
