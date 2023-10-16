@@ -5,7 +5,7 @@ El proyecto "Monitoreo Aguas de Vertientes" se concibe como una solución tecnol
 
 Estos datos se presentan en una plataforma web accesible para las comunidades locales que se abastecen de vertientes. El proyecto facilita la participación activa de los comuneros permitiéndoles acceder a datos relevantes relacionados con el caudal y calidad del agua que consumen. Además, se busca abordar desafíos legales, como las regulaciones del código de aguas que exigen que las extracciones de vertientes sean legalmente inscritas y brindar a la comunidad herramientas técnicas y materiales para una gestión hídrica efectiva ante estas regulaciones.
 
-##### Pasos a seguir:
+##### Pasos a seguir para clonar el repo:
 - Clonar el repositorio en su PC.  
 `git clone https://github.com/Juanluis22/Vertientes.git`
 - Creación del Entorno Virtual > Miniconda.  
@@ -16,6 +16,31 @@ Activación:
 `pip install -r requirements.txt`  
 - Comprobar Instalación.  
 `pip list`  
+
+##### Pasos a seguir para ejecutar la pagina:
+- Configurar 'settings.py' con los datos de la base de datos. 
+
+- Hacer las migraciones.
+`python manage.py makemigrations`  
+
+- Ejecutar las migraciones.
+`python manage.py migrate`  
+
+- Crear un superusuario.
+`python manage.py createsuperuser`
+Seguir los pasos (nombre, correo, clave, etc.)
+
+- Añadir parametros a la BD en PostgreSQL:
+
+una vez creada la nueva bd y las migraciones sean hechas, insertar: 
+
+INSERT INTO auth_group VALUES(1, 'Administrador');
+INSERT INTO auth_group VALUES(2, 'Usuario');
+INSERT INTO user_profile VALUES(0,'No','Si',1,1)
+
+
+
+
 
 ------------
 

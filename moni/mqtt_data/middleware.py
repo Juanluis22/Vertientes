@@ -4,6 +4,8 @@ import paho.mqtt.client as mqtt  # Biblioteca para trabajar con MQTT
 import json  # Para manejar datos en formato JSON
 from queue import Queue  # Para manejar una cola de mensajes
 
+from .models import datos  # Importa el modelo 'datos'
+
 # Crear una cola global para almacenar los mensajes recibidos de MQTT
 message_queue = Queue()
 
@@ -50,9 +52,24 @@ class MQTTMiddleware:
     def on_message(self, client, userdata, msg):
         # Decodificar el mensaje
         payload_str = msg.payload.decode()
+        
+       
         try:
             # Intenta convertir la cadena a un diccionario
             message_dict = json.loads(payload_str)
+            data = json.loads(msg.payload)
+            # Guardar los datos en la base de datos
+            datos.objects.create(
+                caudal=data["caudal"],
+                pH=data["pH"],
+                conductividad=data["conductividad"],
+                turbiedad=data["turbiedad"],
+                temperatura=data["temperatura"],
+                humedad=data["humedad"],
+                vertiente_id=1,#data["vertiente_id"], Cambiar por el ID de la vertiente
+            )
+            datos.save()
+            
         except json.JSONDecodeError:
             # Si hay un error, simplemente usa la cadena tal como está
             message_dict = {"message": payload_str}
