@@ -104,7 +104,7 @@
             <span class="hidro-tech">HidroTech</span>
         </div>
         <div class="navbar-center">
-            <div class="admin-box">Vista Administrador</div>
+            
         </div>
         <a href="{% url 'habi:miPerfil' user_id %}" class="cerrar-sesion">Mi perfil</a>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
@@ -125,6 +125,7 @@
                 Caudal
                 <div class="row">
                     <p id="datosContainer2"></p>
+                    {{ objetos.caudal }}
                     
                     <span class="unidad">m³/s</span>
                 </div>
@@ -135,6 +136,7 @@
                 pH
                 <div class="row">
                     <p id="datosContainer3"></p>
+                    {{ objetos.pH }}
                     <span class="unidad">ph</span>
                 </div>
                 <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
@@ -144,6 +146,7 @@
                 Temperatura
                 <div class="row">
                     <p id="datosContainer7"></p>
+                    {{ objetos.temperatura }}
                     <span class="unidad">°C</span>
                 </div>
                 <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
@@ -153,6 +156,7 @@
                 Conductividad
                 <div class="row">
                     <p id="datosContainer4"></p>
+                    {{ objetos.conductividad }}
                     <span class="unidad">µS/cm</span>
                 </div>
                 <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
@@ -162,6 +166,7 @@
                 Turbiedad
                 <div class="row">
                     <p id="datosContainer5"></p>
+                    {{ objetos.turbiedad }}
                     <span class="unidad">NTU</span>
                 </div>
                 <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
@@ -171,6 +176,7 @@
                 Humedad
                 <div class="row">
                     <p id="datosContainer6"></p>
+                    {{ objetos.humedad }}
                     <span class="unidad">%</span>
                 </div>
                 <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
