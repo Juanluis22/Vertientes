@@ -267,7 +267,7 @@ def users_massive_upload_save(request):
     if request.method == 'POST':
         #try:
         print(request.FILES['myfile'])
-        data = pd.read_excel(request.FILES['myfile'])
+        data = pd.read_excel(request.FILES['myfile'], skiprows=1)
         df = pd.DataFrame(data)
         acc = 0
         for item in df.itertuples():
@@ -342,7 +342,7 @@ def comunity_massive_upload_save(request):
     if request.method == 'POST':
         #try:
         print(request.FILES['myfile'])
-        data = pd.read_excel(request.FILES['myfile'])
+        data = pd.read_excel(request.FILES['myfile'], skiprows=1)
         df = pd.DataFrame(data)
         acc = 0
         for item in df.itertuples():
@@ -403,7 +403,7 @@ def vertiente_massive_upload_save(request):
     if request.method == 'POST':
         #try:
         print(request.FILES['myfile'])
-        data = pd.read_excel(request.FILES['myfile'])
+        data = pd.read_excel(request.FILES['myfile'], skiprows=1)
         df = pd.DataFrame(data)
         acc = 0
         for index, row in df.iterrows():
