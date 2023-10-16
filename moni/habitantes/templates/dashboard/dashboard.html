@@ -106,12 +106,14 @@
         <div class="navbar-center">
             <div class="admin-box">Vista Administrador</div>
         </div>
+        <a href="{% url 'habi:miPerfil' user_id %}" class="cerrar-sesion">Mi perfil</a>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
     <div class="vertientes-container">
         <div class="vertientes-header">
             <h1>Comunidad "{{ comunidad.nombre }}"</h1>
             <h1>Vertiente "{{ vertiente.nombre }}"</h1>
+            <h1>Vertiente "{{ idi }}"</h1>
             <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
         </div>
         <div id="text1" class="hidden-text">
@@ -123,6 +125,7 @@
                 Caudal
                 <div class="row">
                     <p id="datosContainer2"></p>
+                    
                     <span class="unidad">m³/s</span>
                 </div>
                 <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
