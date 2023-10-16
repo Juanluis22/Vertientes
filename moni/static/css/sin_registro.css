@@ -14,6 +14,12 @@ body {
     text-align: center; /* Centra horizontalmente el contenido del encabezado */
 }
 
+.vertientes-header h1{
+    text-align: center; /* Centra horizontalmente el contenido del encabezado */
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+
 /* Estilos de la barra de navegación */
 .logo {
     width: 110px; /* Ajusta el tamaño de la imagen */
@@ -31,55 +37,54 @@ body {
     padding: 10px 20px;
 }
 
-.navbar-nav {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0; /* Elimina el relleno predeterminado de la lista */
+.izquierda{
+        display: flex;
 }
 
-.nav-item a {
+.login-button a {
+    /* Agrega estilos para el botón de "Iniciar Sesión" */
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00a4e4;
+    color: #fff;
     text-decoration: none;
-    color: white;
-    transition: color 0.3s;
-}
-
-.nav-item a:hover { 
-    color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-left: 10px;
 }
 
 .cerrar-sesion {
-    top: 5px;
-    right: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
     text-decoration: none;
-    color: white;
-    font-weight: bold;
-    border: 2px solid white;
-    padding: 5px 10px;
     border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-left: 10px;
 }
 
 .cerrar-sesion:hover {
-    background-color: white;
-    color: #333;
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.login-button a:hover {
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
 }
 
 /* Estilos para dispositivos pequeños (móviles) */
 @media (max-width: 600px) {
-    .navbar {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .navbar-nav {
-        margin-top: 10px;
-        gap: 10px;
-    }
-
-    .logo {
-        margin-bottom: 10px;
+    .logo{
+        width: 100px;
     }
 }
 
@@ -266,8 +271,8 @@ body {
     font-weight: bold; /* Añadir negrita al texto */
     background-color: #D40202 !important; /* Agrega !important para aumentar la especificidad */
     color: white !important; /* Agrega !important para aumentar la especificidad */
-    margin: 0px 10px;
-    margin-bottom: 35px;
+    margin: 0px 0px;
+    margin-top: -16px;
 }
 
 /* Estilos para cuando el agua está en buenas condiciones mio */
@@ -283,8 +288,8 @@ body {
     font-weight: bold; /* Añadir negrita al texto */
     background-color: #87D91F !important; /* Agrega !important para aumentar la especificidad */
     color: white !important; /* Agrega !important para aumentar la especificidad */
-    margin: 0px 10px;
-    margin-bottom: 35px;
+    margin: 0px 0px;
+    margin-top: -16px;
 }
 
 .calidad-no-seleccionada {
@@ -300,7 +305,11 @@ body {
     background-color: #1f51d9 !important; /* Agrega !important para aumentar la especificidad */
     color: white !important; /* Agrega !important para aumentar la especificidad */
     margin: 0px 10px;
-    margin-bottom: 35px;
+    margin-top: -16px;
+}   
+
+div.estado-vertiente{
+    background-color: #1c4eaa00;
 }
 
 /* Estilos para el pie de página */
