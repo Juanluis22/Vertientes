@@ -20,6 +20,42 @@
        
         
         <style>
+            .table-container {
+                background-color: #FFFFFF;
+                border: 1px solid #CCCCCC;
+                border-radius: 5px;
+                padding: 20px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            th, td {
+                padding: 10px;
+                text-align: center;
+            }
+            th {
+                background-color: #16536A;
+                color: white;
+            }
+            tr:nth-child(even) {
+                background-color: #F5F5F5;
+            }
+            tr:hover {
+                background-color: #E1E1E1;
+            }
+            .pagination {
+                text-align: center;
+                margin-top: 20px;
+            }
+            .pagination a {
+                color: #000;
+                padding: 8px 16px;
+                text-decoration: none;
+                margin: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
             
 
             .volver {
@@ -30,6 +66,18 @@
                 text-decoration: none;
                 border-radius: 5px;
                 margin-top: 20px;
+            }
+            .ver-vertientes-button {
+                display: inline-block;
+                padding: 8px 16px;
+                background-color: #16536A;
+                color: #fff;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+            
+            .ver-vertientes-button:hover {
+                background-color: #1e6fae;
             }
        
         </style>
@@ -80,26 +128,34 @@
             </div>
 
         
+    <div class="table-container">
+        <table id="tableData">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for objeto in objetos %}
+                <tr>
+                    <td>{{ objeto.nombre }}</td>
+                    <td>
+                        <a href="{% url 'habi:verti_autoridad' objeto.id %}"class="ver-vertientes-button">
+                            <i class="bi bi-box-arrow-in-right"></i> Estado
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-            {% for objeto in objetos %}
-        
-            <div class="rectangulo rectangulo-verde">
-                <div class="contenido-rectangulo">
-                    </a>
-                    <p>{{ objeto.nombre }}</p>
-                    <a href="{% url 'habi:verti_autoridad' objeto.id %}">    
-                        <i class="bi bi-box-arrow-in-right"></i>
-                    </a>
-    
-                   
-                    
-                        
-                    </a>
-    
-                    
-                </div>
-            </div>
-            {% endfor %}
+    <div class="pagination">
+        <a href="#" id="prevPage">&laquo; Anterior</a>
+        <a href="#" id="nextPage">Siguiente &raquo;</a>
+    </div>
+
     
     
     
@@ -127,6 +183,39 @@
         </div>
     </div>
     <script>
+        var currentPage = 0;
+        var rows = document.querySelectorAll("#tableData tbody tr"); // Selecciona las filas de la tabla
+        var rowsPerPage = 5;
+
+        function showPage(page) {
+            for (var i = 0; i < rows.length; i++) {
+                if (i >= page * rowsPerPage && i < (page + 1) * rowsPerPage) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            showPage(currentPage);
+        }
+
+        document.getElementById("prevPage").addEventListener("click", function () {
+            if (currentPage > 0) {
+                goToPage(currentPage - 1);
+            }
+        });
+
+        document.getElementById("nextPage").addEventListener("click", function () {
+            if (currentPage < Math.ceil(rows.length / rowsPerPage) - 1) {
+                goToPage(currentPage + 1);
+            }
+        });
+
+        // Mostrar la primera página al cargar
+        showPage(currentPage);
        
         function showText(textId) {
             var textElement = document.getElementById(textId);

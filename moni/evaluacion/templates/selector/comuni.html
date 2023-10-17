@@ -1,130 +1,258 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
-        <link rel="stylesheet" href="{% static 'css/qdesea_visualizar.css' %}">
-        <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+    <link rel="stylesheet" href="{% static 'css/qdesea_visualizar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-        <script src="ruta/a/jquery.min.js"></script>
-        <script src="ruta/a/dataTables.min.js"></script>
-        <link href="ruta/a/dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+    
+    <style>
+        .table-container {
+            background-color: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #16536A;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #F5F5F5;
+        }
+        tr:hover {
+            background-color: #E1E1E1;
+        }
+        .search-box {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 5px;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #3393B7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
 
-       
+        .volver {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #16536A;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .ver-vertientes-button {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #16536A;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
         
-        <style>
-            
+        .ver-vertientes-button:hover {
+            background-color: #1e6fae;
+        }
 
-            .volver {
-                display: inline-block;
-                padding: 10px 20px;
-                background-color: #16536A;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                margin-top: 20px;
-            }
-       
-        </style>
+        /* Estilos para la paginación */
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            color: #000;
+            padding: 8px 16px;
+            text-decoration: none;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
 
-    </head>
-
-    <body>
-        <div class="vertical-bar">
-            <div class="sidebar">
-                <ul class="sidebar-nav">
-                    <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
-                    <li class="nav-item"><a href="{% url 'nucleo:mapa' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                    <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
-                    <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
-                    <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
-                    
-                </ul>
-            </div>
-        </div>
-        
-        <nav class="navbar">
-            <div class="navbar-left">
-                <span class="hidro-tech">HidroTech</span>
-            </div>
-            <div class="navbar-center">
-                <div class="admin-box">Vista Administrador</div>
-            </div>
-            <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-        </nav>
-        
-        <div class="vertientes-container">
-            <div class="vertientes-header">
-                <h1>
-                    Seleccione una comunidad
-                    <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text3')" onmouseout="hideText('text3')"></i>
-                </h1>
-            </div>
-            <div class="search-box">
-                <input type="text" placeholder="Buscar..." id="searchInput">
-                <button onclick="searchComunities()"><i class="bi bi-search"></i></button>
-            </div>
-
-            
-            <div id="text3" class="hidden-text2">
-                <h2>¿Qué es esto?</h2>
-                <p>Aqui puedes elegir que Comunidad revisar y ver las vertientes asociadas a cada una, para más detalles, pulsa el botón:</p>
-                <button class="boton-mismo-icono"><i class="bi bi-box-arrow-in-right"></i></button>
-            </div>
-
-        
-
-            {% for object in listaComunidades %}
-            <div class="rectangulo rectangulo-verde">
-                <div class="contenido-rectangulo">
-                    
-                    <p>{{ object.nombre }}</p>
-                    <a href="{% url 'habi:listvert' object.id %}">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-
-         
-
-
-            <div class="col-lg-6">
-                <a href="{% url 'crud:select' %}" class="volver">Volver</a>
-            </div>
-
-            
-        
-        
-
-        
-
-            
-
-
-
-
-            <!-- Puedes agregar más rectángulos aquí -->
+<body>
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
+                <li class="nav-item"><a href="{% url 'nucleo:mapa' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
+                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
+                <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
+                <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
+                
+            </ul>
         </div>
     </div>
+    
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
+        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+    </nav>
+    <div class="vertientes-container">
+        <div class="vertientes-header">
+            <h1>
+                Seleccione una comunidad
+                <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text3')" onmouseout="hideText('text3')"></i>
+            </h1>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Buscar..." id="searchInput" onkeyup="searchComunities(event)">
+            <button onclick="searchComunities()"><i class="bi bi-search"></i></button>
+        </div>
+        
+        <div id="text3" class="hidden-text2">
+            <h2>¿Qué es esto?</h2>
+            <p>Aquí puedes elegir qué comunidad revisar y ver las vertientes asociadas a cada una. Para más detalles, pulsa el botón:</p>
+            <h3>Ver Vertientes</h3>
+        </div>
+        <div class="table-container">
+            <table id="communityTable">
+                <thead>
+                    <tr>
+                        <th>Comunidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in listaComunidades %}
+                    <tr>
+                        <td>{{ object.nombre }}</td>
+                        <td>
+                            <a href="{% url 'habi:listvert' object.id %}" class="ver-vertientes-button">
+                                <i class="bi bi-box-arrow-in-right"></i> Ver Vertientes
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <a href="#" id="prevPage">&laquo; Anterior</a>
+            <a href="#" id="nextPage">Siguiente &raquo;</a>
+        </div>
+        <div class="col-lg-6">
+            <a href="{% url 'crud:select' %}" class="volver">Volver</a>
+        </div>
+    </div>
+
     <script>
+        var currentPage = 0;
+        var rows = document.getElementById("communityTable").rows;
+        var rowsPerPage = 5;
+    
+        function showPage(page) {
+            for (var i = 0; i < rows.length; i++) {
+                if (i >= page * rowsPerPage && i < (page + 1) * rowsPerPage) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+    
+        function goToPage(page) {
+            currentPage = page;
+            showPage(currentPage);
+        }
+    
+        document.getElementById("prevPage").addEventListener("click", function() {
+            if (currentPage > 0) {
+                goToPage(currentPage - 1);
+            }
+        });
+    
+        document.getElementById("nextPage").addEventListener("click", function() {
+            if (currentPage < Math.ceil(rows.length / rowsPerPage) - 1) {
+                goToPage(currentPage + 1);
+            }
+        });
+    
+        function searchComunities(event) {
+            if (event.keyCode === 13) {
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("searchInput");
+                filter = input.value.toLowerCase();
+                var results = [];
+        
+                for (i = 0; i < rows.length; i++) {
+                    td = rows[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        txtValue = txtValue.toLowerCase();
+                        if (txtValue.startsWith(filter)) { // Comprueba si el nombre comienza con el término de búsqueda
+                            rows[i].style.display = "";
+                            results.push(txtValue);
+                        } else {
+                            rows[i].style.display = "none";
+                        }
+                    }
+                }
+                
+                // Recalcula la paginación después de la búsqueda
+                currentPage = 0;
+                showPage(currentPage);
+                
+                // Muestra la lista de resultados
+                showResults(results);
+            }
+        }
+    
+        function showResults(results) {
+            var resultsList = document.getElementById("resultsList");
+            resultsList.innerHTML = "";
+    
+            if (results.length > 0) {
+                resultsList.style.display = "block";
+                resultsList.innerHTML = "<b>Resultados:</b><br>";
+                for (var i = 0; i < results.length; i++) {
+                    resultsList.innerHTML += results[i] + "<br>";
+                }
+            } else {
+                resultsList.style.display = "none";
+            }
+        }
        
         function showText(textId) {
             var textElement = document.getElementById(textId);
             textElement.style.display = 'block';
         }
-
+    
         function hideText(textId) {
             var textElement = document.getElementById(textId);
             textElement.style.display = 'none';
         }
+    
+        // Mostrar la primera página al cargar
+        showPage(currentPage);
     </script>
 </body>
 </html>
