@@ -104,9 +104,9 @@
             <span class="hidro-tech">HidroTech</span>
         </div>
         <div class="navbar-center">
-            
+            <div class="admin-box">Vista Administrador</div>
         </div>
-        <a href="{% url 'habi:miPerfil' user_id %}" class="cerrar-sesion">Mi perfil</a>
+        
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
     <div class="vertientes-container">
@@ -126,7 +126,6 @@
                 <div class="row">
                     <p id="datosContainer2"></p>
                     {{ objetos.caudal }}
-                    
                     <span class="unidad">m³/s</span>
                 </div>
                 <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>

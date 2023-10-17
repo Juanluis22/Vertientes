@@ -117,7 +117,9 @@
                                     <td>
                                         <div class="col-lg-6">
                                             <button onclick="window.location.href='{% url 'crud:activaruser' objeto.id %}'" class="editar-button">Aceptar</button>
+                                            <button onclick="window.location.href='{% url 'crud:deleteUser' objeto.id %}'" class="Eliminar">Eliminar</button>
                                         </div>
+                                       
                                     </td>
                                 </tr>
                             {% endif %}

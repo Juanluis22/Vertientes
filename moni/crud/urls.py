@@ -38,6 +38,7 @@ urlpatterns = [
 
     #Eliminación
     path("eliminar_comunidad/<int:pk>/", EliminarComunidad.as_view(), name='deletecom'),
+    path("eliminar_usuario/<int:pk>/", EliminarUsuario.as_view(), name='deleteUser'),
     path("eliminar_vertiente/<int:pk>/", EliminarVertiente.as_view(), name='deletevert'),
 
 

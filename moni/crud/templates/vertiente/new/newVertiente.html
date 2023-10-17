@@ -100,6 +100,7 @@
             let vmarcador = null;
             var marcadoresGroup = L.layerGroup().addTo(map);
             var marcadoresGroup2 = L.layerGroup().addTo(map);
+            var marcadoresGroup3 = L.layerGroup().addTo(map);
             
             map.on('click', function(event) {
 
@@ -144,16 +145,6 @@
             }   );
 
             
-
-            
-
-            
-
-            
-
-
-
-
             $(function(){
               $('select[name="comunidad"]').on('change', function(){  
                 var id=$(this).val();
@@ -181,7 +172,36 @@
                   
                   map.setView([lati,longi]);
 
+
+                  
+                  
+
+                  comunidades.forEach(comunidad => { 
                   marcadoresGroup.clearLayers();
+                  var icono=L.icon({
+                  iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+                  iconAnchor: [12, 41],  // Punto de anclaje del icono
+                  popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente  
+                  } )
+                  if(comunidad.id==id){
+                    if(marcadoresGroup3){
+                      marcadoresGroup3.clearLayers();
+                    }
+                    
+                    
+                    
+
+                    console.log('ENTRO')
+                    vmarcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(marcadoresGroup3)
+                    nombre=comunidad.nombre.toString()
+                    vmarcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
+                  }
+                  
+                  }   );
+
+
+
+
                   marcadoresGroup2.clearLayers();
                   
 
@@ -190,7 +210,7 @@
                     if (vertiente.comunidad_id==id){
                       
                       var icono=L.icon({
-                      iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+                      iconUrl: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',  // Ruta de la imagen del marcador
                       iconAnchor: [12, 41],  // Punto de anclaje del icono
                       popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente  
                        } )

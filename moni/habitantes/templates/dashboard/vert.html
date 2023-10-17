@@ -21,6 +21,8 @@
             <li class="nav-item"><a href="#">Contacto</a></li>
         </ul>
         <div class="navbar-center">Vista Administrador</div>
+
+        <a href="{% url 'habi:miPerfil' context.user_id %}" class="cerrar-sesion">Mi perfil</a>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
     
@@ -32,7 +34,7 @@
             <h1>Seleccione una vertiente</h1>
         </div>
 
-
+        
         
         
         
@@ -41,14 +43,15 @@
         
 
 
-        {% for objeto in objetos %}
+        {% for objeto in context.objetos %}
+        
         
         <div class="rectangulo rectangulo-verde">
             <div class="contenido-rectangulo">
                     <i class="fas fa-times-circle"></i> <!-- Icono de cruz -->
                 </a>
                 <p>{{ objeto.nombre }}</p>
-                <a href="{% url 'habi:verti' objeto.id %}">    
+                <a href="{% url 'habi:verti' objeto.id context.user_id %}">    
                     <i class="fas fa-arrow-alt-circle-right"></i>
                 </a>
 
@@ -61,6 +64,8 @@
             </div>
         </div>
         {% endfor %}
+
+        
 
 
 
