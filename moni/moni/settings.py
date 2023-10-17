@@ -48,6 +48,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    #No Borrar
+    'mqtt_data.middleware.MQTTMiddleware',
+    ###
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -84,11 +88,11 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"Empresas",
+        "NAME":"moni",
         "USER":"postgres",
-        "PASSWORD":"CerealPremium",
+        "PASSWORD":"jexu1324@",
         "HOST":"localhost",
-        "PORT":"5433",
+        "PORT":"5432",
     }
 }
 

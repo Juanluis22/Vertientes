@@ -1,10 +1,14 @@
+
 # Importar las bibliotecas necesarias
 from django.http import StreamingHttpResponse  # Para enviar respuestas en tiempo real
 import paho.mqtt.client as mqtt  # Biblioteca para trabajar con MQTT
 import json  # Para manejar datos en formato JSON
 from queue import Queue  # Para manejar una cola de mensajes
 
-from .models import datos  # Importa el modelo 'datos'
+# Importa el modelo 'datos', 'kit' y 'vertiente' de la aplicación 'nucleo'
+from nucleo.models import vertiente, kit, datos
+
+
 
 # Crear una cola global para almacenar los mensajes recibidos de MQTT
 message_queue = Queue()
@@ -48,32 +52,81 @@ class MQTTMiddleware:
         # Una vez conectado, suscribirse al tópico deseado
         client.subscribe(self.mqtt_topic)
 
+    def save_data(self,data):
+        # Comparar data[mac] con el atributo mac de la entidad kit para asignar el id de la vertiente correspondiente
+        # Recuperar el ID (Direccion MAC) del mensaje recibido
+        data_mac = data.get("mac", None)
+        if not data_mac:
+            print("Error: No se encontró la clave 'mac' en los datos recibidos.")
+            return
+
+        # Buscar el kit que tenga esa mac
+        try:
+            data_kit = kit.objects.get(mac=data_mac)
+        except kit.DoesNotExist:
+            print("Error: No se encontró el kit con la mac recibida.")
+            return
+        except kit.MultipleObjectsReturned:
+            print("Error: Se encontraron múltiples kits con la misma MAC.")
+            return
+        kit_id = data_kit.id
+
+        # Obtiene el ID de la vertiente asociada a ese kit
+        vertiente_id = data_kit.vertiente_id
+        vertiente_instance = vertiente.objects.get(id=vertiente_id)
+
+
+
+        # mostrar cual es el dato que falta
+        if not ("flow_Rate" in data):
+            print("Falta el caudal")
+        if not ("pH" in data): 
+            print("Falta el pH")
+        if not ("turbidity" in data):
+            print("Falta la turbidez")
+        if not ("temperature" in data):
+            print("Falta la temperatura")
+        if not ("humidity" in data):
+            print("Falta la humedad")
+        if not ("mac" in data):
+            print("Falta la MAC")
+
+        print("Datos válidos")
+
+        # Guardar los datos
+        dato = datos(
+            caudal=data["caudal"],
+            pH=data["pH"],
+            conductividad=data["conductividad"],
+            turbiedad=data["turbiedad"],
+            temperatura=data["temperatura"],
+            humedad=data["humedad"],
+
+            mac=data["mac"],
+            kit=data_kit,
+            vertiente=vertiente_instance
+        )
+        dato.save()
+        print("Datos guardados exitosamente")
+
+
     # Función callback que se llama cuando el cliente recibe un mensaje del broker
     def on_message(self, client, userdata, msg):
+        print("Mensaje recibido")
         # Decodificar el mensaje
         payload_str = msg.payload.decode()
-        
+        #Guardar los datos que llegan en el modelo datos
        
         try:
             # Intenta convertir la cadena a un diccionario
             message_dict = json.loads(payload_str)
-            data = json.loads(msg.payload)
-            # Guardar los datos en la base de datos
-            datos.objects.create(
-                caudal=data["caudal"],
-                pH=data["pH"],
-                conductividad=data["conductividad"],
-                turbiedad=data["turbiedad"],
-                temperatura=data["temperatura"],
-                humedad=data["humedad"],
-                vertiente_id=1,#data["vertiente_id"], Cambiar por el ID de la vertiente
-            )
-            datos.save()
-            
+            #Guardar los datos que llegan en el modelo datos
+            # Llamar a la función save_data
+            self.save_data(message_dict)
+    
         except json.JSONDecodeError:
             # Si hay un error, simplemente usa la cadena tal como está
             message_dict = {"message": payload_str}
+            print("Error al decodificar el mensaje")
         # Agregar el diccionario a la cola
         message_queue.put(message_dict)
-        print("Mensaje recibido")
-
