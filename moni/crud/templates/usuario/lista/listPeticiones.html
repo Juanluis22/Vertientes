@@ -6,66 +6,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
-    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navasi2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/listar.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!--extras-->
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <style>
-        /* Alinea todo el contenido hacia la izquierda */
-        body, .vertical-bar, .navbar, .vertientes-container {
-            text-align: left;
-        }
-
-        /* Aplica un margen izquierdo de 3cm para mover el contenido a la derecha */
-        .vertientes-container {
-            margin-left: 1.6cm;
-        }
-        /* Alinea el campo de búsqueda en la esquina superior derecha y agrega un margen derecho */
-.dataTables_filter {
-    position: absolute;
-    top: 0;
-    right: 10px; /* Puedes ajustar este valor para controlar la posición horizontal del campo de búsqueda */
-}
-
-
-/* Estilo para el campo de búsqueda DataTables */
-.dataTables_filter {
-    position: absolute;
-    top: 0;
-    right: 10px; /* Puedes ajustar este valor para controlar la posición horizontal del campo de búsqueda */
-}
-
-/* Mueve el texto "Buscar:" hacia la derecha */
-.dataTables_filter label {
-    position: relative;
-    left: 436px; /* Puedes ajustar este valor para mover el texto "Buscar:" hacia la derecha */
-}
-/* Estilo para el campo de búsqueda DataTables */
-.vertientes-container .dataTables_filter {
-    float: left;
-    margin-left: 220px; /* Ajusta este valor según tus necesidades */
-}
-    </style>
+    <title>Listado de Peticiones</title>
 </head>
 <body>
-    <div class="vertical-bar">
-        <div class="sidebar">
-            <ul class="sidebar-nav">
-                <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
-                <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
-                <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
-                <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
-                
-            </ul>
-        </div>
-    </div>
-    
     <nav class="navbar">
         <div class="navbar-left">
             <span class="hidro-tech">HidroTech</span>
@@ -75,24 +26,73 @@
         </div>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
+
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a href="{% url 'crud:select' %}">
+                        <div class="icon-on-top">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'crud:mapa_general' %}">
+                        <div class="icon-on-top">
+                            <i class="fas fa-map"></i>
+                        </div>
+                        <span>Mapa</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <div class="icon-on-top">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span>Gráficas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'crud:index' %}">
+                        <div class="icon-on-top">
+                            <i class="bi bi-kanban"></i>
+                        </div>
+                        <span>Gestión</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'eva:comuni' %}">
+                        <div class="icon-on-top">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span>Comunidad</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
     
-    <div class="vertientes-container">
+    <div class="container-main">
         <!-- Alinea el contenido hacia la izquierda -->
-        <h1>Administración de Peticiones</h1>
+        <h1 class="main-heading">Administración de Peticiones</h1>
         
         <!-- Alinea el enlace hacia la izquierda -->
-        <a href="{% url 'crud:listauser' %}" class="acceder">
+        <div class="button-row">
+        <a href="{% url 'crud:listauser' %}" class="custom-button">
             <i class="bi bi-plus-circle"></i> Habitantes Registrados
         </a>
+        </div>
         
         <!-- Alinea el encabezado hacia la izquierda -->
-        <h1>Listado de Peticiones</h1>
+        <h1 class="sub-heading">Listado de Peticiones</h1>
         <div class="card-body">
             <div class="card-body">
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th style="width: 10px"><div class="separador">ID</div></th>
+                            
                             <th><div class="separador">RUT</div></th>
                             <th><div class="separador">Nombre</div></th>
                             <th><div class="separador">Apellido</div></th>
@@ -109,7 +109,7 @@
                         {% for objeto in listaUsuarios %}   
                             {% if not objeto.is_active %}
                                 <tr>
-                                    <td>{{ objeto.id }}</td>
+                                    
                                     <td>{{ objeto.username }}</td>
                                     <td>{{ objeto.first_name }}</td>
                                     <td>{{ objeto.last_name }}</td>
@@ -120,11 +120,10 @@
                                     <td>{{ objeto.tipo }}</td>
                                     <td>{{ objeto.is_active }}</td>
                                     <td>
-                                        <div class="col-lg-6">
+                                        <div class="button-container">
                                             <button onclick="window.location.href='{% url 'crud:activaruser' objeto.id %}'" class="editar-button">Aceptar</button>
-                                            <button onclick="window.location.href='{% url 'crud:deleteUser' objeto.id %}'" class="Eliminar">Eliminar</button>
+                                            <button onclick="window.location.href='{% url 'crud:deleteUser' objeto.id %}'" class="eliminar-button">Eliminar</button>
                                         </div>
-                                       
                                     </td>
                                 </tr>
                             {% endif %}
@@ -165,18 +164,18 @@
                     }
                 });
                 var pagination = document.querySelector(".dataTables_paginate");
-        var previousButton = document.querySelector(".dataTables_paginate .previous");
-        var nextButton = document.querySelector(".dataTables_paginate .next");
-        
-        previousButton.style.position = "absolute";
-        previousButton.style.right = "1cm";
-        previousButton.style.top = "13px";  // Ajusta la posición vertical según tus necesidades
-    
-        nextButton.style.position = "absolute";
-        nextButton.style.top = "10px"; // Ajusta la posición vertical según tus necesidades
-
-        pagination.style.position = "absolute";
-        pagination.style.left = "33cm";  // Ajusta la medida según tus necesidad
+                var previousButton = document.querySelector(".dataTables_paginate .previous");
+                var nextButton = document.querySelector(".dataTables_paginate .next");
+                
+                previousButton.style.position = "absolute";
+                previousButton.style.right = "1cm";
+                previousButton.style.top = "13px";  // Ajusta la posición vertical según tus necesidades
+                
+                nextButton.style.position = "absolute";
+                nextButton.style.top = "10px"; // Ajusta la posición vertical según tus necesidades
+                
+                pagination.style.position = "absolute";
+                pagination.style.left = "33cm";  // Ajusta la medida según tus necesidad
             </script>
         </div>
     </div>

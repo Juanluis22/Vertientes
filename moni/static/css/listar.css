@@ -1,0 +1,217 @@
+/* Estilos generales y otros estilos */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color de fondo de la página */
+}
+
+.container-main{
+    align-items: center;
+    text-align: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 3%;
+    font-size: 18px
+}
+
+@media (max-width: 437px) {
+    .container-main{
+        width: 120%;
+    }
+}
+
+/* Estilo para "ADMINISTRACIÓN DE COMUNIDADES" */
+.main-heading {
+    font-size: 25px; /* Tamaño de fuente para el título principal */
+    padding-top: 3%;
+    text-transform: uppercase; /* Mayúsculas para el título principal */
+    text-align: center; /* Alineación centrada del título principal */
+    align-items: center;
+}
+
+/* Estilo para "LISTADO DE COMUNIDAD" */
+.sub-heading {
+    font-size: 20px; /* Tamaño de fuente para el subtítulo */
+    margin-bottom: 0px; /* Espacio entre el subtítulo y el contenido */
+    text-transform: uppercase; /* Mayúsculas para el subtítulo */
+    text-align: center; /* Alineación centrada del subtítulo */
+    align-items: center;
+}
+
+.acceder, .carga, .volver {
+    background-color: #3393B7; /* Botón azul */
+    color: white;
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px 0;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.acceder:hover, .carga:hover, .volver:hover {
+    background-color: #16536A; /* Cambia el color al pasar el cursor sobre los botones */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilo de la tabla */
+#example {
+    width: 100%; /* Ancho completo de la tabla */
+    border-collapse: collapse; /* Borde de celdas colapsado */
+    background-color: #ffffff; /* Fondo blanco de la tabla */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para la tabla */
+    margin-top: 20px; /* Espacio superior de la tabla */
+}
+
+.dataTables_wrapper {
+    width: 1200px;
+    margin: 0 auto; /* Centra el contenedor en la pantalla */
+}
+
+@media screen and (max-width: 1200px) {
+    .dataTables_wrapper {
+        width: 100%; /* Ocupa todo el ancho disponible cuando la pantalla es estrecha */
+    }
+}
+
+.dataTables_length, .dataTables_filter {
+    display: inline-block; /* Coloca los elementos en línea dentro del cuadro */
+    margin-bottom: 10px; /* Espacio entre los elementos de DataTables */
+    border: none; /* Elimina el borde de los elementos */
+    background: none; /* Fondo transparente para los elementos */
+    color: #3393B7; /* Color del texto de los elementos */
+}
+
+/* Estilo para el margen superior de "Mostrando registros del ..." y "anterior/siguiente" */
+.dataTables_info, .dataTables_paginate {
+    display: inline-block;
+    margin-top: 10px; /* Agrega un margen superior */
+    padding: 10px;
+    height: 30px;
+    align-items: center; /* Centra verticalmente el contenido */
+    background-color: #3393B7;
+}
+
+.dataTables_info {
+    border-radius: 10px; /* Esquina inferior izquierda redondeada */
+}
+
+.dataTables_paginate {
+    border-radius: 10px; /* Esquina inferior derecha redondeada */
+}
+
+.dataTables_length {
+    border-radius: 10px; /* Esquina superior derecha redondeada */
+}
+
+.dataTables_filter {
+    border-radius: 10px; /* Esquina superior derecha redondeada */
+}
+
+.dataTables_length, .dataTables_filter {
+    display: inline-block; /* Coloca los elementos en línea dentro del cuadro */
+    border: none; /* Elimina el borde de los elementos */
+    background: none; /* Fondo transparente para los elementos */
+    padding: 10px;
+    
+    background-color: #3393B7;
+}
+
+
+
+#example th, #example td {
+    padding: 10px; /* Espaciado interno de celdas */
+    text-align: left; /* Alineación de texto izquierda */
+}
+
+#example th {
+    background-color: #3393B7; /* Fondo azul para encabezados de tabla */
+    color: white; /* Texto blanco en encabezados */
+    font-weight: bold;
+}
+
+#example tr:nth-child(even) {
+    background-color: #f2f2f2; /* Fondo gris alternado para filas pares */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los botones */
+    align-items: center; /* Centra verticalmente los botones */
+}
+
+.editar-button, .eliminar-button {
+    background-color: #16536A;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.editar-button:hover, .eliminar-button:hover {
+    background-color: #3393B7;
+}
+
+.editar-button:hover, .eliminar-button:hover {
+    transform: scale(1.05); /* Escala el botón al hacer hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+    cursor: pointer;
+}
+
+.editar-button {
+    margin-right: 10px; /* Agrega un margen a la derecha del botón "Editar" */
+}
+
+.button-row {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente los botones */
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 40px;
+    gap: 15px;
+    font-size: 18px
+}
+
+.custom-button {
+    background-color: #3393B7;
+    color: white;
+    display: inline-block;
+    padding: 25px 50px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.custom-button:hover {
+    background-color: #16536A;
+}
+
+/* Estilos para el hover de los botones */
+.custom-button:hover {
+    transform: scale(1.05); /* Escala el botón al hacer hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+#example th:nth-child(1),
+#example td:nth-child(1) {
+    max-width: 150px; /* Cambia el valor según tus necesidades */
+    white-space: nowrap; /* Evita que el contenido se ajuste automáticamente */
+    overflow: hidden; /* Oculta el contenido adicional que no cabe */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos al final si es necesario */
+}
+#example th:nth-child(3),
+#example td:nth-child(3) {
+    max-width: 150px; /* Cambia el valor según tus necesidades */
+    white-space: nowrap; /* Evita que el contenido se ajuste automáticamente */
+    overflow: hidden; /* Oculta el contenido adicional que no cabe */
+    text-overflow: ellipsis; /* Agrega puntos suspensivos al final si es necesario */
+}

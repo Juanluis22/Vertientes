@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'css/comunidades.css' %}">
-    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navasi2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/listar.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!--extras-->
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <title>Listado de Vertientes</title>
 
     <!-- Agregamos estilos para la lista de vertientes -->
     <style>
@@ -21,19 +21,6 @@
     </style>
 </head>
 <body>
-    <div class="vertical-bar">
-        <div class="sidebar">
-            <ul class="sidebar-nav">
-                <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
-                <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
-                <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
-                <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
-                
-            </ul>
-        </div>
-    </div>
-    
     <nav class="navbar">
         <div class="navbar-left">
             <span class="hidro-tech">HidroTech</span>
@@ -44,25 +31,74 @@
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
 
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a href="{% url 'crud:select' %}">
+                        <div class="icon-on-top">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <span>Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'crud:mapa_general' %}">
+                        <div class="icon-on-top">
+                            <i class="fas fa-map"></i>
+                        </div>
+                        <span>Mapa</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">
+                        <div class="icon-on-top">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <span>Gráficas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'crud:index' %}">
+                        <div class="icon-on-top">
+                            <i class="bi bi-kanban"></i>
+                        </div>
+                        <span>Gestión</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'eva:comuni' %}">
+                        <div class="icon-on-top">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span>Comunidad</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Tu código HTML reorganizado -->
-    <div class="container">
+    <div class="container-main">
         <!-- Ajusta la posición vertical de "Administración de Vertientes" -->
-        <h1 style="margin-left: 340px; margin-right: auto; margin-bottom: 1px;">Administración de Vertientes</h1>
-        <a href="{% url 'crud:newvert' %}" class="acceder" style="margin-left: 340px;">
+        <h1 class="main-heading">Administración de Vertientes</h1>
+        <div class="button-row">
+        <a href="{% url 'crud:newvert' %}" class="custom-button">
             <i class="bi bi-plus-circle"></i> Crear Manualmente La Vertiente
         </a>
         <br> <!-- Salto de línea -->
-        <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="carga" style="margin-left: 340px;">
+        <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="custom-button">
             <i class="bi bi-plus-circle"></i> Carga masiva
         </a>
+        </div>
         <!-- Ajusta la posición vertical de "Listado de Vertientes" -->
-        <h1 style="margin-left:340px; margin-right: auto; margin-bottom: 1px;">Listado de Vertientes</h1>
+        <h1 class="sub-heading">Listado de Vertientes</h1>
         <div class="vertientes-container">
             <div class="card-body">
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            <th style="width: 10px"><div class="separador">ID</div></th>
+                            
                             <th><div class="separador">Nombre</div></th>
                             <th><div class="separador">Descripción</div></th>
                             <th><div class="separador">Ubicación</div></th>
@@ -74,7 +110,7 @@
                         <!-- Datos de vertientes -->
                         {% for objeto in listaVertiente %}
                         <tr>
-                            <td>{{ objeto.id }}</td>
+                            
                             <td>{{ objeto.nombre }}</td>
                             <td>{{ objeto.desc }}</td>
                             <td>{{ objeto.ubicación }}</td>
@@ -82,9 +118,9 @@
                             <td>
                                 <div class="button-container">
                                     <div class="col-lg-6">
-                                        <button onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button"style=" padding: 5px 10px;">Editar</button>
+                                        <button onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button">Editar</button>
                                         {% if not objeto.is_staff %}
-                                        <a href="{% url 'crud:deletevert' objeto.id %}" class="Eliminar" style="text-decoration: none;  width: 15px; height: 15px;">Eliminar</a>
+                                        <button onclick="window.location.href='{% url 'crud:deletevert' objeto.id %}'" class="eliminar-button">Eliminar</button>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -94,9 +130,10 @@
                     </tbody>
                 </table>
             </div>
+            <div class="col-lg-6">
+                <a href="{% url 'crud:index' %}" class="volver">Volver</a>
+            </div>
         </div>
-        <!-- Ajusta la posición vertical de "Volver" -->
-        <a href="{% url 'crud:index' %}" class="volver"style="margin-left: 340px;">Volver</a>
     </div>
     <script>
         var table = new DataTable('#example', {
@@ -122,7 +159,7 @@
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
+                },
             },
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
             pagingType: 'full_numbers', // Agregamos la paginación completa
