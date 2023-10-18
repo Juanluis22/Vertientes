@@ -93,7 +93,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="vertical-bar">
         <div class="sidebar">
@@ -103,12 +102,11 @@
                 <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
                 <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
                 <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
-                
             </ul>
         </div>
     </div>
     
-    <nav class="navbar">
+    <nav class "navbar">
         <div class="navbar-left">
             <span class="hidro-tech">HidroTech</span>
         </div>
@@ -117,6 +115,7 @@
         </div>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
+    
     <div class="vertientes-container">
         <div class="vertientes-header">
             <h1>
@@ -125,8 +124,8 @@
             </h1>
         </div>
         <div class="search-box">
-            <input type="text" placeholder="Buscar..." id="searchInput" onkeyup="searchComunities(event)">
-            <button onclick="searchComunities()"><i class="bi bi-search"></i></button>
+            <input type="text" placeholder="Buscar..." id="searchInput" oninput="searchCommunities()">
+            <button onclick="searchCommunities()"><i class="bi bi-search"></i></button>
         </div>
         
         <div id="text3" class="hidden-text2">
@@ -166,10 +165,19 @@
     </div>
 
     <script>
+        var table = document.getElementById("communityTable");
         var currentPage = 0;
-        var rows = document.getElementById("communityTable").rows;
         var rowsPerPage = 5;
-    
+        var searchInput = document.getElementById("searchInput");
+        var rows = table.querySelectorAll("tbody tr");
+        var originalRows = Array.from(rows);
+
+        // Inicialmente, mostrar solo las primeras 5 filas
+        showPage(currentPage);
+
+        // Ocultar los botones de paginación si no son necesarios
+        updatePaginationButtons();
+
         function showPage(page) {
             for (var i = 0; i < rows.length; i++) {
                 if (i >= page * rowsPerPage && i < (page + 1) * rowsPerPage) {
@@ -179,79 +187,74 @@
                 }
             }
         }
-    
+
         function goToPage(page) {
             currentPage = page;
             showPage(currentPage);
+            updatePaginationButtons();
         }
-    
-        document.getElementById("prevPage").addEventListener("click", function() {
+
+        function updatePaginationButtons() {
+            var prevPageButton = document.getElementById("prevPage");
+            var nextPageButton = document.getElementById("nextPage");
+
+            if (currentPage === 0) {
+                prevPageButton.style.display = "none";
+            } else {
+                prevPageButton.style.display = "inline";
+            }
+
+            if (currentPage >= Math.ceil(originalRows.length / rowsPerPage) - 1) {
+                nextPageButton.style.display = "none";
+            } else {
+                nextPageButton.style.display = "inline";
+            }
+        }
+
+        document.getElementById("prevPage").addEventListener("click", function () {
             if (currentPage > 0) {
                 goToPage(currentPage - 1);
             }
         });
-    
-        document.getElementById("nextPage").addEventListener("click", function() {
-            if (currentPage < Math.ceil(rows.length / rowsPerPage) - 1) {
+
+        document.getElementById("nextPage").addEventListener("click", function () {
+            if (currentPage < Math.ceil(originalRows.length / rowsPerPage) - 1) {
                 goToPage(currentPage + 1);
             }
         });
-    
-        function searchComunities(event) {
-            if (event.keyCode === 13) {
-                var input, filter, table, tr, td, i, txtValue;
-                input = document.getElementById("searchInput");
-                filter = input.value.toLowerCase();
-                var results = [];
-        
-                for (i = 0; i < rows.length; i++) {
-                    td = rows[i].getElementsByTagName("td")[0];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        txtValue = txtValue.toLowerCase();
-                        if (txtValue.startsWith(filter)) { // Comprueba si el nombre comienza con el término de búsqueda
-                            rows[i].style.display = "";
-                            results.push(txtValue);
-                        } else {
-                            rows[i].style.display = "none";
-                        }
-                    }
-                }
-                
-                // Recalcula la paginación después de la búsqueda
-                currentPage = 0;
-                showPage(currentPage);
-                
-                // Muestra la lista de resultados
-                showResults(results);
-            }
-        }
-    
-        function showResults(results) {
-            var resultsList = document.getElementById("resultsList");
-            resultsList.innerHTML = "";
-    
-            if (results.length > 0) {
-                resultsList.style.display = "block";
-                resultsList.innerHTML = "<b>Resultados:</b><br>";
-                for (var i = 0; i < results.length; i++) {
-                    resultsList.innerHTML += results[i] + "<br>";
-                }
+
+        function searchCommunities() {
+            var filter = searchInput.value.trim().toLowerCase();
+
+            if (filter === "") {
+                rows = originalRows;
             } else {
-                resultsList.style.display = "none";
+                rows = originalRows.filter(row => {
+                    var td = row.getElementsByTagName("td")[0];
+                    if (td) {
+                        var txtValue = td.textContent || td.innerText;
+                        txtValue = txtValue.trim().toLowerCase();
+                        return txtValue.includes(filter);
+                    }
+                    return false;
+                });
             }
+
+            currentPage = 0;
+            showPage(currentPage);
+            updatePaginationButtons();
         }
-       
+
         function showText(textId) {
             var textElement = document.getElementById(textId);
             textElement.style.display = 'block';
         }
-    
+
         function hideText(textId) {
             var textElement = document.getElementById(textId);
             textElement.style.display = 'none';
         }
-    
+
         // Mostrar la primera página al cargar
         showPage(currentPage);
     </script>

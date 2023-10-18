@@ -57,6 +57,21 @@
                 border: 1px solid #ccc;
                 border-radius: 5px;
             }
+            .search-box {
+                margin: 20px 0;
+            }
+            input[type="text"] {
+                padding: 5px;
+                border: 1px solid #CCCCCC;
+                border-radius: 5px;
+            }
+            button {
+                background-color: #3393B7;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+            }
             
 
             .volver {
@@ -117,8 +132,8 @@
                 </h1>
             </div>
             <div class="search-box">
-                <input type="text" placeholder="Buscar..." id="searchInput">
-                <button onclick="searchComunities()"><i class="bi bi-search"></i></button>
+                <input type="text" placeholder="Buscar..." id="searchInput" oninput="searchVertientes()">
+                <button onclick="searchVertientes()"><i class="bi bi-search"></i></button>
             </div>
 
             
@@ -129,33 +144,33 @@
             </div>
 
         
-    <div class="table-container">
-        <table id="tableData">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for objeto in objetos %}
-                <tr>
-                    <td>{{ objeto.nombre }}</td>
-                    <td>
-                        <a href="{% url 'habi:verti_autoridad' objeto.id %}"class="ver-vertientes-button">
-                            <i class="bi bi-box-arrow-in-right"></i> Estado
-                        </a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+            <div class="table-container">
+                <table id="tableData">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for objeto in objetos %}
+                        <tr>
+                            <td>{{ objeto.nombre }}</td>
+                            <td>
+                                <a href="{% url 'habi:verti_autoridad' objeto.id %}" class="ver-vertientes-button">
+                                    <i class="bi bi-box-arrow-in-right"></i> Estado
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-    <div class="pagination">
-        <a href="#" id="prevPage">&laquo; Anterior</a>
-        <a href="#" id="nextPage">Siguiente &raquo;</a>
-    </div>
+            <div class="pagination">
+                <a href="#" id="prevPage">&laquo; Anterior</a>
+                <a href="#" id="nextPage">Siguiente &raquo;</a>
+            </div>
 
     
     
@@ -184,50 +199,96 @@
         </div>
     </div>
     <script>
-        var currentPage = 0;
-        var rows = document.querySelectorAll("#tableData tbody tr"); // Selecciona las filas de la tabla
-        var rowsPerPage = 5;
+        var table = document.getElementById("tableData");
+    var currentPage = 0;
+    var rowsPerPage = 5;
+    var searchInput = document.getElementById("searchInput");
+    var rows = table.querySelectorAll("tbody tr");
+    var originalRows = Array.from(rows);
 
-        function showPage(page) {
-            for (var i = 0; i < rows.length; i++) {
-                if (i >= page * rowsPerPage && i < (page + 1) * rowsPerPage) {
-                    rows[i].style.display = "";
-                } else {
-                    rows[i].style.display = "none";
-                }
+    // Inicialmente, mostrar solo las primeras 5 filas
+    showPage(currentPage);
+
+    // Ocultar los botones de paginación si no son necesarios
+    updatePaginationButtons();
+
+    function showPage(page) {
+        for (var i = 0; i < rows.length; i++) {
+            if (i >= page * rowsPerPage && i < (page + 1) * rowsPerPage) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
             }
         }
+    }
 
-        function goToPage(page) {
-            currentPage = page;
-            showPage(currentPage);
-        }
-
-        document.getElementById("prevPage").addEventListener("click", function () {
-            if (currentPage > 0) {
-                goToPage(currentPage - 1);
-            }
-        });
-
-        document.getElementById("nextPage").addEventListener("click", function () {
-            if (currentPage < Math.ceil(rows.length / rowsPerPage) - 1) {
-                goToPage(currentPage + 1);
-            }
-        });
-
-        // Mostrar la primera página al cargar
+    function goToPage(page) {
+        currentPage = page;
         showPage(currentPage);
-       
-        function showText(textId) {
-            var textElement = document.getElementById(textId);
-            textElement.style.display = 'block';
+        updatePaginationButtons();
+    }
+
+    function updatePaginationButtons() {
+        var prevPageButton = document.getElementById("prevPage");
+        var nextPageButton = document.getElementById("nextPage");
+
+        if (currentPage === 0) {
+            prevPageButton.style.display = "none";
+        } else {
+            prevPageButton.style.display = "inline";
         }
 
-        function hideText(textId) {
-            var textElement = document.getElementById(textId);
-            textElement.style.display = 'none';
+        if (currentPage >= Math.ceil(originalRows.length / rowsPerPage) - 1) {
+            nextPageButton.style.display = "none";
+        } else {
+            nextPageButton.style.display = "inline";
         }
-    </script>
+    }
+
+    document.getElementById("prevPage").addEventListener("click", function () {
+        if (currentPage > 0) {
+            goToPage(currentPage - 1);
+        }
+    });
+
+    document.getElementById("nextPage").addEventListener("click", function () {
+        if (currentPage < Math.ceil(originalRows.length / rowsPerPage) - 1) {
+            goToPage(currentPage + 1);
+        }
+    });
+
+    function searchVertientes() {
+        var filter = searchInput.value.trim().toLowerCase();
+
+        if (filter === "") {
+            rows = originalRows;
+        } else {
+            rows = originalRows.filter(row => {
+                var td = row.getElementsByTagName("td")[0];
+                if (td) {
+                    var txtValue = td.textContent || td.innerText;
+                    txtValue = txtValue.trim().toLowerCase();
+                    return txtValue.includes(filter);
+                }
+                return false;
+            });
+        }
+
+        currentPage = 0;
+        showPage(currentPage);
+        updatePaginationButtons();
+    }
+
+    function showText(textId) {
+        var textElement = document.getElementById(textId);
+        textElement.style.display = 'block';
+    }
+
+    function hideText(textId) {
+        var textElement = document.getElementById(textId);
+        textElement.style.display = 'none';
+    }
+</script>
 </body>
 </html>
         
