@@ -38,6 +38,101 @@ body {
     align-items: center; /* Centra verticalmente los rectángulos */
     margin-top: 30px;
 }
+.rectangulos-container2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 2px;
+    width: 50%; /* Resta 120px del ancho total de la ventana */
+    height: calc(100vh - 50vh); /* Resta 80px de la altura total de la ventana gráfica (viewport) */
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:20px;
+    border: 5px solid #2BB673;
+}
+
+.contenido-rectangulo3 {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Resta 120px del ancho total de la ventana */
+    height: 100vh; /* Resta 80px de la altura total de la ventana gráfica (viewport) */
+    margin-left:140px;
+    margin-top:80px;
+}
+.contenido-rectangulo4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: -140px;
+
+}
+.contendos {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left:120px;
+    align-items: center;
+
+}
+.contenidorectanguloverde {
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left:20px;
+    margin-bottom: 20px;
+    align-items: center;
+
+}
+@media (max-width: 1000px) {
+    .rectangulo-container2 {
+        flex-basis: 100%; /* Los cuadros ocuparán todo el ancho en pantallas estrechas */
+    }
+
+    /* Alinea los cuadros al centro verticalmente */
+    .contenido-rectangulo3 {
+        flex-basis: 100%;
+    }
+    .contenido-rectangulo4 {
+        flex-basis: 100%;
+    }
+    .contendos {
+        flex-basis: 100%;
+    }
+    .rectangulo-verde {
+        flex-basis: 100%;
+    }
+}
+.hidden-textsas {
+    display: none;
+    position: absolute;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: -30px; /* Ajusta esto según tu diseño */
+    margin-left: 10px; /* Ajusta esto según tu diseño */
+    z-index: 1; /* Asegura que esté por encima de otros elementos */
+}
+.rectangulo-container {
+    display: flex;
+    align-items: center; 
+    flex-basis: calc(50% - 2px); /* 50% del ancho con espacio entre ellos */
+    margin-bottom: 2px; /* Espacio entre las filas */
+}
+
+.rectangulo-container i {
+    font-size: 30px;
+    color: #0E7FE7;
+    margin-right: 10px;
+    cursor: pointer;
+}
 
 /* ... Otros estilos ... */
 
@@ -51,11 +146,10 @@ body {
 .rectangulo {
     position: relative;
 
-    width: 4500px; /* Ancho de los rectángulos */
-    height: 180px; 
+    width: 600px; /* Ancho de los rectángulos */
+    height: 200px; 
     margin: 20px; /* Espacio entre los rectángulos */
     border-radius: 25px;
-    padding-right: 40px; /* Espacio para el icono más ancho */
     display: flex; /* Utiliza flexbox para centrar el contenido */
     justify-content: center; /* Centra el contenido horizontalmente */
     align-items: center; /* Centra el contenido verticalmente */
@@ -67,6 +161,22 @@ body {
 
 .rectangulo-celeste {
     background-color: #2BB673; /* Color celeste pastel */
+}
+.rectangulo2 {
+    position: relative;
+
+    width: 600px; /* Ancho de los rectángulos */
+    height: 180px; 
+    margin: 20px; /* Espacio entre los rectángulos */
+    border-radius: 25px;
+    display: flex; /* Utiliza flexbox para centrar el contenido */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+}
+.rectangulo-verde2 {
+    background-color:  #16536A;
+    margin-top:30px;
+    margin-left:20px;
 }
 
 /* .rectangulo-verde {
