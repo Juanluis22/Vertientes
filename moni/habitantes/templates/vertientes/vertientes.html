@@ -205,6 +205,7 @@
     var searchInput = document.getElementById("searchInput");
     var rows = table.querySelectorAll("tbody tr");
     var originalRows = Array.from(rows);
+    var filter = searchInput.value.trim().toLowerCase();
 
     // Inicialmente, mostrar solo las primeras 5 filas
     showPage(currentPage);
@@ -259,9 +260,19 @@
 
     function searchVertientes() {
         var filter = searchInput.value.trim().toLowerCase();
-
+    
         if (filter === "") {
-            rows = originalRows;
+            // Si no hay filtro, mostrar las 5 filas iniciales
+            rows = originalRows.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage);
+            
+            // Ocultar las filas que no son parte de las 5 iniciales
+            originalRows.forEach(row => {
+                if (rows.includes(row)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
         } else {
             rows = originalRows.filter(row => {
                 var td = row.getElementsByTagName("td")[0];
@@ -272,8 +283,17 @@
                 }
                 return false;
             });
+    
+            // Ocultar las filas que no coinciden con la búsqueda
+            originalRows.forEach(row => {
+                if (rows.includes(row)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
         }
-
+    
         currentPage = 0;
         showPage(currentPage);
         updatePaginationButtons();
