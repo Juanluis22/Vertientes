@@ -23,8 +23,8 @@ class MQTTMiddleware:
         # Configuración del broker MQTT
         self.mqtt_server = "broker.emqx.io"
         self.mqtt_port = 1883
-        self.mqtt_user = ""  # Usuario del broker (si es necesario)
-        self.mqtt_password = ""  # Contraseña del broker (si es necesario)
+        self.mqtt_user = "Vertientes"  # Usuario del broker (si es necesario)
+        self.mqtt_password = "vertientes1234"  # Contraseña del broker (si es necesario)
         self.mqtt_topic = "Salida/01"  # Tópico al que se suscribirá
 
         # Crear una instancia del cliente MQTT
@@ -55,10 +55,15 @@ class MQTTMiddleware:
     def save_data(self,data):
         # Comparar data[mac] con el atributo mac de la entidad kit para asignar el id de la vertiente correspondiente
         # Recuperar el ID (Direccion MAC) del mensaje recibido
-        data_mac = data.get("mac", None)
-        if not data_mac:
-            print("Error: No se encontró la clave 'mac' en los datos recibidos.")
+        if isinstance(data, dict):
+            data_mac = data.get("mac", None)
+            if not data_mac:
+                print("Error: No se encontró la clave 'mac' en los datos recibidos.")
+                return
+        else:
+            print(f"Error: El mensaje recibido no es un diccionario. Valor recibido: {data}")
             return
+        
 
         # Buscar el kit que tenga esa mac
         try:
@@ -75,18 +80,18 @@ class MQTTMiddleware:
         vertiente_id = data_kit.vertiente_id
         vertiente_instance = vertiente.objects.get(id=vertiente_id)
 
-
+    
 
         # mostrar cual es el dato que falta
-        if not ("flow_Rate" in data):
+        if not ("caudal" in data):
             print("Falta el caudal")
         if not ("pH" in data): 
             print("Falta el pH")
-        if not ("turbidity" in data):
+        if not ("turbiedad" in data):
             print("Falta la turbidez")
-        if not ("temperature" in data):
+        if not ("temperatura" in data):
             print("Falta la temperatura")
-        if not ("humidity" in data):
+        if not ("humedad" in data):
             print("Falta la humedad")
         if not ("mac" in data):
             print("Falta la MAC")
@@ -113,20 +118,28 @@ class MQTTMiddleware:
     # Función callback que se llama cuando el cliente recibe un mensaje del broker
     def on_message(self, client, userdata, msg):
         print("Mensaje recibido")
+        
         # Decodificar el mensaje
-        payload_str = msg.payload.decode()
-        #Guardar los datos que llegan en el modelo datos
-       
+        payload_str = msg.payload.decode().strip()  # Se usa strip() para eliminar espacios en blanco
+        
+        # Si el mensaje está vacío, imprimir mensaje y finalizar la función
+        if not payload_str:
+            print("El último mensaje recibido está vacío.")
+            print("No se guardará ningún dato.")
+            return
+
         try:
             # Intenta convertir la cadena a un diccionario
             message_dict = json.loads(payload_str)
-            #Guardar los datos que llegan en el modelo datos
+            
+            # Guardar los datos que llegan en el modelo datos
             # Llamar a la función save_data
             self.save_data(message_dict)
-    
+
         except json.JSONDecodeError:
             # Si hay un error, simplemente usa la cadena tal como está
             message_dict = {"message": payload_str}
             print("Error al decodificar el mensaje")
+        
         # Agregar el diccionario a la cola
         message_queue.put(message_dict)
