@@ -24,6 +24,6 @@ urlpatterns = [
     path('comunity_massive_upload_save/',views.comunity_massive_upload_save,name="comunity_massive_upload_save"),
     path('comunity_import_file/',views.comunity_import_file,name="comunity_import_file"),
     path("anidado/", Select_anidado.as_view(), name='select'),
-    path("mapa/", mapa, name='mapa'),
+    path("mapa/<int:objecto_id>/", mapa, name='mapa'),
 
 ]

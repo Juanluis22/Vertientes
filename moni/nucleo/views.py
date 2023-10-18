@@ -538,9 +538,43 @@ class Select_anidado(TemplateView):
         context['form']=TestForm()
         return context
 
+
 @login_required
-def mapa(request):
+def mapa(request,objecto_id):
     #list transforma el queryset en una lista
-    vertientes=list(vertiente.objects.values('id','nombre','pH','conductividad','turbiedad','temperatura','humedad','caudal','latitud','longitud')[:100])
-    context={'vertientes':vertientes}
+    user = User.objects.get(pk=objecto_id)
+    user_id=user.id
+    a=user.comunidad
+    ba=a.id
+    vert=vertiente.objects.filter(comunidad=ba)
+    
+    vertientes_list = list(vert.values())
+    
+    #Se asigna una fecha inicial que siempre será lejana a la realidad para iniciar el for correctamente
+    mi_fecha = datetime(2000, 9, 24, 15, 30, 0)
+    fecha= timezone.make_aware(mi_fecha)
+    lista_de_datos = []
+    for a in vert:
+
+        b=a.id
+        for i in datos.objects.filter(vertiente_id=b):
+                    
+
+                    #Se comparan las fechas para escoger la más actual, luego se guarda el registro más actual en la lista data.
+                    if fecha<=i.fecha:
+
+                        
+                        fecha_sin_formato=i.fecha
+                        fecha_formateada= f'{fecha_sin_formato.day}/{fecha_sin_formato.month}/{fecha_sin_formato.year}'
+                        
+                        
+                        fecha=i.fecha
+                        ver=i.vertiente
+                        ver_id=ver.id
+
+                        nuevo_diccionario = {"id": i.id, "caudal": i.caudal, "pH": i.pH, "conductividad": i.conductividad, "turbiedad": i.turbiedad, "caudal": i.caudal, "humedad": i.humedad,"vertiente_id":ver_id, "fecha_formateada": fecha_formateada}
+                        lista_de_datos.append(nuevo_diccionario)
+    
+    
+    context={'vertientes':vertientes_list,'data':lista_de_datos,'user_id':user_id}
     return render(request,'mapa.html',context)

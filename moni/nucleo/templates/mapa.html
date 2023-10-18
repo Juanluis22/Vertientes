@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="{% static 'css/Gestion usuarios.css' %}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
 
 
     </head>
@@ -25,7 +24,7 @@
             <div class="sidebar">
                 <ul class="sidebar-nav">
                     <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
-                    <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'nucleo:mapa' %}">Mapa</a></li>
+                    
                     <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
                     <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
                 </ul>
@@ -48,6 +47,9 @@
                 <div id="map" style="height: 600px; width: 600px;"></div>
 
         {{ vertientes|json_script:"vertientes_json" }}
+        {{ data|json_script:"data_json" }}
+        {{ user_id|json_script:"userid_json" }}
+        
 
 
 
@@ -70,90 +72,132 @@
             }).addTo(map);
 
             let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent)
-
-            function onMarkerClick(e, idi) {
+            let datos_vert = JSON.parse(document.getElementById('data_json').textContent)
+            let userid = JSON.parse(document.getElementById('userid_json').textContent)
+            
+            // ayuda: aqui se puede mandar el id del user directamente al hacer click
+            function onMarkerClick(e, idi,iduser) {
             let id=idi
-            window.location.href = `/monitoreo/vertiente/${id}/`;
+            let idi_user=iduser
+            window.location.href = `/monitoreo/vertiente/${id}/${idi_user}/`;
             
 
             }
 
 
             vertientes.forEach(vertiente => {
+                id_vert=vertiente.id
                 
-                estado=0
-                problema=0
-                caudal=vertiente.caudal
-                ph=vertiente.pH
-                conductividad=vertiente.conductividad
-                turbiedad=vertiente.turbiedad
-                temperatura=vertiente.temperatura
-                humedad=vertiente.humedad
-
-                if(caudal>10 || caudal<2 ){
-                    problema=problema+1
-                    
-                }if(ph>7 || ph<4 ){
-                    problema=problema+1
-                    
-                }if(conductividad>10 || conductividad<5 ){
-                    problema=problema+1
-                    
-                }if(turbiedad>23){
-                    problema=problema+1
-                    
-                }if(temperatura>50 || temperatura<2 ){
-                    problema=problema+1
-                    
-                }if(humedad>10 || humedad<2 ){
-                    problema=problema+1
-                    
-                }
-                
-                if(problema>=2){
-                    estado=3
-                }if(problema<2 && problema>0){
-                    estado=2
-                }if(problema==0){
-                    estado=1
-                }
-
                 
 
+
+
+
+                datos_vert.forEach(dato => {
+
+                    a=dato.vertiente_id
+                    if(a==id_vert){
+
+                        estado=0
+                        problema=0
+                        caudal=dato.caudal
+                        ph=dato.pH
+                        conductividad=dato.conductividad
+                        turbiedad=dato.turbiedad
+                        temperatura=dato.temperatura
+                        humedad=dato.humedad
+
+                        if(caudal>10 || caudal<2 ){
+                        problema=problema+1
+                    
+                        }if(ph>7 || ph<4 ){
+                        problema=problema+1
+                    
+                        }if(conductividad>10 || conductividad<5 ){
+                        problema=problema+1
+                    
+                        }if(turbiedad>23){
+                        problema=problema+1
+                    
+                        }if(temperatura>50 || temperatura<2 ){
+                        problema=problema+1
+                    
+                        }if(humedad>10 || humedad<2 ){
+                        problema=problema+1
+                    
+                        }
                 
-                if(estado==1){
-                    var icono=L.icon({
-                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',  // Ruta de la imagen del marcador
-                iconAnchor: [12, 41],  // Punto de anclaje del icono
-                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                        if(problema>=2){
+                        estado=3
+                        }if(problema<2 && problema>0){
+                        estado=2
+                        }if(problema==0){
+                        estado=1
+                        }
+
+                
+
+                
+                        if(estado==1){
+                        var icono=L.icon({
+                        iconUrl: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',  // Ruta de la imagen del marcador
+                        iconAnchor: [12, 41],  // Punto de anclaje del icono
+                        popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                        })
+
+                        }if(estado==2){
+                        var icono=L.icon({
+                        iconUrl: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',  // Ruta de la imagen del marcador
+                        iconAnchor: [12, 41],  // Punto de anclaje del icono
+                        popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                        })
+
+                        }if(estado==3){
+                        var icono=L.icon({
+                        iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+                        iconAnchor: [12, 41],  // Punto de anclaje del icono
+                        popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                        })
+                        }
+
+
+
+                        var marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(map)
+                        nombre=vertiente.nombre.toString()
+                        problem=problema.toString()
+                        marcador.bindTooltip("Vertiente "+ nombre + " con " +problem + " problemas detectados.").openTooltip()
+                
+                        marcador.on('click', function(e){
+                        onMarkerClick(e,vertiente.id,userid)
+
+                        })
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                    
+
+
                 })
 
-                }if(estado==2){
-                    var icono=L.icon({
-                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',  // Ruta de la imagen del marcador
-                iconAnchor: [12, 41],  // Punto de anclaje del icono
-                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
-                })
+                
+                
 
-                }if(estado==3){
-                    var icono=L.icon({
-                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
-                iconAnchor: [12, 41],  // Punto de anclaje del icono
-                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
-                })
-                }
 
 
                 
-                var marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(map)
-                nombre=vertiente.nombre.toString()
-                problem=problema.toString()
-                marcador.bindTooltip("Vertiente "+ nombre + " con " +problem + " problemas detectados.").openTooltip()
-                
-                marcador.on('click', function(e){
-                    onMarkerClick(e,vertiente.id)
 
-                })
+
+                
+                
 
                 
             })

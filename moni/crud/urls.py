@@ -52,7 +52,8 @@ urlpatterns = [
 
     
     
-
+    #Mapa General
+    path("mapa_general/", mapa_general.as_view(), name='mapa_general'),
 
 
 

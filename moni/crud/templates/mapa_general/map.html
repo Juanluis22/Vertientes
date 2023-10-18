@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Mapa</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+        <link rel="stylesheet" href="{% static 'css/Gestion usuarios.css' %}">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    </head>
+    <style>
+        .hidden {
+        display: none;
+    }
+    </style>
+
+    <body>
+        <div class="vertical-bar">
+            <div class="sidebar">
+              <ul class="sidebar-nav">
+                <li class="nav-item"><i class="fas fa-home"></i><a href="{% url 'crud:select' %}">Inicio</a></li>
+                <li class="nav-item"><i class="fas fa-map"></i><a href="{% url 'crud:mapa_general' %}">Mapa</a></li>
+                <li class="nav-item"><i class="fas fa-chart-bar"></i><a href="#">Gráficas</a></li>
+                <li class="nav-item"><i class="fas fa-download"></i><a href="#">Descarga</a></li>
+            </ul>
+                
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <span class="hidro-tech">HidroTech</span>
+            </div>
+            <div class="navbar-center">
+                <div class="admin-box">Vista Administrador</div>
+            </div>
+            <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+        </nav>
+
+
+        <div class="rectangulos-container">
+
+            <div class="contenido-rectangulo">
+                <form method="post">
+                    {{ form.errors }}
+                <div class="card-body">
+                  {% csrf_token %}
+                  {% for field in form.visible_fields %}
+                  <div class="form-group">
+                    <div class="form-group {% if field.name == 'nombre' or field.name == 'desc' or field.name == 'ubicación' or field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
+                    <label for="email">{{ field.label }}  </label>
+                    {{ field }}
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+                <div class="contenido-rectangulo">
+                  <div id="map" style="height: 600px; width: 600px;"></div>
+
+                      
+                {{ vertientes|json_script:"vertientes_json" }}
+                {{ comunidades|json_script:"comunidades_json" }}
+                <input type="hidden" name="action" value="listo">
+
+                
+
+                </form>
+
+
+                <div id="map" style="height: 600px; width: 600px;"></div>
+
+
+
+
+
+        
+
+
+
+            </div>
+
+            
+
+
+        </div>
+
+
+
+
+        <script>
+            
+            var lati = -36.084726;
+            var longi = -71.217422;
+            var map=L.map('map').setView([lati, longi],11);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent);
+            
+            let comunidades = JSON.parse(document.getElementById('comunidades_json').textContent);
+            
+            var currentMarker = null;
+            let marcador = null;
+            let vmarcador = null;
+            var marcadoresGroup = L.layerGroup().addTo(map);
+            var marcadoresGroup2 = L.layerGroup().addTo(map);
+            var marcadoresGroup3 = L.layerGroup().addTo(map);
+            
+            map.on('click', function(event) {
+
+              if (currentMarker) {
+              map.removeLayer(currentMarker);
+              }
+
+
+
+              currentMarker=L.marker([event.latlng.lat,event.latlng.lng]).addTo(map);
+              console.log(event.latlng);
+              var latlng = event.latlng;
+              var latitudField = document.getElementById('id_latitud');
+              var longitudField = document.getElementById('id_longitud');
+
+              if (latitudField && longitudField) {
+              // Actualiza los campos
+              latitudField.value = latlng.lat;
+              longitudField.value = latlng.lng;
+                }
+              else{
+                console.log('xdd');
+              }
+            });
+
+            
+
+            
+
+            comunidades.forEach(comunidad => { 
+
+            var icono=L.icon({
+            iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+            iconAnchor: [12, 41],  // Punto de anclaje del icono
+            popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente  
+            } )
+            marcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(marcadoresGroup)
+            nombre=comunidad.nombre.toString()
+            marcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
+            
+            
+            }   );
+
+            
+            $(function(){
+              $('select[name="comunidad"]').on('change', function(){  
+                var id=$(this).val();
+                console.log(id)
+                
+                
+                
+                
+                    
+                $.ajax({
+                        url:window.location.pathname,
+                        type:'POST',
+                        
+                        data:{
+                            'action':'seaid',
+                            'id':id
+                        },
+                        dataType:'json',
+    
+                }).done(function(data){
+
+                  console.log('weno');
+                  lati=data[0]
+                  longi=data[1]
+                  
+                  map.setView([lati,longi]);
+
+
+                  
+                  
+
+                  comunidades.forEach(comunidad => { 
+                  marcadoresGroup.clearLayers();
+                  var icono=L.icon({
+                  iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+                  iconAnchor: [12, 41],  // Punto de anclaje del icono
+                  popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente  
+                  } )
+                  if(comunidad.id==id){
+                    if(marcadoresGroup3){
+                      marcadoresGroup3.clearLayers();
+                    }
+                    
+                    
+                    
+
+                    console.log('ENTRO')
+                    vmarcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(marcadoresGroup3)
+                    nombre=comunidad.nombre.toString()
+                    vmarcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
+                  }
+                  
+                  }   );
+
+
+
+
+                  marcadoresGroup2.clearLayers();
+                  
+
+                  vertientes.forEach(vertiente => { 
+                    
+                    if (vertiente.comunidad_id==id){
+                      
+                      var icono=L.icon({
+                      iconUrl: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',  // Ruta de la imagen del marcador
+                      iconAnchor: [12, 41],  // Punto de anclaje del icono
+                      popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente  
+                       } )
+                      marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(marcadoresGroup2)
+                      nombre=vertiente.nombre.toString()
+                      marcador.bindTooltip('vertiente: '+ nombre).openTooltip()
+
+                    }
+                    });
+
+
+
+
+
+                  
+                }).fail(function(data){
+                  error=data['error']
+                  console.log(error);
+                        // Manejo de errores
+                }).always(function(data){
+                  
+                  console.log('siempre');
+                        // Código a ejecutar siempre
+                });
+
+
+
+
+
+              })
+                
+            });
+            
+
+  </script>
+    </body>
+</html>
