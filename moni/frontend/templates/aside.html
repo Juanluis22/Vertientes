@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Menu Dashboard</title>
+	<!-- BOX ICONS -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- CUSTOM CSS -->
+	<link rel="stylesheet" href="./css/estilos.css">
+	<!-- CUSTOM JS -->
+	<script src="./js/app.js" defer></script>
+</head>
+
+<style>
+    /* FONTS GOOGLE */
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+    
+    /* VARIABLES */
+    
+    :root {
+        --blanco: #E0E0E0;
+        --azul-opacidad: #184463;
+        --bg-menu: #001A51;
+        --bg-body: rgb(61, 65, 70);
+    }
+    
+    /* GENERALES */
+    
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Quicksand', sans-serif;
+        color: var(--blanco);
+    }
+    
+    /* LAYOUT */
+    
+    .menu-dashboard {
+        max-width: 150px;
+        height: 100vh;
+        background: var(--bg-menu);
+        padding: 20px;
+        transition: max-width .3s ease;
+    }
+    
+    .top-menu {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .top-menu .logo {
+        display: flex;
+        align-items: center;
+    }
+    
+    .top-menu .logo img {
+        width: 40px;
+        transition: width .3s ease;
+    }
+    
+    .top-menu .logo span {
+        font-size: 20px;
+        margin-left: 20px;
+        margin-bottom: 40px; /*  */
+        display: none;
+    }
+    
+    .top-menu .toggle {
+        width: 30px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+    }
+    
+    .top-menu .toggle i {
+        font-size: 35px;
+    }
+    
+    
+    
+    /* ENLACES MENU */
+    
+    .menu .enlace {
+        width: 100%;
+        padding: 20px 0 20px 17px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        cursor: pointer;
+        font-size: 20px;
+        transition: all .3s ease;
+    }
+    
+    .menu .enlace:hover {
+        background: var(--azul-opacidad);
+    }
+    
+    .menu .enlace i {
+        margin-right: 20px;
+        font-size: 25px;
+    }
+    
+    .menu .enlace span {
+        opacity: 0;
+        transition: opacity .3s ease;
+    }
+    
+    .menu-dashboard.open {
+        max-width: 280px;
+    }
+    
+    .menu-dashboard.open .top-menu .logo span {
+        display: block;
+    }
+    
+    .menu-dashboard.open .input-search
+    .menu-dashboard.open .menu .enlace {
+        width: auto;
+    }
+    
+    .menu-dashboard.open .input-search .input {
+        display: block;
+    }
+    
+    .menu-dashboard.open .menu .enlace {
+        padding: 20px;
+    }
+    
+    .menu-dashboard.open .menu .enlace span {
+        opacity: 1;
+    }
+</style>
+
+<body>
+
+	<div class="menu-dashboard">
+		<!-- TOP MENU -->
+		<div class="top-menu">
+			<div class="logo">
+				<img src="./img/logo.svg" alt="">
+				<span>HidroTech</span>
+			</div>
+			<div class="toggle">
+				<i class='bx bx-menu'></i>
+			</div>
+		</div>
+
+		<!-- MENU -->
+		<div class="menu">
+
+			<div class="enlace">
+				<i class="bx bx-user"></i>
+				<span>Mi Perfil</span>
+			</div>
+
+			<div class="enlace">
+				<i class="bx bx-home"></i>
+				<span>Inicio</span>
+			</div>
+
+			<div class="enlace">
+				<i class="bx bx-grid-alt"></i>
+				<span>Dashboard</span>
+			</div>
+
+
+
+			<div class="enlace">
+				<i class="bx bx-bar-chart-square"></i>
+				<span>Graficos</span>
+			</div>
+
+			<div class="enlace">
+				<i class="bx bx-download"></i>
+				<span>Descargas</span>
+			</div>
+
+
+
+			<div class="enlace">
+				<i class="bx bx-exit"></i>
+				<span>Salir</span>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script>
+    const toggle = document.querySelector(".toggle")
+    const menuDashboard = document.querySelector(".menu-dashboard")
+    const iconoMenu = toggle.querySelector("i")
+    const enlacesMenu = document.querySelectorAll(".enlace")
+    
+    toggle.addEventListener("click", () => {
+      menuDashboard.classList.toggle("open")
+    
+      if (iconoMenu.classList.contains("bx-menu")) {
+        iconoMenu.classList.replace("bx-menu", "bx-x")
+      } else {
+        iconoMenu.classList.replace("bx-x", "bx-menu")
+      }
+    })
+    
+    enlacesMenu.forEach(enlace => {
+      enlace.addEventListener("click", () => {
+        menuDashboard.classList.add("open")
+        iconoMenu.classList.replace("bx-menu", "bx-x")
+      })
+    })
+</script>
+    
+
+</html>
