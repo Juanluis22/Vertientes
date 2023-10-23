@@ -1,41 +1,4 @@
-/* Estilos generales comunes a todos los HTML */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
-    background-size: cover;
-    background-position: center;
-}
 
-.navbar {
-    background-color: #333;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-}
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-.navbar a:hover {
-    color: #ff5733;
-}
 
 .center-div {
     /* Estilos para centrar contenido verticalmente */
@@ -46,6 +9,7 @@ body {
     text-align: center;
     background-color: #ffffff;
     border-radius: 5px 5px 5px 5px;
+    margin-top: 20px;
 }
 
 .card-header {
@@ -53,7 +17,7 @@ body {
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 5px 5px 5px 5px;
-    background-color: #0077b3;
+    background-color: #16536A;
     width: 100%;
 }
 
@@ -125,9 +89,9 @@ body {
 }
 
 .btn-success {
-    background-color: #00a4e4;
+    background-color: #16536A;
     color: #fff;
-    border: 2px solid #d0f2ff;
+    border: 2px solid #fff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -137,9 +101,9 @@ body {
 }
 
 .btn-danger {
-    background-color: #ff5733;
+    background-color: #16536A;
     color: #fff;
-    border: 2px solid #ffbdaf;
+    border: 2px solid #fff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -165,14 +129,20 @@ body {
     max-width: 600px; /* Ajusta el ancho máximo según tus preferencias */
 
 }
-/* Estilos específicos para cada HTML */
-/* Puedes agregar estilos específicos aquí */
+.form-container {
+    width: 50%; /* Establece el ancho del formulario al 50% */
+    display: inline-block; /* Para que estén uno al lado del otro */
+    vertical-align: top; /* Alinea en la parte superior */
+}
 
-/* Estilos específicos para el HTML 1 */
-/* .navbar-center, .cerrar-sesion, .vertientes-container, .button, etc. */
+.map-container {
+    width: 50%; /* Establece el ancho del mapa al 50% */
+    display: inline-block; /* Para que estén uno al lado del otro */
+    vertical-align: top; /* Alinea en la parte superior */
+}
 
-/* Estilos específicos para el HTML 2 */
-/* .navbar-center, .cerrar-sesion, .vertientes-container, .button, etc. */
-
-/* Estilos específicos para el HTML 3 */
-/* .navbar-center, .cerrar-sesion, .vertientes-container, .button, etc. */
+/* Agrega estilos para asegurarte de que el mapa y el formulario tengan espacio */
+.contenido-rectangulo {
+    margin-top: 20px; /* Espacio en la parte superior */
+    margin-bottom: 20px; /* Espacio en la parte inferior */
+}

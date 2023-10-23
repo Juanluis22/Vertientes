@@ -1,95 +1,90 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+        <link rel="stylesheet" href="{% static 'css/massive_upload.css' %}">
+        <link rel="stylesheet" href="{% static 'css/Gestion_usuarios.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
 
-    <link rel="stylesheet" href="{% static 'css/massive_upload.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!--extras-->
+        <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+    </head>
+    <style>
+        .editarr {
+            display: inline-block;
+            padding: 1px 2px;
+            background-color: #16536A;
+            color: white;
+            border: 2px solid #fff;
+            text-decoration: none;
+            border-radius: 1px;
+            margin-top: 5px;
+            }
+            .editarr:hover {
+                background-color: #0f5c11;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+            }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!--extras-->
-    <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-</head>
-<style>
-.acceder {
-display: inline-block;
-padding: 10px 20px;
-background-color: #4bc470;
-color: white;
-text-decoration: none;
-border-radius: 5px;
-margin-top: 20px;
-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Agregar sombra */
-}.volver {
-display: inline-block;
-padding: 10px 20px;
-background-color: #cc4242;
-color: white;
-text-decoration: none;
-border-radius: 5px;
-margin-top: 20px;
-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Agregar sombra */
-}
-.editar {
-display: inline-block;
-padding: 1px 2px;
-background-color: #3f8ae0;
-color: white;
-text-decoration: none;
-border-radius: 1px;
-margin-top: 5px;
-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Agregar sombra */
-}
-.desactivar {
-display: inline-block;
-padding: 1px 2px;
-background-color: #4bc470;
-color: white;
-text-decoration: none;
-border-radius: 1px;
-margin-top: 5px;
-box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Agregar sombra */
-}#example {
-background-color: white;
-}#example-td {
-background-color: white;
-}#example-th {
-background-color: white;
-}
-</style>
+    </style>
+    <body>
+        <div class="vertical-bar">
+            <div class="sidebar">
+                <ul class="sidebar-nav">
+                    <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
+                    <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
+                    <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
+                    <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
+                    <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <nav class="navbar">
+            <div class="navbar-left">
+                <span class="hidro-tech">HidroTech</span>
+            </div>
+            <div class="navbar-center">
+                <div class="admin-box">Vista Administrador</div>
+            </div>
+            <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+        </nav>
 {% block content %}
 {% block extrahead %}
 {% endblock %}
 <main role="main">
     <div class="container col-12 mt-3">
         <div class="col-12  mt-3 border">
-            <h3>Carga Masiva de Habitante</h3>
+            <h3>Carga Masiva de Habitantes</h3>
             {%if profiles.group_id == 1 %}
             <div class="col-12">
-                <form action="{% url 'nucleo:users_massive_upload_save' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'nucleo:comunity_massive_upload_save' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-12 col-sm-6 mb-3">
                             <input type="file" name="myfile" class="form-control border border-danger" required>
                         </div>
                         <div class="col-12 col-sm-3">
-                            <button class="btn btn btn-danger form-control mt-2" type="submit">Cargar</button>
+                            <button class="desactivarr"style="  background-color: #16536A; transition: background-color #0f5c11; box-shadow 0.3s;" type="submit">Cargar</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="col-12 mt-3 border">
                 <h4>Descargar archivo de importación</h4>
-                <a href="{% url 'nucleo:users_import_file' %}" class="acceder">Descargar</a>
+                <a href="{% url 'nucleo:comunity_import_file' %}" class="accederr">Descargar</a>
             </div>
             <div class="col-lg-6 mt-3"> <!-- Mover el botón "Volver" aquí -->
-                <a href="{% url 'crud:listauser' %}" class="volver">Volver</a>
+                <a href="{% url 'crud:listauser' %}" class="volverr">Volver</a>
             </div>
             {% endif %}
         </div>

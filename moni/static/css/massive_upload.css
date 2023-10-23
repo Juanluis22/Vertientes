@@ -1,12 +1,3 @@
-/* Restablecer algunos estilos predeterminados */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
 
 /* Estilo para el contenedor principal */
 .container {
@@ -100,3 +91,66 @@ button[type="submit"]:hover {
     background-color: #48c6ec;
 }
 
+.accederr {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #16536A;
+    color: #fff;
+    border: 2px solid #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    }
+    .accederr:hover {
+        background-color: #0f5c11;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    }
+    .volverr {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #16536A;
+    color: white;
+    border: 2px solid #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    }
+    .volverr:hover {
+        background-color: #0f5c11;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    }
+    .editarr {
+    display: inline-block;
+    padding: 1px 2px;
+    background-color: #16536A;
+    color: white;
+    border: 2px solid #fff;
+    text-decoration: none;
+    border-radius: 1px;
+    margin-top: 5px;
+    }
+    .editarr:hover {
+        background-color: #0f5c11;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    }
+    .desactivarr {
+    display: inline-block;
+    padding: 1px 2px;
+    background-color: #16536A;
+    color: white;
+    border: 2px solid #fff;
+    text-decoration: none;
+    border-radius: 1px;
+    margin-top: 5px;
+    }
+    .desactivarr:hover {
+        background-color: #0f5c11;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    }
+#example {
+  background-color: white;
+}#example-td {
+  background-color: white;
+}#example-th {
+  background-color: white;
+}
