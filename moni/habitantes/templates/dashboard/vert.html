@@ -104,11 +104,9 @@
         <div class="vertical-bar">
             <div class="sidebar">
                 <ul class="sidebar-nav">
-                    <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
+                   
                     <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
                     <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
-                    <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
-                    <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
                     
                 </ul>
             </div>
@@ -119,7 +117,7 @@
                 <span class="hidro-tech">HidroTech</span>
             </div>
             <div class="navbar-center">
-                <div class="admin-box">Vista Administrador</div>
+                <div class="admin-box">Vista Usuario</div>
             </div>
             <a href="{% url 'eva:comuni' %}" class="volverr">Volver</a>
             <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
