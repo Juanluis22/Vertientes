@@ -55,7 +55,7 @@ class UserForm(ModelForm):
             'last_name': '',
             'email': '',
             'edad': '',
-            'password': '°Le recomendamos escribir una contraseña sencilla, como pueden ser, los ultimos 4 digitos de su RUT.',
+            'password': '*Le recomendamos escribir una contraseña sencilla, como pueden ser, los ultimos 4 digitos de su RUT.',
         }
         
 
