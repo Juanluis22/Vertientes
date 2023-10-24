@@ -12,13 +12,6 @@ body {
     margin-left: 1rem;
     margin-right: 1rem;
     margin-bottom: 3%;
-    font-size: 18px
-}
-
-@media (max-width: 437px) {
-    .container-main{
-        width: 120%;
-    }
 }
 
 /* Estilo para "ADMINISTRACIÓN DE COMUNIDADES" */
@@ -68,13 +61,8 @@ body {
 
 .dataTables_wrapper {
     width: 1200px;
+    padding-right: 10px;
     margin: 0 auto; /* Centra el contenedor en la pantalla */
-}
-
-@media screen and (max-width: 1200px) {
-    .dataTables_wrapper {
-        width: 100%; /* Ocupa todo el ancho disponible cuando la pantalla es estrecha */
-    }
 }
 
 .dataTables_length, .dataTables_filter {
@@ -87,12 +75,22 @@ body {
 
 /* Estilo para el margen superior de "Mostrando registros del ..." y "anterior/siguiente" */
 .dataTables_info, .dataTables_paginate {
-    display: inline-block;
     margin-top: 10px; /* Agrega un margen superior */
-    padding: 10px;
-    height: 30px;
     align-items: center; /* Centra verticalmente el contenido */
-    background-color: #3393B7;
+}
+
+/* Estilo para el cuadro de búsqueda de DataTables */
+#example_filter input {
+    background-color: #ffffff; /* Fondo blanco */
+    border: 1px solid #000000; /* Borde negro de 1 píxel */
+    border-radius: 5px; /* Esquina redondeada */
+    padding: 5px; /* Espaciado interno */
+    color: #000000; /* Texto negro */
+    width: 200px; /* Ancho del cuadro de búsqueda, ajusta según tus necesidades */
+}
+
+#example_filter input::placeholder {
+    color: #000000; /* Color del marcador de posición del cuadro de búsqueda */
 }
 
 .dataTables_info {
@@ -119,8 +117,6 @@ body {
     
     background-color: #3393B7;
 }
-
-
 
 #example th, #example td {
     padding: 10px; /* Espaciado interno de celdas */
@@ -178,6 +174,7 @@ body {
     font-size: 18px
 }
 
+/* Estilo para los botones "Crear Manualmente La Comunidad" y "Carga masiva" */
 .custom-button {
     background-color: #3393B7;
     color: white;
@@ -188,6 +185,7 @@ body {
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    max-width: 320px;
 }
 
 .custom-button:hover {
@@ -201,17 +199,15 @@ body {
     cursor: pointer;
 }
 
-#example th:nth-child(1),
-#example td:nth-child(1) {
-    max-width: 150px; /* Cambia el valor según tus necesidades */
-    white-space: nowrap; /* Evita que el contenido se ajuste automáticamente */
-    overflow: hidden; /* Oculta el contenido adicional que no cabe */
-    text-overflow: ellipsis; /* Agrega puntos suspensivos al final si es necesario */
+@media screen and (max-width: 640px){
+.dataTables_wrapper .dataTables_filter {
+    margin-top: 0.5em;
+    margin-left: 10px;
 }
-#example th:nth-child(3),
-#example td:nth-child(3) {
-    max-width: 150px; /* Cambia el valor según tus necesidades */
-    white-space: nowrap; /* Evita que el contenido se ajuste automáticamente */
-    overflow: hidden; /* Oculta el contenido adicional que no cabe */
-    text-overflow: ellipsis; /* Agrega puntos suspensivos al final si es necesario */
 }
+
+@media screen and (max-width: 1350px){
+    .container-main {
+        width: 1200px;
+    }
+    }

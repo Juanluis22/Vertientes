@@ -1,183 +1,169 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/navasi2.css' %}">
-    <link rel="stylesheet" href="{% static 'css/listar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!--extras-->
-    <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <title>Listado de Peticiones</title>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="navbar-left">
-            <span class="hidro-tech">HidroTech</span>
-        </div>
-        <div class="navbar-center">
-            <div class="admin-box">Vista Administrador</div>
-        </div>
-        <a href="{% url 'crud:index' %}" class="volverr">Volver</a>
-        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-    </nav>
+    {% load static %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/navasi2.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navasia.css' %}">
+        <link rel="stylesheet" href="{% static 'css/listar.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <!--extras-->
+        <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <title>Listado de Peticiones</title>
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="navbar-left">
+                <span class="hidro-tech">HidroTech</span>
+            </div>
+            <div class="navbar-center">
+                <div class="admin-box">Vista Administrador</div>
+            </div>
+            <a href="{% url 'crud:index' %}" class="volverr">Volver</a>
+            <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+        </nav>
 
-    <div class="vertical-bar">
-        <div class="sidebar">
-            <ul class="sidebar-nav">
-                <li class="nav-item">
-                    <a href="{% url 'crud:select' %}">
-                        <div class="icon-on-top">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <span>Inicio</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'crud:mapa_general' %}">
-                        <div class="icon-on-top">
-                            <i class="fas fa-map"></i>
-                        </div>
-                        <span>Mapa</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#">
-                        <div class="icon-on-top">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <span>Gráficas</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'crud:index' %}">
-                        <div class="icon-on-top">
-                            <i class="bi bi-kanban"></i>
-                        </div>
-                        <span>Gestión</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'eva:comuni' %}">
-                        <div class="icon-on-top">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <span>Comunidad</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="container-main">
-        <!-- Alinea el contenido hacia la izquierda -->
-        <h1 class="main-heading">Administración de Peticiones</h1>
-        
-        <!-- Alinea el enlace hacia la izquierda -->
-        <div class="button-row">
-        <a href="{% url 'crud:listauser' %}" class="custom-button">
-            <i class="bi bi-plus-circle"></i> Habitantes Registrados
-        </a>
+        <div class="vertical-bar">
+            <div class="sidebar">
+                <ul class="sidebar-nav">
+                    <li class="nav-item">
+                        <a href="{% url 'crud:select' %}">
+                            <div class="icon-on-top">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'crud:mapa_general' %}">
+                            <div class="icon-on-top">
+                                <i class="fas fa-map"></i>
+                            </div>
+                            <span>Mapa</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <div class="icon-on-top">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <span>Gráficas</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'crud:index' %}">
+                            <div class="icon-on-top">
+                                <i class="bi bi-kanban"></i>
+                            </div>
+                            <span>Gestión</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'eva:comuni' %}">
+                            <div class="icon-on-top">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span>Comunidad</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
         
-        <!-- Alinea el encabezado hacia la izquierda -->
-        <h1 class="sub-heading">Listado de Peticiones</h1>
-        <div class="card-body">
-            <div class="card-body">
-                <table id="example" class="display" style="width:100%">
-                    <thead>
-                        <tr>
-                            
-                            <th><div class="separador">RUT</div></th>
-                            <th><div class="separador">Nombre</div></th>
-                            <th><div class="separador">Apellido</div></th>
-                            <th style="width: 300px"><div class="separador">Correo</div></th>
-                            <th><div class="separador">Edad</div></th>
-                            <th><div class="separador">Genero</div></th>
-                            <th><div class="separador">Comunidad</div></th>
-                            <th><div class="separador">Tipo</div></th>
-                            <th style="width: 40px"><div class="separador">Está activado?</div></th>
-                            <th><div class="separador">Opciones</div></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for objeto in listaUsuarios %}   
-                            {% if not objeto.is_active %}
-                                <tr>
-                                    
-                                    <td>{{ objeto.username }}</td>
-                                    <td>{{ objeto.first_name }}</td>
-                                    <td>{{ objeto.last_name }}</td>
-                                    <td>{{ objeto.email }}</td>
-                                    <td>{{ objeto.edad }}</td>
-                                    <td>{{ objeto.gender }}</td>
-                                    <td>{{ objeto.comunidad }}</td>
-                                    <td>{{ objeto.tipo }}</td>
-                                    <td>{{ objeto.is_active }}</td>
-                                    <td>
-                                        <div class="button-container">
-                                            <button onclick="window.location.href='{% url 'crud:activaruser' objeto.id %}'" class="editar-button">Aceptar</button>
-                                            <button onclick="window.location.href='{% url 'crud:deleteUser' objeto.id %}'" class="eliminar-button">Eliminar</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="container-main">
+            <h1 class="main-heading">Administración de Peticiones</h1>
+            <div class="button-row">
+            <a href="{% url 'crud:listauser' %}" class="custom-button">
+                <i class="bi bi-plus-circle"></i> Habitantes Registrados
+            </a>
             </div>
-            <div class="section">
-                
+            <div class="vertientes-container">
+                <div class="card-body">
+                    <table id="example" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                
+                                <th><div class="separador">RUT</div></th>
+                                <th><div class="separador">Nombre</div></th>
+                                <th><div class="separador">Apellido</div></th>
+                                <th><div class="separador">Correo</div></th>
+                                <th><div class="separador">Edad</div></th>
+                                <th><div class="separador">Genero</div></th>
+                                <th><div class="separador">Comunidad</div></th>
+                                <th><div class="separador">Tipo</div></th>
+                                <th><div class="separador">Está activado?</div></th>
+                                <th><div class="separador">Opciones</div></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for objeto in listaUsuarios %}   
+                                {% if not objeto.is_active %}
+                                    <tr>
+                                        
+                                        <td>{{ objeto.username }}</td>
+                                        <td>{{ objeto.first_name }}</td>
+                                        <td>{{ objeto.last_name }}</td>
+                                        <td>{{ objeto.email }}</td>
+                                        <td>{{ objeto.edad }}</td>
+                                        <td>{{ objeto.gender }}</td>
+                                        <td>{{ objeto.comunidad }}</td>
+                                        <td>{{ objeto.tipo }}</td>
+                                        <td>{{ objeto.is_active }}</td>
+                                        <td>
+                                            <div class="button-container">
+                                                <button onclick="window.location.href='{% url 'crud:activaruser' objeto.id %}'" class="editar-button">Aceptar</button>
+                                                <button onclick="window.location.href='{% url 'crud:deleteUser' objeto.id %}'" class="eliminar-button">Eliminar</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <script>
-                new DataTable('#example', {
-                    language: {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Buscar:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        </div>
+                <script>
+                    new DataTable('#example', {
+                        columnDefs: [
+                            { targets: [9], orderable: false }
+                          ],
+                        language: {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
                         }
-                    }
-                });
-                var pagination = document.querySelector(".dataTables_paginate");
-                var previousButton = document.querySelector(".dataTables_paginate .previous");
-                var nextButton = document.querySelector(".dataTables_paginate .next");
-                
-                previousButton.style.position = "absolute";
-                previousButton.style.right = "1cm";
-                previousButton.style.top = "13px";  // Ajusta la posición vertical según tus necesidades
-                
-                nextButton.style.position = "absolute";
-                nextButton.style.top = "10px"; // Ajusta la posición vertical según tus necesidades
-                
-                pagination.style.position = "absolute";
-                pagination.style.left = "33cm";  // Ajusta la medida según tus necesidad
-            </script>
-        </div>
-    </div>
-</body>
-</html>
+                    });
+                </script>
+    </body>
+    </html>
+    <style>
+        #example th:nth-child(10){
+        text-align: center;
+    }
+    </style>

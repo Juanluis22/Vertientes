@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'css/navasi2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navasia.css' %}">
     <link rel="stylesheet" href="{% static 'css/listar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!--extras-->
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
@@ -78,21 +78,20 @@
     <div class="container-main">
         <h1 class="main-heading">Administración de Habitantes</h1>
         <div class="button-row">
-        <a href="{% url 'crud:newuser' %}" class="custom-button">
-            <i class="bi bi-plus-circle"></i> Crear Manualmente un Habitante
-        </a>
-        <div class="section">
-            <div class="col-lg-6">
-                <a href="{% url 'nucleo:users_massive_upload' %}" class="custom-button">Carga masiva</a>
+            <a href="{% url 'crud:newuser' %}" class="custom-button">
+                <i class="bi bi-plus-circle"></i> Crear nueva Vertiente
+            </a>
+            <br> <!-- Salto de línea -->
+            <a href="{% url 'nucleo:users_massive_upload' %}" class="custom-button">
+                <i class="bi bi-plus-circle"></i> Carga masiva Vertiente
+            </a>
             </div>
-        </div>
-        </div>
-        <h1 class="sub-heading">Listado de Habitantes</h1>
+    <div class="vertientes-container">
         <div class="card-body">
             <table id="example" class="display">
                 <thead>
                     <tr>
-                        <th><div class="separador">ID</div></th>
+
                         <th><div class="separador">RUT</div></th>
                         <th><div class="separador">Nombre</div></th>
                         <th><div class="separador">Apellido</div></th>
@@ -107,35 +106,41 @@
                 <tbody>
                     {% for objeto in listaUsuarios %}
                     {% if objeto.is_active %}
-                    <tr>
-                        <td><div class="separador">{{ objeto.id }}</div></td>
-                        <td><div class="separador">{{ objeto.username }}</div></td>
-                        <td><div class="separador">{{ objeto.first_name }}</div></td>
-                        <td><div class="separador">{{ objeto.last_name }}</div></td>
-                        <td><div class="separador">{{ objeto.email }}</div></td>
-                        <td><div class="separador">{{ objeto.edad }}</div></td>
-                        <td><div class="separador">{{ objeto.gender }}</div></td>
-                        <td><div class="separador">{{ objeto.comunidad }}</div></td>
-                        <td><div class="separador">{{ objeto.tipo }}</div></td>
-                        <td>
-                            <div class="col-lg-6">
-                                <button onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</button>
-                                {% if not objeto.is_staff %}
-                                <a href="{% url 'crud:deactuser' objeto.id  %}" class="desactivar">Desactivar</a>
-                                {% endif %}
-                            </div>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                </tbody>
-            </table>
+                        <tr>
+
+                            <td><div class="separador">{{ objeto.username }}</div></td>
+                            <td><div class="separador">{{ objeto.first_name }}</div></td>
+                            <td><div class="separador">{{ objeto.last_name }}</div></td>
+                            <td><div class="separador">{{ objeto.email }}</div></td>
+                            <td><div class="separador">{{ objeto.edad }}</div></td>
+                            <td><div class="separador">{{ objeto.gender }}</div></td>
+                            <td><div class="separador">{{ objeto.comunidad }}</div></td>
+                            <td><div class="separador">{{ objeto.tipo }}</div></td>
+                            <td>
+                                <div class="button-container">
+                                  <button onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</button>
+                                   {% if not objeto.is_staff %}
+                                  <button onclick="window.location.href='{% url 'crud:deactuser' objeto.id  %}'" class="editar-button">Desactivar</button>
+                                   {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        
     </div>
 
     <script>
         new DataTable('#example', {
+            columnDefs: [
+                {
+                targets: 8,
+                orderable: false,
+                },
+            ],
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -161,19 +166,12 @@
                 }
             }
         });
-        var pagination = document.querySelector(".dataTables_paginate");
-        var previousButton = document.querySelector(".dataTables_paginate .previous");
-        var nextButton = document.querySelector(".dataTables_paginate .next");
-        
-        previousButton.style.position = "absolute";
-        previousButton.style.right = "1cm";
-        previousButton.style.top = "13px";  // Ajusta la posición vertical según tus necesidades
-    
-        nextButton.style.position = "absolute";
-        nextButton.style.top = "10px"; // Ajusta la posición vertical según tus necesidades
-
-        pagination.style.position = "absolute";
-        pagination.style.left = "33cm";  // Ajusta la medida según tus necesidades
     </script>
 </body>
 </html>
+
+<style>
+    #example th:nth-child(9){
+    text-align: center;
+}
+</style>

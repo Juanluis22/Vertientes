@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'css/navasi2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navasia.css' %}">
     <link rel="stylesheet" href="{% static 'css/listar.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <!--extras-->
     <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
@@ -86,15 +86,14 @@
         <h1 class="main-heading">Administración de Vertientes</h1>
         <div class="button-row">
         <a href="{% url 'crud:newvert' %}" class="custom-button">
-            <i class="bi bi-plus-circle"></i> Crear Manualmente La Vertiente
+            <i class="bi bi-plus-circle"></i> Crear nueva Vertiente
         </a>
         <br> <!-- Salto de línea -->
         <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="custom-button">
-            <i class="bi bi-plus-circle"></i> Carga masiva
+            <i class="bi bi-plus-circle"></i> Carga masiva Vertiente
         </a>
         </div>
         <!-- Ajusta la posición vertical de "Listado de Vertientes" -->
-        <h1 class="sub-heading">Listado de Vertientes</h1>
         <div class="vertientes-container">
             <div class="card-body">
                 <table id="example" class="display" style="width:100%">
@@ -136,7 +135,10 @@
         </div>
     </div>
     <script>
-        var table = new DataTable('#example', {
+        new DataTable('#example', {
+            columnDefs: [
+                { "orderable": false, "targets": 4 }
+            ],
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -159,12 +161,15 @@
                 "oAria": {
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                },
-            },
-            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-            pagingType: 'full_numbers', // Agregamos la paginación completa
-            pageLength: 10, // Definimos la cantidad de registros por página
+                }
+            }
         });
     </script>
 </body>
 </html>
+
+<style>
+    #example th:nth-child(5), #example td:nth-child(5) {
+    text-align: center;
+}
+</style>

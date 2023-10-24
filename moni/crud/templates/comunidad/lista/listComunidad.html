@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/navasi2.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navasia.css' %}">
     <link rel="stylesheet" href="{% static 'css/listar.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
@@ -86,22 +86,23 @@
         <h1 class="main-heading">Administración de Comunidades</h1>
         <div class="button-row">
             <a href="{% url 'crud:newcom' %}" class="custom-button">
-                <i class="bi bi-plus-circle"></i> Crear Manualmente La Comunidad
+                <i class="bi bi-plus-circle"></i> Crear nueva Comunidad
             </a>
             <br> <!-- Salto de línea -->
             <a href="{% url 'nucleo:comunity_massive_upload' %}" class="custom-button">
-                <i class="bi bi-plus-circle"></i> Carga masiva
+                <i class="bi bi-plus-circle"></i> Carga masiva Comunidad
             </a>
         </div>
         <!-- Ajusta la posición vertical de "Listado de Vertientes" -->
-        <h1 class="sub-heading">Listado de Comunidad</h1>
         <div class="vertientes-container">
             <div class="card-body">
                 <table id="example" class="display">
                     <thead>
                         <tr>
                             <th><div class="separador">Nombre</div></th>
-                            <th><div class="separador">Ubicación Referencia</div></th>
+                            <th><div class="separador">Ubicación Referencial</div></th>
+                            <th><div class="separador">Encargado</div></th>
+                            <th><div class="separador">Contacto</div></th>
                             <th><div class="separador">Opciones</div></th>
                         </tr>
                     </thead>
@@ -110,6 +111,8 @@
                         <tr>
                             <td>{{ objeto.nombre }}</td>
                             <td>{{ objeto.ubicación }}</td>
+                            <td> </td>
+                            <td> </td> 
                             <td>
                                 <div class="button-container">
                                     <button onclick="window.location.href='{% url 'crud:updatecom' objeto.id %}'" class="editar-button">Editar</button>
@@ -121,12 +124,14 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
     </div>
 
     <script>
         new DataTable('#example', {
+            columnDefs: [
+            { targets: [3, 4], orderable: false }
+            ],
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -155,3 +160,9 @@
     </script>
 </body>
 </html>
+
+<style>
+    #example th:nth-child(5), #example td:nth-child(5) {
+    text-align: center;
+}
+</style>
