@@ -73,20 +73,19 @@ main{
     background-size: cover;
     background-position: center;
 }
-        #contenedor {
-            display: flex;
-
-            max-height: 50%;
-            margin-left: 25%;
-            margin-top: 2.5%;
-        }
+#contenedor {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    min-height: 100vh; /* Asegura que el contenedor ocupe el alto de la ventana */
+}
         #formulario {
             background-color: #f0f0f0; 
-            border-radius: 15px 0px 0px 15px;
+            border-radius: 15px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             flex: 1;
-            max-width: 30%; /* Ajusta el ancho del formulario */
+            max-width: 40%; /* Ajusta el ancho del formulario */
         }
         #formulario form {
             flex-direction: column;
@@ -146,10 +145,10 @@ main{
     <nav class="navbar">
         <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="page1.html">Inicio</a></li>
-            <li class="nav-item"><a href="#">Servicios</a></li>
-            <li class="nav-item"><a href="#">Acerca de</a></li>
-            <li class="nav-item"><a href="#">Contacto</a></li>
+            <li class="nav-item"><a href="page1.html"></a></li>
+            <li class="nav-item"><a href="#"></a></li>
+            <li class="nav-item"><a href="#"></a></li>
+            <li class="nav-item"><a href="#"></a></li>
         </ul>
         <a href="{% url 'nucleo:login' %}" class="cerrar-sesion">Volver</a>
     </nav>
@@ -165,7 +164,7 @@ main{
             </form>
         </div>
         
-        <img id="imagen" src="https://img.freepik.com/vector-premium/cascada-bosque-naturaleza-fondo-tropical-selva-fondo-pantalla_194708-1364.jpg?w=740" alt="Imagen de fondo">
+        
     </div>
     </main>
     <footer class="footer">

@@ -62,11 +62,11 @@ body {
 }
 
 .rectangulo-verde {
-    background-color: #2BB673; /* Color verde pastel */
+    background-color: #16536A; /* Color verde pastel */
 }
 
 .rectangulo-celeste {
-    background-color: #2BB673; /* Color celeste pastel */
+    background-color: #16536A; /* Color celeste pastel */
 }
 
 /* .rectangulo-verde {
@@ -170,7 +170,7 @@ body {
     cursor: pointer;
 }
 .fa-lightbulb {
-    color: #2BB673; /* Cambia el color según tu preferencia */
+    color: #16536A; /* Cambia el color según tu preferencia */
     font-size: 24px; /* Cambia el tamaño según tu preferencia */
     cursor: pointer;
     margin-left: 10px; /* Añade margen para separar del título */
