@@ -159,16 +159,40 @@ main{
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div id="registro">
-                <button  type="submit" class="botona">Registrarse</button>
+                    <button type="submit" class="botona" id="boton-registrarse">Registrarse</button>
+                    <div id="confirmacion" style="display: none;">
+                        Gracias por registrarte. se a enviado su peticion a administracion.<br>
+                                    Por favor revisar su correo electronico
+                      </div>
+
                 </div>
             </form>
         </div>
         
+          
         
     </div>
     </main>
     <footer class="footer">
         <p>&copy; 2023 U.autonoma. Todos los derechos reservados.</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const botonRegistrarse = document.getElementById("boton-registrarse");
+          const confirmacion = document.getElementById("confirmacion");
+        
+          botonRegistrarse.addEventListener("click", function () {
+            // Aquí puedes realizar alguna validación adicional si es necesario
+            // Por ejemplo, verificar que todos los campos estén completos
+        
+            // Muestra el mensaje de confirmación
+            confirmacion.style.display = "block";
+        
+            // También puedes redirigir al usuario a una página de inicio de sesión o a otra página de tu elección
+            // window.location.href = "{% url 'nucleo:login' %}";
+          });
+        });
+        </script>
+        
 </body>
 </html>

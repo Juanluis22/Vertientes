@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Contraseña</title>
@@ -87,7 +88,7 @@
         }
         #formulario {
             background-color: #f0f0f0; 
-            border-radius: 15px 0px 0px 15px;
+            border-radius: 15px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             
@@ -166,20 +167,23 @@
     <div id="contenedor">
         <div id="formulario">
             <h2 id="titulo">Cambio de Contraseña</h2>
-            <form  method="post">
+            <form method="post">
                 {% csrf_token %}
-                {{ form.password }}
-                {{ form.confirmPassword }}
-                <p id="recordatorio">Si su correo está registrado se enviará un link para restaurar su contraseña</p>
+                <div style="display: flex; justify-content: space-between;">
+                    <div >
+                        
+                        {{ form.password }}
+                    </div>
+                    <div style="margin-left: 10px;">
+                        
+                        {{ form.confirmPassword }}
+                    </div>
+                </div>
+                <p id="recordatorio">Proporcione la nueva contraseña que desea utilizar para la actualización.</p>
                 <button id="botonRecuperar" type="submit">Recuperar</button>
-
-
-               
-                
-                
             </form>
         </div>
-        <img id="imagen" src="https://i.pinimg.com/originals/ab/39/c8/ab39c832f759bc3f1e35ccc6df704999.jpg" alt="Imagen de fondo">
+        
     </div>
     </main>
     <footer class="footer">
