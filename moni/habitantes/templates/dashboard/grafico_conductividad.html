@@ -48,7 +48,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 chart-container"> <!-- Agregar la clase chart-container y el margen izquierdo -->
-                <canvas id="lineChart" width="400" height="400"></canvas>
+                <canvas id="lineChart" width="400" height="400" style="background-color: white;"></canvas>
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
                 label: 'conductividad',
                 data: values,
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
+                borderWidth: 3, // Cambia el ancho de las líneas del gráfico
                 fill: false
             }]
         };
@@ -95,12 +95,20 @@
                     title: {
                         display: true,
                         text: 'Fecha'
+                    },
+                    gridLines: {
+                        color: 'rgba(0, 0, 0, 0.1)', // Cambia el color de las líneas de la cuadrícula
+                        lineWidth: 4 // Ancho de las líneas de cuadrícula en el eje X
                     }
                 }],
                 y: {
                     title: {
                         display: true,
                         text: 'conductividad'
+                    },
+                    gridLines: {
+                        color: 'rgba(0, 0, 0, 0.1)', // Cambia el color de las líneas de la cuadrícula
+                        lineWidth: 4 // Ancho de las líneas de cuadrícula en el eje Y
                     }
                 }
             }
