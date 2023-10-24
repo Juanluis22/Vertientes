@@ -33,3 +33,4 @@ tqdm
 tzdata
 wheel
 xlwt
+xlrd
