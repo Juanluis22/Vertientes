@@ -8,26 +8,59 @@
     <link rel="stylesheet" href="{% static 'css/vertientes.css' %}">
     <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <title>Comunidad</title>
+
     <style>
-        /* Estilos para los botones cuadrados */
-        .boton-cuadrado {
-            width: 150px; /* Ancho deseado de los botones */
-            height: 150px; /* Altura deseada de los botones */
-            background-color: white;
+
+        .vertientes-container {
+            margin-top: 40px;  /* Añade un margen superior de 30px, ajusta según necesidad */
+        }
+
+        .vertientes-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            margin: 10px; /* Espacio entre los botones */
-            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #f0f4f8;  /* Un color de fondo claro para el encabezado */
             border-radius: 10px;
-            color: black; /* Color del texto */
+            margin: 20px 0;
         }
-        /* Estilos para los iconos dentro de los botones */
-        .boton-cuadrado i {
-            font-size: 24px; /* Tamaño del icono */
+        
+        .title-section {
+            flex: 1;
         }
+        
+        .title-section h1, .title-section h2 {
+            margin: 5px 0;
+        }
+        
+        .info-icon {
+            position: relative;
+            padding: 10px;
+            cursor: pointer;
+        }
+        
+        .hidden-text {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 100;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+        
+        .incognito-icon:hover + .hidden-text {
+            display: block;
+        }
+        
+
         /* Estilo para la fila que contiene los botones */
         .row-boton {
             display: flex;
@@ -65,39 +98,133 @@
         .boton-cuadrado a:hover {
             color: #fd1d1d;
         }
-        /* Estilos para los iconos de colores */
-        .icono-caudal {
-            color: blue; /* Cambiar el color a azul */
+
+
+        .dashboard-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px; /* Espacio entre los botones */
         }
-        .icono-ph {
-            color: green; /* Cambiar el color a verde */
+        
+        .dashboard-card {
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 150px;
+            text-align: center;
         }
-        .icono-temperatura {
-            color: red; /* Cambiar el color a rojo */
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
         }
-        .icono-conductividad {
-            color: orange; /* Cambiar el color a naranja */
+        
+        .dashboard-card i {
+            font-size: 24px;
+            margin-bottom: 10px;
         }
-        .icono-turbiedad {
-            color: purple; /* Cambiar el color a morado */
+        
+        .dashboard-card h3 {
+            margin-bottom: 10px;
         }
-        .icono-humedad {
-            color: teal; /* Cambiar el color a verde azulado */
+        
+        .dashboard-link {
+            text-decoration: none;
+            color: #007BFF; /* Color del enlace, puede cambiar según su preferencia */
+            font-weight: bold;
+            transition: color 0.3s;
         }
-        .cuadrado-blanco {
-            margin-top: 130px; /* Ajusta el valor según tu preferencia */
+        
+        .dashboard-link:hover {
+            color: #0056b3; /* Color al pasar el mouse sobre el enlace */
         }
+
+        .vertientes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0; /* Línea divisoria */
+        }
+        
+        .title-container {
+            flex: 1;
+            padding-right: 20px;
+        }
+        
+        .title-container h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .title-container h2 {
+            font-size: 20px;
+            color: #555;
+        }
+        
+        .info-container {
+            position: relative;
+        }
+        
+        .incognito-icon {
+            font-size: 24px;
+            color: #aaa;
+            cursor: pointer;
+        }
+        
+        .hidden-text {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            z-index: 10; /* Para asegurar que aparezca por encima de otros elementos */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .incognito-icon:hover + .hidden-text {
+            display: block;
+        }
+
+        /* Estilos para la sección de datos dentro de cada tarjeta */
+        .data-section {
+            padding: 20px;
+            background-color: #f0f4f8; /* Fondo claro */
+            border-bottom: 1px solid #e0e0e0; /* Línea divisoria entre la sección de datos y la del gráfico */
+        }
+        
+        /* Estilos para la sección del gráfico dentro de cada tarjeta */
+        .graph-section {
+            padding: 20px;
+            background-color: #ffffff; /* Fondo blanco */
+            text-align: center;
+            box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1); /* Sombra en la parte superior */
+        }
+        .graph-section h4 {
+            margin: 0; /* Eliminar margen para el título "Gráfico" */
+        }
+
+
+        
     </style>
 </head>
 <body>
+
+    
     <div class="vertical-bar">
         <div class="sidebar">
             <ul class="sidebar-nav">
-                <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
-                <li class="nav-item"><a href="{% url 'nucleo:mapa' user_id %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
+                
+                <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
                 <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
-                <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
-                <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
                 
             </ul>
         </div>
@@ -108,84 +235,87 @@
             <span class="hidro-tech">HidroTech</span>
         </div>
         <div class="navbar-center">
-            
+            <div class="admin-box">Vista Administrador</div>
         </div>
-        <a href="{% url 'habi:miPerfil' user_id %}" class="cerrar-sesion">Mi perfil</a>
+        <a href="{% url 'eva:comuni' %}" class="volverr">Volver</a>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
+
+
+
+
     <div class="vertientes-container">
+
+        
+
         <div class="vertientes-header">
-            <h1>Comunidad "{{ comunidad.nombre }}"</h1>
-            <h1>Vertiente "{{ vertiente.nombre }}"</h1>
+            <div class="title-section">
+                <h1>Comunidad "{{ comunidad.nombre }}"</h1>
+                <h2>Vertiente "{{ vertiente.nombre }}"</h2>
+            </div>
+            <div class="info-icon">
+                <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
+                <div id="text1" class="hidden-text">
+                    <p>Aquí puedes ver en detalle todas las mediciones a la vertiente que has escogido</p>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <div class="dashboard-section">
+            <!-- Botón Caudal -->
+            <div class="dashboard-card btn-primary">
+                <i class="fas fa-tint"></i>
+                <h3>Caudal</h3>
+                <p>{{ objetos.caudal }} <span class="unidad">m³/s</span></p>
+                <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
+            </div>
+        
+            <!-- Botón pH -->
+            <div class="dashboard-card btn-success">
+                <i class="fas fa-flask"></i>
+                <h3>pH</h3>
+                <p>{{ objetos.pH }} <span class="unidad">ph</span></p>
+                <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
+            </div>
+        
+            <!-- Botón Temperatura -->
+            <div class="dashboard-card btn-danger">
+                <i class="fas fa-thermometer-half"></i>
+                <h3>Temperatura</h3>
+                <p>{{ objetos.temperatura }} <span class="unidad">°C</span></p>
+                <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
+            </div>
+        
+            <!-- Botón Conductividad -->
+            <div class="dashboard-card btn-warning">
+                <i class="fas fa-bolt"></i>
+                <h3>Conductividad</h3>
+                <p>{{ objetos.conductividad }} <span class="unidad">µS/cm</span></p>
+                <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
+            </div>
+        
+            <!-- Botón Turbiedad -->
+            <div class="dashboard-card btn-info">
+                <i class="fas fa-tint-slash"></i>
+                <h3>Turbiedad</h3>
+                <p>{{ objetos.turbiedad }} <span class="unidad">NTU</span></p>
+                <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
+            </div>
+        
+            <!-- Botón Humedad -->
+            <div class="dashboard-card btn-secondary">
+                <i class="fas fa-tint-slash"></i>
+                <h3>Humedad</h3>
+                <p>{{ objetos.humedad }} <span class="unidad">%</span></p>
+                <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
+            </div>
+
+
             
-            <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
         </div>
-        <div id="text1" class="hidden-text">
-            <h4>Aquí puedes ver en detalle todas las mediciones a la vertiente que has escogido</h4>
-        </div>
-        <div class="row-boton">
-            <div class="boton-cuadrado btn-primary">
-                <i class="fas fa-tint icono-caudal"></i>
-                Caudal
-                <div class="row">
-                    <p id="datosContainer2"></p>
-                    {{ objetos.caudal }}
-                    
-                    <span class="unidad">m³/s</span>
-                </div>
-                <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-success">
-                <i class="fas fa-flask icono-ph"></i>
-                pH
-                <div class="row">
-                    <p id="datosContainer3"></p>
-                    {{ objetos.pH }}
-                    <span class="unidad">ph</span>
-                </div>
-                <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-danger">
-                <i class="fas fa-thermometer-half icono-temperatura"></i>
-                Temperatura
-                <div class="row">
-                    <p id="datosContainer7"></p>
-                    {{ objetos.temperatura }}
-                    <span class="unidad">°C</span>
-                </div>
-                <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-warning">
-                <i class="fas fa-bolt icono-conductividad"></i>
-                Conductividad
-                <div class="row">
-                    <p id="datosContainer4"></p>
-                    {{ objetos.conductividad }}
-                    <span class="unidad">µS/cm</span>
-                </div>
-                <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-info">
-                <i class="fas fa-tint-slash icono-turbiedad"></i>
-                Turbiedad
-                <div class="row">
-                    <p id="datosContainer5"></p>
-                    {{ objetos.turbiedad }}
-                    <span class="unidad">NTU</span>
-                </div>
-                <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-            <div class="boton-cuadrado btn-secondary">
-                <i class="fas fa-tint-slash icono-humedad"></i>
-                Humedad
-                <div class="row">
-                    <p id="datosContainer6"></p>
-                    {{ objetos.humedad }}
-                    <span class="unidad">%</span>
-                </div>
-                <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="cerrar-sesion">Ver Gráfico</a>
-            </div>
-        </div>
+        
         <script>
             function showText(textId) {
                 var textElement = document.getElementById(textId);
