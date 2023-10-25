@@ -187,41 +187,6 @@
     </div>
 </div>
 
-
-    // Función para abrir el modal y configurar el ID del usuario
-    function openModal(usuarioId) {
-        document.getElementById("usuario_id").value = usuarioId;
-    }
-
-    // Manejar el clic en el botón "Desactivar" en el modal
-    document.getElementById("desactivarUsuario").addEventListener("click", function() {
-        const usuarioId = document.getElementById("usuario_id").value;
-
-        // Enviar una solicitud al servidor para desactivar al usuario
-        fetch(`/url_para_desactivar_usuario/${usuarioId}/`, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": document.querySelector('input[name="csrfmiddlewaretoken"]').value,
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Si la desactivación fue exitosa, redirige o actualiza la página según lo necesites
-                window.location.reload(); // Actualiza la página en este ejemplo
-            }
-            // Cierra el modal
-            document.getElementById("showModal").checked = false;
-        })
-        .catch(error => {
-            console.error("Error al desactivar al usuario: " + error);
-            // Cierra el modal
-            document.getElementById("showModal").checked = false;
-        });
-    });
-
-
-
 </body>
 </html>
 

@@ -184,40 +184,6 @@
     </div>
 </div>
 
-
-    // Función para abrir el modal y configurar el ID de la vertiente
-    function openModal(vertienteId) {
-        document.getElementById("vertiente_id").value = vertienteId;
-    }
-
-    // Manejar el clic en el botón "Eliminar" en el modal
-    document.getElementById("eliminarVertiente").addEventListener("click", function() {
-        const vertienteId = document.getElementById("vertiente_id").value;
-
-        // Enviar una solicitud al servidor para eliminar la vertiente
-        fetch(`/url_para_eliminar_vertiente/${vertienteId}/`, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": document.querySelector('input[name="csrfmiddlewaretoken"]').value,
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // Si la eliminación fue exitosa, redirige o actualiza la página según lo necesites
-                window.location.reload(); // Actualiza la página en este ejemplo
-            }
-            // Cierra el modal
-            document.getElementById("showModal").checked = false;
-        })
-        .catch(error => {
-            console.error("Error al eliminar la vertiente: " + error);
-            // Cierra el modal
-            document.getElementById("showModal").checked = false;
-        });
-    });
-
-
 </body>
 </html>
 
