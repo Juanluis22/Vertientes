@@ -53,7 +53,14 @@
     display: flex;
     justify-content: center;
   }
-
+  select {
+    background-color: #3393B7; /* Cambia el color de fondo del select */
+    color: #fefefe; /* Cambia el color del texto en el select */
+    padding: 10px; /* Ajusta el espaciado interior del select */
+    border: 5px solid #black; /* Agrega un borde al select */
+    border-radius: 10px; /* Agrega esquinas redondeadas al select */
+    
+  }
   </style>
     <body>
         <div class="vertical-bar">
@@ -100,27 +107,30 @@
                     Vista satelital de todas las vertientes
                     <i class="fas fa-info-circle" onmouseover="showText('infoText')" onmouseout="hideText('infoText')"></i>
                 </h1>
-                <form method="post">
-                  {{ form.errors }}
-              <div class="card-body">
-                {% csrf_token %}
-                {% for field in form.visible_fields %}
-                <div class="form-group">
-                  <div class="form-group {% if field.name == 'nombre' or field.name == 'desc' or field.name == 'ubicación' or field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
-                  <label for="email">{{ field.label }}  </label>
-                  {{ field }}
-                  </div>
+                <div id="infoText" class="hidden-textsas">
+                  <p>Esta página muestra una vista satelital de todas las comunidades registradas y sus vertientes.</p>
+                  <p>En el mapa, puedes encontrar la ubicación de las comunidades.</p>
+                  <p>Puedes filtrar por el nombre de la comunidad y se te mostrarán las vertientes asociadas a esta.</p>
+                  
                 </div>
-                {% endfor %}
+            </div>
+            <div class="form-mapasera">
+              <form method="post">
+                {{ form.errors }}
+            <div class="card-body">
+              {% csrf_token %}
+              {% for field in form.visible_fields %}
+              <div class="form-group">
+                <div class="form-group {% if field.name == 'nombre' or field.name == 'desc' or field.name == 'ubicación' or field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
+                <label for="email">{{ field.label }}  </label>
+                {{ field }}
+                </div>
               </div>
+              {% endfor %}
             </div>
-            
-            <div id="infoText" class="hidden-textsas">
-              <p>Esta página muestra una vista satelital de todas las comunidades registradas y sus vertientes.</p>
-              <p>En el mapa, puedes encontrar la ubicación de las comunidades.</p>
-              <p>Puedes filtrar por el nombre de la comunidad y se te mostrarán las vertientes asociadas a esta.</p>
-              
-            </div>
+          </form>
+        </div>
+
             
             <div class="contendos">
             <div id="map" class="rectangulos-container2">
@@ -129,7 +139,7 @@
               {{ vertientes|json_script:"vertientes_json" }}
               {{ comunidades|json_script:"comunidades_json" }}
               <input type="hidden" name="action" value="listo">
-            </form>
+
             <div id="map" class="rectangulos-container2"></div>
     </div>
         
