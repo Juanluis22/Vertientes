@@ -10,6 +10,7 @@ class ComunidadForm(ModelForm):
     class Meta:
         model= comunidad
         fields='__all__'
+        exclude=['vertientes']
 
 class VertienteForm(ModelForm):
     class Meta:
@@ -34,7 +35,7 @@ def validate_rut(value):
 
 class UserForm(ModelForm):
     email = forms.CharField(validators=[validators.EmailValidator(message="El correo electrónico debe ser válido.")])
-
+    confirmar_contraseña = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
         model= User
@@ -124,6 +125,14 @@ class UserForm(ModelForm):
         username = username.replace('.', '')  # Elimina puntos
         username = username.replace('-', '')  # Elimina guiones
         return username
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password")
+        confirmar_contraseña = cleaned_data.get("confirmar_contraseña")
+
+        if password1 != confirmar_contraseña:
+            raise forms.ValidationError("Las contraseñas no coinciden")
 
 
 

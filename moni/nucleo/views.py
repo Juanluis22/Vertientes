@@ -205,12 +205,17 @@ class Registro(CreateView):
         value=request.POST['username']
         value = value.replace('.', '')  # Elimina puntos
         value = value.replace('-', '')
+        value_pass1=request.POST['confirmar_contraseña']
+        value_pass2=request.POST['password']
+
         if not User.objects.filter(username=value).exists():
             if len(value)>9:
                 print('RUT invalido, ingrese un RUT de 9 digitos maximo')
             else:
                 if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
                     print('RUT INVALIDO')
+                if value_pass1 != value_pass2:
+                    print('Contraseñas no coinciden')
                 else:
                     form=request.POST['email']
                     print(form)
