@@ -62,7 +62,8 @@ def revision_autoridad(request, objecto_id):
     data = {
         'objetos': objetos2,
         'vertiente': vertiente_info,
-        'comunidad': comunidad_info
+        'comunidad': comunidad_info,
+        'ubicación': vertiente_info.ubicación
     }
 
     return render(request, 'dashboard/dashboard_autoridad.html', data)

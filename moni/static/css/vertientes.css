@@ -134,7 +134,7 @@ body {
 }
 
 .vertientes-header {
-    text-align: center;
+    text-align:left;
     padding: 50px 0;
     background-color: #B0E2FF; /* Color celeste */
     color: rgb(0, 0, 0);

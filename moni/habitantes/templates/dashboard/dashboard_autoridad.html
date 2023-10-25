@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -212,6 +213,9 @@
             margin: 0; /* Eliminar margen para el título "Gráfico" */
         }
 
+        
+        
+
 
         
     </style>
@@ -250,18 +254,26 @@
 
         
 
-        <div class="vertientes-header">
-            <div class="title-section">
-                <h1>Comunidad "{{ comunidad.nombre }}"</h1>
-                <h2>Vertiente "{{ vertiente.nombre }}"</h2>
+        <div class="vertientes-header" style="background-image: url('{% static "img/imagen_heade_datos.png" %}'); border-radius: 30px; padding: 20px;">
+            <div class="title-section" style="color: white; text-align: left;">
+                <h1 class="card-title" style="font-weight: bold;">
+                    Bienvenido al monitorio remoto de vertientes
+                </h1>
+                <h2>Comunidad: {{ comunidad.nombre }}</h2>
+                <h2>Vertiente: {{ vertiente.nombre }}</h2>
+                <h3>Ubicación: {{ vertiente.ubicación }}</h3>
             </div>
             <div class="info-icon">
-                <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
-                <div id="text1" class="hidden-text">
+                <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
+                <div id="text1" class="hidden-text" style="color: white; text-align: left;">
                     <p>Aquí puedes ver en detalle todas las mediciones a la vertiente que has escogido</p>
                 </div>
             </div>
         </div>
+        
+        
+        
+        
         
 
 
@@ -269,7 +281,12 @@
             <!-- Botón Caudal -->
             <div class="dashboard-card btn-primary">
                 <i class="fas fa-tint"></i>
-                <h3>Caudal</h3>
+                <h3>Caudal <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('textCaudal')" onmouseout="hideText('textCaudal')"></i></h3>
+                <div id="textCaudal" class="hidden-text scrollable-text" style="color: white; text-align: left;">
+                    <p><strong>Caudal:</strong> </p>
+                    
+                </div>
+                
                 <p>{{ objetos.caudal }} <span class="unidad">m³/s</span></p>
                 <a href="{% url 'habi:grafico_caudal' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
             </div>
@@ -277,7 +294,10 @@
             <!-- Botón pH -->
             <div class="dashboard-card btn-success">
                 <i class="fas fa-flask"></i>
-                <h3>pH</h3>
+                <h3>pH <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('textPh')" onmouseout="hideText('textPh')"></i></h3>
+                <div id="textPh" class="hidden-text" style="color: white; text-align: left;">
+                    <p>Información sobre el pH.</p>
+                </div>
                 <p>{{ objetos.pH }} <span class="unidad">ph</span></p>
                 <a href="{% url 'habi:grafico_ph' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
             </div>
@@ -285,7 +305,10 @@
             <!-- Botón Temperatura -->
             <div class="dashboard-card btn-danger">
                 <i class="fas fa-thermometer-half"></i>
-                <h3>Temperatura</h3>
+                <h3>Temperatura <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('textTemp')" onmouseout="hideText('textTemp')"></i></h3>
+                <div id="textTemp" class="hidden-text" style="color: white; text-align: left;">
+                    <p>Información sobre la temperatura.</p>
+                </div>
                 <p>{{ objetos.temperatura }} <span class="unidad">°C</span></p>
                 <a href="{% url 'habi:grafico_temperatura' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
             </div>
@@ -293,7 +316,10 @@
             <!-- Botón Conductividad -->
             <div class="dashboard-card btn-warning">
                 <i class="fas fa-bolt"></i>
-                <h3>Conductividad</h3>
+                <h3>Conductividad <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('textCond')" onmouseout="hideText('textCond')"></i></h3>
+                <div id="textCond" class="hidden-text" style="color: white; text-align: left;">
+                    <p>Información sobre la conductividad.</p>
+                </div>
                 <p>{{ objetos.conductividad }} <span class="unidad">µS/cm</span></p>
                 <a href="{% url 'habi:grafico_conductividad' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
             </div>
@@ -301,7 +327,10 @@
             <!-- Botón Turbiedad -->
             <div class="dashboard-card btn-info">
                 <i class="fas fa-tint-slash"></i>
-                <h3>Turbiedad</h3>
+                <h3>Turbiedad <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('textTurb')" onmouseout="hideText('textTurb')"></i></h3>
+                <div id="textTurb" class="hidden-text" style="color: white; text-align: left;">
+                    <p>Información sobre la turbiedad.</p>
+                </div>
                 <p>{{ objetos.turbiedad }} <span class="unidad">NTU</span></p>
                 <a href="{% url 'habi:grafico_turbiedad' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
             </div>
@@ -309,10 +338,15 @@
             <!-- Botón Humedad -->
             <div class="dashboard-card btn-secondary">
                 <i class="fas fa-tint-slash"></i>
-                <h3>Humedad</h3>
+                <h3>Humedad <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('textHum')" onmouseout="hideText('textHum')"></i></h3>
+                <div id="textHum" class="hidden-text" style="color: white; text-align: left;">
+                    <p>Información sobre la humedad.</p>
+                </div>
                 <p>{{ objetos.humedad }} <span class="unidad">%</span></p>
                 <a href="{% url 'habi:grafico_humedad' vertiente.id %}" class="dashboard-link">Ver Gráfico</a>
             </div>
+        
+        </div>
 
 
             
