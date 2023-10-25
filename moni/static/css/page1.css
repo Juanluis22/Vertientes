@@ -61,7 +61,6 @@ main {
 }
 
 .welcome-section {
-    background-image: url('vertiente.jpg');
     background-size: cover;
     background-position: center;
     text-align: center;
@@ -161,6 +160,7 @@ p {
 .info-box img {
     border-radius: 10%;
     border-style: double;
+    min-height: 198px;
 }
 
 @media screen and (max-width: 480px) {
