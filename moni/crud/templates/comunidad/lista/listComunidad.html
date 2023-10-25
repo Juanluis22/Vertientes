@@ -108,15 +108,15 @@
                     </thead>
                     <tbody>
                         {% for objeto in listaComunidad %}
-                        <tr>
+                        <tr data-id="{{ objeto.id }}">
                             <td>{{ objeto.nombre }}</td>
                             <td>{{ objeto.ubicación }}</td>
                             <td> </td>
                             <td> </td> 
                             <td>
                                 <div class="button-container">
-                                    <button onclick="window.location.href='{% url 'crud:updatecom' objeto.id %}'" class="editar-button">Editar</button>
-                                    <button onclick="window.location.href='{% url 'crud:deletecom' objeto.id %}'" class="eliminar-button">Eliminar</button>
+                                    <label onclick="window.location.href='{% url 'crud:updatecom' objeto.id %}'" class="editar-button">Editar</label>
+                                    <label for="showModal" class="eliminar-button">Eliminar</label>
                                 </div>
                             </td>
                         </tr>
@@ -158,6 +158,60 @@
             }
         });
     </script>
+
+
+<!-- Todo para modal -->
+<input type="checkbox" id="showModal" hidden>
+
+<div class="modal-overlay">
+    <div class="modal">
+        <h2>¿Estás seguro de eliminar esta comunidad?</h2>
+        <td>{{ objeto.nombre }}</td>
+        <form id="deleteForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="comunidad_id" id="comunidad_id">
+            <div class="modal-buttons">
+                <label for="showModal" class="modal-button modal-button-secondary">Cancelar</label>
+                <label type="button" id="eliminarComunidad" class="modal-button modal-button-danger">Eliminar</label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Función para abrir el modal y configurar el ID de la comunidad
+    function openModal(comunidadId) {
+        document.getElementById("comunidad_id").value = comunidadId;
+    }
+
+    // Manejar el clic en el botón "Eliminar" en el modal
+    document.getElementById("eliminarComunidad").addEventListener("click", function() {
+        const comunidadId = document.getElementById("comunidad_id").value;
+
+        // Enviar una solicitud al servidor para eliminar la comunidad
+        fetch(`/url_para_eliminar_comunidad/${comunidadId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": document.querySelector('input[name="csrfmiddlewaretoken"]').value,
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Si la eliminación fue exitosa, redirige o actualiza la página según lo necesites
+                window.location.reload(); // Actualiza la página en este ejemplo
+            }
+            // Cierra el modal
+            document.getElementById("showModal").checked = false;
+        })
+        .catch(error => {
+            console.error("Error al eliminar la comunidad: " + error);
+            // Cierra el modal
+            document.getElementById("showModal").checked = false;
+        });
+    });
+</script>
+
 </body>
 </html>
 

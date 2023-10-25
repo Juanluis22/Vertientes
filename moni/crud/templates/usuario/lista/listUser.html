@@ -118,9 +118,10 @@
                             <td><div class="separador">{{ objeto.tipo }}</div></td>
                             <td>
                                 <div class="button-container">
-                                  <button onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</button>
+                                  <label onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</label>
                                    {% if not objeto.is_staff %}
-                                  <button onclick="window.location.href='{% url 'crud:deactuser' objeto.id  %}'" class="editar-button">Desactivar</button>
+                                   <!-- <label onclick="window.location.href='{% url 'crud:deactuser' objeto.id  %}'" class="editar-button">Desactivar</label> -->
+                                  <label for="showModal" onclick="openModal('{{ objeto.id }}')" class="editar-button">Desactivar</label>
                                    {% endif %}
                                 </div>
                             </td>
@@ -167,6 +168,60 @@
             }
         });
     </script>
+
+<!-- Todo para modal -->
+<input type="checkbox" id="showModal" hidden>
+
+<div class="modal-overlay">
+    <div class="modal">
+        <h2>¿Estás seguro de desactivar a este usuario? {{ objeto.first_name }}</h2>
+        <h2><div class="separador">{{ objeto.first_name }}</div></h2>
+        <form id="deactivateForm" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="usuario_id" id="usuario_id">
+            <div class="modal-buttons">
+                <label for="showModal" class="modal-button modal-button-secondary">Cancelar</label>
+                <label type="button" id="desactivarUsuario" class="modal-button modal-button-danger">Desactivar</label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Función para abrir el modal y configurar el ID del usuario
+    function openModal(usuarioId) {
+        document.getElementById("usuario_id").value = usuarioId;
+    }
+
+    // Manejar el clic en el botón "Desactivar" en el modal
+    document.getElementById("desactivarUsuario").addEventListener("click", function() {
+        const usuarioId = document.getElementById("usuario_id").value;
+
+        // Enviar una solicitud al servidor para desactivar al usuario
+        fetch(`/url_para_desactivar_usuario/${usuarioId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": document.querySelector('input[name="csrfmiddlewaretoken"]').value,
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Si la desactivación fue exitosa, redirige o actualiza la página según lo necesites
+                window.location.reload(); // Actualiza la página en este ejemplo
+            }
+            // Cierra el modal
+            document.getElementById("showModal").checked = false;
+        })
+        .catch(error => {
+            console.error("Error al desactivar al usuario: " + error);
+            // Cierra el modal
+            document.getElementById("showModal").checked = false;
+        });
+    });
+</script>
+
+
 </body>
 </html>
 

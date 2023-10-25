@@ -111,6 +111,7 @@ p {
 }
 
 .info-box {
+    height: max-content;
     background-color: white;
     width: 300px;
     padding: 20px;
@@ -127,6 +128,7 @@ p {
     border-radius: 10%;
     padding-top: 20%;
     padding-bottom: 20%;
+    margin-bottom: 0;
 }
 
 @media screen and (max-width: 480px) {
@@ -149,7 +151,6 @@ p {
 
 .info-box p {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -185,8 +186,8 @@ p {
 .info-box:nth-child(2) img {
     margin: 0 auto;
     display: block;
-    max-height: 100%;
-    max-width: 100%;
+    max-height: 60%;
+    max-width: 88%;
 }
 
 .info-box h2 {
@@ -231,7 +232,7 @@ footer p {
     color: #ffffff;
     text-align: center;
     padding: 15px 0;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 footer {
