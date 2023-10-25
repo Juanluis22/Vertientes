@@ -96,18 +96,26 @@ body {
 .contendos {
     display: flex;
     flex-direction: row;
-    margin-top: 30px;
     margin-bottom: 20px;
     margin-left:120px;
     align-items: center;
+
+}
+.form-mapasera {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left:139px;
+    align-items: left;
 
 }
 .contenidorectanguloverde {
     flex-direction: row;
     margin-top: 10px;
     margin-bottom: 20px;
-    /* margin-left:20px; */
     margin-bottom: 20px;
+    width:100%;
     align-items: left;
 
 }
@@ -131,8 +139,10 @@ body {
     }
 }
 .hidden-textsas {
-    display: none;
     position: absolute;
+    display: none;
+    width: 40%;
+    top:180px;
     background: white;
     padding: 10px;
     border: 1px solid #ccc;
@@ -140,7 +150,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: -30px; /* Ajusta esto según tu diseño */
     margin-left: 10px; /* Ajusta esto según tu diseño */
-    z-index: 1; /* Asegura que esté por encima de otros elementos */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+
 }
 .rectangulo-container {
     display: flex;
@@ -177,6 +188,7 @@ body {
     background-color:  #16536A;
     margin-top:30px;
     margin-left:20px;
+    width:30%;
     background-color: #16536A; /* Color celeste pastel */
     padding: 20px;
 }

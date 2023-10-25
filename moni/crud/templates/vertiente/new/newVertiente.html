@@ -19,7 +19,20 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
         
-        
+        <style>
+            .aviso {
+              position: fixed;
+              top: 7.5cm; /* 5 cm más abajo */
+              margin-left: 14cm; /* 4 cm a la derecha */
+              background-color: #3393B7;
+              color: #FFFFFF;
+              padding: 50px;
+              border-radius: 30px;
+              z-index: 9999;
+              font-size: 20px;
+              font-family: Arial, sans-serif;
+          }
+        </style>
        
     </head>
 
@@ -57,7 +70,7 @@
                 <div class="contenido-rectangulo">
                     <!-- Formulario -->
                     <div class="form-container" style="width: 50%;">
-                        <form method="post">
+                        <form method="post" onsubmit="return enviarFormulario();">
                             <div class="card-body">
                                 <div class="form-group">
                                     {{ form.errors }}
@@ -75,7 +88,7 @@
                             <input type="hidden" name="action" value="listo">
                             
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-success">Crear</button>
+                                <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Crear</button>
                                 <a href="{% url 'crud:listvert' %}" class="button">
                                     <button type="button" class="btn btn-danger">Cancelar</button>
                                 </a>
@@ -201,6 +214,24 @@
                 });
             });
         });
+        function mostrarMensaje() {
+            var mensaje = document.createElement("div");
+            mensaje.className = "aviso";
+            mensaje.innerText = "Se ha Creado correctamente la Vertiente";
+            document.body.appendChild(mensaje);
+        
+            // Redirigir a la vista 'crud:listcom' después de mostrar el mensaje
+            setTimeout(function() {
+                window.location.href = "{% url 'crud:listcom' %}";
+            }, 2000); // 3000 milisegundos = 3 segundos
+        }
+        function enviarFormulario() {
+          mostrarMensaje();
+          setTimeout(function() {
+            document.forms[0].submit(); // Envía el formulario después de mostrar el mensaje durante 10 segundos
+          }, 2000); // 10000 milisegundos = 10 segundos
+          return false; // Previene la recarga automática de la página
+        }
     </script>
 </body>
 </html>

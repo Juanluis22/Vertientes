@@ -495,7 +495,7 @@ class Select_anidado(TemplateView):
             if action=='search_comunidad_id':
                 data=[]
                 for i in vertiente.objects.filter(comunidad_id=request.POST['id']):
-                    data.append({'id':i.id, 'name': i.nombre,'caudal': i.caudal })
+                    data.append({'id':i.id, 'name': i.nombre, })
                     
             elif action=='get_data_for_vertiente':
                 #Se crea la lista que será enviada mendiante un JsonResponse al front

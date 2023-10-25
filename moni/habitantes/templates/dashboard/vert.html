@@ -105,8 +105,8 @@
             <div class="sidebar">
                 <ul class="sidebar-nav">
                    
-                    <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                    <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
+                    <li class="nav-item"><a href="{% url 'nucleo:mapa' user_id %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
+                    
                     
                 </ul>
             </div>
@@ -119,7 +119,7 @@
             <div class="navbar-center">
                 <div class="admin-box">Vista Usuario</div>
             </div>
-            <a href="{% url 'eva:comuni' %}" class="volverr">Volver</a>
+            
             <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
         </nav>
         
@@ -152,11 +152,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for objeto in context.objetos %}
+                        {% for objeto in objetos %}
                     <tr>
                         <td>{{ objeto.nombre }}</td>
                         <td>
-                            <a href="{% url 'habi:verti' objeto.id context.user_id %}" class="ver-vertientes-button">
+                            <a href="{% url 'habi:verti' objeto.id user_id %}" class="ver-vertientes-button">
                                 <i class="bi bi-box-arrow-in-right"></i> Estado
                             </a>
                         </td>

@@ -100,7 +100,7 @@ def detector(request):
         'user_id': user_id,
     }
 
-    return render(request, 'dashboard/vert.html',{'context': context})
+    return render(request, 'dashboard/vert.html',context)
 
 
 @login_required
