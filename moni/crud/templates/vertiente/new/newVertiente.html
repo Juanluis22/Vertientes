@@ -31,7 +31,9 @@
               z-index: 9999;
               font-size: 20px;
               font-family: Arial, sans-serif;
-          }
+          }.hidden {
+    display: none;
+}
         </style>
        
     </head>
@@ -76,9 +78,13 @@
                                     {{ form.errors }}
                                     {% csrf_token %}
                                     {% for field in form.visible_fields %}
+                                    
                                     <div class="form-group">
-                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                        {{ field }}
+                                        <div class="form-group {% if field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {{ field }}
+                                        </div>
+                                        
                                     </div>
                                     {% endfor %}
                                 </div>
