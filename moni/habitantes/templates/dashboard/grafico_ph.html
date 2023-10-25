@@ -50,6 +50,22 @@
             <div class="col-md-6 chart-container"> <!-- Agregar la clase chart-container y el margen izquierdo -->
                 <canvas id="lineChart" width="400" height="400" style="background-color: white;"></canvas>
             </div>
+            <div class="container">
+
+                <form method="get"style="margin-left: 150px; margin-top:15px;">
+                    <label for="dateRange">Selecciona un rango de fechas:</label>
+                    <select id="dateRange" name="date_range">
+                        <option value="all">Todos los datos</option>
+                        <option value="today">Hoy</option>
+                        <option value="yesterday">Ayer</option>
+                        <option value="thisWeek">Esta semana</option>
+                        <option value="thisMonth">Este mes</option>
+                        <option value="thisYear">Este año</option>
+                    </select>
+                    <button type="submit">Actualizar Gráfico</button>
+                </form>
+                
+            </div>
         </div>
     </div>
 

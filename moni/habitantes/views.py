@@ -11,6 +11,9 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from nucleo.models import vertiente, comunidad
 import json
+from datetime import datetime, timedelta
+from django.utils import timezone
+import pytz
 
 
 # Create your views here.
@@ -116,71 +119,67 @@ def grafico_ph(request, vertiente_id):
     }
     data_json = json.dumps(data)
     return render(request, 'dashboard/grafico_ph.html', {'data_json': data_json})
-@login_required
-def grafico_caudal(request, vertiente_id):
-    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
 
-    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
-    valores_ph = [dato.caudal for dato in datos_ph]
+from django.utils import timezone
 
-    data = {
-        'labels': etiquetas_tiempo,
-        'values': valores_ph,
-    }
-    data_json = json.dumps(data)
-    return render(request, 'dashboard/grafico_caudal.html', {'data_json': data_json})
-@login_required
-def grafico_conductividad(request, vertiente_id):
-    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
+def filtrar_datos_por_fecha(request, vertiente_id, atributo):
+    date_range = request.GET.get('date_range', 'all')
+    now = timezone.now()
+    today = now.date()
 
-    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
-    valores_ph = [dato.conductividad for dato in datos_ph]
+    if date_range == 'today':
+        return datos.objects.filter(vertiente_id=vertiente_id, fecha__year=today.year, fecha__month=today.month, fecha__day=today.day).values_list('fecha', atributo)
+    elif date_range == 'yesterday':
+        yesterday = today - timezone.timedelta(days=1)
+        return datos.objects.filter(vertiente_id=vertiente_id, fecha__year=yesterday.year, fecha__month=yesterday.month, fecha__day=yesterday.day).values_list('fecha', atributo)
+    elif date_range == 'thisWeek':
+        start_week = today - timezone.timedelta(days=today.weekday())
+        return datos.objects.filter(vertiente_id=vertiente_id, fecha__range=[start_week, today]).values_list('fecha', atributo)
+    elif date_range == 'thisMonth':
+        start_month = today.replace(day=1)
+        return datos.objects.filter(vertiente_id=vertiente_id, fecha__range=[start_month, today]).values_list('fecha', atributo)
+    elif date_range == 'thisYear':
+        start_year = today.replace(month=1, day=1)
+        return datos.objects.filter(vertiente_id=vertiente_id, fecha__range=[start_year, today]).values_list('fecha', atributo)
+    else:
+        return datos.objects.filter(vertiente_id=vertiente_id).values_list('fecha', atributo)
 
-    data = {
-        'labels': etiquetas_tiempo,
-        'values': valores_ph,
-    }
-    data_json = json.dumps(data)
-    return render(request, 'dashboard/grafico_conductividad.html', {'data_json': data_json})
-@login_required
-def grafico_humedad(request, vertiente_id):
-    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
-
-    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
-    valores_ph = [dato.humedad for dato in datos_ph]
-
-    data = {
-        'labels': etiquetas_tiempo,
-        'values': valores_ph,
-    }
-    data_json = json.dumps(data)
-    return render(request, 'dashboard/grafico_humedad.html', {'data_json': data_json})
-@login_required
-def grafico_temperatura(request, vertiente_id):
-    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
-
-    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
-    valores_ph = [dato.temperatura for dato in datos_ph]
-
-    data = {
-        'labels': etiquetas_tiempo,
-        'values': valores_ph,
-    }
-    data_json = json.dumps(data)
-    return render(request, 'dashboard/grafico_temperatura.html', {'data_json': data_json})
-@login_required
-def grafico_turbiedad(request, vertiente_id):
-    datoss = datos.objects.filter(vertiente_id=vertiente_id)
-
-    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datoss]
-    valores = [dato.turbiedad for dato in datoss]
+def generar_respuesta(request, vertiente_id, atributo, template_name):
+    data_filtered = filtrar_datos_por_fecha(request, vertiente_id, atributo)
+    etiquetas_tiempo = [dato[0].strftime('%d/%m/%Y') for dato in data_filtered]
+    valores = [dato[1] for dato in data_filtered]
 
     data = {
         'labels': etiquetas_tiempo,
         'values': valores,
     }
     data_json = json.dumps(data)
-    return render(request, 'dashboard/grafico_turbiedad.html', {'data_json': data_json})
+    return render(request, template_name, {'data_json': data_json})
+
+@login_required
+def grafico_caudal(request, vertiente_id):
+    return generar_respuesta(request, vertiente_id, 'caudal', 'dashboard/grafico_caudal.html')
+
+@login_required
+def grafico_ph(request, vertiente_id):
+    return generar_respuesta(request, vertiente_id, 'pH', 'dashboard/grafico_ph.html')
+
+@login_required
+def grafico_conductividad(request, vertiente_id):
+    return generar_respuesta(request, vertiente_id, 'conductividad', 'dashboard/grafico_conductividad.html')
+
+@login_required
+def grafico_humedad(request, vertiente_id):
+    return generar_respuesta(request, vertiente_id, 'humedad', 'dashboard/grafico_humedad.html')
+
+@login_required
+def grafico_temperatura(request, vertiente_id):
+    return generar_respuesta(request, vertiente_id, 'temperatura', 'dashboard/grafico_temperatura.html')
+
+@login_required
+def grafico_turbiedad(request, vertiente_id):
+    return generar_respuesta(request, vertiente_id, 'turbiedad', 'dashboard/grafico_turbiedad.html')
+
 
 
 
