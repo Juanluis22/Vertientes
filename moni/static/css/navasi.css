@@ -12,6 +12,7 @@
     padding: 10px 20px;
     height: 40px;
     z-index: 2; /* Asegura que esté por encima de otros elementos */
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 1);
 }
 
 .navbar-center {
@@ -62,6 +63,14 @@
     top: 0;
     left: 0;
     z-index: 1; /* Asegura que esté por encima de otros elementos */
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 1);
+}
+
+.logo img {
+    width: 90px;
+    height: auto;
+    margin: 0;
+    padding: 0;
 }
 
 /* Estilo de "HidroTech" en el Navbar */

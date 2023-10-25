@@ -20,6 +20,7 @@ body {
     left: 0;
     right: 0;
     z-index: 1;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 1);
 }
 
 .navbar-center {
@@ -68,11 +69,19 @@ body {
     height: 100%;
     position: fixed;
     left: 0;
-    z-index: 1;
     display: flex;
     flex-direction: column;
     text-align: center;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 1);
 }
+
+.logo img {
+    width: 90px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
 
 /* Estilo de "HidroTech" en el Navbar */
 .hidro-tech {
