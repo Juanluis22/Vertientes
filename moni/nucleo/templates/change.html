@@ -83,13 +83,13 @@
         }
         #titulo {
             font-size: 20px;
-            margin-bottom: 15px;
+            margin-bottom: -90px;
             text-align: center;
         }
         #formulario {
             background-color: #f0f0f0; 
             border-radius: 15px;
-            padding: 20px;
+            padding: 35px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             
             max-width: 30%; /* Ajusta el ancho del formulario */
@@ -124,6 +124,7 @@
             cursor: pointer;
         }
         #botonRecuperar {
+            padding: 16px 20px;
             background-color: #6fbf73;
             color: #fff;
             margin-top: 10px;
@@ -138,10 +139,23 @@
             margin-top: 10px;
         }
         #recordatorio {
-            font-size: 12px;
+            font-size: 20px;
             color: #777;
             margin-top: 5px;
         }
+        input[type="text"], input[type="password"], input[type="email"] {
+        width: 100%; /* Ocupa el ancho completo del contenedor, puedes ajustar esto según sea necesario */
+        padding: 12px; /* Aumenta el padding para que el input sea más alto */
+        margin: 8px 0; /* Espacio arriba y abajo del input */
+        box-sizing: border-box; /* Asegura que el padding no cambie el ancho total */
+        border: 1px solid #ccc;
+        border-radius: 4px; /* Borde redondeado, opcional */
+        font-size: 16px; /* Tamaño de texto más grande para una mejor legibilidad */
+    }
+    
+    button#botonRecuperar {
+        font-size: 18px; /* un botón más grande con texto más grande es más llamativo */
+    }
 
         /* Estilos para el pie de página */
         .footer {
@@ -156,10 +170,10 @@
     <nav class="navbar">
         <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="page1.html">Inicio</a></li>
-            <li class="nav-item"><a href="#">Servicios</a></li>
-            <li class="nav-item"><a href="#">Acerca de</a></li>
-            <li class="nav-item"><a href="#">Contacto</a></li>
+            <li class="nav-item"><a href="page1.html"></a></li>
+            <li class="nav-item"><a href="#"></a></li>
+            <li class="nav-item"><a href="#"></a></li>
+            <li class="nav-item"><a href="#"></a></li>
         </ul>
         <a href="{% url 'nucleo:login' %}" class="cerrar-sesion">Volver</a>
     </nav>

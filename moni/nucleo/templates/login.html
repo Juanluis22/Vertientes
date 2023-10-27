@@ -216,6 +216,8 @@
         </ul>
         <a href="{% url 'nucleo:inicio' %}" class="cerrar-sesion">Volver</a>
     </nav>
+    
+    
     <div id="contenedor"><b>
         <div id="formulario">
             <h2 id="titulo">Ingrese su cuenta</h2>
@@ -232,6 +234,12 @@
             <div id="ingreso">
             <b><a href="{% url 'nucleo:registro' %}" class="botona">Registrarse</a></b>
             </div>
+            <!-- Sección para mostrar mensajes de error -->
+    {% if form.errors %} <!-- Verifica si hay errores en el formulario -->
+    <div style="background-color: #ff4d4d; color: white; text-align: center; padding: 10px; border-radius: 4px; margin: 20px;"> <!-- Estilos para el mensaje de error -->
+        <strong>Error:</strong> Usuario o contraseña inválidos <!-- Mensaje personalizado -->
+    </div>
+{% endif %}
         </div></b>
     </div>
     <footer class="footer">

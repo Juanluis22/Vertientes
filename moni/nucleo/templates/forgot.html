@@ -85,13 +85,14 @@
         }
         #titulo {
             font-size: 20px;
-            margin-bottom: 15px;
+            margin-bottom: -80px;
             text-align: center;
         }
         #formulario {
             background-color: #f0f0f0; 
             border-radius: 15px;
-            padding: 20px;
+            padding: 30px;
+            transition: box-shadow 0.3s;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             
             max-width: 30%; /* Ajusta el ancho del formulario */
@@ -120,12 +121,13 @@
             border-color: #5b9dd9;
         }
         button {
-            padding: 8px 16px;
+            padding: 15px 25px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         #botonRecuperar {
+            padding: 20px 25px;
             background-color: #6fbf73;
             color: #fff;
             margin-top: 10px;
@@ -140,10 +142,17 @@
             margin-top: 10px;
         }
         #recordatorio {
-            font-size: 12px;
+            font-size: 20px;
             color: #777;
             margin-top: 5px;
         }
+        input[type="text"] { /* Asumiendo que el RUT se introduce en un campo de texto */
+        font-size: 20px; /* hacer el texto un poco más grande dentro del input */
+        padding: 10px;  /* más padding hace que el campo de texto sea más alto */
+    }
+    button#botonRecuperar {
+        font-size: 15px; /* un botón más grande con texto más grande es más llamativo */
+    }
 
         /* Estilos para el pie de página */
         .footer {

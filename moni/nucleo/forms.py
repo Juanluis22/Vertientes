@@ -42,7 +42,7 @@ class ResetPasswordForm(forms.Form):
 
 class ChangePasswordForm(forms.Form):
     password=forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder':'Ingrese una nueva contraseña',
+        'placeholder':'nueva contraseña',
         'class':'form-control',
         'autocomplete':'off'
     }))

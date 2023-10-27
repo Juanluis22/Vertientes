@@ -26,6 +26,7 @@ from django.contrib.auth.decorators import login_required
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from django.core.exceptions import ValidationError
+from django.shortcuts import render
 
 from django.template.loader import render_to_string
 # Create your views here.
@@ -154,6 +155,13 @@ class ChangePasswordView(FormView):
 #Vista para iniciar sesion
 class InicioSesion(LoginView):
     template_name = 'login.html'
+
+    def form_invalid(self, form):
+        # Aquí, puedes manejar cómo los errores deben retornarse.
+        # Por ejemplo, podrías añadir un mensaje de error personalizado.
+        response = super().form_invalid(form)
+        form.errors['username'] = 'Usuario o contraseña inválidos'  # Mensaje de error personalizado
+        return render(self.request, self.template_name, {'form': form})  # Retorna la página de inicio de sesión con los errores del formulario
 
 
 
