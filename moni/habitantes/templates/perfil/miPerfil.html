@@ -8,6 +8,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     
         <link rel="stylesheet" href="{% static 'css/update.css' %}">
+        
+        <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
@@ -17,13 +19,27 @@
     }
     </style>
 
-    <nav class="navbar">
-      <ul class="navbar-nav">
-          <li class="nav-item"><a href="page1.html">Inicio</a></li>
-      </ul>
-      <div class="navbar-center">Vista Administrador</div>
-      <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-  </nav>
+    <body>
+      <div class="vertical-bar">
+          <div class="sidebar">
+              <ul class="sidebar-nav">
+                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
+                <li class="nav-item"><a href="{% url 'habi:miPerfil' pk=user.id %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mi Perfil</span></a></li>
+                <li class="nav-item"><a href="{% url 'habi:detect' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mis Vertientes</span></a></li>   
+            </ul>
+          </div>
+      </div>
+      
+      <nav class="navbar">
+          <div class="navbar-left">
+              <span class="hidro-tech">HidroTech</span>
+          </div>
+          <div class="navbar-center">
+              <div class="admin-box">Vista Usuario</div>
+          </div>
+          
+          <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+      </nav>
 
     <div class="vertientes-container">
             <div class="center-div">
