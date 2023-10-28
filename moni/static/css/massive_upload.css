@@ -45,12 +45,12 @@ a{
 }
 
 a.acceder{
-    background-color: #20ca45;
+    background-color: #16536A;
 }
 
 a.acceder:hover {
     Transition: background-color 0.3s ease; /* Agregar una transición de color al botón */
-    background-color: #48c6ec;
+    background-color: #16536A;
 }
 
 /* Estilo para la entrada de archivo */
@@ -67,7 +67,7 @@ input[type="file"] {
 
 /* Estilo para el botón de enviar */
 button[type="submit"] {
-    background-color: #20ca45;
+    background-color: #16536A;
     color: #fff;
     border: none;
     padding: 12px 30px;
@@ -81,7 +81,7 @@ button[type="submit"] {
 
 /* Cambiar el color del botón al pasar el mouse sobre él */
 button[type="submit"]:hover {
-    background-color: #48c6ec;
+    background-color: #16536A;
 }
 
 

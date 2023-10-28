@@ -45,9 +45,10 @@
         <div class="vertientes-container">
             <div class="center-div">
                 <div class="card-header">
-                    <h3 class="card-title">Nueva vertiente</h3>
+                    <h3 class="card-title">Editar vertiente</h3>
                 </div>
                 <div class="contenido-rectangulo">
+                   
                     <div class="form-container" style="width: 50%;">
                         <form method="post" onsubmit="return enviarFormulario();">
                             <div class="card-body">
@@ -55,26 +56,18 @@
                                     {{ form.errors }}
                                     {% csrf_token %}
                                     {% for field in form.visible_fields %}
-                                    
                                     <div class="form-group">
                                         <div class="form-group {% if field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
                                             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                             {{ field }}
                                         </div>
-                                        
                                     </div>
                                     {% endfor %}
                                 </div>
-                                <!-- Mapa -->
-                                <div class="map-container" style="width: 50%;">
-                                    <div id="map" style="height: 500px;position: relative;margin-right: 20px;border-radius: 15px;"></div>
-                                    {{ comunidades|json_script:"comunidades_json" }}
-                                    {{ vertientes|json_script:"vertientes_json" }}
-                                    <input type="hidden" name="action" value="listo">
-                                </div>
                             </div>
+                            <input type="hidden" name="action" value="listo">
                             <div class="card-footer">
-                                <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Crear</button>
+                                <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Guardar</button>
                                 <a href="{% url 'crud:listvert' %}" class="button">
                                     <button type="button" class="btn btn-danger">Cancelar</button>
                                 </a>
@@ -83,7 +76,12 @@
                     </div>
                     
                     
-                    
+                    <div class="map-container" style="width: 50%;">
+                        <div id="map" style="height: 500px;position: relative;margin-right: 20px;border-radius: 15px;"></div>
+                        {{ comunidades|json_script:"comunidades_json" }}
+                        {{ vertientes|json_script:"vertientes_json" }}
+                        <input type="hidden" name="action" value="listo">
+                    </div>
                 </div>
             </div>
         </div>
@@ -202,7 +200,7 @@
             mensaje.innerText = "Se ha Creado correctamente la Vertiente";
             document.body.appendChild(mensaje);
             setTimeout(function() {
-                window.location.href = "{% url 'crud:listcom' %}";
+                window.location.href = "{% url 'crud:listvert' %}";
             }, 2000); 
         }
         function enviarFormulario() {

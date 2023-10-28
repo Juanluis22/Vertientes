@@ -9,7 +9,7 @@
     background-color: #ffffff;
     border-radius: 5px 5px 5px 5px;
     margin-top: 20px;
-    margin-left:100px
+    margin-left:120px
 }
 
 .card-header {
@@ -135,7 +135,7 @@
     vertical-align: top; /* Alinea en la parte superior */
 }
 
-.map-container {
+.map-containerr {
     width: 50%; /* Establece el ancho del mapa al 50% */
     display: inline-block; /* Para que estén uno al lado del otro */
     vertical-align: top; /* Alinea en la parte superior */

@@ -24,10 +24,8 @@
               <ul class="sidebar-nav">
                   <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
                   <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                  <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
                   <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
                   <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
-                  
               </ul>
           </div>
       </div>
@@ -67,10 +65,7 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            
-                            
                             <input type="hidden" name="action" value="listo">
-                            
                             <div class="card-footer">
                                 <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Guardar</button>
                                 <a href="{% url 'crud:listvert' %}" class="button">
@@ -82,9 +77,10 @@
                     
                     
                     <div class="map-container" style="width: 50%;">
-                        <div id="map" style="height: 500px;"></div>
+                        <div id="map" style="height: 500px;position: relative;margin-right: 20px;border-radius: 15px;"></div>
                         {{ comunidades|json_script:"comunidades_json" }}
                         {{ vertientes|json_script:"vertientes_json" }}
+                        <input type="hidden" name="action" value="listo">
                     </div>
                 </div>
             </div>
@@ -206,7 +202,7 @@
         
             
             setTimeout(function() {
-                window.location.href = "{% url 'crud:listcom' %}";
+                window.location.href = "{% url 'crud:listvert' %}";
             }, 2000); 
         }
         function enviarFormulario() {

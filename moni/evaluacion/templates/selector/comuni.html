@@ -9,91 +9,9 @@
     
     <link rel="stylesheet" href="{% static 'css/qdesea_visualizar.css' %}">
     <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/tablas.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
-    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-    
-    <style>
-        .table-container {
-            background-color: #FFFFFF;
-            border: 1px solid #CCCCCC;
-            border-radius: 5px;
-            padding: 20px;
-            margin-left: 120px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-        }
-        th {
-            background-color: #16536A;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #F5F5F5;
-        }
-        tr:hover {
-            background-color: #E1E1E1;
-        }
-        .search-box {
-            margin: 20px 0;
-            margin-left: 120px;
-        }
-        input[type="text"] {
-            padding: 5px;
-            border: 1px solid #CCCCCC;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #3393B7;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-        }
-
-        .volver {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #16536A;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        .ver-vertientes-button {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #16536A;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        
-        .ver-vertientes-button:hover {
-            background-color: #1e6fae;
-        }
-
-        /* Estilos para la paginación */
-        .pagination {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .pagination a {
-            color: #fff;
-            background-color: #16536A;
-            padding: 8px 16px;
-            text-decoration: none;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="ruta/a/font-awesome.min.css"> 
 </head>
 
 <body>
@@ -102,14 +20,12 @@
             <ul class="sidebar-nav">
                 <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
                 <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
                 <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
                 <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
                 
             </ul>
         </div>
     </div>
-    
     <nav class="navbar">
         <div class="navbar-left">
             <span class="hidro-tech">HidroTech</span>
@@ -165,7 +81,6 @@
             <a href="#" id="prevPage">&laquo; Anterior</a>
             <a href="#" id="nextPage">Siguiente &raquo;</a>
         </div>
-        
     </div>
 
     <script>
@@ -176,12 +91,8 @@
         var rows = table.querySelectorAll("tbody tr");
         var originalRows = Array.from(rows);
         var filter = searchInput.value.trim().toLowerCase();
-
-
-        // Inicialmente, mostrar solo las primeras 5 filas
+ 
         showPage(currentPage);
-
-        // Ocultar los botones de paginación si no son necesarios
         updatePaginationButtons();
 
         function showPage(page) {
@@ -233,10 +144,10 @@
             var filter = searchInput.value.trim().toLowerCase();
         
             if (filter === "") {
-                // Si no hay filtro, mostrar las 5 filas iniciales
+                
                 rows = originalRows.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage);
                 
-                // Ocultar las filas que no son parte de las 5 iniciales
+               
                 originalRows.forEach(row => {
                     if (rows.includes(row)) {
                         row.style.display = "";
@@ -255,7 +166,7 @@
                     return false;
                 });
         
-                // Ocultar las filas que no coinciden con la búsqueda
+                
                 originalRows.forEach(row => {
                     if (rows.includes(row)) {
                         row.style.display = "";
@@ -280,7 +191,7 @@
             textElement.style.display = 'none';
         }
 
-        // Mostrar la primera página al cargar
+        
         showPage(currentPage);
     </script>
 </body>
