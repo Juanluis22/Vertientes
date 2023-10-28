@@ -6,7 +6,7 @@ from django.views.generic import ListView, TemplateView, UpdateView, DeleteView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from user.models import User
+from user.models import User,Profile
 from django.urls import reverse, reverse_lazy
 from crud.forms import *
 import moni.settings as setting
@@ -25,6 +25,20 @@ class Select(TemplateView):
     template_name = 'select/select.html'  
     context_object_name = 'listaUser'
 
+    
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+        
 
 #Indice principal
 
@@ -34,6 +48,19 @@ class Indice(TemplateView):
     template_name = 'index/index.html'  
     context_object_name = 'listaUser'
 
+    
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador' or 'Usuario':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
     
     
 
@@ -66,6 +93,19 @@ class NuevoUser(CreateView):
     def get_success_url(self):
         return reverse('crud:listauser')
     
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+    
 
     def form_valid(self, form):
         # Establece el campo 'is_active' en True
@@ -78,6 +118,19 @@ class ListaUsuarios(ListView):
     model = User  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'usuario/lista/listUser.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaUsuarios' 
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
 
 
 @method_decorator(login_required,name='dispatch')
@@ -98,6 +151,19 @@ class ActualizarUsuario(UpdateView):
         user.profile.save()
         return super().form_valid(form)
     
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+    
 
 
 
@@ -109,6 +175,21 @@ class ListaPeticion(ListView):
     model = User  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'usuario/lista/listPeticiones.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaUsuarios' 
+
+    
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
 
 
 def activar_estado(request, pk):
@@ -178,6 +259,20 @@ class EliminarUsuario(DeleteView):
     success_url=reverse_lazy('crud:listpet')
 
 
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
+
 
 
 
@@ -204,6 +299,20 @@ class NuevaComunidad(CreateView):
     form_class = ComunidadForm
     template_name = 'comunidad/new/newComunidad.html'
 
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
+
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
@@ -223,6 +332,20 @@ class ListaComunidad(ListView):
     template_name = 'comunidad/lista/listComunidad.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaComunidad' 
 
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
 @method_decorator(login_required,name='dispatch')      
 class ActualizarComunidad(UpdateView):
     model = comunidad
@@ -240,11 +363,38 @@ class ActualizarComunidad(UpdateView):
         
         return context
     
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+    
 @method_decorator(login_required,name='dispatch')
 class EliminarComunidad(DeleteView):
     model=comunidad
     template_name='comunidad/delete/deleteComu.html'
     success_url=reverse_lazy('crud:listcom')
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
 
 
 
@@ -272,10 +422,25 @@ class NuevaVertiente(CreateView):
     def get_success_url(self):
         return reverse('crud:listvert') 
     
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+    
     def post(self, request, *args, **kwargs):
         data={}
         
         action=request.POST['action']
+        print('AAAALOOO')
         print(action)
         if action=='seaid':
             comu=comunidad.objects.filter(id=request.POST['id'])
@@ -305,6 +470,19 @@ class ListaVertiente(ListView):
     template_name = 'vertiente/list/listVertiente.html' # Nombre de la plantilla a utilizar
     context_object_name = 'listaVertiente' 
 
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
 @method_decorator([csrf_exempt, login_required],name='dispatch')
 class ActualizarVertiente(UpdateView):
     model = vertiente
@@ -314,6 +492,20 @@ class ActualizarVertiente(UpdateView):
 
     def get_success_url(self):
         return reverse('crud:listvert')
+    
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
 
     
 
@@ -351,6 +543,18 @@ class EliminarVertiente(DeleteView):
     template_name='vertiente/delete/deleteVert.html'
     success_url=reverse_lazy('crud:listvert')
 
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
 
 @method_decorator([csrf_exempt, login_required],name='dispatch')
 class mapa_general(CreateView):
@@ -361,6 +565,23 @@ class mapa_general(CreateView):
     #def get_success_url(self):
     #    return reverse('crud:listvert') 
     
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        print(id_user)
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        print(tipo_usuario)
+        
+        if tipo_usuario=='Administrador' or tipo_usuario=='Autoridad':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
+
+
     def post(self, request, *args, **kwargs):
         data={}
         

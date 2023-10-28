@@ -65,6 +65,13 @@
                                     </div>
                                     {% endfor %}
                                 </div>
+                                <!-- Mapa -->
+                                <div class="map-container" style="width: 50%;">
+                                    <div id="map" style="height: 500px;position: relative;margin-right: 20px;border-radius: 15px;"></div>
+                                    {{ comunidades|json_script:"comunidades_json" }}
+                                    {{ vertientes|json_script:"vertientes_json" }}
+                                    <input type="hidden" name="action" value="listo">
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Crear</button>
@@ -75,12 +82,8 @@
                         </form>
                     </div>
                     
-                    <!-- Mapa -->
-                    <div class="map-container" style="width: 50%;">
-                        <div id="map" style="height: 500px;position: relative;margin-right: 20px;border-radius: 15px;"></div>
-                        {{ comunidades|json_script:"comunidades_json" }}
-                        {{ vertientes|json_script:"vertientes_json" }}
-                    </div>
+                    
+                    
                 </div>
             </div>
         </div>
