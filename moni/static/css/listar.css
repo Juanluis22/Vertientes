@@ -1,10 +1,5 @@
 /* Estilos generales y otros estilos */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color de fondo de la página */
-}
+
 
 .container-main{
     align-items: center;
@@ -17,7 +12,6 @@ body {
 /* Estilo para "ADMINISTRACIÓN DE COMUNIDADES" */
 .main-heading {
     font-size: 25px; /* Tamaño de fuente para el título principal */
-    padding-top: 3%;
     text-transform: uppercase; /* Mayúsculas para el título principal */
     text-align: center; /* Alineación centrada del título principal */
     align-items: center;
@@ -169,7 +163,7 @@ body {
     justify-content: center; /* Centra horizontalmente los botones */
     align-items: center;
     margin-bottom: 20px;
-    margin-top: 40px;
+    margin-top: 25px;
     gap: 15px;
     font-size: 18px
 }
@@ -199,6 +193,14 @@ body {
     cursor: pointer;
 }
 
+@media screen and (max-width: 900px){
+    .container-main {
+
+        padding-left: 0;
+        padding-top: 0;
+}
+}
+
 @media screen and (max-width: 640px){
 .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em;
@@ -209,9 +211,17 @@ body {
 @media screen and (max-width: 1350px){
     .container-main {
         width: 1200px;
+        padding-left: 110px;
+        padding-top: 60px;
     }
     }
 
+@media screen and (max-width: 900px){
+    .container-main {
+        padding-left: 0;
+        padding-top: 170px;
+}
+}
 
 
     /* Estilo para el fondo oscurecido detrás del modal */

@@ -12,7 +12,7 @@
     padding: 10px 20px;
     height: 40px;
     z-index: 2; /* Asegura que esté por encima de otros elementos */
-    box-shadow: 5px 0 5px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
 }
 
 .navbar-center {
@@ -58,12 +58,12 @@
 .vertical-bar {
     background-color: #3393B7;
     width: 110px; /* Ancho de la barra blanca vertical */
-    height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
+    height: -webkit-fill-available;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1; /* Asegura que esté por encima de otros elementos */
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 1);
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 1);
 }
 
 .logo img {
@@ -178,7 +178,7 @@ body {
 }
 
 /* Media query para el sidebar en pantalla estrecha (menos de 520px) */
-@media (max-width: 280px) {
+@media (max-width: 900px) {
     .vertical-bar {
         width: 100%; /* Cambia el ancho a 100% para que el sidebar ocupe todo el ancho */
         height: auto; /* Desactiva la altura fija para que se ajuste al contenido */
