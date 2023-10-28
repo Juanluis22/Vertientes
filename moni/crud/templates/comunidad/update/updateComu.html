@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
       
         <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
@@ -19,20 +19,7 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   
-        <style>
-          .aviso {
-            position: fixed;
-            top: 7.5cm; /* 5 cm más abajo */
-            margin-left: 14cm; /* 4 cm a la derecha */
-            background-color: #3393B7;
-            color: #FFFFFF;
-            padding: 50px;
-            border-radius: 30px;
-            z-index: 9999;
-            font-size: 20px;
-            font-family: Arial, sans-serif;
-        }
-      </style>
+        
       </head>
 
     <body>
@@ -41,7 +28,6 @@
               <ul class="sidebar-nav">
                   <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
                   <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                  <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
                   <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
                   <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
                   
@@ -62,27 +48,27 @@
       
       <div class="center-container">
         <div class="vertientes-container">
-                <div class="center-div">
-                  <div class="card-header">
-                  <h3 class="card-title">Nueva comunidad</h3>
-                  </div>
-                  <div class="contenido-rectangulo">
-                    <!-- Formulario -->
-                    <div class="form-container" style="width: 50%;">
-                      <form method="post" onsubmit="return enviarFormulario();">
-                        <div class="card-body">
-                          <div class="form-group">
-                            {{ form.errors }}
-                            {% csrf_token %}
-                            {% for field in form.visible_fields %}
-                            <div class="form-group">
-                              <label for="email">{{ field.label }}  </label>
-                              {{ field }}
-                            </div>
-                            {% endfor %}
-                          </div>
+          <div class="center-div">
+            <div class="card-header">
+              <h3 class="card-title">Nueva comunidad</h3>
+            </div>
+            <div class="contenido-rectangulo">
+              <div class="form-container" style="width: 50%;">
+                <form method="post" onsubmit="return enviarFormulario();">
+                  <div class="card-body">
+                    <div class="form-group">
+                      {{ form.errors }}
+                      {% csrf_token %}
+                      {% for field in form.visible_fields %}
+                      <div class="form-group">
+                        <div class="form-group {% if field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
+                          <label for="email">{{ field.label }}  </label>
+                        {{ field }}
                         </div>
-    
+                      </div>
+                          {% endfor %}
+                      </div>
+                      </div>
                         <div class="card-footer">
                           <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Guardar</button>
                           <a href="{% url 'crud:listcom' %}" class="button">
@@ -91,93 +77,79 @@
                         </div>
                       </form>
                     </div>
-    
                     <!-- Mapa -->
                     <div class="map-container" style="width: 50%;">
-                      <div id="map" style="height: 500px;"></div>
+                      <div id="map" style="height: 400px;position: relative;margin-right: 20px;border-radius: 15px;"></div>
                       {{ comunidades|json_script:"comunidades_json" }}
-
                     </div>
                   </div>
-                </div>
-        </div>
-      </div>
-      
+
+              </div>
+            </div>
+          </div>
 
               <script>
                 var map=L.map('map').setView([-36.084726, -71.217422],11);
-                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19,
-                        attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
-                        }).addTo(map);
-            
-                        let comunidades = JSON.parse(document.getElementById('comunidades_json').textContent)
-                        var currentMarker = null;
-                        map.on('click', function(event) {
-            
-                          if (currentMarker) {
-                          map.removeLayer(currentMarker);
-                          }
-            
-            
-            
-                          currentMarker=L.marker([event.latlng.lat,event.latlng.lng]).addTo(map);
-                          console.log(event.latlng);
-                          var latlng = event.latlng;
-                          var latitudField = document.getElementById('id_latitud');
-                          var longitudField = document.getElementById('id_longitud');
-            
-                          if (latitudField && longitudField) {
-                          // Actualiza los campos
-                          latitudField.value = latlng.lat;
-                          longitudField.value = latlng.lng;
-                            }
-                          else{
-                            console.log('xdd');
-                          }
-                        });
-            
-            
-                        comunidades.forEach(comunidad => { 
-            
-            
-            
-            
-                          var icono=L.icon({
-                            iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
-                            iconAnchor: [12, 41],  // Punto de anclaje del icono
-                            popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente  
-                          } )
-                          var marcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(map)
-                          nombre=comunidad.nombre.toString()
-                          marcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
-            
-            
-                         } )
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            let comunidades = JSON.parse(document.getElementById('comunidades_json').textContent)
+            var currentMarker = null;
+            map.on('click', function(event) {
+
+              if (currentMarker) {
+              map.removeLayer(currentMarker);
+              }
+              currentMarker=L.marker([event.latlng.lat,event.latlng.lng]).addTo(map);
+              console.log(event.latlng);
+              var latlng = event.latlng;
+              var latitudField = document.getElementById('id_latitud');
+              var longitudField = document.getElementById('id_longitud');
+
+              if (latitudField && longitudField) {
+              // Actualiza los campos
+              latitudField.value = latlng.lat;
+              longitudField.value = latlng.lng;
+                }
+              else{
+                console.log('xdd');
+              }
+            });
+            comunidades.forEach(comunidad => { 
+              var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  
+                iconAnchor: [12, 41],  
+                popupAnchor: [1, -34]  
+              } )
+              var marcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(map)
+              nombre=comunidad.nombre.toString()
+              marcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
+
+
+             } )
+
 
                          function mostrarMensaje() {
                           var mensaje = document.createElement("div");
                           mensaje.className = "aviso";
                           mensaje.innerText = "Se han guardado correctamente los cambios";
                           document.body.appendChild(mensaje);
-                      
-                          // Redirigir a la vista 'crud:listcom' después de mostrar el mensaje
                           setTimeout(function() {
                               window.location.href = "{% url 'crud:listcom' %}";
-                          }, 2000); // 3000 milisegundos = 3 segundos
+                          }, 2000); 
                       }
+
                       function enviarFormulario() {
                         mostrarMensaje();
                         setTimeout(function() {
-                          document.forms[0].submit(); // Envía el formulario después de mostrar el mensaje durante 10 segundos
-                        }, 2000); // 10000 milisegundos = 10 segundos
-                        return false; // Previene la recarga automática de la página
+                          document.forms[0].submit(); 
+                        }, 2000); 
+                        return false; 
                       }
               
-                
+            
             </script>
-
-
-
     </body>
 </html>

@@ -286,3 +286,7 @@ body {
     #showModal:checked ~ .modal-overlay .modal {
         display: block;
     }
+    #example th:nth-child(5), #example td:nth-child(5) {
+        text-align: center;
+    }
+   

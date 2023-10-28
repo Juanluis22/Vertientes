@@ -1,5 +1,4 @@
 
-
 .center-div {
     /* Estilos para centrar contenido verticalmente */
     display: flex;
@@ -10,6 +9,7 @@
     background-color: #ffffff;
     border-radius: 5px 5px 5px 5px;
     margin-top: 20px;
+    margin-left:100px
 }
 
 .card-header {
@@ -145,4 +145,30 @@
 .contenido-rectangulo {
     margin-top: 20px; /* Espacio en la parte superior */
     margin-bottom: 20px; /* Espacio en la parte inferior */
+}
+.aviso {
+    position: fixed;
+    top: 7.5cm; /* 5 cm más abajo */
+    margin-left: 14cm; /* 4 cm a la derecha */
+    background-color: #3393B7;
+    color: #FFFFFF;
+    padding: 50px;
+    border-radius: 30px;
+    z-index: 9999;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+}
+.aviso {
+    position: fixed;
+    top: 7.5cm; /* 5 cm más abajo */
+    margin-left: 14cm; /* 4 cm a la derecha */
+    background-color: #3393B7;
+    color: #FFFFFF;
+    padding: 50px;
+    border-radius: 30px;
+    z-index: 9999;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+} .hidden {
+display: none;
 }

@@ -1,9 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     <head>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
         <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,26 +13,9 @@
         <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-       
         <!--extra-->
-
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    
-        <style>
-            .aviso {
-              position: fixed;
-              top: 7.5cm; /* 5 cm más abajo */
-              margin-left: 14cm; /* 4 cm a la derecha */
-              background-color: #3393B7;
-              color: #FFFFFF;
-              padding: 50px;
-              border-radius: 30px;
-              z-index: 9999;
-              font-size: 20px;
-              font-family: Arial, sans-serif;
-          }
-        </style>
     </head>
 
     <body>
@@ -68,7 +50,7 @@
                     <h3 class="card-title">Editar vertiente</h3>
                 </div>
                 <div class="contenido-rectangulo">
-                    <!-- Formulario -->
+                   
                     <div class="form-container" style="width: 50%;">
                         <form method="post" onsubmit="return enviarFormulario();">
                             <div class="card-body">
@@ -77,14 +59,16 @@
                                     {% csrf_token %}
                                     {% for field in form.visible_fields %}
                                     <div class="form-group">
-                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                        {{ field }}
+                                        <div class="form-group {% if field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {{ field }}
+                                        </div>
                                     </div>
                                     {% endfor %}
                                 </div>
                             </div>
                             
-                            <!-- Hidden input field for 'action' -->
+                            
                             <input type="hidden" name="action" value="listo">
                             
                             <div class="card-footer">
@@ -96,7 +80,7 @@
                         </form>
                     </div>
                     
-                    <!-- Mapa -->
+                    
                     <div class="map-container" style="width: 50%;">
                         <div id="map" style="height: 500px;"></div>
                         {{ comunidades|json_script:"comunidades_json" }}
@@ -137,7 +121,7 @@
             var longitudField = document.getElementById('id_longitud');
 
             if (latitudField && longitudField) {
-                // Update the fields
+                
                 latitudField.value = latlng.lat;
                 longitudField.value = latlng.lng;
             } else {
@@ -220,17 +204,17 @@
             mensaje.innerText = "Se han guardado correctamente los cambios";
             document.body.appendChild(mensaje);
         
-            // Redirigir a la vista 'crud:listcom' después de mostrar el mensaje
+            
             setTimeout(function() {
                 window.location.href = "{% url 'crud:listcom' %}";
-            }, 2000); // 3000 milisegundos = 3 segundos
+            }, 2000); 
         }
         function enviarFormulario() {
           mostrarMensaje();
           setTimeout(function() {
-            document.forms[0].submit(); // Envía el formulario después de mostrar el mensaje durante 10 segundos
-          }, 2000); // 10000 milisegundos = 10 segundos
-          return false; // Previene la recarga automática de la página
+            document.forms[0].submit(); 
+          }, 2000); 
+          return false; 
         }
     </script>
 </body>

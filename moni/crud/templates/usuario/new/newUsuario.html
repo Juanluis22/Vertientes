@@ -12,22 +12,6 @@
         <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-       
-        <style>
-          .aviso {
-            position: fixed;
-            top: 7.5cm; /* 5 cm más abajo */
-            margin-left: 14cm; /* 4 cm a la derecha */
-            background-color: #3393B7;
-            color: #FFFFFF;
-            padding: 50px;
-            border-radius: 30px;
-            z-index: 9999;
-            font-size: 20px;
-            font-family: Arial, sans-serif;
-        }
-      </style>
    
       </head>
 
@@ -37,7 +21,6 @@
               <ul class="sidebar-nav">
                   <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
                   <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                  <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
                   <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
                   <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
                   
@@ -94,17 +77,17 @@
         mensaje.innerText = "Se ha creando correctamente el Habitante";
         document.body.appendChild(mensaje);
     
-        // Redirigir a la vista 'crud:listcom' después de mostrar el mensaje
+        
         setTimeout(function() {
             window.location.href = "{% url 'crud:listcom' %}";
-        }, 2000); // 3000 milisegundos = 3 segundos
+        }, 2000); 
     }
     function enviarFormulario() {
       mostrarMensaje();
       setTimeout(function() {
-        document.forms[0].submit(); // Envía el formulario después de mostrar el mensaje durante 10 segundos
-      }, 2000); // 10000 milisegundos = 10 segundos
-      return false; // Previene la recarga automática de la página
+        document.forms[0].submit(); 
+      }, 2000); 
+      return false; 
     }
 
 

@@ -194,6 +194,20 @@ main{
             // window.location.href = "{% url 'nucleo:login' %}";
           });
         });
+        
+            document.getElementById("formulario").addEventListener("submit", function(event) {
+                var rut = document.getElementsByName("RUT")[0].value;  // Asumiendo que "RUT" es el name del input. Ajusta según corresponda.
+                if (!esValidoRut(rut)) {
+                    alert("El RUT proporcionado no es válido");
+                    event.preventDefault();  // Esto evita que el formulario se envíe
+                }
+            });
+        
+            function esValidoRut(rut) {
+                // Aquí coloca tu lógica de validación para el RUT en JavaScript
+                // Puede ser una simple expresión regular u otra lógica según necesites
+            }
+        
         </script>
         
 </body>

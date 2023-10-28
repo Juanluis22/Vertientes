@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <meta charset="UTF-8">
@@ -11,10 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-
-
-
-    
 </head>
 <body>
     <div class="vertical-bar">
@@ -22,7 +18,6 @@
             <ul class="sidebar-nav">
                 <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
                 <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-chart-bar"></i></div><span>Gráficas</span></a></li>
                 <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
                 <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
                 
@@ -41,14 +36,14 @@
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
     
+
+
     <div class="vertientes-container">
         <div class="vertientes-header">
             <h1>
                 Seleccione qué desea Administrar
             </h1>
         </div>
-        
-        
     <div class="row1">
         <div class="rectangulo rectangulo-verde">
             <div class="contenido-rectangulo">
@@ -106,7 +101,6 @@
                 </a>
             </div>
     </div>
-    
     <script>
         function showText(textId) {
             var textElement = document.getElementById(textId);
