@@ -11,7 +11,7 @@
     align-items: center;
     padding: 10px 20px;
     height: 40px;
-    z-index: 2; /* Asegura que esté por encima de otros elementos */
+    z-index: 1;
     box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
 }
 

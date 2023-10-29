@@ -1,20 +1,22 @@
 /* Estilos generales y otros estilos */
-
-
 .container-main{
     align-items: center;
     text-align: center;
     margin-left: 1rem;
     margin-right: 1rem;
-    margin-bottom: 3%;
+    margin-bottom: 3%; 
+    padding-left: 110px;
+    padding-top: 60px;
 }
 
 /* Estilo para "ADMINISTRACIÓN DE COMUNIDADES" */
 .main-heading {
-    font-size: 25px; /* Tamaño de fuente para el título principal */
+    font-size: 30px; /* Tamaño de fuente para el título principal */
     text-transform: uppercase; /* Mayúsculas para el título principal */
     text-align: center; /* Alineación centrada del título principal */
     align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 /* Estilo para "LISTADO DE COMUNIDAD" */
@@ -191,14 +193,6 @@
     transform: scale(1.05); /* Escala el botón al hacer hover */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     cursor: pointer;
-}
-
-@media screen and (max-width: 900px){
-    .container-main {
-
-        padding-left: 0;
-        padding-top: 0;
-}
 }
 
 @media screen and (max-width: 640px){
