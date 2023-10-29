@@ -18,7 +18,6 @@
             <a href="{% url 'nucleo:login' %}">Iniciar Sesión</a>
         </div>
     </header>
-    
     <main>
         <section class="welcome-section">
             <div class="welcome-bg">
@@ -27,29 +26,24 @@
                 <a href="{% url 'nucleo:registro' %}" class="start-button">¡Registrarse!</a>
             </div>
         </section>
-        
         <section class="info-section">
             <div class="info-box">
                 <h2>Contenido Limitado</h2>
                 <p>"Explora la plataforma sin necesidad de Registrarse y poder ver el estado actual de las vertientes disponibles. Obtén una visión inicial de los datos disponibles actuales."</p>
                 <a href="{% url 'nucleo:select' %}" class="info-button">Ver más</a>
             </div>
-        
             <div class="info-box">
                 <h2>Monitor de Vertientes</h2>
                 <img src="https://scx1.b-cdn.net/csz/news/800a/2022/low-cost-sensor-record.jpg" alt="Mapa de vertientes">
                 <a href="{% url 'nucleo:select' %}" class="info-button ver-vertientes">Ver Vertientes</a>
             </div>
-        
             <div class="info-box">
                 <h2>Contenido Exclusivo</h2>
                 <p>"Regístrate en este sitio web te dará acceso a información detallada y actualizada que te permitirá realizar un análisis completo de la calidad del agua en nuestras vertientes."</p>
                 <a href="{% url 'nucleo:login' %}" class="info-button">Ver más</a>
             </div>
         </section>
-        
     </main>
-    
     <footer>
         <p>© 2023 U. Autónoma. Todos los derechos reservados.</p>
     </footer>

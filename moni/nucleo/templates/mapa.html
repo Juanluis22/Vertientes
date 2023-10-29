@@ -4,30 +4,18 @@
     <head>
         <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
         <title>Mapa</title>
-
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-        
-    
         <link rel="stylesheet" href="{% static 'css/Gestion usuarios.css' %}">
-
-    
-
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
-        
         <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
-
         <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-
-
     </head>
+
     <body>
         <div class="vertical-bar">
             <div class="sidebar">
@@ -49,7 +37,6 @@
             <a href="{% url 'habi:detect' %}" class="volverr">Volver</a>
             <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
         </nav>
-        
 
         <div class="contenido-rectangulo3">
             <div class="contenido-rectangulo4">
@@ -58,36 +45,28 @@
                     <i class="fas fa-info-circle" onmouseover="showText('infoText')" onmouseout="hideText('infoText')"></i>
                 </h1>
             </div>
-            
             <div id="infoText" class="hidden-textsas">
                 <p>Esta página muestra una vista satelital de todas las vertientes monitoreadas.</p>
                 <p>En el mapa, puedes encontrar los nombres asociados a las vertientes y conocer su estado.</p>
                 <p>Además, si haces click en el ícono <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Tu imagen"> se te redigirá a la vertiente seleccionada.</p>
             </div>
-            
             <div class="contendos">
             <div id="map" class="rectangulos-container2">
-                
-                
         {{ vertientes|json_script:"vertientes_json" }}
         {{ data|json_script:"data_json" }}
         {{ user_id|json_script:"userid_json" }}
     </div>
-        
-
         <div class="rectangulo rectangulo-verde2">
             <div class="contenidorectanguloverde">
             <h1><img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Tu imagen">  <font color="white"><span class="gestion-text">Muestra el lugar donde se encuentra la vertiente</span>
             </h1>
         </div></div>
     </div></div>
- 
     <script>
         function showText(textId) {
             var textElement = document.getElementById(textId);
             textElement.style.display = 'block';
         }
-
         function hideText(textId) {
             var textElement = document.getElementById(textId);
             textElement.style.display = 'none';
@@ -95,37 +74,23 @@
     </script>
 
 <script>
-
     var map=L.map('map').setView([-36.084726, -71.217422],11);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
     }).addTo(map);
-
     let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent)
     let datos_vert = JSON.parse(document.getElementById('data_json').textContent)
     let userid = JSON.parse(document.getElementById('userid_json').textContent)
-    
     // ayuda: aqui se puede mandar el id del user directamente al hacer click
     function onMarkerClick(e, idi,iduser) {
     let id=idi
     let idi_user=iduser
     window.location.href = `/monitoreo/vertiente/${id}/${idi_user}/`;
-    
-
     }
-
-
     vertientes.forEach(vertiente => {
         id_vert=vertiente.id
-        
-        
-
-
-
-
         datos_vert.forEach(dato => {
-
             a=dato.vertiente_id
             if(a==id_vert){
 
@@ -157,7 +122,6 @@
                 problema=problema+1
             
                 }
-        
                 if(problema>=2){
                 estado=3
                 }if(problema<2 && problema>0){
@@ -165,24 +129,18 @@
                 }if(problema==0){
                 estado=1
                 }
-
-        
-
-        
                 if(estado==1){
                 var icono=L.icon({
                 iconUrl: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',  // Ruta de la imagen del marcador
                 iconAnchor: [12, 41],  // Punto de anclaje del icono
                 popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
                 })
-
                 }if(estado==2){
                 var icono=L.icon({
                 iconUrl: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',  // Ruta de la imagen del marcador
                 iconAnchor: [12, 41],  // Punto de anclaje del icono
                 popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
                 })
-
                 }if(estado==3){
                 var icono=L.icon({
                 iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
@@ -190,52 +148,16 @@
                 popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
                 })
                 }
-
-
-
                 var marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(map)
                 nombre=vertiente.nombre.toString()
                 problem=problema.toString()
                 marcador.bindTooltip("Vertiente "+ nombre + " con " +problem + " problemas detectados.").openTooltip()
-        
                 marcador.on('click', function(e){
                 onMarkerClick(e,vertiente.id,userid)
-
                 })
-
-
-
-
-
-
-
-
-
-
-
             }
-            
-
-
         })
-
-        
-        
-
-
-
-        
-
-
-        
-        
-
-        
     })
-
-   
-
-
 </script>
     </body>
 </html>

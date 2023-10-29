@@ -1,166 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/forgot.css' %}">
     <title>Recuperar Contraseña</title>
     <style>
-        body {
-            display: flex;
-            justify-content: center;            
-            margin: 0;
-            padding: 0;
-            background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Estilos de la barra de navegación */
-        .logo {
-        width: 110px; /* Ajusta el tamaño de la imagen */
-        height: auto;
-        margin: 0;
-        padding: 0;
-        }
-        
-        .navbar {
-        background-color: #333;
-        color: white;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        }
-        
-        .navbar-nav {
-        list-style: none;
-        display: flex;
-        gap: 20px;
-        }
-        
-        .nav-item a {
-        text-decoration: none;
-        color: white;
-        transition: color 0.3s;
-        }
-        
-        .nav-item a:hover {
-        color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
-        }
-        
-        .cerrar-sesion {
-        display: inline-block;
-        padding: 10px 20px;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: bold;
-        transition: background-color 0.3s;
-        font-size: 14px;
-        border: 2px solid #d0f2ff;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        margin-left: 10px;
-        }
-
-        .cerrar-sesion:hover {
-        background-color: #0077b3;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-        }
-
-        main{
-        flex-grow: 1;
-        }
-        #contenedor {
-            display: flex;
-            max-height: 50%;
-            margin-top: 10rem;
-            flex: 1;
-            flex-grow: 1;
-            justify-content: center;
-        }
-        #titulo {
-            font-size: 20px;
-            margin-bottom: -80px;
-            text-align: center;
-        }
-        #formulario {
-            background-color: #f0f0f0; 
-            border-radius: 15px;
-            padding: 30px;
-            transition: box-shadow 0.3s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            
-            max-width: 30%; /* Ajusta el ancho del formulario */
-            gap: 100px; /* Espacio vertical entre los campos */
-        }
-        #formulario form {
-            flex-direction: column;
-            text-align: center;
-            padding-top: 25%;
-            flex: 1;
-            margin: 5%;
-        }
-        #imagen {
-            width: 25rem;
-            border-radius: 0px 15px 15px 0px;
-        }
-        input[type="email"] {
-            width: 100%;
-            padding: 5px 0px 5px 5px;
-            margin: 4px 0px 4px 0px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="email"]:focus {
-            outline: none;
-            border-color: #5b9dd9;
-        }
-        button {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        #botonRecuperar {
-            padding: 20px 25px;
-            background-color: #6fbf73;
-            color: #fff;
-            margin-top: 10px;
-        }
-        :hover#botonRecuperar{
-            background-color: #1fa4d9;
-            color: #fff;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        #enlaceVolver {
-            font-size: 12px;
-            margin-top: 10px;
-        }
-        #recordatorio {
-            font-size: 20px;
-            color: #777;
-            margin-top: 5px;
-        }
-        input[type="text"] { /* Asumiendo que el RUT se introduce en un campo de texto */
-        font-size: 20px; /* hacer el texto un poco más grande dentro del input */
-        padding: 10px;  /* más padding hace que el campo de texto sea más alto */
-    }
-    button#botonRecuperar {
-        font-size: 15px; /* un botón más grande con texto más grande es más llamativo */
-    }
-
-        /* Estilos para el pie de página */
-        .footer {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #333;
-            color: white;
-        }
     </style>
 </head>
 <body>
@@ -184,11 +31,6 @@
                 {{ form.username }}
                 <p id="recordatorio">Si su correo está registrado, se enviará un enlace para restaurar su contraseña.</p>
                 <button id="botonRecuperar" type="submit">Recuperar</button>
-
-
-               
-                
-                
             </form>
         </div>
         

@@ -6,14 +6,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
         <link rel="stylesheet" href="{% static 'css/sin_registro.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-    
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Seleccion vertiente</title>
     </head>
+
     <body>
         <nav class="navbar">
             <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
@@ -24,15 +23,11 @@
             <a href="{% url 'nucleo:inicio' %}" class="cerrar-sesion">Volver</a>
             </div>
         </nav>
-        
-
-
         <main class="main">
             <div class="vertientes-contenedor">
                 <div class="vertientes-header">
                     <h1>Seleccione vertiente a buscar</h1>
                 </div>
-
                 <div class="vertientes-buscar">
                     <div class="buscar">
                         <label>Comunidades</label>
@@ -49,12 +44,10 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="estado-vertiente">
                     <p id="estado-vertiente-texto"></p>
                     <p id="calidadAgua"></p>
                 </div>
-
                 <div class="vertientes-footer">
                     <h1>Vertiente seleccionada</h1>
                     <div class="parametros-columnas">
@@ -66,6 +59,7 @@
                                 <p id="modal-cuerpo"></p>
                             </div>
                         </div>
+
                         <!-- Primera columna de parámetros -->
                         <div class="columna">
                             <div class="parametro" onclick="mostrarModal('¿Que es el caudal?', 'El caudal se refiere a la cantidad de agua que fluye por la vertiente en un período de tiempo específico. Se mide típicamente en metros cúbicos por segundo (m³/s) y es un indicador importante para evaluar el flujo de agua en la vertiente.')">
@@ -90,6 +84,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <!-- Segunda columna de parámetros -->
                         <div class="columna">
                             <div class="parametro" onclick="mostrarModal('¿Que es la Turbiedad?', 'La turbiedad es una medida de la claridad del agua y se refiere a la cantidad de partículas suspendidas en ella. El agua turbia puede dificultar la penetración de la luz, lo que puede afectar a los organismos acuáticos y al ecosistema en general.')">
@@ -115,6 +110,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="vertientes-datos">
                         <div class="vertientes-datos">
                             <p id="fecha-hora-datos">
@@ -125,12 +121,7 @@
                     </div>
                 </div>
             </div>
-
         </main>
-
-
-        
-
 
         <footer class="footer">
             <p>&copy; 2023 U.autonoma. Todos los derechos reservados.</p>
@@ -142,7 +133,6 @@
                     var id=$(this).val();
                     var select_vertiente=$('select[name="vertiente"]');
                     var options='<option value="">------</option>';
-                    
                     $.ajax({
                         url:window.location.pathname,
                         type:'POST',
@@ -151,17 +141,14 @@
                             'id':id
                         },
                         dataType:'json',
-    
                     }).done(function(data){
                         $.each(data, function(key,value) {
                                 options+='<option value="'+value.id+'">'+value.name+'</option>';
                                 
                             });
                             select_vertiente.html(options);
-                    
                             select_vertiente.on('change', function () {
                             var vertienteId = $(this).val();
-    
                             $.ajax({
                                 url: window.location.pathname, 
                                 type: 'POST',
@@ -170,12 +157,11 @@
                                     'vertienteId': vertienteId
                                     },
                                 dataType: 'json',
-                             }).done(function (data) {
+                                }).done(function (data) {
                                 var listaFormateada = JSON.stringify(data);
                                 var html = listaFormateada.split(",");
                                 var miLista = ["#datosContainer1", "#datosContainer2", "#datosContainer3", 
                                     "#datosContainer4", "#datosContainer5", "#datosContainer6", "#datosContainer7"];
-     
                                 for (var i = 0; i < html.length; i++) {
                                     a = html.length;
                                     b = html[i];
@@ -183,35 +169,31 @@
                                     c = miLista[i];
                                     $(c).html(b);
                                 }
-    
                                 // Obtén los valores necesarios para la evaluación de la calidad del agua
                                 var pHValue = parseFloat($("#datosContainer3").text());
                                 var conductividadValue = parseFloat($("#datosContainer4").text());
                                 var turbiedadValue = parseFloat($("#datosContainer5").text());
-    
                                 // Evalúa la calidad del agua
                                 var calidadAgua = evaluarCalidadAgua(pHValue, conductividadValue, turbiedadValue);
-    
                                 // Muestra la calidad del agua en pantalla
                                 $("#calidadAgua").text("El agua de la vertiente está en: " + calidadAgua);
                             }).fail(function (data) {
-                                // Manejo de errores
+                                
                             });
                         });
                     return false;
                     }).fail(function(data){
-                        // Manejo de errores
+                        
                     }).always(function(data){
-                        // Código a ejecutar siempre
+                        
                     });
                 });
             });
     
 // Función para evaluar la calidad del agua
 function evaluarCalidadAgua(pH, conductividad, turbiedad) {
-    var calidad = "Desconocida"; // Valor predeterminado
-    var claseCSS = ""; // Clase CSS para el color
-
+    var calidad = "Desconocida"; 
+    var claseCSS = ""; 
     // Verifica si los valores son válidos para la evaluación
     if (!isNaN(pH) && !isNaN(conductividad) && !isNaN(turbiedad)) {
         // Realiza la evaluación en función de los valores proporcionados
@@ -227,7 +209,6 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
         calidad = "Seleccione una vertiente";
         claseCSS = "calidad-no-seleccionada";
     }
-
     // Aplica la clase CSS al elemento que muestra la calidad del agua
     $("#calidadAgua").removeClass("calidad-mala calidad-buena calidad-no-seleccionada").addClass(claseCSS);
 

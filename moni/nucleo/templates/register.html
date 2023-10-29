@@ -1,146 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <title>Registro y Login</title>
     <style>
-        body {
-            margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color celeste */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-        }
-
-        /* Estilos de la barra de navegación */
-.logo {
-
-width: 110px; /* Ajusta el tamaño de la imagen */
-height: auto;
-margin: 0;
-padding: 0;
-}
-
-.navbar {
-background-color: #333;
-color: white;
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px 20px;
-}
-
-.navbar-nav {
-list-style: none;
-display: flex;
-gap: 20px;
-}
-
-.nav-item a {
-text-decoration: none;
-color: white;
-transition: color 0.3s;
-}
-
-.nav-item a:hover {
-color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
-}
-
-.cerrar-sesion {
-display: inline-block;
-padding: 10px 20px;
-color: #fff;
-text-decoration: none;
-border-radius: 5px;
-font-weight: bold;
-transition: background-color 0.3s;
-font-size: 14px;
-border: 2px solid #d0f2ff;
-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-margin-left: 10px;
-}
-
-.cerrar-sesion:hover {
-background-color: #0077b3;
-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-}
-
-main{
-    flex-grow: 1;
-    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
-    background-size: cover;
-    background-position: center;
-}
-#contenedor {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente el contenido */
-    align-items: center; /* Centra verticalmente el contenido */
-    min-height: 100vh; /* Asegura que el contenedor ocupe el alto de la ventana */
-}
-        #formulario {
-            background-color: #f0f0f0; 
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            flex: 1;
-            max-width: 40%; /* Ajusta el ancho del formulario */
-        }
-        #formulario form {
-            flex-direction: column;
-            gap: 0px; /* Espacio vertical entre los campos */
-        }
-        #imagen {
-            width: 25rem;
-            border-radius: 0px 15px 15px 0px;
-        }
-        
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 5px 0px 5px 5px;
-            margin: 4px 0px 4px 0px;
-        }
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus,
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #5b9dd9;
-        }
-        button {
-            padding: 8px 16px;
-            background-color: #6fbf73;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        #registro{
-            margin-top: 5%;
-            align-items: center;
-            text-align: center;
-        }
-        :hover.botona{
-            background-color: #1fa4d9;
-            color: #fff;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .footer {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #333;
-    color: white;
-}
     </style>
 </head>
 <body>
@@ -166,13 +33,9 @@ main{
                         Gracias por registrarte. se a enviado su peticion a administracion.<br>
                                     Por favor revisar su correo electronico
                       </div>
-
                 </div>
             </form>
         </div>
-        
-          
-        
     </div>
     </main>
     <footer class="footer">
@@ -182,32 +45,19 @@ main{
         document.addEventListener("DOMContentLoaded", function () {
           const botonRegistrarse = document.getElementById("boton-registrarse");
           const confirmacion = document.getElementById("confirmacion");
-        
           botonRegistrarse.addEventListener("click", function () {
-            // Aquí puedes realizar alguna validación adicional si es necesario
-            // Por ejemplo, verificar que todos los campos estén completos
-        
-            // Muestra el mensaje de confirmación
             confirmacion.style.display = "block";
-        
-            // También puedes redirigir al usuario a una página de inicio de sesión o a otra página de tu elección
-            // window.location.href = "{% url 'nucleo:login' %}";
           });
         });
-        
             document.getElementById("formulario").addEventListener("submit", function(event) {
-                var rut = document.getElementsByName("RUT")[0].value;  // Asumiendo que "RUT" es el name del input. Ajusta según corresponda.
+                var rut = document.getElementsByName("RUT")[0].value; 
                 if (!esValidoRut(rut)) {
                     alert("El RUT proporcionado no es válido");
-                    event.preventDefault();  // Esto evita que el formulario se envíe
+                    event.preventDefault();
                 }
             });
-        
             function esValidoRut(rut) {
-                // Aquí coloca tu lógica de validación para el RUT en JavaScript
-                // Puede ser una simple expresión regular u otra lógica según necesites
             }
-        
         </script>
         
 </body>
