@@ -9,8 +9,9 @@ body {
 .vertientes-container {
     position: relative;
     max-width: 960px;
+    width: 100%; /* Se cambia a un ancho relativo */
     margin: 0 auto;
-    padding: 50px;
+    padding: 2%;
     background-color: #B0E2FF;
 }
 .vertientes-container img {
@@ -50,15 +51,16 @@ body {
 /* Estilos para los rectángulos individuales */
 .rectangulo {
     position: relative;
-
-    width: 600px; /* Ancho de los rectángulos */
-    height: 200px;
+    width: 100%; /* Ancho de los rectángulos */
+    max-width: 600px;
+    height: 180px;
     margin: 20px; /* Espacio entre los rectángulos */
     border-radius: 25px;
     padding-right: 40px; /* Espacio para el icono más ancho */
     display: flex; /* Utiliza flexbox para centrar el contenido */
     justify-content: center; /* Centra el contenido horizontalmente */
     align-items: center; /* Centra el contenido verticalmente */
+    box-sizing: border-box;
 }
 .rectangulos-container2 {
     display: flex;
@@ -314,19 +316,88 @@ body {
 
 
 
-    @media (max-width: 280px) {
-        /* Estilos para pantallas pequeñas */
-        .vertientes-container {
-            padding: 2%;
+    /* Estilos responsivos para diferentes tamaños de pantalla */
+    @media (min-width: 1200px) {
+        .rectangulo {
+            /* Estilos para un espacio más amplio, por ejemplo: */
+            padding: 40px; 
+            margin: 20px;
         }
     
-        .rectangulo {
-            width: 95%;
-            height: 20vh;
-            margin: 5%;
-            padding-right: 2%;
+        .contenido-rectangulo {
+            font-size: 18px; /* Puedes optar por una fuente más grande ya que hay más espacio */
         }
+    
+        .contenido-rectangulo i:first-child {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+    
+        /* Otros ajustes específicos para elementos en este tamaño de ventana */
     }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        .rectangulo {
+            padding: 35px; /* Ajuste de espacio intermedio */
+            margin: 20px;
+        }
+    
+        .contenido-rectangulo {
+            font-size: 16px; /* Un tamaño intermedio para la fuente */
+        }
+    
+        .contenido-rectangulo i:first-child {
+            font-size: 25px;
+            margin-right: 15px;
+        }
+    
+        /* Adiciones o ajustes para este rango de tamaño específico */
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .rectangulo {
+            padding: 25px; /* Algo más ajustado debido al espacio reducido */
+            margin: 15px;
+        }
+    
+        .contenido-rectangulo {
+            font-size: 15px; /* Ajustando para ser un poco más pequeño que en el escritorio */
+        }
+    
+        .contenido-rectangulo i:first-child {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+    
+        /* Cualquier otro estilo específico para este punto de vista */
+    }
+
+@media (max-width: 576px) {
+    /* Este es un punto de interrupción común para teléfonos móviles en modo retrato */
+
+    .rectangulo {
+        margin: 15px 5px; /* Reducir márgenes para usar más espacio de pantalla */
+        padding: 20px; /* Asegurando que el contenido no esté demasiado apretado */
+        /* Otras propiedades de estilo como border o background según tu diseño */
+    }
+
+    .contenido-rectangulo {
+        font-size: 14px; /* Reducir el tamaño de la fuente para ajustarse a pantallas más pequeñas */
+        /* Ajustes adicionales como line-height o letter-spacing para mejorar la legibilidad */
+    }
+
+    .contenido-rectangulo i:first-child {
+        font-size: 20px; /* Hacer los iconos un poco más pequeños para esta vista */
+        margin-right: 10px; /* Ajustar espaciado según sea necesario */
+    }
+
+    /* Si tienes botones o elementos interactivos, asegúrate de que también sean fáciles de tocar */
+    .boton-rectangulo {
+        padding: 10px 20px; /* Áreas de toque más grandes son mejores en móviles */
+        font-size: 16px; /* Un tamaño de fuente legible para interfaces táctiles */
+    }
+    /* y así sucesivamente... */
+}
     
     
     

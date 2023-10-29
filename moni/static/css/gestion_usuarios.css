@@ -9,8 +9,9 @@ body {
 .vertientes-container {
     position: relative;
     max-width: 960px;
+    width: 100%; /* Se cambia a un ancho relativo */
     margin: 0 auto;
-    padding: 50px;
+    padding: 2%;
     background-color: #B0E2FF;
 }
 .vertientes-container img {
@@ -50,17 +51,123 @@ body {
 /* Estilos para los rectángulos individuales */
 .rectangulo {
     position: relative;
-
-    width: 4500px; /* Ancho de los rectángulos */
-    height: 180px; 
+    width: 100%; /* Ancho de los rectángulos */
+    max-width: 600px;
+    height: 180px;
     margin: 20px; /* Espacio entre los rectángulos */
     border-radius: 25px;
     padding-right: 40px; /* Espacio para el icono más ancho */
     display: flex; /* Utiliza flexbox para centrar el contenido */
     justify-content: center; /* Centra el contenido horizontalmente */
     align-items: center; /* Centra el contenido verticalmente */
+    box-sizing: border-box;
+}
+.rectangulos-container2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 2px;
+    width: 50%; /* Resta 120px del ancho total de la ventana */
+    height: calc(100vh - 50vh); /* Resta 80px de la altura total de la ventana gráfica (viewport) */
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top:20px;
+    border: 5px solid #3393B7;
 }
 
+.contenido-rectangulo3 {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Resta 120px del ancho total de la ventana */
+    height: 100vh; /* Resta 80px de la altura total de la ventana gráfica (viewport) */
+    margin-left:140px;
+    margin-top:80px;
+}
+.contenido-rectangulo4 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: -140px;
+
+}
+.contendos {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    margin-left:120px;
+    align-items: center;
+
+}
+.form-mapasera {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    margin-left:139px;
+    align-items: left;
+
+}
+.contenidorectanguloverde {
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-bottom: 20px;
+    width:100%;
+    align-items: left;
+
+}
+@media (max-width: 1000px) {
+    .rectangulo-container2 {
+        flex-basis: 100%; /* Los cuadros ocuparán todo el ancho en pantallas estrechas */
+    }
+
+    /* Alinea los cuadros al centro verticalmente */
+    .contenido-rectangulo3 {
+        flex-basis: 100%;
+    }
+    .contenido-rectangulo4 {
+        flex-basis: 100%;
+    }
+    .contendos {
+        flex-basis: 100%;
+    }
+    .rectangulo-verde {
+        flex-basis: 100%;
+    }
+}
+.hidden-textsas {
+    position: absolute;
+    display: none;
+    width: 40%;
+    top:180px;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: -30px; /* Ajusta esto según tu diseño */
+    margin-left: 10px; /* Ajusta esto según tu diseño */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+
+}
+.rectangulo-container {
+    display: flex;
+    align-items: center; 
+    flex-basis: calc(50% - 2px); /* 50% del ancho con espacio entre ellos */
+    margin-bottom: 2px; /* Espacio entre las filas */
+}
+
+.rectangulo-container i {
+    font-size: 30px;
+    color: #0E7FE7;
+    margin-right: 10px;
+    cursor: pointer;
+}
 .rectangulo-verde {
     background-color: #16536A; /* Color verde pastel */
 }
@@ -68,7 +175,25 @@ body {
 .rectangulo-celeste {
     background-color: #16536A; /* Color celeste pastel */
 }
+.rectangulo2 {
+    position: relative;
 
+    width: 600px; /* Ancho de los rectángulos */
+    height: 180px; 
+    margin: 20px; /* Espacio entre los rectángulos */
+    border-radius: 25px;
+    display: flex; /* Utiliza flexbox para centrar el contenido */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+}
+.rectangulo-verde2 {
+    background-color:  #16536A;
+    margin-top:30px;
+    margin-left:20px;
+    width:30%;
+    background-color: #16536A; /* Color celeste pastel */
+    padding: 20px;
+}
 /* .rectangulo-verde {
     background-color: #1caa23; 
 }
@@ -191,19 +316,88 @@ body {
 
 
 
-    @media (max-width: 280px) {
-        /* Estilos para pantallas pequeñas */
-        .vertientes-container {
-            padding: 2%;
+    /* Estilos responsivos para diferentes tamaños de pantalla */
+    @media (min-width: 1200px) {
+        .rectangulo {
+            /* Estilos para un espacio más amplio, por ejemplo: */
+            padding: 40px; 
+            margin: 20px;
         }
     
-        .rectangulo {
-            width: 95%;
-            height: 20vh;
-            margin: 5%;
-            padding-right: 2%;
+        .contenido-rectangulo {
+            font-size: 18px; /* Puedes optar por una fuente más grande ya que hay más espacio */
         }
+    
+        .contenido-rectangulo i:first-child {
+            font-size: 30px;
+            margin-right: 15px;
+        }
+    
+        /* Otros ajustes específicos para elementos en este tamaño de ventana */
     }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        .rectangulo {
+            padding: 35px; /* Ajuste de espacio intermedio */
+            margin: 20px;
+        }
+    
+        .contenido-rectangulo {
+            font-size: 16px; /* Un tamaño intermedio para la fuente */
+        }
+    
+        .contenido-rectangulo i:first-child {
+            font-size: 25px;
+            margin-right: 15px;
+        }
+    
+        /* Adiciones o ajustes para este rango de tamaño específico */
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .rectangulo {
+            padding: 25px; /* Algo más ajustado debido al espacio reducido */
+            margin: 15px;
+        }
+    
+        .contenido-rectangulo {
+            font-size: 15px; /* Ajustando para ser un poco más pequeño que en el escritorio */
+        }
+    
+        .contenido-rectangulo i:first-child {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+    
+        /* Cualquier otro estilo específico para este punto de vista */
+    }
+
+@media (max-width: 576px) {
+    /* Este es un punto de interrupción común para teléfonos móviles en modo retrato */
+
+    .rectangulo {
+        margin: 15px 5px; /* Reducir márgenes para usar más espacio de pantalla */
+        padding: 20px; /* Asegurando que el contenido no esté demasiado apretado */
+        /* Otras propiedades de estilo como border o background según tu diseño */
+    }
+
+    .contenido-rectangulo {
+        font-size: 14px; /* Reducir el tamaño de la fuente para ajustarse a pantallas más pequeñas */
+        /* Ajustes adicionales como line-height o letter-spacing para mejorar la legibilidad */
+    }
+
+    .contenido-rectangulo i:first-child {
+        font-size: 20px; /* Hacer los iconos un poco más pequeños para esta vista */
+        margin-right: 10px; /* Ajustar espaciado según sea necesario */
+    }
+
+    /* Si tienes botones o elementos interactivos, asegúrate de que también sean fáciles de tocar */
+    .boton-rectangulo {
+        padding: 10px 20px; /* Áreas de toque más grandes son mejores en móviles */
+        font-size: 16px; /* Un tamaño de fuente legible para interfaces táctiles */
+    }
+    /* y así sucesivamente... */
+}
     
     
     
