@@ -78,7 +78,9 @@
                                     <div class="col-lg-6">
                                         <label onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button">Editar</label>
                                         {% if not objeto.is_staff %}
-                                        <label for="showModal" onclick="openModal('{{ objeto.id }}')" class="eliminar-button">Eliminar</label>
+                                        <a href="#" class="eliminar-button" data-url="{% url 'crud:deletevert' objeto.id  %}"> Eliminar
+                                    
+                                        </a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -91,6 +93,16 @@
             
         </div>
     </div>
+    <div id="confirmarBorradoModalover" class="modaloverlay">
+    	<div class="modal">
+            <h2>¿Estás seguro de Eliminar a esta Vertiente? </h2>
+            <h2><div class="separador">
+      	<div class="modal-buttons">
+        		<button id="siBorrar" class="modal-button modal-button-danger">Eliminar</button>
+        		<button id="noBorrar" class="modal-button modal-button-secondary">Cancelar</button>
+		</div>
+	</div>
+</div>
     <script>
         new DataTable('#example', {
             columnDefs: [
@@ -121,25 +133,31 @@
                 }
             }
         });
+    const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
+    const modalover = document.getElementById('confirmarBorradoModalover');
+    const siBorrarBoton = document.getElementById('siBorrar');
+    const noBorrarBoton = document.getElementById('noBorrar');
+    let urlEliminar = '';
+    
+    eliminarEnlaces.forEach((enlace) => {
+        enlace.addEventListener('click', (event) => {
+            event.preventDefault();
+            urlEliminar = event.currentTarget.getAttribute('data-url');
+            modalover.style.display = 'block';
+        });
+    });
+    
+    siBorrarBoton.addEventListener('click', () => {
+        if (urlEliminar !== '') {
+            window.location.href = urlEliminar; 
+        }
+    });
+    
+    noBorrarBoton.addEventListener('click', () => {
+        modalover.style.display = 'none';
+    });
     </script>
 
-<!-- Todo para modal -->
-<input type="checkbox" id="showModal" hidden>
-
-<div class="modal-overlay">
-    <div class="modal">
-        <h2>¿Estás seguro de eliminar esta vertiente?</h2>
-        <h2>{{ objeto.nombre }}</h2>
-        <form id="deleteForm" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="vertiente_id" id="vertiente_id">
-            <div class="modal-buttons">
-                <label for="showModal" class="modal-button modal-button-secondary">Cancelar</label>
-                <label type="button" id="eliminarVertiente" class="modal-button modal-button-danger">Eliminar</label>
-            </div>
-        </form>
-    </div>
-</div>
 
 </body>
 </html>

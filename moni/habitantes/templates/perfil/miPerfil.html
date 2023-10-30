@@ -23,9 +23,9 @@
       <div class="vertical-bar">
           <div class="sidebar">
               <ul class="sidebar-nav">
-                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
                 <li class="nav-item"><a href="{% url 'habi:miPerfil' pk=user.id %}"><div class="icon-on-top"><i class="fas fa-user"></i></div><span>Mi Perfil</span></a></li>
-                <li class="nav-item"><a href="{% url 'habi:detect' %}"><div class="icon-on-top"><i class="fas fa-water"></i></div><span>Mis Vertientes</span></a></li>
+                <li class="nav-item"><a href="{% url 'habi:detect' %}"><div class="icon-on-top"><i class="fas fa-water"></i></div><span>Vertientes</span></a></li>
+                <li class="nav-item"><a href="#"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
             </ul>
           </div>
       </div>
@@ -67,7 +67,7 @@
               </div>
               
               <div class="card-footer">
-              <button type="submit" class="btn btn-success">Terminar</button>
+              <button type="submit" class="btn btn-success">Guardar cambios</button>
               </div>
               </form>
               </div>

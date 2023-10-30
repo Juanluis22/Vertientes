@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -12,11 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <title>Comunidad</title>
-
 </head>
-<body>
 
-    
+<body>
     <div class="vertical-bar">
         <div class="sidebar">
             <ul class="sidebar-nav">
@@ -24,7 +21,6 @@
                 <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
                 <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
                 <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
-                
             </ul>
         </div>
     </div>
@@ -39,14 +35,7 @@
         <a href="{% url 'eva:comuni' %}" class="volverr">Volver</a>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
-
-
-
-
     <div class="vertientes-container">
-
-        
-
         <div class="vertientes-header" style="background-image: url('{% static "img/imagen_heade_datos.png" %}'); border-radius: 30px; padding: 20px;">
             <div class="title-section" style="color: white; text-align: left;">
                 <h1 class="card-title" style="font-weight: bold;">
@@ -63,13 +52,6 @@
                 </div>
             </div>
         </div>
-        
-        
-        
-        
-        
-
-
         <div class="dashboard-section">
             <!-- Botón Caudal -->
             <div class="dashboard-card btn-primary">

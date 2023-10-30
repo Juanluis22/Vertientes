@@ -84,7 +84,9 @@
                                 <div class="button-container">
                                   <label onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</label>
                                    {% if not objeto.is_staff %}
-                                  <label for="showModal" onclick="openModal('{{ objeto.id }}')" class="editar-button">Desactivar</label>
+                                  <a href="#" class="eliminar-button" data-url="{% url 'crud:deactuser' objeto.id  %}"> Desactivar
+                                    
+                                </a>
                                    {% endif %}
                                 </div>
                             </td>
@@ -96,7 +98,16 @@
             </div>
         </div>
     </div>
-
+    <div id="confirmarBorradoModalover" class="modaloverlay">
+    	<div class="modal">
+            <h2>¿Estás seguro de desactivar a este usuario? </h2>
+            <h2><div class="separador">
+      	<div class="modal-buttons">
+        		<button id="siBorrar" class="modal-button modal-button-danger">Desactivar</button>
+        		<button id="noBorrar" class="modal-button modal-button-secondary">Cancelar</button>
+		</div>
+	</div>
+</div>
     <script>
         new DataTable('#example', {
             columnDefs: [
@@ -130,25 +141,31 @@
                 }
             }
         });
+        const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
+    const modalover = document.getElementById('confirmarBorradoModalover');
+    const siBorrarBoton = document.getElementById('siBorrar');
+    const noBorrarBoton = document.getElementById('noBorrar');
+    let urlEliminar = '';
+    
+    eliminarEnlaces.forEach((enlace) => {
+        enlace.addEventListener('click', (event) => {
+            event.preventDefault();
+            urlEliminar = event.currentTarget.getAttribute('data-url');
+            modalover.style.display = 'block';
+        });
+    });
+    
+    siBorrarBoton.addEventListener('click', () => {
+        if (urlEliminar !== '') {
+            window.location.href = urlEliminar; // Redirigir para eliminar la publicación
+        }
+    });
+    
+    noBorrarBoton.addEventListener('click', () => {
+        modalover.style.display = 'none'; // Cerrar la modal
+    });
     </script>
 
-<!-- Todo para modal -->
-<input type="checkbox" id="showModal" hidden>
-
-<div class="modal-overlay">
-    <div class="modal">
-        <h2>¿Estás seguro de desactivar a este usuario? {{ objeto.first_name }}</h2>
-        <h2><div class="separador">{{ objeto.first_name }}</div></h2>
-        <form id="deactivateForm" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="usuario_id" id="usuario_id">
-            <div class="modal-buttons">
-                <label for="showModal" class="modal-button modal-button-secondary">Cancelar</label>
-                <label type="button" id="desactivarUsuario" class="modal-button modal-button-danger">Desactivar</label>
-            </div>
-        </form>
-    </div>
-</div>
 
 </body>
 </html>

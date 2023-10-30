@@ -1,22 +1,26 @@
 /* Estilos generales y otros estilos */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color de fondo de la página */
+}
+
 .container-main{
     align-items: center;
     text-align: center;
     margin-left: 1rem;
     margin-right: 1rem;
-    margin-bottom: 3%; 
-    padding-left: 110px;
-    padding-top: 60px;
+    margin-bottom: 3%;
 }
 
 /* Estilo para "ADMINISTRACIÓN DE COMUNIDADES" */
 .main-heading {
-    font-size: 30px; /* Tamaño de fuente para el título principal */
+    font-size: 25px; /* Tamaño de fuente para el título principal */
+    padding-top: 3%;
     text-transform: uppercase; /* Mayúsculas para el título principal */
     text-align: center; /* Alineación centrada del título principal */
     align-items: center;
-    padding-top: 15px;
-    padding-bottom: 15px;
 }
 
 /* Estilo para "LISTADO DE COMUNIDAD" */
@@ -144,6 +148,8 @@
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-decoration: none; /* Quita el subrayado del enlace */
+    
 }
 
 .editar-button:hover, .eliminar-button:hover {
@@ -165,7 +171,7 @@
     justify-content: center; /* Centra horizontalmente los botones */
     align-items: center;
     margin-bottom: 20px;
-    margin-top: 25px;
+    margin-top: 40px;
     gap: 15px;
     font-size: 18px
 }
@@ -205,21 +211,13 @@
 @media screen and (max-width: 1350px){
     .container-main {
         width: 1200px;
-        padding-left: 110px;
-        padding-top: 60px;
     }
     }
 
-@media screen and (max-width: 900px){
-    .container-main {
-        padding-left: 0;
-        padding-top: 170px;
-}
-}
 
 
     /* Estilo para el fondo oscurecido detrás del modal */
-    .modal-overlay {
+    .modaloverlay {
         display: none;
         position: fixed;
         top: 0;
@@ -234,15 +232,17 @@
 
     /* Estilo para el modal */
     .modal {
-        display: none;
         background-color: #fff;
         border-radius: 5px;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         z-index: 2;
-        position: relative;
+        position: fixed;
         width: 300px; /* Ajusta el ancho del modal según tus necesidades */
         text-align: center;
+        left: 50%; /* Establece la posición izquierda al 50% del ancho del viewport */
+        top: 50%; /* Establece la posición superior al 50% de la altura del viewport */
+        transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
     }
 
     /* Estilo para el título del modal */
@@ -260,6 +260,8 @@
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        width: 30%; 
+        height: 30px;
     }
 
     /* Estilo para el botón "Eliminar" */
@@ -290,7 +292,3 @@
     #showModal:checked ~ .modal-overlay .modal {
         display: block;
     }
-    #example th:nth-child(5), #example td:nth-child(5) {
-        text-align: center;
-    }
-   
