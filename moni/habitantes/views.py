@@ -14,6 +14,12 @@ import json
 from datetime import datetime, timedelta
 from django.utils import timezone
 import pytz
+# Importar HttpResponse para el sse
+from django.forms.models import model_to_dict
+#importar time para el sse
+import time
+# Importar StreamingHttpResponse para el sse
+from django.http import StreamingHttpResponse
 
 
 # Create your views here.
@@ -55,21 +61,49 @@ def filtro(request, object_id):
 
 @login_required
 def revision_autoridad(request, objecto_id):
-    obj_id = get_object_or_404(vertiente, pk=objecto_id)
-    id_foranea = obj_id.id
-    objetos2 = datos.objects.filter(vertiente_id=id_foranea).first()
-    vertiente_info = vertiente.objects.get(id=id_foranea)
+    print("ID del objeto vertinetes: ", objecto_id)
+    # Obtiene el objeto vertiente con el ID especificado o devuelve un error 404 si no se encuentra
+    vertiente_obj = get_object_or_404(vertiente, pk=objecto_id)
     
-    comunidad_info = vertiente_info.comunidad
+    # Obtiene el último dato registrado para esta vertiente (asumiendo que estás usando la fecha para ordenar)
+    ultimo_dato = datos.objects.filter(vertiente=vertiente_obj).order_by('-fecha').first()
     
+    comunidad_info = vertiente_obj.comunidad
+    
+    # Crea un diccionario con toda la información que se pasará a la plantilla
     data = {
-        'objetos': objetos2,
-        'vertiente': vertiente_info,
+        #'ultimo_dato': ultimo_dato,           # El último dato registrado para esta vertiente
+        'vertiente': vertiente_obj,
         'comunidad': comunidad_info,
-        'ubicación': vertiente_info.ubicación
+        'ubicación': vertiente_obj.ubicación,
+        'objecto_id': objecto_id
     }
-
+    
+    # Renderiza la plantilla 'dashboard_autoridad.html' con el diccionario de datos y devuelve la respuesta
     return render(request, 'dashboard/dashboard_autoridad.html', data)
+
+@login_required
+def sse_datos(request, objecto_id):
+    print("enviando data mediante SSE .....")
+    print("ID del objeto vertinetes: ", objecto_id)
+    # Obtiene el objeto vertiente con el ID especificado o devuelve un error 404 si no se encuentra
+    def event_stream():
+        while True:
+            # Obtener los últimos datos asociados al ID de la vertiente
+            vertiente_obj = get_object_or_404(vertiente, pk=objecto_id)
+            ultimo_dato = datos.objects.filter(vertiente=vertiente_obj).order_by('-fecha').first()
+            
+            s = f"event: new-data\ndata: {json.dumps(model_to_dict(ultimo_dato))}\n\n"
+            #print(ultimo_dato)  # Esto imprimirá la representación del objeto
+            #print(model_to_dict(ultimo_dato))  # Esto imprimirá la versión diccionario del objeto
+            time.sleep(5)
+
+            yield s
+            #time.sleep(1)  # Puedes ajustar el tiempo de espera según lo necesites
+
+    response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")
+    response['Cache-Control'] = 'no-cache'
+    return response
 
 
 

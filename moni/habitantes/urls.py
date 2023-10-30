@@ -19,6 +19,9 @@ urlpatterns = [
     path('turbiedad/<int:vertiente_id>/', views.grafico_turbiedad, name='grafico_turbiedad'),
     path('miPerfil/<int:pk>/', ActualizarPerfil.as_view(), name='miPerfil'),
     
+    # URl para actualizacion automatica d elos datos de vertientes
+    path('sse_datos/<int:objecto_id>/', views.sse_datos, name='sse_datos'),
+
 
     #path("vertiente/<int:object_id>/", filtro, name='vert'),
 
