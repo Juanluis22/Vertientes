@@ -229,12 +229,11 @@ class Registro(CreateView):
                     form=request.POST['email']
                     print(form)
                     data=self.send_email(form)
-                    
                     messages.success(request, 'Gracias por registrarte. Se ha enviado tu petición a administración. Por favor revisa tu correo electrónico.')
-                    return redirect('nucleo:login')
+
+
 
         
-
 
         return super().post(request, *args, **kwargs)
 
