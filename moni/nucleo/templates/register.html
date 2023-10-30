@@ -30,8 +30,6 @@
                 <div id="registro">
                     <button type="submit" class="botona" id="boton-registrarse">Registrarse</button>
                     <div id="confirmacion" style="display: none;">
-                        Gracias por registrarte. se a enviado su peticion a administracion.<br>
-                                    Por favor revisar su correo electronico
                       </div>
                 </div>
             </form>
@@ -41,24 +39,6 @@
     <footer class="footer">
         <p>&copy; 2023 U. Autónoma. Todos los derechos reservados.</p>
     </footer>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          const botonRegistrarse = document.getElementById("boton-registrarse");
-          const confirmacion = document.getElementById("confirmacion");
-          botonRegistrarse.addEventListener("click", function () {
-            confirmacion.style.display = "block";
-          });
-        });
-            document.getElementById("formulario").addEventListener("submit", function(event) {
-                var rut = document.getElementsByName("RUT")[0].value; 
-                if (!esValidoRut(rut)) {
-                    alert("El RUT proporcionado no es válido");
-                    event.preventDefault();
-                }
-            });
-            function esValidoRut(rut) {
-            }
-        </script>
         
 </body>
 </html>
