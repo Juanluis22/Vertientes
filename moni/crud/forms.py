@@ -29,6 +29,10 @@ def validate_rut(value):
 
         if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
             raise ValidationError('Rut inválido')
+        
+        if User.objects.filter(username=value).exists():
+            raise ValidationError("Este RUT ya ha sido registrado.")
+        
 
 
 

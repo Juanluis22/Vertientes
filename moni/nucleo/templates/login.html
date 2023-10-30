@@ -35,6 +35,16 @@
                 <div id="ingreso">
                 <button id="botonIngresar" class="botonb" type="submit"><b>Ingresar</b></button>
                 </div>
+                {% if messages %}
+<div class="messages" id="messageBox">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
             </form>
             <div id="ingreso">
             <b><a href="{% url 'nucleo:registro' %}" class="botona">Registrarse</a></b>
@@ -51,5 +61,24 @@
         <!-- Contenido del footer copiado de sin_registro.html -->
         <p>&copy; 2023 U. Autónoma. Todos los derechos reservados.</p>
     </footer>
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                const messageBox = document.getElementById('messageBox');
+                if (messageBox) {
+                    messageBox.style.opacity = "0";
+                    setTimeout(function() {
+                        messageBox.style.display = "none";
+                    }, 1000);  // Duración de la transición en milisegundos.
+                }
+            }, 5000);  // 5 segundos.
+        }
+    </script>
+    <style>
+        .messages {
+            transition: opacity 1s;  /* Duración de la transición */
+        }
+    </style>
+    
 </body>
 </html>

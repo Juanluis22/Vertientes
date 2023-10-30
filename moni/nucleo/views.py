@@ -27,7 +27,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
-
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.template.loader import render_to_string
 # Create your views here.
 
@@ -228,10 +229,12 @@ class Registro(CreateView):
                     form=request.POST['email']
                     print(form)
                     data=self.send_email(form)
-
-
+                    
+                    messages.success(request, 'Gracias por registrarte. Se ha enviado tu petición a administración. Por favor revisa tu correo electrónico.')
+                    return redirect('nucleo:login')
 
         
+
 
         return super().post(request, *args, **kwargs)
 
