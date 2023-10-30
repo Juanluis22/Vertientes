@@ -58,7 +58,7 @@
               </div>
               
               <div class="card-footer">
-                <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Editar</button>
+                <button type="submit"  class="btn btn-success">Editar</button>
                 <a href="{% url 'crud:listauser' %}" class="button">
                   <button type="button" class="btn btn-danger">Cancelar</button>  
                 </a>
@@ -67,24 +67,30 @@
               </div>
 
               <script>
-              function mostrarMensaje() {
-                var mensaje = document.createElement("div");
-                mensaje.className = "aviso";
-                mensaje.innerText = "Se han guardado correctamente los cambios";
-                document.body.appendChild(mensaje);
-            
-                
-                setTimeout(function() {
-                    window.location.href = "{% url 'crud:listcom' %}";
-                }, 2000); 
-            }
-            function enviarFormulario() {
-              mostrarMensaje();
-              setTimeout(function() {
-                document.forms[0].submit(); 
-              }, 2000); 
-              return false; 
-            }
+                function mostrarMensaje() {
+                  var mensaje = document.createElement("div");
+                  mensaje.className = "aviso";
+                  mensaje.innerText = "Se ha guardado correctamente los cambios";
+                  document.body.appendChild(mensaje);
+              
+                  setTimeout(function() {
+                    window.location.href = "{% url 'crud:listauser' %}";
+                  }, 2000);
+                }
+              
+                function enviarFormulario() {
+                  
+                  if (document.forms[0].checkValidity()) {
+                    mostrarMensaje();
+                    setTimeout(function() {
+                      document.forms[0].submit();
+                    }, 2000);
+                    return false;
+                  }
+                  
+                  return false;
+                }
+          
     
       
   </script>

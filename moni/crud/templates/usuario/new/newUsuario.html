@@ -59,7 +59,7 @@
               </div>
               </div>
               <div class="card-footer">
-              <button type="submit" onclick="mostrarMensaje()" class="btn btn-success">Crear</button>
+              <button type="submit"  class="btn btn-success">Crear</button>
               <a href="{% url 'crud:listauser' %}" class="button">
               <button type="button" class="btn btn-danger">Cancelar</button>
               </a>
@@ -70,25 +70,30 @@
     </div>
     <script>
 
-
       function mostrarMensaje() {
         var mensaje = document.createElement("div");
         mensaje.className = "aviso";
-        mensaje.innerText = "Se ha creando correctamente el Habitante";
+        mensaje.innerText = "Se ha creado correctamente el Habitante";
         document.body.appendChild(mensaje);
     
-        
         setTimeout(function() {
-            window.location.href = "{% url 'crud:listcom' %}";
-        }, 2000); 
-    }
-    function enviarFormulario() {
-      mostrarMensaje();
-      setTimeout(function() {
-        document.forms[0].submit(); 
-      }, 2000); 
-      return false; 
-    }
+          window.location.href = "{% url 'crud:listauser' %}";
+        }, 2000);
+      }
+    
+      function enviarFormulario() {
+        // Verifica si el formulario es válido antes de mostrar el mensaje y enviarlo
+        if (document.forms[0].checkValidity()) {
+          mostrarMensaje();
+          setTimeout(function() {
+            document.forms[0].submit();
+          }, 2000);
+          return false;
+        }
+        // Si el formulario no es válido, no hagas nada y muestra los errores al usuario
+        return false;
+      }
+
 
 
 </script>

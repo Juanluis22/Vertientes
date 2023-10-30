@@ -47,6 +47,7 @@
                   </div>
                   <div class="contenido-rectangulo">
                     <!-- Formulario -->
+                    <div id="mensaje-error" class="mensaje-error"></div>
                     <div class="form-container" style="width: 50%;">
                       <form method="post" onsubmit="return enviarFormulario();">
                         <div class="card-body">
@@ -65,7 +66,7 @@
                         </div>
     
                         <div class="card-footer" style="margin-top: 30px;">
-                          <button type="submit" onclick="mostrarMensaje()"  class="btn btn-success">Crear</button>
+                          <button type="submit" class="btn btn-success">Crear</button>
                           <a href="{% url 'crud:listcom' %}" class="button">
                             <button type="button" class="btn btn-danger">Cancelar</button>  
                           </a>
@@ -75,7 +76,7 @@
     
                     <!-- Mapa -->
                     <div class="map-container" style="width: 50%;">
-                      <div id="map" style="height: 500px;position: relative;margin-right: 20px;border-radius: 15px;"></div>
+                      <div id="map" style="height: 400px;position: relative;margin-right:11px;border-radius: 15px;margin-left:10px"></div>
                       {{ comunidades|json_script:"comunidades_json" }}
 
                     </div>
@@ -132,25 +133,54 @@
 
              } )
 
-             
-             function mostrarMensaje() {
-              var mensaje = document.createElement("div");
-              mensaje.className = "aviso";
-              mensaje.innerText = "Se ha reado correctamente la Comunidad";
-              document.body.appendChild(mensaje);
-          
+             function enviarFormulario() {
               
-              setTimeout(function() {
-                  window.location.href = "{% url 'crud:listcom' %}";
-              }, 2000); 
+              var nombreComunidad = document.querySelector('[name="nombre"]');
+              var latitud = document.getElementById('id_latitud');
+              var longitud = document.getElementById('id_longitud');
+              var errorMessageContainer = document.getElementById('mensaje-error');
+      
+              
+              errorMessageContainer.innerHTML = '';
+              errorMessageContainer.style.display = 'none'; 
+      
+              var errores = false;
+      
+              
+              if (!nombreComunidad.value.trim()) {
+                  errorMessageContainer.innerHTML += '<p>Por favor, llene el campo del nombre de la comunidad.</p>';
+                  errores = true;
+              }
+      
+              if (!latitud.value.trim() || !longitud.value.trim()) {
+                  errorMessageContainer.innerHTML += '<p>Por favor, introduzca la ubicación en el campo correspondiente y asegúrese de seleccionarla también en el mapa.</p>';
+                  errores = true;
+              }
+      
+              if (errores) {
+                  errorMessageContainer.style.display = 'block';
+                  return false; 
+              }
+
+              mostrarMensaje();
+      
+              return true; 
           }
-          function enviarFormulario() {
-            mostrarMensaje();
-            setTimeout(function() {
-              document.forms[0].submit(); 
-            }, 2000); 
-            return false; 
-          }
+            
+            function displayError(container, message) {
+              
+              container.innerText = message;
+              container.style.display = 'block'; 
+            }
+            function mostrarMensaje() {
+            var mensaje = document.createElement("div");
+            mensaje.className = "aviso";
+            mensaje.innerText = "Se ha creado correctamente la Comunidad";
+            document.body.appendChild(mensaje);
+           setTimeout(function() {
+           window.location.href = "{% url 'crud:listcom' %}";
+           },  2000); 
+}
              
   </script>
     </body>
