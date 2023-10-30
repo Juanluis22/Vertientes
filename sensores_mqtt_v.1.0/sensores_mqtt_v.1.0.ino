@@ -155,6 +155,8 @@ void colectData() {
   medirCaudal();
   // Medición de Turbidez
   medirTurbidez();
+
+  data["mac"] = getMacAddress();
   // Imprimir el documento JSON
   //serializeJson(data, Serial);
   Serial.println();  // Nueva línea para una mejor visualización
@@ -179,8 +181,8 @@ void medirDth11() {
     return;
   }
 
-  data["humidity"] = h;
-  data["temperature"] = t;
+  data["humedad"] = h;
+  data["temperatura"] = t;
 }
 
 void medirPh() {
@@ -212,7 +214,7 @@ float medirTurbidez() {
     return 0.0;
   }
 
-  data["turbidity"] = turbidityValue;
+  data["turbiedad"] = turbidityValue;
   return turbidityValue;
 }
 
@@ -239,10 +241,17 @@ void medirCaudal() {
     return;
   }
 
-  data["flowRate_L/min"] = flowRate;
+  data["caudal"] = flowRate;
   //data["flowRate_L/h"] = caudal_L_h;
 }
 
+String getMacAddress() {
+    uint8_t mac[6];
+    WiFi.macAddress(mac);
+    char macStr[18] = { 0 };
+    sprintf(macStr, "%02X:%02X:%02X:%02X:%02X:%02X", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    return String(macStr);
+}
 
 
 
