@@ -1,0 +1,85 @@
+/* Estilos generales */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Estilos para el gráfico */
+.chart-container {
+    margin-left: 120px;
+    margin-top: 85px;
+}
+
+#lineChart {
+    /* Estilos para el contenedor del gráfico */
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#lineChart table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#lineChart th,
+#lineChart td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#lineChart th {
+    background-color: #f2f2f2;
+}
+
+/* Resaltado al pasar el cursor sobre filas de la tabla dentro de #lineChart */
+#lineChart tr:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* Estilos para el formulario de fechas */
+form {
+    margin-left: 150px;
+    margin-top: 15px;
+    align-items: flex-start;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select, button {
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 8px;
+    width: 200px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #666;
+}
+
+/* Estilos para el contenedor de datos */
+#data-container {
+    display: none;
+}
