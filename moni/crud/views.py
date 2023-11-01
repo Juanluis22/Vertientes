@@ -556,6 +556,126 @@ class EliminarVertiente(DeleteView):
         print('No admitido')
         return redirect('nucleo:inicio')
 
+
+
+
+
+
+#KIT
+
+#Vista para lista de kit
+
+@method_decorator(login_required,name='dispatch')  
+class ListaKit(ListView):
+    model=kit
+    template_name='kit/lista/listKit.html'
+    context_object_name = 'listaKit' 
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
+
+
+
+
+#Vista para nuevo kit
+
+@method_decorator(login_required,name='dispatch')  
+class NuevoKit(CreateView):
+    model=kit
+    form_class = KitForm
+    template_name='kit/new/newKit.html'
+
+    def get_success_url(self):
+        return reverse('crud:listkit') 
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+    
+
+
+#Vista para actualizar kit
+
+class ActualizarKit(UpdateView):
+    model = kit
+    form_class = KitForm
+    template_name = 'kit/update/updateKit.html'
+    
+
+    def get_success_url(self):
+        return reverse('crud:listkit')
+    
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
+#Vista para eliminar kit
+
+@method_decorator(login_required,name='dispatch')
+class EliminarKit(DeleteView):
+    model=kit
+    template_name='kit/delete/deleteKit.html'
+    success_url=reverse_lazy('crud:listkit')
+
+
+    def get(self, request, *args, **kwargs):
+        usuario=request.user
+        id_user=usuario.id
+        perfil_usuario=Profile.objects.get(user_id=id_user)
+        grupo_usuario=perfil_usuario.group
+        tipo_usuario=str(grupo_usuario)
+        
+        if tipo_usuario=='Administrador':
+            print('Admitido')
+            return super().get(request, *args, **kwargs)
+        print('No admitido')
+        return redirect('nucleo:inicio')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @method_decorator([csrf_exempt, login_required],name='dispatch')
 class mapa_general(CreateView):
     model = vertiente

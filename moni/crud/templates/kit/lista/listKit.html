@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+    <link rel="stylesheet" href="{% static 'css/listar.css' %}">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <title>Listado de kit's</title>
+</head>
+
+<body>
+    <div class="vertical-bar">
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
+                <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
+                <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
+                <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
+                
+            </ul>
+        </div>
+    </div>
+    
+    <nav class="navbar">
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
+        <a href="{% url 'crud:index' %}" class="volverr">Volver</a>
+        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+    </nav>
+
+    <div class="container-main">
+        <h1 class="main-heading">Administración de Kit's</h1>
+        <div class="button-row">
+            <a href="{% url 'crud:newkit' %}" class="custom-button">
+                <i class="bi bi-plus-circle"></i> Crear nuevo Kit
+            </a>
+            <br> 
+            <a href="{% url 'nucleo:comunity_massive_upload' %}" class="custom-button">
+                <i class="bi bi-plus-circle"></i> Carga masiva Kit
+            </a>
+        </div>
+
+        <div class="vertientes-container">
+            <div class="card-body">
+                <table id="example" class="display">
+                    <thead>
+                        <tr>
+                            <th><div class="separador">Modelo</div></th>
+                            <th><div class="separador">MAC</div></th>
+                            <th><div class="separador">Fecha creación</div></th>
+                            <th><div class="separador">Vertiente</div></th>
+                            <th><div class="separador">Opciones</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for objeto in listaKit  %}
+                        <tr>
+                            <td>{{ objeto.modelo }}</td>
+                            <td>{{ objeto.mac }}</td>
+                            <td>{{ objeto.created_at }} </td>
+                            <td> {{ objeto.vertiente }}</td> 
+                            <td>
+                                <div class="button-container">
+                                    <label onclick="window.location.href='{% url 'crud:updatekit' objeto.id %}'" class="editar-button">Editar</label>
+                                    <a href="#" class="eliminar-button" data-url="{% url 'crud:deletekit' objeto.id  %}"> Eliminar
+                                    
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="confirmarBorradoModalover" class="modaloverlay">
+    	<div class="modal">
+            <h2>¿Estás seguro de Eliminar a este Kit? </h2>
+            <h2><div class="separador">
+      	<div class="modal-buttons">
+        		<button id="siBorrar" class="modal-button modal-button-danger">Eliminar</button>
+        		<button id="noBorrar" class="modal-button modal-button-secondary">Cancelar</button>
+		</div>
+	</div>
+</div>
+    <script>
+        new DataTable('#example', {
+            columnDefs: [
+            { targets: [3, 4], orderable: false }
+            ],
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+        const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
+    const modalover = document.getElementById('confirmarBorradoModalover');
+    const siBorrarBoton = document.getElementById('siBorrar');
+    const noBorrarBoton = document.getElementById('noBorrar');
+    let urlEliminar = '';
+    
+    eliminarEnlaces.forEach((enlace) => {
+        enlace.addEventListener('click', (event) => {
+            event.preventDefault();
+            urlEliminar = event.currentTarget.getAttribute('data-url');
+            modalover.style.display = 'block';
+        });
+    });
+    
+    siBorrarBoton.addEventListener('click', () => {
+        if (urlEliminar !== '') {
+            window.location.href = urlEliminar; 
+        }
+    });
+    
+    noBorrarBoton.addEventListener('click', () => {
+        modalover.style.display = 'none'; 
+    });
+    </script>
+
+</body>
+</html>
+

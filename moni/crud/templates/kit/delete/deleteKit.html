@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/update.css' %}"><!-- Reemplaza 'ruta-al-archivo-css.css' con la ruta correcta a tu archivo CSS -->
+    <link rel="stylesheet" href="{% static 'css/listado.css' %}">
+</head>
+<body>
+    <div class="center-container">
+        <form method="post" class="center-div eliminar-container">
+            <div class="card-header">
+                <h3 class="card-title">Eliminar Kit</h3>
+            </div>
+            <div class="card-body">
+                Desea eliminar esta Kit?
+                {% csrf_token %}
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> ACEPTAR
+                </button>
+            </div>
+             <!-- Botón "Volver" dentro del formulario -->
+        </form>
+        
+    </div>
+    <div style="text-align: right; margin-top: -250px; margin-right: 700px;">
+        <a href="{% url 'crud:listkit' %}" class="volver">Volver</a>
+    </div>
+</body>
+</html>

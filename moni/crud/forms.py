@@ -17,7 +17,10 @@ class VertienteForm(ModelForm):
         model= vertiente
         fields=['nombre','desc','ubicación','comunidad','latitud','longitud']
         
-
+class KitForm(ModelForm):
+    class Meta:
+        model= kit
+        fields='__all__'
 
 
 def validate_rut(value):

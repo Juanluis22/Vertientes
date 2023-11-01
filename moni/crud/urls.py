@@ -23,23 +23,27 @@ urlpatterns = [
     path("lista_vertiente/", ListaVertiente.as_view(), name='listvert'),
     path("lista_usuarios/", ListaUsuarios.as_view(), name='listauser'),
     path("lista_peticiones/", ListaPeticion.as_view(), name='listpet'),
+    path("lista_kit/", ListaKit.as_view(), name='listkit'),
     
 
     #Creación
     path("nueva_comunidad/", NuevaComunidad.as_view(), name='newcom'),
     path("nuevo_user/", NuevoUser.as_view(), name='newuser'),
     path("nueva_vertiente/", NuevaVertiente.as_view(), name='newvert'),
+    path("nuevo_kit/", NuevoKit.as_view(), name='newkit'),
 
 
     #Actualizacion
     path("actualizacion_usuarios/<int:pk>/", ActualizarUsuario.as_view(), name='updateuser'),
     path("actualizacion_vertientes/<int:pk>/", ActualizarVertiente.as_view(), name='updatevert'),
     path("actualizacion_comunidades/<int:pk>/", ActualizarComunidad.as_view(), name='updatecom'),
+    path("actualizacion_kit/<int:pk>/", ActualizarKit.as_view(), name='updatekit'),
 
     #Eliminación
     path("eliminar_comunidad/<int:pk>/", EliminarComunidad.as_view(), name='deletecom'),
     path("eliminar_usuario/<int:pk>/", EliminarUsuario.as_view(), name='deleteUser'),
     path("eliminar_vertiente/<int:pk>/", EliminarVertiente.as_view(), name='deletevert'),
+    path("eliminar_kit/<int:pk>/", EliminarKit.as_view(), name='deletekit'),
 
 
 
