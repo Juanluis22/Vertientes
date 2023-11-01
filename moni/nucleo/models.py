@@ -68,12 +68,12 @@ class kit(models.Model):
 
 
 class datos(models.Model):
-    caudal=models.IntegerField(default=0)
-    pH=models.IntegerField(default=0)
-    conductividad=models.IntegerField(default=0)
-    turbiedad=models.IntegerField(default=0)
-    temperatura=models.IntegerField(default=0)
-    humedad=models.IntegerField(default=0)
+    caudal = models.FloatField(default=0)
+    pH = models.FloatField(default=0)
+    conductividad = models.FloatField(default=0)
+    turbiedad = models.FloatField(default=0)
+    temperatura = models.FloatField(default=0)
+    humedad = models.FloatField(default=0)
     fecha=models.DateTimeField(auto_now=True)
     
     mac=models.CharField(max_length=25,verbose_name='Direccion MAC',null=True, blank=True)
