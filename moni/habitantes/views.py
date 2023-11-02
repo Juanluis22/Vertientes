@@ -20,6 +20,9 @@ from django.forms.models import model_to_dict
 import time
 # Importar StreamingHttpResponse para el sse
 from django.http import StreamingHttpResponse
+from django.utils import timezone
+from django.http import HttpResponseNotFound
+from django.http import Http404
 
 
 # Create your views here.
@@ -125,6 +128,7 @@ def revision(request, objecto_id,objecto_id_2):
     }
 
     return render(request, 'dashboard/dashboard.html', data)
+
 @login_required
 def detector(request):
     comu_id = request.user.comunidad_id
@@ -140,24 +144,10 @@ def detector(request):
     return render(request, 'dashboard/vert.html',context)
 
 
-@login_required
-def grafico_ph(request, vertiente_id):
-    datos_ph = datos.objects.filter(vertiente_id=vertiente_id)
 
-    etiquetas_tiempo = [dato.fecha.strftime('%d/%m/%Y') for dato in datos_ph]
-    valores_ph = [dato.pH for dato in datos_ph]
-
-    data = {
-        'labels': etiquetas_tiempo,
-        'values': valores_ph,
-    }
-    data_json = json.dumps(data)
-    return render(request, 'dashboard/grafico_ph.html', {'data_json': data_json})
-
-from django.utils import timezone
-
-def filtrar_datos_por_fecha(request, vertiente_id, atributo):
-    date_range = request.GET.get('date_range', 'all')
+def filtrar_datos_por_fecha(request, vertiente_id, atributo, date_range):
+    # No se necesitacesta línea ya que date_range ahora es un argumento
+    # date_range = request.GET.get('date_range', 'all')
     now = timezone.now()
     today = now.date()
 
@@ -179,43 +169,73 @@ def filtrar_datos_por_fecha(request, vertiente_id, atributo):
         return datos.objects.filter(vertiente_id=vertiente_id).values_list('fecha', atributo)
 
 def generar_respuesta(request, vertiente_id, atributo, template_name):
-    data_filtered = filtrar_datos_por_fecha(request, vertiente_id, atributo)
+    date_range = request.GET.get('date_range', 'all')
+    data_filtered = filtrar_datos_por_fecha(request, vertiente_id, atributo, date_range)
     etiquetas_tiempo = [dato[0].strftime('%d/%m/%Y') for dato in data_filtered]
     valores = [dato[1] for dato in data_filtered]
+
+    vertiente_obj = get_object_or_404(vertiente, pk=vertiente_id)
+    comunidad_info = vertiente_obj.comunidad
 
     data = {
         'labels': etiquetas_tiempo,
         'values': valores,
     }
     data_json = json.dumps(data)
-    return render(request, template_name, {'data_json': data_json})
+    
+    context = {
+        'data_json': data_json,
+        'veriente_comunidad': comunidad_info.nombre if comunidad_info else '',
+        'veriente_ubicacion': vertiente_obj.ubicación,
+        'veriente_nombre': vertiente_obj.nombre,
+        'id_vertiente': vertiente_id,
+    }
+    
+    return render(request, template_name, context)
+
+
 
 @login_required
-def grafico_caudal(request, vertiente_id):
-    return generar_respuesta(request, vertiente_id, 'caudal', 'dashboard/grafico_caudal.html')
+def grafico_generico(request, vertiente_id, tipo_grafico):
+    TIPOS_GRAFICO = {
+        "caudal": "caudal",
+        "ph": "pH",
+        "temperatura": "temperatura",
+        "conductividad": "conductividad",
+        "turbiedad": "turbiedad",
+        "humedad": "humedad"
+    }
+
+    # Verificar que el tipo_grafico es válido
+    if tipo_grafico not in TIPOS_GRAFICO:
+        raise Http404("Tipo de gráfico no válido")
+
+    atributo = TIPOS_GRAFICO[tipo_grafico]
+
+    return generar_respuesta(request, vertiente_id, atributo, f'dashboard/grafico_{tipo_grafico}.html')
+
 
 @login_required
-def grafico_ph(request, vertiente_id):
-    return generar_respuesta(request, vertiente_id, 'pH', 'dashboard/grafico_ph.html')
+def sse_grafico(request, vertiente_id, tipo_grafico, date_range):
+    print("enviando data_Graficos mediante SSE .....")
+    print("ID del objeto vertinetes para los graficos: ", vertiente_id)
+    def event_stream():
+        while True:
+            data_filtered = filtrar_datos_por_fecha(request, vertiente_id, tipo_grafico, date_range)
+            etiquetas_tiempo = [dato[0].strftime('%d/%m/%Y') for dato in data_filtered]
+            valores = [dato[1] for dato in data_filtered]
 
-@login_required
-def grafico_conductividad(request, vertiente_id):
-    return generar_respuesta(request, vertiente_id, 'conductividad', 'dashboard/grafico_conductividad.html')
+            data = {
+                'labels': etiquetas_tiempo,
+                'values': valores,
+            }
+            s = f"data: {json.dumps(data)}\n\n"
+            yield s
+            time.sleep(5)  # Puedes ajustar el tiempo de espera según lo necesites
 
-@login_required
-def grafico_humedad(request, vertiente_id):
-    return generar_respuesta(request, vertiente_id, 'humedad', 'dashboard/grafico_humedad.html')
-
-@login_required
-def grafico_temperatura(request, vertiente_id):
-    return generar_respuesta(request, vertiente_id, 'temperatura', 'dashboard/grafico_temperatura.html')
-
-@login_required
-def grafico_turbiedad(request, vertiente_id):
-    return generar_respuesta(request, vertiente_id, 'turbiedad', 'dashboard/grafico_turbiedad.html')
-
-
-
+    response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")
+    response['Cache-Control'] = 'no-cache'
+    return response
 
 
 @method_decorator(login_required,name='dispatch')
