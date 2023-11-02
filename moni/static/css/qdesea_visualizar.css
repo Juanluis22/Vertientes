@@ -180,3 +180,93 @@ body {
     font-size: 30px; /* Cambia el tamaño según tu preferencia */
 }
 
+@media (min-width: 771px) and (max-width: 970px) {
+    .rectangulo {
+      /* Ajustes para asegurar que el contenedor se mantenga bien dimensionado */
+      overflow: hidden; /* Esto asegura que nada se desborde fuera del contenedor */
+      position: relative; /* Si aún no está establecido, esto ayudará a controlar el posicionamiento interno */
+      /* Otros estilos de ajuste según sea necesario */
+    }
+  
+    .vertientes-container img {
+        /* Ajustes para la imagen cuando la pantalla es pequeña */
+        max-width: 100%; /* Permite que la imagen se reajuste al ancho del contenedor */
+        height: auto; /* Permite que la altura de la imagen cambie proporcionalmente */
+        position: relative; /* Cambia la posición para que no se superponga sobre otros elementos */
+        transform: none; /* Elimina la transformación aplicada anteriormente */
+        left: 0; /* Asegura que la imagen no se salga de su contenedor */
+        top: 0;
+      }
+    }
+  
+
+/* Esto es un ejemplo de media query para pantallas menores de 600px de ancho */
+@media (max-width: 770px) {
+    .rectangulo {
+      width: 100%; /* Hace que el rectángulo se expanda al 100% del ancho de su contenedor */
+      height: auto; /* Permite que la altura se ajuste automáticamente según el contenido */
+      flex-direction: column; /* Cambia la dirección del layout de los elementos a columna */
+    }
+  
+    .contenido-rectangulo {
+      /* Si es necesario, ajusta también el estilo de los contenidos dentro del rectángulo */
+      text-align: center; /* Centra el contenido */
+      padding: 10px; /* Añade algo de padding alrededor del contenido para evitar que se pegue a los bordes */
+    }
+  
+    .vertientes-container img {
+      /* Ajustes para la imagen cuando la pantalla es pequeña */
+      max-width: 100%; /* Permite que la imagen se reajuste al ancho del contenedor */
+      height: auto; /* Permite que la altura de la imagen cambie proporcionalmente */
+      position: relative; /* Cambia la posición para que no se superponga sobre otros elementos */
+      transform: none; /* Elimina la transformación aplicada anteriormente */
+      left: 0; /* Asegura que la imagen no se salga de su contenedor */
+      top: 0;
+    }
+  }
+  
+/* Esto es un ejemplo de media query para pantallas menores de 600px de ancho */
+@media (max-width: 600px) {
+  .rectangulo {
+    width: 100%; /* Hace que el rectángulo se expanda al 100% del ancho de su contenedor */
+    height: auto; /* Permite que la altura se ajuste automáticamente según el contenido */
+    flex-direction: column; /* Cambia la dirección del layout de los elementos a columna */
+  }
+
+  .contenido-rectangulo {
+    /* Si es necesario, ajusta también el estilo de los contenidos dentro del rectángulo */
+    text-align: center; /* Centra el contenido */
+    padding: 10px; /* Añade algo de padding alrededor del contenido para evitar que se pegue a los bordes */
+  }
+
+  .vertientes-container img {
+    /* Ajustes para la imagen cuando la pantalla es pequeña */
+    max-width: 100%; /* Permite que la imagen se reajuste al ancho del contenedor */
+    height: auto; /* Permite que la altura de la imagen cambie proporcionalmente */
+    position: relative; /* Cambia la posición para que no se superponga sobre otros elementos */
+    transform: none; /* Elimina la transformación aplicada anteriormente */
+    left: 0; /* Asegura que la imagen no se salga de su contenedor */
+    top: 0;
+  }
+}
+
+@media (max-width: 430px) {
+    .rectangulo {
+      padding: 10px; /* Aumenta el relleno para asegurar espacio entre el contenido y los bordes */
+      box-sizing: border-box; /* Asegura que el padding y otros estilos se incluyan en el ancho/altura total del elemento */
+      /* otros estilos necesarios para ajustar el diseño */
+    }
+    .contenido-rectangulo {
+      word-wrap: break-word; /* Asegura que el texto no se desborde */
+      overflow-wrap: break-word; /* Similar a 'word-wrap', pero preferido para nuevas implementaciones de CSS */
+      text-align: justify; /* Opcional: para alinear el texto uniformemente */
+      /* otros estilos que puedas necesitar para ajustar tu contenido */
+    }
+
+    /* Si estás utilizando imágenes u otros elementos dentro del rectángulo, asegúrate de que también sean responsivos */
+    img {
+    max-width: 100%;
+    height: auto;
+      /* Otros estilos para ajustar tus imágenes */
+    }
+}

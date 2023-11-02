@@ -66,8 +66,8 @@
     box-shadow: 0 0px 5px rgba(0, 0, 0, 1);
 }
 
-.logo img {
-    width: 90px;
+.logo {
+    width: 100px;
     height: auto;
     margin: 0;
     padding: 0;
@@ -178,7 +178,7 @@ body {
 }
 
 /* Media query para el sidebar en pantalla estrecha (menos de 520px) */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .vertical-bar {
         width: 100%; /* Cambia el ancho a 100% para que el sidebar ocupe todo el ancho */
         height: auto; /* Desactiva la altura fija para que se ajuste al contenido */

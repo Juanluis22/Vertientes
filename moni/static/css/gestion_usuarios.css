@@ -175,6 +175,12 @@ body {
 .rectangulo-celeste {
     background-color: #16536A; /* Color celeste pastel */
 }
+.rectangulo-kit {
+    background-color: #16536A; /* Color verde pastel */
+    width: 100%;
+    max-width: 440px;
+
+}
 .rectangulo2 {
     position: relative;
 
@@ -368,11 +374,14 @@ body {
             font-size: 20px;
             margin-right: 10px;
         }
+        .rectangle-kit {
+            width: 80%; /* Menos ancho en pantallas más pequeñas si es necesario */
+        }
     
         /* Cualquier otro estilo específico para este punto de vista */
     }
 
-@media (max-width: 576px) {
+@media (min-width:576px) and ( max-width: 767px) {
     /* Este es un punto de interrupción común para teléfonos móviles en modo retrato */
 
     .rectangulo {
@@ -396,9 +405,12 @@ body {
         padding: 10px 20px; /* Áreas de toque más grandes son mejores en móviles */
         font-size: 16px; /* Un tamaño de fuente legible para interfaces táctiles */
     }
+    .rectangulo-kit {
+        width: 80%; /* Menos ancho en pantallas más pequeñas si es necesario */
+    }
     /* y así sucesivamente... */
 }
-    
+
     
     
     
