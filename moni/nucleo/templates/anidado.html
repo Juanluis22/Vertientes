@@ -62,11 +62,11 @@
 
                         <!-- Primera columna de parámetros -->
                         <div class="columna">
-                            <div class="parametro" onclick="mostrarModal('¿Qué es el caudal?', 'El caudal se refiere a la cantidad de agua que fluye por la vertiente en un período de tiempo específico. Se mide típicamente en metros cúbicos por segundo (m³/s) y es un indicador importante para evaluar el flujo de agua en la vertiente.')">
+                            <div class="parametro" onclick="mostrarModal('¿Qué es el caudal?', 'El caudal se refiere a la cantidad de agua que fluye por la vertiente en un período de tiempo específico. Se mide típicamente en metros cúbicos por segundo (L/m) y es un indicador importante para evaluar el flujo de agua en la vertiente.')">
                                 <h2>Caudal</h2>
                                 <div class="row">
                                     <p id="datosContainer2"></p>
-                                    <span class="unidad">m³/s</span>
+                                    <span class="unidad">L/m</span>
                                 </div>
                             </div>
                             <div class="parametro" onclick="mostrarModal('¿Qué es el ph?', 'El pH es una medida de la acidez o alcalinidad del agua. Puede afectar la salud de los organismos acuáticos y la calidad del agua. Un pH de 7 se considera neutro, mientras que valores por debajo de 7 indican acidez y valores por encima de 7 indican alcalinidad.')">
@@ -254,7 +254,7 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
 <script>
     // Asignar unidades a los parámetros
     const unidades = {
-        caudal: 'm³/s',
+        caudal: 'L/m',
         ph: 'ph',
         conductividad: 'µS/cm',
         turbiedad: 'NTU',

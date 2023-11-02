@@ -13,6 +13,8 @@
     <title>Gráfico de caudal</title>   
 </head>
 <body>
+
+    <!--Barra Vertical-->
     <div class="vertical-bar">
         <div class="sidebar">
             <ul class="sidebar-nav">
@@ -24,7 +26,9 @@
             </ul>
         </div>
     </div>
-    
+    <!--FIN Barra Vertical-->    
+   
+    <!--Barra Superior-->
     <nav class="navbar">
         <div class="navbar-left">
             <span class="hidro-tech">HidroTech</span>
@@ -34,13 +38,19 @@
         </div>
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
+    <!--FIN Barra Superior-->    
+
+
+    
+
     
     <div class="container">
+
         <div class="row">
             <div class="col-md-6 chart-container" style="color: rgb(0, 0, 0); font-weight: bold;">
-                <h2>Comunidad: {{ comunidad.nombre }}</h2>
-                <h2>Vertiente: {{ vertiente.nombre }}</h2>
-                <h3>Ubicación: {{ vertiente.ubicación }}</h3>
+                <h2>Comunidad: {{ veriente_comunidad  }}</h2>
+                <h2>Vertiente: {{ veriente_nombre }}</h2>
+                <h3>Ubicación: {{ veriente_ubicacion }}</h3>
             </div>
             <div class="col-md-6 chart-container"> <!-- Agregar la clase chart-container y el margen izquierdo -->
                 <canvas id="lineChart" width="400" height="400" style="background-color: white;"></canvas>
@@ -57,7 +67,7 @@
                         <option value="thisMonth">Este mes</option>
                         <option value="thisYear">Este año</option>
                     </select>
-                    <button type="submit">Actualizar Gráfico</button>
+                    
                 </form>
                 
             </div>
@@ -65,6 +75,7 @@
     </div>
 
     <div id="data-container" data-datajson="{{ data_json }}"></div>
+
 
     <script>
         // Obtener el elemento con los datos JSON
@@ -98,7 +109,7 @@
             maintainAspectRatio: false,
             scales: {
                 x: [{
-                    type: 'time', // Configurar la escala X como escala de tiempo
+                    type: 'time',
                     time: {
                         unit: 'day',
                         tooltipFormat: 'DD/MM/YYYY',
@@ -108,8 +119,8 @@
                         text: 'Fecha'
                     },
                     gridLines: {
-                        color: 'rgba(0, 0, 0, 0.1)', // Cambia el color de las líneas de la cuadrícula
-                        lineWidth: 4 // Ancho de las líneas de cuadrícula en el eje X
+                        color: 'rgba(0, 0, 0, 0.1)',
+                        lineWidth: 4
                     }
                 }],
                 y: {
@@ -117,13 +128,45 @@
                         display: true,
                         text: 'Caudal'
                     },
+                    ticks: {
+                        // Añadir unidades de medida a los ticks del eje Y
+                        callback: function(value, index, values) {
+                            return value + ' L/m';
+                        },
+                        // Establecer el valor máximo del eje Y
+                        max: 30
+                    },
                     gridLines: {
-                        color: 'rgba(0, 0, 0, 0.1)', // Cambia el color de las líneas de la cuadrícula
-                        lineWidth: 4 // Ancho de las líneas de cuadrícula en el eje Y
+                        color: 'rgba(0, 0, 0, 0.1)',
+                        lineWidth: 4
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        // Personalizar el tooltip para añadir las unidades de medida
+                        label: function(context) {
+                            var label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y + ' L/m';
+                            }
+                            return label;
+                        }
                     }
                 }
             }
         };
+
+        var currentRange = document.getElementById('dateRange').value;
+
+        document.getElementById('dateRange').addEventListener('change', function() {
+            currentRange = this.value;
+        });
+
 
         // Crear el gráfico de línea
         var lineChart = new Chart(ctx, {
@@ -131,6 +174,42 @@
             data: chartData,
             options: chartOptions
         });
+
+        var eventSource;
+
+        function startSSE() {
+            if (eventSource) {
+                eventSource.close();
+            }
+            
+            var objectId = {{ id_vertiente }};
+            const tipoGrafico = 'caudal';
+            const currentRange = document.getElementById('dateRange').value;
+            const eventSourceUrl = "/monitoreo/sse_grafico/" + objectId + "/" + tipoGrafico + "/" + currentRange + "/";
+
+            eventSource = new EventSource(eventSourceUrl);
+            
+            eventSource.onmessage = function(event) {
+                console.log(event.data);
+                var newData = JSON.parse(event.data);
+
+                // Actualizar los datos del gráfico
+                lineChart.data.labels = newData.labels;
+                lineChart.data.datasets[0].data = newData.values;
+                lineChart.update();  // Refrescar el gráfico con los nuevos datos
+            };
+        }
+
+        document.getElementById('dateRange').addEventListener('change', startSSE);
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var dateRangeParam = urlParams.get('date_range') || 'all'; // 'all' es el valor por defecto
+        document.getElementById('dateRange').value = dateRangeParam;
+
+
+        startSSE();
+
     </script>
+
 </body>
 </html>

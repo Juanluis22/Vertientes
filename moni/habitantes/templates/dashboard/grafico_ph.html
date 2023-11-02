@@ -37,12 +37,16 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-6 chart-container"> <!-- Agregar la clase chart-container y el margen izquierdo -->
+            <div class="col-md-6 chart-container" style="color: rgb(0, 0, 0); font-weight: bold;">
+                <h2>Comunidad: {{ veriente_comunidad  }}</h2>
+                <h2>Vertiente: {{ veriente_nombre }}</h2>
+                <h3>Ubicación: {{ veriente_ubicacion }}</h3>
+            </div>
+            <div class="col-md-6 chart-container">
                 <canvas id="lineChart" width="400" height="400" style="background-color: white;"></canvas>
             </div>
             <div class="container">
-
-                <form method="get"style="margin-left: 150px; margin-top:15px;">
+                <form method="get" style="margin-left: 150px; margin-top:15px;">
                     <label for="dateRange">Selecciona un rango de fechas:</label>
                     <select id="dateRange" name="date_range">
                         <option value="all">Todos los datos</option>
@@ -52,30 +56,20 @@
                         <option value="thisMonth">Este mes</option>
                         <option value="thisYear">Este año</option>
                     </select>
-                    <button type="submit">Actualizar Gráfico</button>
                 </form>
-                
             </div>
         </div>
     </div>
-
+    
     <div id="data-container" data-datajson="{{ data_json }}"></div>
-
+    
     <script>
-        // Obtener el elemento con los datos JSON
         var dataContainer = document.getElementById('data-container');
-        
-        // Obtener el atributo data-datajson y convertirlo en un objeto JavaScript
         var dataFromDjango = JSON.parse(dataContainer.getAttribute('data-datajson'));
-
-        // Obtener etiquetas y valores de los datos
         var labels = dataFromDjango.labels;
         var values = dataFromDjango.values;
-
-        // Crear un contexto para el gráfico
         var ctx = document.getElementById('lineChart').getContext('2d');
-
-        // Configurar los datos para el gráfico de línea
+    
         var chartData = {
             labels: labels,
             datasets: [{
@@ -86,14 +80,13 @@
                 fill: false
             }]
         };
-
-        // Configurar opciones del gráfico
+    
         var chartOptions = {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
                 x: [{
-                    type: 'time', // Configurar la escala X como escala de tiempo
+                    type: 'time',
                     time: {
                         unit: 'day',
                         tooltipFormat: 'DD/MM/YYYY',
@@ -103,8 +96,8 @@
                         text: 'Fecha'
                     },
                     gridLines: {
-                        color: 'rgba(0, 0, 0, 0.1)', // Cambia el color de las líneas de la cuadrícula
-                        lineWidth: 4 // Ancho de las líneas de cuadrícula en el eje X
+                        color: 'rgba(0, 0, 0, 0.1)',
+                        lineWidth: 4
                     }
                 }],
                 y: {
@@ -113,19 +106,54 @@
                         text: 'pH'
                     },
                     gridLines: {
-                        color: 'rgba(0, 0, 0, 0.1)', // Cambia el color de las líneas de la cuadrícula
-                        lineWidth: 4 // Ancho de las líneas de cuadrícula en el eje Y
+                        color: 'rgba(0, 0, 0, 0.1)',
+                        lineWidth: 4
                     }
                 }
             }
         };
-
-        // Crear el gráfico de línea
+    
+        var currentRange = document.getElementById('dateRange').value;
+        document.getElementById('dateRange').addEventListener('change', function() {
+            currentRange = this.value;
+        });
+    
         var lineChart = new Chart(ctx, {
             type: 'line',
             data: chartData,
             options: chartOptions
         });
+    
+        var eventSource;
+        function startSSE() {
+            if (eventSource) {
+                eventSource.close();
+            }
+            
+            var objectId = {{ id_vertiente }};
+            const tipoGrafico = 'pH';
+            const currentRange = document.getElementById('dateRange').value;
+            const eventSourceUrl = "/monitoreo/sse_grafico/" + objectId + "/" + tipoGrafico + "/" + currentRange + "/";
+    
+            eventSource = new EventSource(eventSourceUrl);
+            
+            eventSource.onmessage = function(event) {
+                var newData = JSON.parse(event.data);
+                lineChart.data.labels = newData.labels;
+                lineChart.data.datasets[0].data = newData.values;
+                lineChart.update();
+            };
+        }
+    
+        document.getElementById('dateRange').addEventListener('change', startSSE);
+    
+        var urlParams = new URLSearchParams(window.location.search);
+        var dateRangeParam = urlParams.get('date_range') || 'all';
+        document.getElementById('dateRange').value = dateRangeParam;
+    
+        startSSE();
     </script>
-</body>
-</html>
+    
+    </body>
+    </html>
+    

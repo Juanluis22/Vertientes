@@ -25,7 +25,7 @@ class MQTTMiddleware:
         self.mqtt_port = 1883
         self.mqtt_user = "Vertientes"  # Usuario del broker (si es necesario)
         self.mqtt_password = "vertientes1234"  # Contraseña del broker (si es necesario)
-        self.mqtt_topic = "Salida/01"  # Tópico al que se suscribirá
+        self.mqtt_topic = "KIT/01"  # Tópico al que se suscribirá
 
         # Crear una instancia del cliente MQTT
         self.client = mqtt.Client()
