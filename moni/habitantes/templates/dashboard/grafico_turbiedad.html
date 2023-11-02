@@ -13,29 +13,14 @@
     <title>Gráfico de turbiedad</title>   
 </head>
 <body>
-    <div class="vertical-bar">
-        <div class="sidebar">
-            <ul class="sidebar-nav">
-                <li class="nav-item"><a href="{% url 'crud:select' %}"><div class="icon-on-top"><i class="fas fa-home"></i></div><span>Inicio</span></a></li>
-                <li class="nav-item"><a href="{% url 'crud:mapa_general' %}"><div class="icon-on-top"><i class="fas fa-map"></i></div><span>Mapa</span></a></li>
-                <li class="nav-item"><a href="{% url 'crud:index' %}"><div class="icon-on-top"><i class="bi bi-kanban"></i></div><span>Gestión</span></a></li>
-                <li class="nav-item"><a href="{% url 'eva:comuni' %}"><div class="icon-on-top"><i class="fas fa-users"></i></div><span>Comunidad</span></a></li>
-                
-            </ul>
-        </div>
-    </div>
-    
-    <nav class="navbar">
-        <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
-        <div class="navbar-left">
-            <span class="hidro-tech">HidroTech</span>
-        </div>
-        <div class="navbar-center">
-            <div class="admin-box">Vista Administrador</div>
-        </div>
-        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-    </nav>
-    
+    <!--Barra Vertical-->
+    {% include "barra_lateral_admin.html" %}
+    <!-- FIN Barra Vertical-->
+
+    <!--Barra Superior-->
+    {% include "barra_superior_admin.html" %}
+    <!--FIN Barra Superior-->
+
     <div class="container">
         <div class="row">
             <div class="col-md-6 chart-container" style="color: rgb(0, 0, 0); font-weight: bold;">
