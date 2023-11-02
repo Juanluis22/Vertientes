@@ -1,0 +1,248 @@
+/* Estilos generales y otros estilos */
+.navbar {
+    background-color: white;
+    color: black; /* Color del texto en el Navbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-center {
+    flex: 1; /* Toma el espacio restante */
+    text-align: center;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.nav-item a:hover {
+    color: #0E7FE7; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+/* Barra blanca vertical en la parte izquierda */
+/* Estilo de la barra lateral izquierda */
+.vertical-bar {
+    background-color: white;
+    width: 77px; /* Ancho de la barra blanca vertical */
+    height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Estilo de "HidroTech" en el Navbar */
+.hidro-tech {
+    color: #0E7FE7; /* Texto azul para HidroTech */
+    font-weight: bold;
+    font-size: 20px; /* Tamaño de fuente opcional */
+    margin-left: 70px; /* Espacio a la izquierda de HidroTech */
+    margin-right: 0; /* Espacio a la derecha de HidroTech */
+}
+
+/* Estilo del rectángulo azul para "Vista Administrador" */
+.admin-box {
+    background-color: #0E7FE7; /* Fondo azul */
+    color: white; /* Texto blanco */
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block; /* Hace que el rectángulo se ajuste al contenido */
+}
+
+
+/* Estilo de los enlaces de la barra lateral */
+.sidebar-nav {
+    list-style: none;
+    padding: 7px;
+    margin-top: 50px;
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 30px;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: #0E7FE7;
+    display: block;
+    transition: color 0.3s;
+}
+
+.sidebar-nav a:hover {
+    color: #fd1d1d; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+/* Estilo de los iconos en la barra lateral */
+.sidebar-nav i {
+    font-size: 2.0rem; /* Tamaño del icono */
+    margin-right: 0px; /* Espacio a la derecha del icono */
+    color: #0E7FE7; /* Cambia el color de los iconos a azul */
+    fill:#0E7FE7
+}
+/* Estilo del Navbar */
+.navbar {
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Estilo del botón "Cerrar Sesión" */
+.cerrar-sesion {
+    background-color: #0E7FE7; /* Botón azul */
+    color: white;
+    font-weight: bold;
+    border: 2px solid #0E7FE7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cerrar-sesion:hover {
+    background-color: white;
+    color: #0E7FE7;
+}
+
+/* Estilos para toda la página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color celeste */
+}
+
+/* Estilos de la página de vertientes */
+.vertientes-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #B0E2FF;
+}
+
+.vertientes-header {
+    text-align: center;
+    padding: 50px 0;
+    background-color: #B0E2FF; /* Color celeste */
+    color: white;
+}
+
+.rectangulos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alineación hacia la izquierda */
+    margin-top: 30px;
+}
+
+/* ... Otros estilos ... */
+
+.rectangulo {
+    position: relative;
+    width: 600px;
+    height: 150px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 25px; /* Agregamos las esquinas redondeadas */
+    padding-right: 40px; /* Espacio para el icono más ancho */
+}
+.rectangulo-verde {
+    background-color: #1caa23; /* Color verde */
+}
+
+.rectangulo-rojo {
+    background-color: #e71c1c; /* Color rojo */
+}
+
+.contenido-rectangulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.contenido-rectangulo p {
+    margin: 0;
+    font-size: 18px;
+    text-align: center; /* Centra horizontalmente el texto */
+    flex: 1; /* Asegura que el texto ocupe el espacio disponible */
+}
+.contenido-rectangulo i:first-child {
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.rectangulo i {
+    font-size: 30px;
+    color: rgb(247, 241, 241);
+}
+
+.cuadrado-blanco {
+    position: absolute;
+    top: 300px;
+    right: 100px; /* Ajusta este valor según sea necesario */
+    width: 300px;
+    height: 250px; 
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 8px solid blue; /* Agrega el contorno azul */
+}
+
+
+.cuadrado-blanco h2 {
+    font-size: 24px;
+}
+
+.boton-mismo-icono {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.boton-mismo-icono i {
+    font-size: 30px;
+    color: rgb(12, 70, 231);
+}
+
+
+/* Resto de los estilos */
+/* Estilos adicionales para la lista de vertientes */
+#example {
+    background-color: white;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#example th, #example td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#example th {
+    background-color: #333;
+    color: white;
+}
+
+#example tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#example tr:hover {
+    background-color: #1caa23;
+    color: white;
+}

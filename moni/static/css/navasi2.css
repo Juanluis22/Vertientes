@@ -1,0 +1,251 @@
+/* Estilos para toda la página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color celeste */
+}
+
+/* Estilos generales y otros estilos */
+.navbar {
+    position: fixed; /* Cambia a posición fija */
+    background-color: #3393B7;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    height: 40px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 1);
+}
+
+.navbar-center {
+    flex: 1; /* Toma el espacio restante */
+    text-align: center;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    
+}
+
+.nav-item a {
+    align-items: center;
+    place-items: center;
+    margin: auto;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 10px;
+    transition: background-color 0.3s; /* Transición para el fondo */
+}
+.nav-item .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+.icon-on-top {
+    font-size: 24px; /* Tamaño del icono */
+    margin-bottom: 0px; /* Espacio entre el icono y el texto */
+}
+
+.nav-item a:hover {
+    color: #ffffff; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+/* Barra blanca vertical en la parte izquierda */
+/* Estilo de la barra lateral izquierda */
+.vertical-bar {
+    background-color: #3393B7;
+    width: 110px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 1);
+}
+
+.logo img {
+    width: 90px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Estilo de "HidroTech" en el Navbar */
+.hidro-tech {
+    color: #ffffff; /* Texto azul para HidroTech */
+    font-weight: bold;
+    font-size: 20px; /* Tamaño de fuente opcional */
+    margin-left: 11px; /* Espacio a la izquierda de HidroTech */
+    margin-right: 0; /* Espacio a la derecha de HidroTech */
+}
+
+/* Estilo del rectángulo azul para "Vista Administrador" */
+.admin-box {
+    background-color: #16536A; /* Fondo azul */
+    color: white; /* Texto blanco */
+    padding: 21px 10px;
+    border-radius: 0px 0px 10px 10px; /* Aplicar border-radius solo en la parte inferior */
+    display: inline-block; /* Hace que el rectángulo se ajuste al contenido */
+    height: 100%;
+}
+
+
+/* Estilo de los enlaces de la barra lateral */
+.sidebar-nav {
+    list-style: none;
+    padding: 1px;
+    display: flex; /* Agrega display: flex; para centrar horizontalmente */
+    flex-direction: column; /* Alinea los elementos verticalmente */
+    text-align: center; /* Centra el texto horizontalmente */
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    transition: color 0.3s;
+    margin-left: px;
+}
+
+
+/* Estilo de los iconos en la barra lateral */
+.sidebar-nav i {
+    font-size: 1.8rem; /* Tamaño del icono */
+    margin-right: 0px; /* Espacio a la derecha del icono */
+    color: #ffffff; /* Cambia el color de los iconos  */
+    fill:#0E7FE7;
+}
+
+
+/* Estilo del botón "Cerrar Sesión" */
+.cerrar-sesion {
+    text-decoration: none;
+    background-color: #3393B7; /* Botón azul */
+    color: white;
+    font-weight: bold;
+    border: 2px solid #3393B7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-item a:hover{
+    background-color: #16536A;
+    transition: 0.3s;
+}
+.cerrar-sesion:hover {
+    background-color: #16536A;
+    color: #ffffff;
+}
+
+/* Estilo del botón "Volver" */
+.volverr {
+    text-decoration: none;
+    background-color: #3393B7; /* Botón azul */
+    color: white;
+    font-weight: bold;
+    border: 2px solid #3393B7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-item a:hover{
+    background-color: #16536A;
+    transition: 0.3s;
+}
+.volverr:hover {
+    background-color: #16536A;
+    color: #ffffff;
+}
+
+/* CAMBIAR POR CLASS DE MAIN (CONTENIDO) DE HTML*/
+.container-main > * {  
+    margin-top: 60px; 
+    padding-left: 110px;
+}
+
+/* Media query para el sidebar en pantalla estrecha (menos de 520px) */
+@media (max-width: 820px) {
+    .vertical-bar {
+        width: 100%; /* Cambia el ancho a 100% para que el sidebar ocupe todo el ancho */
+        height: auto; /* Desactiva la altura fija para que se ajuste al contenido */
+        margin-top: 60px;
+    }
+    
+    .sidebar-nav {
+        flex-direction: row; /* Cambia la dirección a horizontal para los elementos del sidebar */
+        justify-content: space-around; /* Espaciado uniforme entre los elementos */
+    }
+
+    .sidebar-nav .nav-item {
+        margin-bottom: 0; /* Elimina el margen inferior entre los elementos */
+    }
+
+    .sidebar-nav a {
+        margin: 0 10px; /* Agrega margen a los elementos para separarlos */
+    }
+    .hidro-tech {
+        margin-left: 10px; /* Espacio a la izquierda de HidroTech */
+        margin-right: 10px; /* Espacio a la derecha de HidroTech */
+    }
+    .navbar {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    
+}
+
+@media (max-width: 820px) {
+    .container-main > *{
+        padding-left: 0px;
+    }
+    .navbar {
+        padding: 10px; /* Ajusta el padding para mantener la altura del navbar */
+        display: flex;
+        flex-direction: row; /* Cambia la dirección a vertical */
+        text-align: center;
+    }
+    .navbar-left, .navbar-center, .cerrar-sesion {
+        margin: 5px 0; /* Añade margen para separar los elementos en pantallas pequeñas */
+    }
+    .container-main{
+        padding-top: 150px;
+    }
+}
+
+/* CAMBIAR POR CLASS DE MAIN (CONTENIDO) DE HTML*/
+/*
+@media (max-width: 437px) {
+    .admin-box {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+}
+*/
+
+/* CAMBIAR POR CLASS DE MAIN (CONTENIDO) DE HTML*/
+/*
+.container-main > * {  
+    margin-top: 60px; 
+    padding-left: 110px;
+}
+*/

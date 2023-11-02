@@ -1,0 +1,156 @@
+ /* Estilos para la lista de vertientes */
+ #example {
+    background-color: #ffffff; /* Fondo blanco */
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#example th, #example td {
+    padding: 12px; /* Aumentamos el espaciado para mayor comodidad */
+    text-align: center; /* Centramos el texto en las celdas */
+    border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+#example th {
+    background-color: #3498db; /* Color azul para encabezados */
+    color: #fff; /* Texto blanco */
+}
+
+#example tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo alternativo */
+}
+
+#example tr:hover {
+    background-color: #e0e0e0; /* Color de fondo al pasar el cursor */
+    color: #333;
+}
+
+/* Estilos para los separadores de columnas */
+#example th div.separador {
+    padding: 8px; /* Ajustamos el espaciado de los separadores */
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.button-container button {
+    padding: 10px 20px; /* Ajustamos el espaciado de los botones */
+    margin: 5px; /* Espacio entre botones */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.acceder {
+    display: inline-block;
+    padding: 30px 35px; /* Aumentamos el tamaño del botón */
+    background-color: #87D91F; /* Color especifico */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1px; /* Espacio superior */
+    margin-bottom: 5px; /* Espacio inferior */
+    margin-left: 20px; /* Espacio izquierdo */
+    margin-right: 5px; /* Espacio derecho */
+}
+.volver {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #cc4242;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.desactivar {
+    display: inline-block;
+    padding: 1px 2px;
+    background-color: #4bc470;
+    color: white;
+    text-decoration: none;
+    border-radius: 1px;
+    margin-top: 5px;
+}
+.editar-button {
+    padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
+    background-color: #3498db; /* Fondo del botón de edición - Día 7 */
+    color: white; /* Texto del botón de edición - Día 7 */
+    border: none; /* Quita el borde del botón si lo deseas */
+    border-radius: 5px; /* Borde redondeado del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    margin-right: 5px; /* Agrega espacio a la derecha del botón Editar */
+    font-size: 14px;
+}
+.Peticiones {
+    padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
+    background-color: #fdd835; /* Fondo del botón de edición - Día 7 */
+    color: white; /* Texto del botón de edición - Día 7 */
+    border: none; /* Quita el borde del botón si lo deseas */
+    border-radius: 5px; /* Borde redondeado del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    margin-right: 5px; /* Agrega espacio a la derecha del botón Editar */
+    font-size: 14px;
+}
+
+#example {
+    background-color: white;
+}
+#example-td {
+    background-color: white;
+}
+#example-th {
+    background-color: white;
+}
+/* Estilos para centrar los separadores */
+.separador {
+    text-align: center;
+    padding: 10px;
+    border-radius: 0;
+    margin-right: 20px; /* Añadir margen derecho para separar del texto anterior */
+}
+
+/* Centrar contenido de las celdas */
+#example td {
+    text-align: center;
+}
+.Eliminar {
+    padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
+    background-color: #e74c3c; /* Fondo del botón de edición - Día 7 */
+    color: white; /* Texto del botón de edición - Día 7 */
+    border: none; /* Quita el borde del botón si lo deseas */
+    border-radius: 5px; /* Borde redondeado del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    text-align: center;
+    font-size: 14px;
+} 
+.carga {
+    display: inline-block;
+    padding: 30px 35px; /* Aumentamos el tamaño del botón */
+    background-color: #87D91F; /* Fondo de los botones Acceder y Carga - Día 5 */
+    color: white; /* Texto de los botones Acceder y Carga - Día 5 */
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1px; /* Espacio superior */
+    margin-bottom: 10px; /* Espacio inferior */
+    margin-left: 0px; /* Espacio izquierdo */
+    margin-right: px; /* Espacio derecho */
+}
+
+.desactivar {
+    padding: 5px 10px; /* Ajusta el espaciado interno del botón según tus preferencias */
+    background-color: #e74c3c; /* Fondo del botón de edición - Día 7 */
+    color: white; /* Texto del botón de edición - Día 7 */
+    border: none; /* Quita el borde del botón si lo deseas */
+    border-radius: 5px; /* Borde redondeado del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    text-align: center;
+    font-size: 14px;
+}
+
+
