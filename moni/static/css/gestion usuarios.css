@@ -121,25 +121,7 @@ body {
     align-items: left;
 
 }
-@media (max-width: 1000px) {
-    .rectangulo-container2 {
-        flex-basis: 100%; /* Los cuadros ocuparán todo el ancho en pantallas estrechas */
-    }
 
-    /* Alinea los cuadros al centro verticalmente */
-    .contenido-rectangulo3 {
-        flex-basis: 100%;
-    }
-    .contenido-rectangulo4 {
-        flex-basis: 100%;
-    }
-    .contendos {
-        flex-basis: 100%;
-    }
-    .rectangulo-verde {
-        flex-basis: 100%;
-    }
-}
 .hidden-textsas {
     position: absolute;
     display: none;
@@ -323,29 +305,13 @@ body {
 
 
     /* Estilos responsivos para diferentes tamaños de pantalla */
-    @media (min-width: 1200px) {
-        .rectangulo {
-            /* Estilos para un espacio más amplio, por ejemplo: */
-            padding: 40px; 
-            margin: 20px;
-        }
-    
-        .contenido-rectangulo {
-            font-size: 18px; /* Puedes optar por una fuente más grande ya que hay más espacio */
-        }
-    
-        .contenido-rectangulo i:first-child {
-            font-size: 30px;
-            margin-right: 15px;
-        }
-    
-        /* Otros ajustes específicos para elementos en este tamaño de ventana */
-    }
+ 
 
-    @media (min-width: 992px) and (max-width: 1199px) {
+    @media (min-width: 760px) and (max-width: 1300px) {
         .rectangulo {
-            padding: 35px; /* Ajuste de espacio intermedio */
+            
             margin: 20px;
+            width: auto;
         }
     
         .contenido-rectangulo {
@@ -356,60 +322,24 @@ body {
             font-size: 25px;
             margin-right: 15px;
         }
+        .contenido-rectangulo3{
+            height: auto;
+            margin-top: auto;
+            margin-left:0%;
+            
+        }
+        .contendos{
+            height: auto;
+            align-items: normal;
+            flex-direction: column;
+        }
+        .rectangulos-container2{
+            width: 80%;
+        }
     
         /* Adiciones o ajustes para este rango de tamaño específico */
     }
 
-    @media (min-width: 768px) and (max-width: 991px) {
-        .rectangulo {
-            padding: 25px; /* Algo más ajustado debido al espacio reducido */
-            margin: 15px;
-        }
-    
-        .contenido-rectangulo {
-            font-size: 15px; /* Ajustando para ser un poco más pequeño que en el escritorio */
-        }
-    
-        .contenido-rectangulo i:first-child {
-            font-size: 20px;
-            margin-right: 10px;
-        }
-        .rectangle-kit {
-            width: 80%; /* Menos ancho en pantallas más pequeñas si es necesario */
-        }
-    
-        /* Cualquier otro estilo específico para este punto de vista */
-    }
-
-@media (min-width:576px) and ( max-width: 767px) {
-    /* Este es un punto de interrupción común para teléfonos móviles en modo retrato */
-
-    .rectangulo {
-        margin: 15px 5px; /* Reducir márgenes para usar más espacio de pantalla */
-        padding: 20px; /* Asegurando que el contenido no esté demasiado apretado */
-        /* Otras propiedades de estilo como border o background según tu diseño */
-    }
-
-    .contenido-rectangulo {
-        font-size: 14px; /* Reducir el tamaño de la fuente para ajustarse a pantallas más pequeñas */
-        /* Ajustes adicionales como line-height o letter-spacing para mejorar la legibilidad */
-    }
-
-    .contenido-rectangulo i:first-child {
-        font-size: 20px; /* Hacer los iconos un poco más pequeños para esta vista */
-        margin-right: 10px; /* Ajustar espaciado según sea necesario */
-    }
-
-    /* Si tienes botones o elementos interactivos, asegúrate de que también sean fáciles de tocar */
-    .boton-rectangulo {
-        padding: 10px 20px; /* Áreas de toque más grandes son mejores en móviles */
-        font-size: 16px; /* Un tamaño de fuente legible para interfaces táctiles */
-    }
-    .rectangulo-kit {
-        width: 80%; /* Menos ancho en pantallas más pequeñas si es necesario */
-    }
-    /* y así sucesivamente... */
-}
 
     
     
