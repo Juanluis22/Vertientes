@@ -33,8 +33,7 @@ def validate_rut(value):
         if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
             raise ValidationError('Rut inválido')
         
-        if User.objects.filter(username=value).exists():
-            raise ValidationError("Este RUT ya ha sido registrado.")
+        
         
 
 
@@ -54,7 +53,7 @@ class UserForm(ModelForm):
             'last_name':'Apellido',
             'email':'Correo electronico',
             'edad':'Rango de edad',
-            'gender':'Genero',
+            'gender':'Género',
             'password':'Contraseña',
         }
         help_texts = {
@@ -63,7 +62,7 @@ class UserForm(ModelForm):
             'last_name': '',
             'email': '',
             'edad': '',
-            'password': '*Le recomendamos escribir una contraseña sencilla, como pueden ser, los ultimos 4 digitos de su RUT.',
+            'password': '*Le recomendamos escribir una contraseña sencilla, como pueden ser, los últimos 4 digitos de su RUT.',
         }
         
 
