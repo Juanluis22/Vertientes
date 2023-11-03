@@ -5,7 +5,7 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
     <title>Registro y Login</title>
     <style>
     </style>
@@ -23,7 +23,7 @@
     </nav>
     <main>
     <div id="contenedor">
-        <div id="formulario">
+        <div id="formularioregister">
             <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}

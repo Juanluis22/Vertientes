@@ -5,7 +5,7 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/forgot.css' %}">
+    <link rel="stylesheet" href="{% static 'css/formularios.css' %}">
     <title>Recuperar Contraseña</title>
     <style>
     </style>
@@ -22,9 +22,9 @@
         <a href="{% url 'nucleo:login' %}" class="cerrar-sesion">Volver</a>
     </nav>
     <main>
-    <div id="contenedor">
+    <div id="contenedorseña">
         <div id="formulario">
-            <h2 id="titulo">Recuperar Contraseña</h2>
+            <h2 id="tituloseña">Recuperar Contraseña</h2>
             <form  method="post">
                 <p id="recordatorio">Ingrese su RUT a continuación</p>
                 {% csrf_token %}

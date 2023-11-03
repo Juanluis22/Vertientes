@@ -1,5 +1,5 @@
 body {
-    margin: 0;
+margin: 0;
 padding: 0;
 font-family: Arial, sans-serif;
 background-color: #B0E2FF; /* Color celeste */
@@ -10,7 +10,6 @@ min-height: 100vh;
 
 /* Estilos de la barra de navegación */
 .logo {
-
 width: 110px; /* Ajusta el tamaño de la imagen */
 height: auto;
 margin: 0;
@@ -30,6 +29,7 @@ padding: 10px 20px;
 list-style: none;
 display: flex;
 gap: 20px;
+padding: 0;
 }
 
 .nav-item a {
@@ -73,7 +73,7 @@ justify-content: center; /* Centra horizontalmente el contenido */
 align-items: center; /* Centra verticalmente el contenido */
 min-height: 100vh; /* Asegura que el contenedor ocupe el alto de la ventana */
 }
-#formulario {
+#formularioregister{
     background-color: #f0f0f0; 
     border-radius: 15px;
     padding: 20px;
