@@ -66,7 +66,10 @@ ROOT_URLCONF = 'moni.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'frontend', 'templates'),
+            os.path.join(BASE_DIR, 'moni', 'habitantes', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

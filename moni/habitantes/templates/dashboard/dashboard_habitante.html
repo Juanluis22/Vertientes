@@ -1,27 +1,29 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+              rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/vertientes.css' %}">
         <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
         <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="icon"
+              href="https://cdn-icons-png.flaticon.com/512/826/826923.png"
+              type="image/png">
         <title>Comunidad</title>
     </head>
 
     <body>
-
         <!--Barra Vertical-->
-        {% include "barra_lateral_admin.html" %}
+        {% include "barra_lateral_habitante.html" %}
         <!-- FIN Barra Vertical-->
 
         <!--Barra Superior-->
-        {% include "barra_superior_admin.html" %}
+        {% include "barra_superior_habitante.html" %}
         <!--FIN Barra Superior-->
 
         <!-- Dashboard de datos-->
@@ -29,6 +31,4 @@
         <!-- FIN Dashboard de datos-->
 
     </body>
-
-
 </html>

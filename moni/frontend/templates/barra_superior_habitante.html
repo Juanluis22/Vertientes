@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head></head>
+    <body>
+        <nav class="navbar">
+            <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg"
+                 alt="Logo"
+                 class="logo"
+                 style="height: 100%;
+                        width: auto">
+            <div class="navbar-left">
+                <span class="hidro-tech">HidroTech</span>
+            </div>
+            <div class="navbar-center">
+                <div class="admin-box">Vista Usuario</div>
+            </div>
+            <a href="{% url 'habi:detect' %}" class="volverr">Volver</a>
+            <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+        </nav>
+    </body>
+</html>

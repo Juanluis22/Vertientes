@@ -34,9 +34,6 @@ class Vertiente(ListView):
     template_name = 'vertientes/vertientes.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaVertientes'
 
-
-
-
 @method_decorator(login_required,name='dispatch')
 class VerVertientes(DetailView):
     model = comunidad
@@ -56,11 +53,6 @@ def filtro(request, object_id):
     #print(objetos)
 
     return render(request, 'vertientes/vertientes.html', {'objetos': objetos})
-
-
-
-
-
 
 @login_required
 def revision_autoridad(request, objecto_id):
@@ -85,6 +77,50 @@ def revision_autoridad(request, objecto_id):
     # Renderiza la plantilla 'dashboard_autoridad.html' con el diccionario de datos y devuelve la respuesta
     return render(request, 'dashboard/dashboard_autoridad.html', data)
 
+#fusionar ambos def revision
+@login_required
+def revision(request, objecto_id,objecto_id_2):
+    obj_id = get_object_or_404(vertiente, pk=objecto_id)
+    id_foranea = obj_id.id
+    objetos2 = datos.objects.filter(vertiente_id=id_foranea).first()
+    vertiente_info = vertiente.objects.get(id=id_foranea)
+    id_user=objecto_id_2
+    comunidad_info = vertiente_info.comunidad
+    
+    data = {
+        'user_id':id_user,
+        'objetos': objetos2,
+        'vertiente': vertiente_info,
+        'comunidad': comunidad_info,
+        'objecto_id': objecto_id
+
+    }
+
+    return render(request, 'dashboard/dashboard_habitante.html', data)
+
+@login_required
+def detector(request):
+    comu_id = request.user.comunidad_id
+    user_id=request.user.id
+    #print(user_id)
+    objetos=vertiente.objects.filter(comunidad_id=comu_id)
+
+    context = {
+        'objetos': objetos,
+        'user_id': user_id,
+    }
+
+    return render(request, 'dashboard/vert.html',context)
+
+@method_decorator(login_required,name='dispatch')
+class ActualizarPerfil(UpdateView):
+    model = User
+    form_class = UpdateForm
+    template_name = 'perfil/miPerfil.html'
+    success_url = reverse_lazy('habi:detect')
+
+#DATOS
+
 @login_required
 def sse_datos(request, objecto_id):
     print("enviando data mediante SSE .....")
@@ -108,42 +144,7 @@ def sse_datos(request, objecto_id):
     response['Cache-Control'] = 'no-cache'
     return response
 
-
-
-#fusionar ambos def revision
-@login_required
-def revision(request, objecto_id,objecto_id_2):
-    obj_id = get_object_or_404(vertiente, pk=objecto_id)
-    id_foranea = obj_id.id
-    objetos2 = datos.objects.filter(vertiente_id=id_foranea).first()
-    vertiente_info = vertiente.objects.get(id=id_foranea)
-    id_user=objecto_id_2
-    comunidad_info = vertiente_info.comunidad
-    
-    data = {
-        'user_id':id_user,
-        'objetos': objetos2,
-        'vertiente': vertiente_info,
-        'comunidad': comunidad_info
-    }
-
-    return render(request, 'dashboard/dashboard.html', data)
-
-@login_required
-def detector(request):
-    comu_id = request.user.comunidad_id
-    user_id=request.user.id
-    #print(user_id)
-    objetos=vertiente.objects.filter(comunidad_id=comu_id)
-
-    context = {
-        'objetos': objetos,
-        'user_id': user_id,
-    }
-
-    return render(request, 'dashboard/vert.html',context)
-
-
+#GRAFICOS
 
 def filtrar_datos_por_fecha(request, vertiente_id, atributo, date_range):
     # No se necesitacesta línea ya que date_range ahora es un argumento
@@ -169,6 +170,21 @@ def filtrar_datos_por_fecha(request, vertiente_id, atributo, date_range):
         return datos.objects.filter(vertiente_id=vertiente_id).values_list('fecha', atributo)
 
 def generar_respuesta(request, vertiente_id, atributo, template_name):
+    #Comprobar el tipo de usuario
+
+    #Recuperar el id del usuario 
+    id_user=request.user.id
+
+    #Comprobar si el usuario es admin o habitante
+    user = request.user
+    if user.is_staff:
+        user_type = "admin"
+    else:
+        user_type = "habitante"
+
+    
+
+
     date_range = request.GET.get('date_range', 'all')
     data_filtered = filtrar_datos_por_fecha(request, vertiente_id, atributo, date_range)
     etiquetas_tiempo = [dato[0].strftime('%d/%m/%Y') for dato in data_filtered]
@@ -181,6 +197,7 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
         'labels': etiquetas_tiempo,
         'values': valores,
     }
+
     data_json = json.dumps(data)
     
     context = {
@@ -189,11 +206,11 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
         'veriente_ubicacion': vertiente_obj.ubicación,
         'veriente_nombre': vertiente_obj.nombre,
         'id_vertiente': vertiente_id,
+        'user_type': user_type,
+        'user_id':id_user
     }
     
     return render(request, template_name, context)
-
-
 
 @login_required
 def grafico_generico(request, vertiente_id, tipo_grafico):
@@ -213,7 +230,6 @@ def grafico_generico(request, vertiente_id, tipo_grafico):
     atributo = TIPOS_GRAFICO[tipo_grafico]
 
     return generar_respuesta(request, vertiente_id, atributo, f'dashboard/grafico_{tipo_grafico}.html')
-
 
 @login_required
 def sse_grafico(request, vertiente_id, tipo_grafico, date_range):
@@ -237,15 +253,6 @@ def sse_grafico(request, vertiente_id, tipo_grafico, date_range):
     response['Cache-Control'] = 'no-cache'
     return response
 
-
-@method_decorator(login_required,name='dispatch')
-class ActualizarPerfil(UpdateView):
-    model = User
-    form_class = UpdateForm
-    template_name = 'perfil/miPerfil.html'
-    success_url = reverse_lazy('habi:detect')
-
-    
 
     
     
