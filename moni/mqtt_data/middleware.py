@@ -48,9 +48,23 @@ class MQTTMiddleware:
 
     # Función callback que se llama cuando el cliente se conecta al broker
     def on_connect(self, client, userdata, flags, rc):
-        print(f"Conectado con el código: {rc}")
-        # Una vez conectado, suscribirse al tópico deseado
-        client.subscribe(self.mqtt_topic)
+        # Diccionario con descripciones para los códigos de retorno
+        rc_descriptions = {
+            0: "Conexión aceptada.",
+            1: "Conexión rechazada, versión de protocolo MQTT incorrecta.",
+            2: "Conexión rechazada, identificador de cliente no válido.",
+            3: "Conexión rechazada, servidor no disponible.",
+            4: "Conexión rechazada, credenciales no válidas.",
+            5: "Conexión rechazada, no autorizado."
+        }
+
+        # Si rc está en el diccionario, imprime la descripción correspondiente, de lo contrario imprime un mensaje genérico
+        print(f"Conexión a MQTT: Código {rc} - {rc_descriptions.get(rc, 'Código desconocido o reservado para usos futuros.')}")
+
+        if rc == 0:  # Solo suscribirse al tópico si la conexión fue exitosa
+            client.subscribe(self.mqtt_topic)
+        else:
+            print("No se suscribirá al tópico debido a un error en la conexión.")
 
     def save_data(self,data):
         # Comparar data[mac] con el atributo mac de la entidad kit para asignar el id de la vertiente correspondiente
