@@ -12,12 +12,14 @@ body {
     margin-left: 1rem;
     margin-right: 1rem;
     margin-bottom: 3%;
+    padding-left: 110px;
+    padding-top: 60px;
 }
 
 /* Estilo para "ADMINISTRACIÓN DE COMUNIDADES" */
 .main-heading {
     font-size: 25px; /* Tamaño de fuente para el título principal */
-    padding-top: 3%;
+    padding-top: 2%;
     text-transform: uppercase; /* Mayúsculas para el título principal */
     text-align: center; /* Alineación centrada del título principal */
     align-items: center;
@@ -211,10 +213,17 @@ body {
 @media screen and (max-width: 1350px){
     .container-main {
         width: 1200px;
+        padding-left: 110px;
+        padding-top: 60px;
     }
     }
 
-
+@media screen and (max-width: 1200px){
+    .container-main {
+        padding-left: 0;
+        padding-top: 170px;
+    }
+    }
 
     /* Estilo para el fondo oscurecido detrás del modal */
     .modaloverlay {
@@ -243,11 +252,6 @@ body {
         left: 50%; /* Establece la posición izquierda al 50% del ancho del viewport */
         top: 50%; /* Establece la posición superior al 50% de la altura del viewport */
         transform: translate(-50%, -50%); /* Centra vertical y horizontalmente */
-    }
-
-    /* Estilo para el título del modal */
-    .modal h2 {
-        margin: 0 0 20px; /* Agrega espacio en la parte inferior del título */
     }
 
     /* Estilo para los botones en el modal */
