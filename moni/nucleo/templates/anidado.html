@@ -5,22 +5,27 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+              rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/anidado.css' %}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="icon"
+              href="https://cdn-icons-png.flaticon.com/512/826/826923.png"
+              type="image/png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Seleccion vertiente</title>
     </head>
-
     <body>
         <nav class="navbar">
-            <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
+            <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg"
+                 alt="Logo"
+                 class="logo">
             <div class="izquierda">
-            <div class="login-button">
-                <a href="{% url 'nucleo:login' %}">Iniciar Sesión</a>
-            </div>
-            <a href="{% url 'nucleo:inicio' %}" class="cerrar-sesion">Volver</a>
+                <div class="login-button">
+                    <a href="{% url 'nucleo:login' %}">Iniciar Sesión</a>
+                </div>
+                <a href="{% url 'nucleo:inicio' %}" class="cerrar-sesion">Volver</a>
             </div>
         </nav>
         <main class="main">
@@ -31,17 +36,19 @@
                 <div class="vertientes-buscar">
                     <div class="buscar">
                         <label>Comunidades</label>
-                        <input type="text" class="filtro-comunidad" placeholder="Escriba una comunidad" style="margin-bottom: 5px;">
-                        <div class="form-group">
-                            {{ form.comunidad }}
-                        </div>
+                        <input type="text"
+                               class="filtro-comunidad"
+                               placeholder="Escriba una comunidad"
+                               style="margin-bottom: 5px">
+                        <div class="form-group">{{ form.comunidad }}</div>
                     </div>
                     <div class="buscar">
                         <label>Vertientes</label>
-                        <input type="text" class="filtro-vertiente" placeholder="Escriba una vertiente" style="margin-bottom: 5px;">
-                        <div class="form-group">
-                            {{ form.vertiente }}
-                        </div>
+                        <input type="text"
+                               class="filtro-vertiente"
+                               placeholder="Escriba una vertiente"
+                               style="margin-bottom: 5px">
+                        <div class="form-group">{{ form.vertiente }}</div>
                     </div>
                 </div>
                 <div class="estado-vertiente">
@@ -59,24 +66,26 @@
                                 <p id="modal-cuerpo"></p>
                             </div>
                         </div>
-
                         <!-- Primera columna de parámetros -->
                         <div class="columna">
-                            <div class="parametro" onclick="mostrarModal('¿Qué es el caudal?', 'El caudal se refiere a la cantidad de agua que fluye por la vertiente en un período de tiempo específico. Se mide típicamente en metros cúbicos por segundo (L/m) y es un indicador importante para evaluar el flujo de agua en la vertiente.')">
+                            <div class="parametro"
+                                 onclick="mostrarModal('¿Qué es el caudal?', 'El caudal se refiere a la cantidad de agua que fluye por la vertiente en un período de tiempo específico. Se mide típicamente en metros cúbicos por segundo (L/m) y es un indicador importante para evaluar el flujo de agua en la vertiente.')">
                                 <h2>Caudal</h2>
                                 <div class="row">
                                     <p id="datosContainer2"></p>
                                     <span class="unidad">L/m</span>
                                 </div>
                             </div>
-                            <div class="parametro" onclick="mostrarModal('¿Qué es el ph?', 'El pH es una medida de la acidez o alcalinidad del agua. Puede afectar la salud de los organismos acuáticos y la calidad del agua. Un pH de 7 se considera neutro, mientras que valores por debajo de 7 indican acidez y valores por encima de 7 indican alcalinidad.')">
+                            <div class="parametro"
+                                 onclick="mostrarModal('¿Qué es el ph?', 'El pH es una medida de la acidez o alcalinidad del agua. Puede afectar la salud de los organismos acuáticos y la calidad del agua. Un pH de 7 se considera neutro, mientras que valores por debajo de 7 indican acidez y valores por encima de 7 indican alcalinidad.')">
                                 <h2>pH</h2>
                                 <div class="row">
                                     <p id="datosContainer3"></p>
                                     <span class="unidad">ph</span>
                                 </div>
                             </div>
-                            <div class="parametro" onclick="mostrarModal('¿Qué es la Conductividad?', 'La conductividad eléctrica del agua es una medida de su capacidad para conducir corriente eléctrica. Se relaciona con la cantidad de sales disueltas en el agua. Valores más altos de conductividad suelen indicar la presencia de más sales disueltas en el agua.')">
+                            <div class="parametro"
+                                 onclick="mostrarModal('¿Qué es la Conductividad?', 'La conductividad eléctrica del agua es una medida de su capacidad para conducir corriente eléctrica. Se relaciona con la cantidad de sales disueltas en el agua. Valores más altos de conductividad suelen indicar la presencia de más sales disueltas en el agua.')">
                                 <h2>Conductividad</h2>
                                 <div class="row">
                                     <p id="datosContainer4"></p>
@@ -84,24 +93,26 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Segunda columna de parámetros -->
                         <div class="columna">
-                            <div class="parametro" onclick="mostrarModal('¿Qué es la Turbiedad?', 'La turbiedad es una medida de la claridad del agua y se refiere a la cantidad de partículas suspendidas en ella. El agua turbia puede dificultar la penetración de la luz, lo que puede afectar a los organismos acuáticos y al ecosistema en general.')">
+                            <div class="parametro"
+                                 onclick="mostrarModal('¿Qué es la Turbiedad?', 'La turbiedad es una medida de la claridad del agua y se refiere a la cantidad de partículas suspendidas en ella. El agua turbia puede dificultar la penetración de la luz, lo que puede afectar a los organismos acuáticos y al ecosistema en general.')">
                                 <h2>Turbiedad</h2>
                                 <div class="row">
                                     <p id="datosContainer5"></p>
                                     <span class="unidad">NTU</span>
                                 </div>
                             </div>
-                            <div class="parametro" onclick="mostrarModal('¿Qué es la Humedad?', 'La humedad es la cantidad de vapor de agua presente en el aire. En el contexto de la vertiente, la humedad puede influir en las condiciones ambientales y en la disponibilidad de agua para las plantas y los organismos en el entorno.')">
+                            <div class="parametro"
+                                 onclick="mostrarModal('¿Qué es la Humedad?', 'La humedad es la cantidad de vapor de agua presente en el aire. En el contexto de la vertiente, la humedad puede influir en las condiciones ambientales y en la disponibilidad de agua para las plantas y los organismos en el entorno.')">
                                 <h2>Humedad</h2>
                                 <div class="row">
                                     <p id="datosContainer6"></p>
                                     <span class="unidad">%</span>
                                 </div>
                             </div>
-                            <div class="parametro" onclick="mostrarModal('¿Qué es la Temperatura?', 'La temperatura del agua es un factor importante que afecta a los organismos acuáticos y a la química del agua. Puede influir en la tasa de crecimiento de los organismos y en la solubilidad de sustancias en el agua.')">
+                            <div class="parametro"
+                                 onclick="mostrarModal('¿Qué es la Temperatura?', 'La temperatura del agua es un factor importante que afecta a los organismos acuáticos y a la química del agua. Puede influir en la tasa de crecimiento de los organismos y en la solubilidad de sustancias en el agua.')">
                                 <h2>Temperatura</h2>
                                 <div class="row">
                                     <p id="datosContainer7"></p>
@@ -110,11 +121,11 @@
                             </div>
                         </div>
                     </div>
-                    
                     <div class="vertientes-datos">
                         <div class="vertientes-datos">
                             <p id="fecha-hora-datos">
-                                Obtención de Datos:<br>
+                                Obtención de Datos:
+                                <br>
                                 <span id="fecha-hora"></span>
                             </p>
                         </div>
@@ -122,73 +133,69 @@
                 </div>
             </div>
         </main>
-
         <footer class="footer">
             <p>&copy; 2023 U. Autónoma. Todos los derechos reservados.</p>
         </footer>
-
         <script>
-            $(function(){
+            $(function() {
                 $('select[name="comunidad"]').on('change', function() {
-                    var id=$(this).val();
-                    var select_vertiente=$('select[name="vertiente"]');
-                    var options='<option value="">------</option>';
+                    var id = $(this).val();
+                    var select_vertiente = $('select[name="vertiente"]');
+                    var options = '<option value="">------</option>';
                     $.ajax({
-                        url:window.location.pathname,
-                        type:'POST',
-                        data:{
-                            'action':'search_comunidad_id',
-                            'id':id
+                        url: window.location.pathname,
+                        type: 'POST',
+                        data: {
+                            'action': 'search_comunidad_id',
+                            'id': id
                         },
-                        dataType:'json',
-                    }).done(function(data){
-                        $.each(data, function(key,value) {
-                                options+='<option value="'+value.id+'">'+value.name+'</option>';
-                                
-                            });
-                            select_vertiente.html(options);
-                            select_vertiente.on('change', function () {
-                            var vertienteId = $(this).val();
-                            $.ajax({
-                                url: window.location.pathname, 
-                                type: 'POST',
-                                data: {
-                                    'action': 'get_data_for_vertiente',
-                                    'vertienteId': vertienteId
-                                    },
-                                dataType: 'json',
-                                }).done(function (data) {
-                                var listaFormateada = JSON.stringify(data);
-                                var html = listaFormateada.split(",");
-                                var miLista = ["#datosContainer1", "#datosContainer2", "#datosContainer3", 
-                                    "#datosContainer4", "#datosContainer5", "#datosContainer6", "#datosContainer7"];
-                                for (var i = 0; i < html.length; i++) {
-                                    a = html.length;
-                                    b = html[i];
-                                    var b = b.match(/\d+/g);
-                                    c = miLista[i];
-                                    $(c).html(b);
-                                }
-                                // Obtén los valores necesarios para la evaluación de la calidad del agua
-                                var pHValue = parseFloat($("#datosContainer3").text());
-                                var conductividadValue = parseFloat($("#datosContainer4").text());
-                                var turbiedadValue = parseFloat($("#datosContainer5").text());
-                                // Evalúa la calidad del agua
-                                var calidadAgua = evaluarCalidadAgua(pHValue, conductividadValue, turbiedadValue);
-                                // Muestra la calidad del agua en pantalla
-                                $("#calidadAgua").text("El agua de la vertiente está en: " + calidadAgua);
-                            }).fail(function (data) {
-                                
-                            });
+                        dataType: 'json',
+                    }).done(function(data) {
+                        $.each(data, function(key, value) {
+                            options += '<option value="' + value.id + '">' + value.name + '</option>';
                         });
-                    return false;
-                    }).fail(function(data){
-                        
-                    }).always(function(data){
-                        
-                    });
+                        select_vertiente.html(options);
+                        select_vertiente.on('change', function() {
+                            // Llama a la función para obtener datos de la vertiente inmediatamente
+                            obtenerDatosVertiente();
+                            // Establece un intervalo para actualizar los datos cada 5 segundos
+                            setInterval(obtenerDatosVertiente, 2500);
+                        });
+                        return false;
+                    }).fail(function(data) {}).always(function(data) {});
                 });
             });
+            
+            function obtenerDatosVertiente() {
+                var vertienteId = $('select[name="vertiente"]').val();
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: {
+                        'action': 'get_data_for_vertiente',
+                        'vertienteId': vertienteId
+                    },
+                    dataType: 'json',
+                }).done(function(data) {
+                    var listaFormateada = JSON.stringify(data);
+                    var html = listaFormateada.split(",");
+                    var miLista = ["#datosContainer1", "#datosContainer2", "#datosContainer3",
+                        "#datosContainer4", "#datosContainer5", "#datosContainer6", "#datosContainer7"
+                    ];
+                    for (var i = 0; i < html.length; i++) {
+                        a = html.length;
+                        b = html[i];
+                        var b = b.match(/\d+/g);
+                        c = miLista[i];
+                        $(c).html(b);
+                    }
+                    var pHValue = parseFloat($("#datosContainer3").text());
+                    var conductividadValue = parseFloat($("#datosContainer4").text());
+                    var turbiedadValue = parseFloat($("#datosContainer5").text());
+                    var calidadAgua = evaluarCalidadAgua(pHValue, conductividadValue, turbiedadValue);
+                    $("#calidadAgua").text("El agua de la vertiente está en: " + calidadAgua);
+                }).fail(function(data) {});
+            }
     
 // Función para evaluar la calidad del agua
 function evaluarCalidadAgua(pH, conductividad, turbiedad) {
@@ -215,9 +222,8 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
     return calidad;
 }
     
-            </script>
-
-<script>
+        </script>
+        <script>
     // Obtén los elementos de entrada de texto y selectores
     const filtroComunidad = document.querySelector('.filtro-comunidad');
     const filtroVertiente = document.querySelector('.filtro-vertiente');
@@ -249,9 +255,8 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
             }
         });
     });
-</script>
-
-<script>
+        </script>
+        <script>
     // Asignar unidades a los parámetros
     const unidades = {
         caudal: 'L/m',
@@ -269,9 +274,8 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
             unidadSpan.textContent = unidades[parametro];
         }
     }
-</script>
-
-<script>
+        </script>
+        <script>
     // Función para actualizar la hora y la fecha en el formato deseado
     function actualizarHoraFecha() {
         var fechaHora = new Date();
@@ -296,9 +300,8 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
         // Llama a la función para actualizar la hora y la fecha cuando cambia la vertiente
         actualizarHoraFecha();
     });
-</script>
-
-<script>
+        </script>
+        <script>
     // Función para mostrar el modal
     function mostrarModal(titulo, cuerpo) {
         const modal = document.getElementById('modal');
@@ -333,7 +336,6 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
         window.onclick = null;
         window.onkeydown = null;
     }
-</script>
-
+        </script>
     </body>
 </html>

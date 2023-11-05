@@ -531,8 +531,8 @@ class Select_anidado(TemplateView):
                         data[2]=i.pH
                         data[3]=i.conductividad
                         data[4]=i.turbiedad
-                        data[5]=i.caudal
-                        data[6]=i.humedad
+                        data[5]=i.humedad
+                        data[6]=i.temperatura
                         fecha_sin_formato=i.fecha
                         fecha_formateada= f'{fecha_sin_formato.day}/{fecha_sin_formato.month}/{fecha_sin_formato.year}'
                         
