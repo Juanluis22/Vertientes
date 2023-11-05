@@ -1,10 +1,10 @@
 
 /* Estilo para el contenedor principal */
 .container {
-    display: flex; /* Usar flexbox para centrar los elementos */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    height: 100vh; /* Establecer el alto del contenedor al 100% del viewport height */
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 70px;
@@ -15,10 +15,10 @@
     border: 1px solid #ccc;
     padding: 20px;
     background-color: #fff;
-    text-align: center; /* Centrar el texto en el borde */
-    border-radius: 10px; /* Agregar bordes redondeados */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Agregar sombra */
-    background-color: #e3f6ffe6; /* Fondo con transparencia */
+    text-align: center; 
+    border-radius: 10px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
+    background-color: #e3f6ffe6; 
     padding-left: 35px;
     padding-right: 35px;
     margin-left: 5px;
@@ -50,7 +50,7 @@ a.acceder{
 }
 
 a.acceder:hover {
-    Transition: background-color 0.3s ease; /* Agregar una transición de color al botón */
+    Transition: background-color 0.3s ease; 
     background-color: #16536A;
 }
 
@@ -75,9 +75,9 @@ button[type="submit"] {
     cursor: pointer;
     border-radius: 5px;
     font-size: 18px;
-    transition: background-color 0.3s ease; /* Agregar una transición de color al botón */
+    transition: background-color 0.3s ease; 
     margin-bottom: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); /* Agregar sombra */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4); 
 }
 
 /* Cambiar el color del botón al pasar el mouse sobre él */
@@ -88,7 +88,7 @@ button[type="submit"]:hover {
 
 /* Estilo para el efecto de hover del enlace */
 .volver:hover {
-    Transition: background-color 0.3s ease; /* Agregar una transición de color al botón */
+    Transition: background-color 0.3s ease; 
     background-color: #48c6ec;
 }
 

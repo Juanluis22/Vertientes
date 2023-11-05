@@ -126,30 +126,30 @@
     text-align: center;
     justify-content: center;
     width: 100%;
-    max-width: 600px; /* Ajusta el ancho máximo según tus preferencias */
+    max-width: 600px; 
 
 }
 .form-container {
-    width: 50%; /* Establece el ancho del formulario al 50% */
-    display: inline-block; /* Para que estén uno al lado del otro */
-    vertical-align: top; /* Alinea en la parte superior */
+    width: 50%; 
+    display: inline-block; 
+    vertical-align: top; 
 }
 
 .map-containerr {
-    width: 50%; /* Establece el ancho del mapa al 50% */
-    display: inline-block; /* Para que estén uno al lado del otro */
-    vertical-align: top; /* Alinea en la parte superior */
+    width: 50%; 
+    display: inline-block; 
+    vertical-align: top; 
 }
 
 /* Agrega estilos para asegurarte de que el mapa y el formulario tengan espacio */
 .contenido-rectangulo {
-    margin-top: 20px; /* Espacio en la parte superior */
-    margin-bottom: 20px; /* Espacio en la parte inferior */
+    margin-top: 20px; 
+    margin-bottom: 20px; /
 }
 .aviso {
     position: fixed;
-    top: 7.5cm; /* 5 cm más abajo */
-    margin-left: 14cm; /* 4 cm a la derecha */
+    top: 7.5cm; 
+    margin-left: 14cm; 
     background-color: #3393B7;
     color: #FFFFFF;
     padding: 50px;
@@ -160,8 +160,8 @@
 }
 .aviso {
     position: fixed;
-    top: 7.5cm; /* 5 cm más abajo */
-    margin-left: 14cm; /* 4 cm a la derecha */
+    top: 7.5cm; 
+    margin-left: 14cm; 
     background-color: #3393B7;
     color: #FFFFFF;
     padding: 50px;

@@ -27,36 +27,36 @@
 }
 
 .nav-item a:hover {
-    color: #0E7FE7; /* Cambia el color al pasar el cursor sobre el enlace */
+    color: #0E7FE7; 
 }
-/* Barra blanca vertical en la parte izquierda */
+
 /* Estilo de la barra lateral izquierda */
 .vertical-bar {
     background-color: white;
-    width: 77px; /* Ancho de la barra blanca vertical */
-    height: 100vh; /* Altura igual a la altura de la ventana (viewport height) */
+    width: 77px; 
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 999; /* Asegura que esté por encima de otros elementos */
+    z-index: 999; 
 }
 
 /* Estilo de "HidroTech" en el Navbar */
 .hidro-tech {
-    color: #0E7FE7; /* Texto azul para HidroTech */
+    color: #0E7FE7;
     font-weight: bold;
-    font-size: 20px; /* Tamaño de fuente opcional */
-    margin-left: 70px; /* Espacio a la izquierda de HidroTech */
-    margin-right: 0; /* Espacio a la derecha de HidroTech */
+    font-size: 20px; 
+    margin-left: 70px; 
+    margin-right: 0; 
 }
 
 /* Estilo del rectángulo azul para "Vista Administrador" */
 .admin-box {
-    background-color: #0E7FE7; /* Fondo azul */
-    color: white; /* Texto blanco */
+    background-color: #0E7FE7; 
+    color: white; 
     padding: 5px 10px;
     border-radius: 5px;
-    display: inline-block; /* Hace que el rectángulo se ajuste al contenido */
+    display: inline-block; 
 }
 
 
@@ -79,13 +79,13 @@
 }
 
 .sidebar-nav a:hover {
-    color: #fd1d1d; /* Cambia el color al pasar el cursor sobre el enlace */
+    color: #fd1d1d; 
 }
 /* Estilo de los iconos en la barra lateral */
 .sidebar-nav i {
-    font-size: 2.0rem; /* Tamaño del icono */
-    margin-right: 0px; /* Espacio a la derecha del icono */
-    color: #0E7FE7; /* Cambia el color de los iconos a azul */
+    font-size: 2.0rem; 
+    margin-right: 0px; 
+    color: #0E7FE7; 
     fill:#0E7FE7
 }
 /* Estilo del Navbar */
@@ -100,7 +100,7 @@
 
 /* Estilo del botón "Cerrar Sesión" */
 .cerrar-sesion {
-    background-color: #0E7FE7; /* Botón azul */
+    background-color: #0E7FE7; 
     color: white;
     font-weight: bold;
     border: 2px solid #0E7FE7;
@@ -114,15 +114,12 @@
     color: #0E7FE7;
 }
 
-/* Resto de los estilos */
-/* ... */
 
-/* Estilos para toda la página */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color celeste */
+    background-color: #B0E2FF; 
 }
 
 /* Estilos de la página de vertientes */
@@ -136,18 +133,18 @@ body {
 .vertientes-header {
     text-align:left;
     padding: 50px 0;
-    background-color: #B0E2FF; /* Color celeste */
+    background-color: #B0E2FF; 
     color: rgb(0, 0, 0);
 }
 
 .rectangulos-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alineación hacia la izquierda */
+    align-items: flex-start; 
     margin-top: 30px;
 }
 
-/* ... Otros estilos ... */
+
 
 .rectangulo {
     position: relative;
@@ -156,15 +153,15 @@ body {
     margin: 10px;
     display: flex;
     align-items: center;
-    border-radius: 25px; /* Agregamos las esquinas redondeadas */
-    padding-right: 40px; /* Espacio para el icono más ancho */
+    border-radius: 25px; 
+    padding-right: 40px; 
 }
 .rectangulo-verde {
-    background-color: #87D91F; /* Color verde pastel */
+    background-color: #87D91F; 
 }
 
 .rectangulo-rojo {
-    background-color: #e71c1c; /* Color rojo */
+    background-color: #e71c1c; 
 }
 
 .contenido-rectangulo {
@@ -178,8 +175,8 @@ body {
 .contenido-rectangulo p {
     margin: 0;
     font-size: 18px;
-    text-align: center; /* Centra horizontalmente el texto */
-    flex: 1; /* Asegura que el texto ocupe el espacio disponible */
+    text-align: center; 
+    flex: 1; 
 }
 .contenido-rectangulo i:first-child {
     font-size: 30px;
@@ -194,14 +191,14 @@ body {
 .cuadrado-blanco {
     position: absolute;
     top: 300px;
-    right: 100px; /* Ajusta este valor según sea necesario */
+    right: 100px; 
     width: 300px;
     height: 250px; 
     background-color: white;
     padding: 20px;
     text-align: center;
     border-radius: 20px;
-    border: 8px solid #0E7FE7; /* Agrega el contorno azul */
+    border: 8px solid #0E7FE7; 
 }
 
 
@@ -220,10 +217,10 @@ body {
     color: #0E7FE7;
 }
 .fa-lightbulb {
-    color: #fdd835; /* Cambia el color según tu preferencia */
-    font-size: 24px; /* Cambia el tamaño según tu preferencia */
+    color: #fdd835; 
+    font-size: 24px; 
     cursor: pointer;
-    margin-left: 10px; /* Añade margen para separar del título */
+    margin-left: 10px; 
 }
 .hidden-text {
     display: none;
@@ -232,8 +229,8 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 999;
-    margin-top: -30px; /* Ajusta esto según tu diseño */
-    margin-left: 10px; /* Ajusta esto según tu diseño */
+    margin-top: -30px; 
+    margin-left: 10px; 
     box-shadow: 0 0 10px rgba(250, 2, 2, 0.89);
     border-radius: 25px;
 }
@@ -241,4 +238,4 @@ body {
 
 
 
-/* Resto de los estilos */
+

@@ -2,10 +2,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color celeste */
+    background-color: #B0E2FF;
 }
 
-/* Estilos de la página de vertientes */
+
 .vertientes-container {
     position: relative;
     max-width: 960px;
@@ -15,29 +15,29 @@ body {
 }
 .vertientes-container img {
     position: absolute;
-    top: 50%; /* Centra verticalmente */
-    left: 89%; /* Ajusta la posición horizontal */
-    transform: translate(-50%, -30%); /* Centra horizontalmente */
-    height: auto; /* Ajusta la altura automáticamente */
-    max-height: 59%; /* Limita la altura al 100% del contenedor */
-    max-width: 60%; /* Limita el ancho al 100% del contenedor */
+    top: 50%;
+    left: 89%;
+    transform: translate(-50%, -30%);
+    height: auto;
+    max-height: 59%;
+    max-width: 60%;
 }
 
 .vertientes-header {
     text-align: center;
     padding: 30px 0;
-    background-color: #B0E2FF; /* Color celeste */
+    background-color: #B0E2FF;
     color: rgb(0, 0, 0);
 }
 
 .rectangulos-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alineación hacia la izquierda */
+    align-items: flex-start;
     margin-top: 30px;
 }
 
-/* ... Otros estilos ... */
+
 
 .rectangulo {
     position: relative;
@@ -46,26 +46,20 @@ body {
     margin: 10px;
     display: flex;
     align-items: center;
-    margin-left: -10px; /* Mueve los rectángulos hacia la derecha */
-    margin-top: 10px;  /* Mueve los rectángulos hacia abajo */
-    border-radius: 25px; /* Agregamos las esquinas redondeadas */
-    padding-right: 40px; /* Espacio para el icono más ancho */
+    margin-left: -10px;
+    margin-top: 10px; 
+    border-radius: 25px;
+    padding-right: 40px;
 }
 .rectangulo-verde {
-    background-color: #16536A; /* Color verde pastel */
+    background-color: #16536A;
 }
 
 .rectangulo-celeste {
-    background-color: #16536A; /* Color celeste pastel */
+    background-color: #16536A;
 }
 
-/* .rectangulo-verde {
-    background-color: #1caa23; 
-}
 
-.rectangulo-rojo {
-    background-color: #e71c1c; 
-} */
 
 .contenido-rectangulo {
     display: flex;
@@ -78,8 +72,8 @@ body {
 .contenido-rectangulo p {
     margin: 1;
     font-size: 18px;
-    text-align: center; /* Centra horizontalmente el texto */
-    flex: 1; /* Asegura que el texto ocupe el espacio disponible */
+    text-align: center;
+    flex: 1;
 }
 .contenido-rectangulo i:first-child {
     font-size: 30px;
@@ -90,14 +84,14 @@ body {
     font-size: 50px;
     color: rgb(247, 241, 241);
 }
-/* Estilo para los iconos de interrogación */
-/* Estilo para los iconos de interrogación */
+
+
 .fa-question-circle {
-    color: #16536A; /* Cambia el color según tu preferencia */
-    font-size: 24px; /* Cambia el tamaño según tu preferencia */
+    color: #16536A;
+    font-size: 24px;
     cursor: pointer;
-    float: right; /* Alinea a la derecha */
-    margin-right: 40px; /* Espacio a la derecha del contenido */
+    float: right;
+    margin-right: 40px;
 }
 
 .boton-mismo-icono {
@@ -118,11 +112,11 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 999;
-    margin-top: -30px; /* Ajusta esto según tu diseño */
-    margin-left: 10px; /* Ajusta esto según tu diseño */
+    margin-top: -30px;
+    margin-left: 10px;
     box-shadow: 0 0 10px rgba(250, 2, 2, 0.89);
-    width: 400px; /* Ajusta el ancho a tu preferencia */
-    height: 110px; /* Ajusta la altura a tu preferencia */
+    width: 400px;
+    height: 110px;
     border-radius: 25px;
 }
 .hidden-text2 {
@@ -132,8 +126,8 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 999;
-    margin-top: -30px; /* Ajusta esto según tu diseño */
-    margin-left: 10px; /* Ajusta esto según tu diseño */
+    margin-top: -30px;
+    margin-left: 10px;
     box-shadow: 0 0 5px rgba(250, 2, 2, 0.89);
 }
 .modal {
@@ -171,102 +165,102 @@ body {
     cursor: pointer;
 }
 .fa-lightbulb {
-    color: #16536A; /* Cambia el color según tu preferencia */
-    font-size: 24px; /* Cambia el tamaño según tu preferencia */
+    color: #16536A;
+    font-size: 24px;
     cursor: pointer;
-    margin-left: 10px; /* Añade margen para separar del título */
+    margin-left: 10px;
 }
 .gestion-text {
-    font-size: 30px; /* Cambia el tamaño según tu preferencia */
+    font-size: 30px;
 }
 
 @media (min-width: 771px) and (max-width: 970px) {
     .rectangulo {
-      /* Ajustes para asegurar que el contenedor se mantenga bien dimensionado */
-      overflow: hidden; /* Esto asegura que nada se desborde fuera del contenedor */
-      position: relative; /* Si aún no está establecido, esto ayudará a controlar el posicionamiento interno */
-      /* Otros estilos de ajuste según sea necesario */
+     
+      overflow: hidden;
+      position: relative;
+     
     }
   
     .vertientes-container img {
-        /* Ajustes para la imagen cuando la pantalla es pequeña */
-        max-width: 100%; /* Permite que la imagen se reajuste al ancho del contenedor */
-        height: auto; /* Permite que la altura de la imagen cambie proporcionalmente */
-        position: relative; /* Cambia la posición para que no se superponga sobre otros elementos */
-        transform: none; /* Elimina la transformación aplicada anteriormente */
-        left: 0; /* Asegura que la imagen no se salga de su contenedor */
+       
+        max-width: 100%;
+        height: auto;
+        position: relative;
+        transform: none;
+        left: 0;
         top: 0;
       }
     }
   
 
-/* Esto es un ejemplo de media query para pantallas menores de 600px de ancho */
+
 @media (max-width: 770px) {
     .rectangulo {
-      width: 100%; /* Hace que el rectángulo se expanda al 100% del ancho de su contenedor */
-      height: auto; /* Permite que la altura se ajuste automáticamente según el contenido */
-      flex-direction: column; /* Cambia la dirección del layout de los elementos a columna */
+      width: 100%;
+      height: auto;
+      flex-direction: column;
     }
   
     .contenido-rectangulo {
-      /* Si es necesario, ajusta también el estilo de los contenidos dentro del rectángulo */
-      text-align: center; /* Centra el contenido */
-      padding: 10px; /* Añade algo de padding alrededor del contenido para evitar que se pegue a los bordes */
+     
+      text-align: center;
+      padding: 10px;
     }
   
     .vertientes-container img {
-      /* Ajustes para la imagen cuando la pantalla es pequeña */
-      max-width: 100%; /* Permite que la imagen se reajuste al ancho del contenedor */
-      height: auto; /* Permite que la altura de la imagen cambie proporcionalmente */
-      position: relative; /* Cambia la posición para que no se superponga sobre otros elementos */
-      transform: none; /* Elimina la transformación aplicada anteriormente */
-      left: 0; /* Asegura que la imagen no se salga de su contenedor */
+     
+      max-width: 100%;
+      height: auto;
+      position: relative;
+      transform: none;
+      left: 0;
       top: 0;
     }
   }
   
-/* Esto es un ejemplo de media query para pantallas menores de 600px de ancho */
+
 @media (max-width: 600px) {
   .rectangulo {
-    width: 100%; /* Hace que el rectángulo se expanda al 100% del ancho de su contenedor */
-    height: auto; /* Permite que la altura se ajuste automáticamente según el contenido */
-    flex-direction: column; /* Cambia la dirección del layout de los elementos a columna */
+    width: 100%;
+    height: auto;
+    flex-direction: column;
   }
 
   .contenido-rectangulo {
-    /* Si es necesario, ajusta también el estilo de los contenidos dentro del rectángulo */
-    text-align: center; /* Centra el contenido */
-    padding: 10px; /* Añade algo de padding alrededor del contenido para evitar que se pegue a los bordes */
+   
+    text-align: center;
+    padding: 10px;
   }
 
   .vertientes-container img {
-    /* Ajustes para la imagen cuando la pantalla es pequeña */
-    max-width: 100%; /* Permite que la imagen se reajuste al ancho del contenedor */
-    height: auto; /* Permite que la altura de la imagen cambie proporcionalmente */
-    position: relative; /* Cambia la posición para que no se superponga sobre otros elementos */
-    transform: none; /* Elimina la transformación aplicada anteriormente */
-    left: 0; /* Asegura que la imagen no se salga de su contenedor */
+   
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    transform: none;
+    left: 0;
     top: 0;
   }
 }
 
 @media (max-width: 430px) {
     .rectangulo {
-      padding: 10px; /* Aumenta el relleno para asegurar espacio entre el contenido y los bordes */
-      box-sizing: border-box; /* Asegura que el padding y otros estilos se incluyan en el ancho/altura total del elemento */
-      /* otros estilos necesarios para ajustar el diseño */
+      padding: 10px;
+      box-sizing: border-box;
+     
     }
     .contenido-rectangulo {
-      word-wrap: break-word; /* Asegura que el texto no se desborde */
-      overflow-wrap: break-word; /* Similar a 'word-wrap', pero preferido para nuevas implementaciones de CSS */
-      text-align: justify; /* Opcional: para alinear el texto uniformemente */
-      /* otros estilos que puedas necesitar para ajustar tu contenido */
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      text-align: justify;
+     
     }
 
-    /* Si estás utilizando imágenes u otros elementos dentro del rectángulo, asegúrate de que también sean responsivos */
+   
     img {
     max-width: 100%;
     height: auto;
-      /* Otros estilos para ajustar tus imágenes */
+     
     }
 }

@@ -1,5 +1,5 @@
 .vertientes-container {
-    margin-top: 40px;  /* Añade un margen superior de 30px, ajusta según necesidad */
+    margin-top: 40px;  /
 }
 
 .vertientes-header {
@@ -7,7 +7,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #f0f4f8;  /* Un color de fondo claro para el encabezado */
+    background-color: #f0f4f8;  
     border-radius: 10px;
     margin: 20px 0;
     margin-top: 104px;
@@ -90,7 +90,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 20px; /* Espacio entre los botones */
+    gap: 20px; 
 }
 
 .dashboard-card {
@@ -119,13 +119,13 @@
 
 .dashboard-link {
     text-decoration: none;
-    color: #007BFF; /* Color del enlace, puede cambiar según su preferencia */
+    color: #007BFF; 
     font-weight: bold;
     transition: color 0.3s;
 }
 
 .dashboard-link:hover {
-    color: #0056b3; /* Color al pasar el mouse sobre el enlace */
+    color: #0056b3; 
 }
 
 .vertientes-header {
@@ -133,7 +133,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
-    border-bottom: 1px solid #e0e0e0; /* Línea divisoria */
+    border-bottom: 1px solid #e0e0e0; 
 }
 
 .title-container {
@@ -172,7 +172,7 @@
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
-    z-index: 10; /* Para asegurar que aparezca por encima de otros elementos */
+    z-index: 10; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -183,18 +183,18 @@
 /* Estilos para la sección de datos dentro de cada tarjeta */
 .data-section {
     padding: 20px;
-    background-color: #f0f4f8; /* Fondo claro */
-    border-bottom: 1px solid #e0e0e0; /* Línea divisoria entre la sección de datos y la del gráfico */
+    background-color: #f0f4f8; 
+    border-bottom: 1px solid #e0e0e0; 
 }
 
 /* Estilos para la sección del gráfico dentro de cada tarjeta */
 .graph-section {
     padding: 20px;
-    background-color: #ffffff; /* Fondo blanco */
+    background-color: #ffffff; 
     text-align: center;
-    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1); /* Sombra en la parte superior */
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1); 
 }
 .graph-section h4 {
-    margin: 0; /* Eliminar margen para el título "Gráfico" */
+    margin: 0; 
 }
 

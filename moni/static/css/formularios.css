@@ -14,7 +14,7 @@ body {
 
 /* Estilos de la barra de navegación */
 .logo {
-width: 110px; /* Ajusta el tamaño de la imagen */
+width: 110px; 
 height: auto;
 margin: 0;
 padding: 0;
@@ -32,7 +32,7 @@ padding: 0;
     list-style: none;
     display: flex;
     gap: 20px;
-    padding: 0; /* Elimina el relleno predeterminado de la lista */
+    padding: 0; 
 }
 
 .nav-item a {
@@ -41,7 +41,7 @@ padding: 0;
     transition: color 0.3s;
 }
 .nav-item a:hover {
-    color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
+    color: #1caa23; 
 }
 
 .cerrar-sesion {
@@ -89,7 +89,7 @@ margin-left: 10px;
     #titulo {
         font-size: 18px;
         margin-bottom: 10px;
-        text-align: center; /* Centra el título horizontalmente */
+        text-align: center; 
     }
     #formulario {
         background-color: #f0f0f0; 
@@ -97,8 +97,8 @@ margin-left: 10px;
         padding: 35px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         
-        max-width: 30%; /* Ajusta el ancho del formulario */
-        gap: 100px; /* Espacio vertical entre los campos */
+        max-width: 30%; 
+        gap: 100px; 
     }
     #formularioregister{
         background-color: #f0f0f0; 
@@ -106,7 +106,7 @@ margin-left: 10px;
         padding: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         flex: 1;
-        max-width: 40%; /* Ajusta el ancho del formulario */
+        max-width: 40%; 
     }
     #formulariologin {
         background-color: #f0f0f0;
@@ -114,7 +114,7 @@ margin-left: 10px;
         padding: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         margin: 5px;
-        max-width: 400px; /* Limita el ancho del formulario */
+        max-width: 400px; 
     }
     #formulario form {
         flex-direction: column;
@@ -143,10 +143,10 @@ margin-left: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
     #boton-registrarse {
-        padding: 10px 18px; /* Aumenta el padding para hacer el botón más grande */
-        font-size: 18px; /* Aumenta el tamaño de la fuente */
-        width: auto; /* O puedes definir un ancho específico si lo prefieres */
-        /* height: 50px; Si quieres una altura específica */
+        padding: 10px 18px; 
+        font-size: 18px; 
+        width: auto; 
+
     }
     
     button#botonIngresar{
@@ -161,7 +161,7 @@ margin-left: 10px;
         margin-top: 10px;
     }
     button#botonRecuperar {
-        font-size: 18px; /* un botón más grande con texto más grande es más llamativo */
+        font-size: 18px; 
         }
     :hover#botonRecuperar{
         background-color: #1fa4d9;
@@ -202,7 +202,7 @@ margin-left: 10px;
     #enlaceOlvido {
         font-size: 12px;
         margin-bottom: 10px;
-        text-align: center; /* Centra el enlace horizontalmente */
+        text-align: center; 
     }
     .botona {
         display: inline-block;
@@ -213,7 +213,7 @@ margin-left: 10px;
         border: none;
         cursor: pointer;
         border-radius: 5px;
-        text-align: center; /* Centra el botón de registro horizontalmente */
+        text-align: center; 
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
     .footer {
@@ -245,12 +245,12 @@ input[type="email"],
 input[type="password"],
 input[type="number"] {
     width: 100%;
-    padding: 12px; /* Tomado del segundo conjunto */
-    margin: 8px 0; /* Tomado del segundo conjunto */
-    border: 1px solid #ccc; /* Común en ambos, puedes elegir cualquiera */
-    border-radius: 4px; /* Común en ambos */
-    box-sizing: border-box; /* Tomado del segundo conjunto */
-    font-size: 15px; /* Tomado del segundo conjunto */
+    padding: 12px; 
+    margin: 8px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    font-size: 15px; 
 }
 
 input[type="text"]:focus,
@@ -258,5 +258,5 @@ input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="number"]:focus {
     outline: none;
-    border-color: #5b9dd9; /* Este estilo de foco es común y no entra en conflicto */
+    border-color: #5b9dd9; 
 }

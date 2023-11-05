@@ -3,26 +3,25 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color celeste */
-    display: flex;
+    background-color: #B0E2FF; 
     flex-direction: column;
     min-height: 100vh;
 }
 
 /* Estilos para el encabezado de vertientes */
 .vertientes-header {
-    text-align: center; /* Centra horizontalmente el contenido del encabezado */
+    text-align: center; 
 }
 
 .vertientes-header h1{
-    text-align: center; /* Centra horizontalmente el contenido del encabezado */
+    text-align: center; 
     margin-bottom: 10px;
     margin-top: 30px;
 }
 
 /* Estilos de la barra de navegación */
 .logo {
-    width: 110px; /* Ajusta el tamaño de la imagen */
+    width: 110px; 
     height: auto;
     margin: 0;
     padding: 0;
@@ -99,24 +98,24 @@ body {
 .vertientes-contenedor {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra horizontalmente */
+    align-items: center; 
     justify-content: center;
-    height: 100%; /* Asegúrate de que el elemento padre tenga una altura definida */
+    height: 100%; 
     margin: auto;
 }
 
 /* Estilos para el contenedor de búsqueda */
 .vertientes-buscar {
     display: flex;
-    flex-direction: row; /* Cambiar la dirección a fila */
+    flex-direction: row; 
     align-items: center;
-    margin: 20px auto; /* Margen superior e inferior y centrado horizontalmente */
-    max-width: 600px; /* Ancho máximo del contenedor */
-    padding: 20px; /* Espacio interno */
-    border: 1px solid #ccc; /* Borde alrededor del contenedor */
-    border-radius: 10px; /* Borde redondeado */
-    background-color: #eaf7ff; /* Fondo blanco */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin: 20px auto; 
+    max-width: 600px; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+    background-color: #eaf7ff; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     justify-content: center;
     text-align: center;
 }
@@ -140,10 +139,10 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: auto; /* Espacio superior automático (centrado verticalmente) */
-    margin-left: auto; /* Espacio izquierdo automático (centrado horizontalmente) */
-    margin-right: 0; /* Restablecer margen derecho */
-    display: block; /* Asegurar que el botón sea un bloque y ocupe todo el ancho */
+    margin-top: auto; 
+    margin-left: auto; 
+    margin-right: 0; 
+    display: block; 
 }
 
 .ir:hover {
@@ -169,9 +168,7 @@ body {
     margin-top: 10px;
     background-color: #B0E2FF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center; /* Centra el contenido en horizontal */
-
-    /* Centrar contenido tanto horizontal como verticalmente */
+    text-align: center; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -179,8 +176,8 @@ body {
 }
 
 .parametro:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Agrega sombreado al pasar el cursor */
-    cursor: pointer; /* Cambia el cursor a una mano (pointer) */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+    cursor: pointer; 
 }
 
 .parametro h2 {
@@ -194,19 +191,19 @@ body {
 }
 
 .vertientes-datos{
-    text-align: center; /* Centra horizontalmente la fecha actualizacion */
+    text-align: center; 
 }
 
 /* Estilos para el pie de página */
 .vertientes-footer {
     text-align: center;
-    background-color: #eaf7ff; /* Fondo gris claro */
-    color: #333; /* Color de texto */
-    border: 1px solid #ccc; /* Borde alrededor del cuadro */
-    border-radius: 10px; /* Borde redondeado */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    margin: 20px auto; /* Margen superior e inferior y centrado horizontalmente */
-    max-width: 600px; /* Ancho máximo del cuadro */
+    background-color: #eaf7ff; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin: 20px auto; 
+    max-width: 600px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -215,10 +212,10 @@ body {
 }
 
 @media (max-width: 520px) {
-    /* Estilos para vertientes-buscar en dispositivos móviles */
+    
     .vertientes-buscar {
-        flex-direction: column; /* Cambia la dirección a columna */
-        align-items: center; /* Centra horizontalmente el contenido */
+        flex-direction: column; 
+        align-items: center; 
         padding-left: 20px;
         padding-right: 20px;
     }
@@ -239,7 +236,7 @@ body {
     }
 
     .parametros-columnas{
-        flex-direction: column; /* Cambia la dirección a columna */
+        flex-direction: column; 
         align-items: center;
     }
     .parametro{
@@ -268,9 +265,9 @@ body {
     border-style: solid;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    font-weight: bold; /* Añadir negrita al texto */
-    background-color: #D40202 !important; /* Agrega !important para aumentar la especificidad */
-    color: white !important; /* Agrega !important para aumentar la especificidad */
+    font-weight: bold; 
+    background-color: #D40202 !important; 
+    color: white !important; 
     margin: 0px 0px;
     margin-top: -16px;
 }
@@ -285,9 +282,9 @@ body {
     border-style: solid;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    font-weight: bold; /* Añadir negrita al texto */
-    background-color: #87D91F !important; /* Agrega !important para aumentar la especificidad */
-    color: white !important; /* Agrega !important para aumentar la especificidad */
+    font-weight: bold; 
+    background-color: #87D91F !important; 
+    color: white !important; 
     margin: 0px 0px;
     margin-top: -16px;
 }
@@ -301,9 +298,9 @@ body {
     border-style: solid;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    font-weight: bold; /* Añadir negrita al texto */
-    background-color: #1f51d9 !important; /* Agrega !important para aumentar la especificidad */
-    color: white !important; /* Agrega !important para aumentar la especificidad */
+    font-weight: bold; 
+    background-color: #1f51d9 !important; 
+    color: white !important; 
     margin: 0px 10px;
     margin-top: -16px;
 }   
@@ -329,27 +326,27 @@ div.estado-vertiente{
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    z-index: 999; /* Asegura que esté en la parte superior */
+    justify-content: center; 
+    align-items: center; 
+    z-index: 999; 
 }
 
 .modal.active {
-    opacity: 1; /* Hacer el modal visible al agregar la clase "active" */
-    pointer-events: auto; /* Permitir interacciones con el modal */
+    opacity: 1; 
+    pointer-events: auto; 
 }
 
 .modal-content {
     background-color: white;
     margin: 15% auto;
     padding: 20px;
-    border: 10px solid #0E7FE7; /* Borde celeste */
+    border: 10px solid #0E7FE7;
     width: 40%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     text-align: center;
     position: relative;
     border-radius: 15px;
-    font-weight: bold; /* Texto en negrita */
+    font-weight: bold; 
 }
 @media (max-width: 520px) {
  
@@ -357,18 +354,18 @@ div.estado-vertiente{
         background-color: white;
         margin: 15% auto;
         padding: 20px;
-        border: 10px solid #0E7FE7; /* Borde celeste */
+        border: 10px solid #0E7FE7; 
         width: 60%;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         text-align: center;
         position: relative;
         border-radius: 15px;
-        font-weight: bold; /* Texto en negrita */
+        font-weight: bold; 
     }
 }
 
 .modal.active .modal-content {
-    transform: scale(1); /* Aumentar el tamaño al agregar la clase "active" al modal */
+    transform: scale(1); 
 }
 
 .close {
@@ -387,7 +384,7 @@ div.estado-vertiente{
 }
 
 .parametro .unidad {
-    margin-left: 5px; /* Ajusta el margen según tus preferencias */
+    margin-left: 5px; 
 }
 
 .filtro-comunidad,
@@ -403,9 +400,9 @@ div.estado-vertiente{
 
 /* Estilos para los desplegables cuando están enfocados (resaltados) */
 .form-group select:focus {
-    outline: none; /* Elimina el contorno predeterminado al enfocar el elemento */
-    border-color: #1c4eaa; /* Cambia el color del borde al enfocar */
-    box-shadow: 0 0 5px rgba(28, 73, 170, 0.616); /* Agrega una sombra al enfocar */
+    outline: none; 
+    border-color: #1c4eaa; 
+    box-shadow: 0 0 5px rgba(28, 73, 170, 0.616); 
 }
 
 .filtro-comunidad{
@@ -417,7 +414,7 @@ div.estado-vertiente{
 }
 
 label{
-    font-size: 18px; /* Tamaño de fuente para h2 */
-    font-weight: bold; /* Opcional: Puedes agregar negrita */
+    font-size: 18px; 
+    font-weight: bold; 
     margin-bottom: 10px;
 }

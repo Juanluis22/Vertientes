@@ -2,64 +2,64 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color celeste */
+    background-color: #B0E2FF; 
 }
 
 /* Estilos de la página de vertientes */
 .vertientes-container {
     position: relative;
     max-width: 960px;
-    width: 100%; /* Se cambia a un ancho relativo */
+    width: 100%; 
     margin: 0 auto;
     padding: 2%;
     background-color: #B0E2FF;
 }
 .vertientes-container img {
     position: absolute;
-    top: 50%; /* Centra verticalmente */
-    left: 89%; /* Ajusta la posición horizontal */
-    transform: translate(-50%, -30%); /* Centra horizontalmente */
-    height: auto; /* Ajusta la altura automáticamente */
-    max-height: 59%; /* Limita la altura al 100% del contenedor */
-    max-width: 60%; /* Limita el ancho al 100% del contenedor */
+    top: 50%; 
+    left: 89%; 
+    transform: translate(-50%, -30%); 
+    height: auto; 
+    max-height: 59%; 
+    max-width: 60%; 
 }
 
 .vertientes-header {
     text-align: center;
     padding: 30px 0;
-    background-color: #B0E2FF; /* Color celeste */
+    background-color: #B0E2FF; 
     color: rgb(0, 0, 0);
 }
 
 
 .rectangulos-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que los rectángulos pasen a la siguiente fila */
-    justify-content: center; /* Centra horizontalmente los rectángulos */
-    align-items: center; /* Centra verticalmente los rectángulos */
+    flex-wrap: wrap; 
+    justify-content: center; 
+    align-items: center; 
     margin-top: 30px;
 }
 
-/* ... Otros estilos ... */
+
 
 .row1, .row2 {
     display: flex;
-    justify-content: center; /* Centra horizontalmente los rectángulos en cada fila */
-    align-items: center; /* Centra verticalmente los rectángulos en cada fila */
+    justify-content: center; 
+    align-items: center; 
 }
 
 /* Estilos para los rectángulos individuales */
 .rectangulo {
     position: relative;
-    width: 100%; /* Ancho de los rectángulos */
+    width: 100%; 
     max-width: 600px;
     height: 180px;
-    margin: 20px; /* Espacio entre los rectángulos */
+    margin: 20px; 
     border-radius: 25px;
-    padding-right: 40px; /* Espacio para el icono más ancho */
-    display: flex; /* Utiliza flexbox para centrar el contenido */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: center; /* Centra el contenido verticalmente */
+    padding-right: 40px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
     box-sizing: border-box;
 }
 .rectangulos-container2 {
@@ -71,8 +71,8 @@ body {
     justify-content: space-between;
     margin-bottom: 20px;
     gap: 2px;
-    width: 50%; /* Resta 120px del ancho total de la ventana */
-    height: calc(100vh - 50vh); /* Resta 80px de la altura total de la ventana gráfica (viewport) */
+    width: 50%; 
+    height: calc(100vh - 50vh); 
     margin-left: 20px;
     margin-right: 20px;
     margin-top:20px;
@@ -82,8 +82,8 @@ body {
 .contenido-rectangulo3 {
     display: flex;
     flex-direction: column;
-    width: 100%; /* Resta 120px del ancho total de la ventana */
-    height: 100vh; /* Resta 80px de la altura total de la ventana gráfica (viewport) */
+    width: 100%; 
+    height: 100vh; 
     margin-left:140px;
     margin-top:80px;
 }
@@ -132,16 +132,16 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: -30px; /* Ajusta esto según tu diseño */
-    margin-left: 10px; /* Ajusta esto según tu diseño */
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    margin-top: -30px; 
+    margin-left: 10px; 
+    z-index: 1000; 
 
 }
 .rectangulo-container {
     display: flex;
     align-items: center; 
-    flex-basis: calc(50% - 2px); /* 50% del ancho con espacio entre ellos */
-    margin-bottom: 2px; /* Espacio entre las filas */
+    flex-basis: calc(50% - 2px); 
+    margin-bottom: 2px; 
 }
 
 .rectangulo-container i {
@@ -151,14 +151,14 @@ body {
     cursor: pointer;
 }
 .rectangulo-verde {
-    background-color: #16536A; /* Color verde pastel */
+    background-color: #16536A; 
 }
 
 .rectangulo-celeste {
-    background-color: #16536A; /* Color celeste pastel */
+    background-color: #16536A; 
 }
 .rectangulo-kit {
-    background-color: #16536A; /* Color verde pastel */
+    background-color: #16536A; 
     width: 100%;
     max-width: 440px;
 
@@ -166,29 +166,24 @@ body {
 .rectangulo2 {
     position: relative;
 
-    width: 600px; /* Ancho de los rectángulos */
+    width: 600px; 
     height: 180px; 
-    margin: 20px; /* Espacio entre los rectángulos */
+    margin: 20px; 
     border-radius: 25px;
-    display: flex; /* Utiliza flexbox para centrar el contenido */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: center; /* Centra el contenido verticalmente */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
 }
 .rectangulo-verde2 {
     background-color:  #16536A;
     margin-top:30px;
     margin-left:20px;
     width:30%;
-    background-color: #16536A; /* Color celeste pastel */
+    background-color: #16536A; 
     padding: 20px;
 }
-/* .rectangulo-verde {
-    background-color: #1caa23; 
-}
 
-.rectangulo-rojo {
-    background-color: #e71c1c; 
-} */
+
 
 .contenido-rectangulo {
     display: flex;
@@ -201,8 +196,8 @@ body {
 .contenido-rectangulo p {
     margin: 1;
     font-size: 18px;
-    text-align: center; /* Centra horizontalmente el texto */
-    flex: 1; /* Asegura que el texto ocupe el espacio disponible */
+    text-align: center; 
+    flex: 1; 
 }
 .contenido-rectangulo i:first-child {
     font-size: 30px;
@@ -213,14 +208,14 @@ body {
     font-size: 50px;
     color: rgb(247, 241, 241);
 }
-/* Estilo para los iconos de interrogación */
+
 /* Estilo para los iconos de interrogación */
 .fa-question-circle {
-    color: #16536A; /* Cambia el color según tu preferencia */
-    font-size: 24px; /* Cambia el tamaño según tu preferencia */
+    color: #16536A; 
+    font-size: 24px; 
     cursor: pointer;
-    float: right; /* Alinea a la derecha */
-    margin-right: 40px; /* Espacio a la derecha del contenido */
+    float: right; 
+    margin-right: 40px; 
 }
 
 .boton-mismo-icono {
@@ -242,8 +237,8 @@ body {
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 999;
-    margin-top: -30px; /* Ajusta esto según tu diseño */
-    margin-left: 10px; /* Ajusta esto según tu diseño */
+    margin-top: -30px; 
+    margin-left: 10px; 
     box-shadow: 0 0 5px rgba(250, 2, 2, 0.89);
     border-radius: 25px;
     max-height: 180px;
@@ -283,13 +278,13 @@ body {
     cursor: pointer;
 }
 .fa-lightbulb {
-    color: #16536A; /* Cambia el color según tu preferencia */
-    font-size: 24px; /* Cambia el tamaño según tu preferencia */
+    color: #16536A; 
+    font-size: 24px; 
     cursor: pointer;
-    margin-left: 10px; /* Añade margen para separar del título */
+    margin-left: 10px; 
 }
 .gestion-text {
-    font-size: 30px; /* Cambia el tamaño según tu preferencia */
+    font-size: 30px; 
 }
 .volver {
     display: inline-block;
@@ -315,7 +310,7 @@ body {
         }
     
         .contenido-rectangulo {
-            font-size: 16px; /* Un tamaño intermedio para la fuente */
+            font-size: 16px; 
         }
     
         .contenido-rectangulo i:first-child {
@@ -337,7 +332,7 @@ body {
             width: 80%;
         }
     
-        /* Adiciones o ajustes para este rango de tamaño específico */
+        
     }
 
 
