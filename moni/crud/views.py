@@ -13,7 +13,7 @@ import moni.settings as setting
 from django.utils.decorators import method_decorator
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
@@ -590,15 +590,47 @@ class ListaKit(ListView):
 
 
 #Vista para nuevo kit
-
-@method_decorator(login_required,name='dispatch')  
+@method_decorator([csrf_exempt, login_required],name='dispatch')
 class NuevoKit(CreateView):
     model=kit
     form_class = KitForm
     template_name='kit/new/newKit.html'
 
     def get_success_url(self):
-        return reverse('crud:listkit') 
+        return reverse('crud:listkit')
+    
+
+    def post(self, request, *args, **kwargs):
+        data=[]
+        data_error={}
+        print('ADENTRO')
+        try:
+            print('ADENTRODENUEVO')
+            action=request.POST['action']
+            if action=='search_comunidad_id':
+                print('ADENTRODE search_comunidad_id')
+                data=[]
+                for i in vertiente.objects.filter(comunidad_id=request.POST['id']):
+                    data.append({'id':i.id, 'name': i.nombre, })
+                    
+            elif action=='listo':
+                comu_id=request.POST.get('comunidad')
+                comunid= comunidad.objects.get(id=comu_id)
+                form = KitForm(request.POST)
+                form.fields['vertiente'].queryset = vertiente.objects.filter(comunidad=comunid)
+                kit_instance = form.save(commit=False)
+                
+                # Guardar el objeto en la base de datos
+                kit_instance.save()
+                return HttpResponseRedirect('/administracion/lista_kit/')
+            else:
+                data['error']='Ha ocurrido un error'
+        except Exception as e:
+            print(e)
+            data_error['error']=str(e)
+
+
+        return JsonResponse(data, safe=False)
 
     def get(self, request, *args, **kwargs):
         usuario=request.user
@@ -616,7 +648,7 @@ class NuevoKit(CreateView):
 
 
 #Vista para actualizar kit
-
+@method_decorator([csrf_exempt, login_required],name='dispatch')
 class ActualizarKit(UpdateView):
     model = kit
     form_class = KitForm
@@ -625,6 +657,40 @@ class ActualizarKit(UpdateView):
 
     def get_success_url(self):
         return reverse('crud:listkit')
+    
+    def post(self, request, *args, **kwargs):
+        data=[]
+        data_error={}
+        try:
+            
+            action=request.POST['action']
+            if action=='search_comunidad_id':
+                
+                data=[]
+                for i in vertiente.objects.filter(comunidad_id=request.POST['id']):
+                    data.append({'id':i.id, 'name': i.nombre, })
+                    
+            elif action=='listo':
+                comu_id=request.POST.get('comunidad')
+                comunid= comunidad.objects.get(id=comu_id)
+                form = KitForm(request.POST)
+                form.fields['vertiente'].queryset = vertiente.objects.filter(comunidad=comunid)
+                kit_instance = form.save(commit=False)
+                
+                # Guardar el objeto en la base de datos
+                kit_instance.save()
+                return HttpResponseRedirect('/administracion/lista_kit/')
+            else:
+                data['error']='Ha ocurrido un error'
+        except Exception as e:
+            print(e)
+            data_error['error']=str(e)
+
+
+        return JsonResponse(data, safe=False)
+
+
+
     
     def get(self, request, *args, **kwargs):
         usuario=request.user

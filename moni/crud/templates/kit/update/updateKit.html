@@ -2,11 +2,13 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="stylesheet" href="{% static 'css/crear.css' %}">
         <link rel="stylesheet" href="{% static 'css/Gestion_usuarios.css' %}">
         <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
@@ -53,10 +55,37 @@
                   <button type="button" class="btn btn-danger">Cancelar</button>  
                 </a>
               </div>
+              <input type="hidden" name="action" value="listo">
               </form>
               </div>
 
               <script>
+
+                $(function() {
+                  $('select[name="comunidad"]').on('change', function() {
+                      var id = $(this).val();
+                      var select_vertiente = $('select[name="vertiente"]');
+                      var options = '<option value="">------</option>';
+                      $.ajax({
+                          url: window.location.pathname,
+                          type: 'POST',
+                          data: {
+                              'action': 'search_comunidad_id',
+                              'id': id
+                          },
+                          dataType: 'json',
+                      }).done(function(data) {
+                          $.each(data, function(key, value) {
+                              options += '<option value="' + value.id + '">' + value.name + '</option>';
+                          });
+                          select_vertiente.html(options);
+          
+                      }).fail(function(data_error) {}).always(function(data) {});
+                  });
+              });
+
+
+
                 function mostrarMensaje() {
                   var mensaje = document.createElement("div");
                   mensaje.className = "aviso";

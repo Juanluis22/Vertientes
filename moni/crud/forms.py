@@ -18,9 +18,26 @@ class VertienteForm(ModelForm):
         fields=['nombre','desc','ubicación','comunidad','latitud','longitud']
         
 class KitForm(ModelForm):
+
+    comunidad=ModelChoiceField(
+        queryset=comunidad.objects.all(),
+        widget=Select(
+            attrs={
+                'class':'form-control'
+
+    }))
+
+    vertiente=ModelChoiceField(
+        queryset=vertiente.objects.none(),
+        widget=Select(
+            attrs={
+                'class':'form-control'
+
+    }))
+    
     class Meta:
         model= kit
-        fields='__all__'
+        fields = ['modelo', 'mac', 'is_active', 'comunidad', 'vertiente']
 
 
 def validate_rut(value):
