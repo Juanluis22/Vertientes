@@ -1,9 +1,8 @@
-/* Estilos generales y otros estilos */
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #B0E2FF; /* Color de fondo de la página */
+    background-color: #B0E2FF;
 }
 
 .container-main{
@@ -16,26 +15,24 @@ body {
     padding-top: 60px;
 }
 
-/* Estilo para "ADMINISTRACIÓN DE COMUNIDADES" */
 .main-heading {
-    font-size: 25px; /* Tamaño de fuente para el título principal */
+    font-size: 25px;
     padding-top: 2%;
-    text-transform: uppercase; /* Mayúsculas para el título principal */
-    text-align: center; /* Alineación centrada del título principal */
+    text-transform: uppercase;
+    text-align: center;
     align-items: center;
 }
 
-/* Estilo para "LISTADO DE COMUNIDAD" */
 .sub-heading {
-    font-size: 20px; /* Tamaño de fuente para el subtítulo */
-    margin-bottom: 0px; /* Espacio entre el subtítulo y el contenido */
-    text-transform: uppercase; /* Mayúsculas para el subtítulo */
-    text-align: center; /* Alineación centrada del subtítulo */
+    font-size: 20px;
+    margin-bottom: 0px;
+    text-transform: uppercase;
+    text-align: center;
     align-items: center;
 }
 
 .acceder, .carga, .volver {
-    background-color: #3393B7; /* Botón azul */
+    background-color: #3393B7;
     color: white;
     display: inline-block;
     padding: 10px 20px;
@@ -48,97 +45,94 @@ body {
 }
 
 .acceder:hover, .carga:hover, .volver:hover {
-    background-color: #16536A; /* Cambia el color al pasar el cursor sobre los botones */
+    background-color: #16536A;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Estilo de la tabla */
 #example {
-    width: 100%; /* Ancho completo de la tabla */
-    border-collapse: collapse; /* Borde de celdas colapsado */
-    background-color: #ffffff; /* Fondo blanco de la tabla */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave para la tabla */
-    margin-top: 20px; /* Espacio superior de la tabla */
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .dataTables_wrapper {
     width: 1200px;
     padding-right: 10px;
-    margin: 0 auto; /* Centra el contenedor en la pantalla */
+    margin: 0 auto;
 }
 
 .dataTables_length, .dataTables_filter {
-    display: inline-block; /* Coloca los elementos en línea dentro del cuadro */
-    margin-bottom: 10px; /* Espacio entre los elementos de DataTables */
-    border: none; /* Elimina el borde de los elementos */
-    background: none; /* Fondo transparente para los elementos */
-    color: #3393B7; /* Color del texto de los elementos */
+    display: inline-block;
+    margin-bottom: 10px;
+    border: none;
+    background: none;
+    color: #3393B7;
 }
 
-/* Estilo para el margen superior de "Mostrando registros del ..." y "anterior/siguiente" */
 .dataTables_info, .dataTables_paginate {
-    margin-top: 10px; /* Agrega un margen superior */
-    align-items: center; /* Centra verticalmente el contenido */
+    margin-top: 10px;
+    align-items: center;
 }
 
-/* Estilo para el cuadro de búsqueda de DataTables */
 #example_filter input {
-    background-color: #ffffff; /* Fondo blanco */
-    border: 1px solid #000000; /* Borde negro de 1 píxel */
-    border-radius: 5px; /* Esquina redondeada */
-    padding: 5px; /* Espaciado interno */
-    color: #000000; /* Texto negro */
-    width: 200px; /* Ancho del cuadro de búsqueda, ajusta según tus necesidades */
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    padding: 5px;
+    color: #000000;
+    width: 200px;
 }
 
 #example_filter input::placeholder {
-    color: #000000; /* Color del marcador de posición del cuadro de búsqueda */
+    color: #000000;
 }
 
 .dataTables_info {
-    border-radius: 10px; /* Esquina inferior izquierda redondeada */
+    border-radius: 10px;
 }
 
 .dataTables_paginate {
-    border-radius: 10px; /* Esquina inferior derecha redondeada */
+    border-radius: 10px;
 }
 
 .dataTables_length {
-    border-radius: 10px; /* Esquina superior derecha redondeada */
+    border-radius: 10px;
 }
 
 .dataTables_filter {
-    border-radius: 10px; /* Esquina superior derecha redondeada */
+    border-radius: 10px;
 }
 
 .dataTables_length, .dataTables_filter {
-    display: inline-block; /* Coloca los elementos en línea dentro del cuadro */
-    border: none; /* Elimina el borde de los elementos */
-    background: none; /* Fondo transparente para los elementos */
+    display: inline-block;
+    border: none;
+    background: none;
     padding: 10px;
     
     background-color: #3393B7;
 }
 
 #example th, #example td {
-    padding: 10px; /* Espaciado interno de celdas */
-    text-align: left; /* Alineación de texto izquierda */
+    padding: 10px;
+    text-align: left;
 }
 
 #example th {
-    background-color: #3393B7; /* Fondo azul para encabezados de tabla */
-    color: white; /* Texto blanco en encabezados */
+    background-color: #3393B7;
+    color: white;
     font-weight: bold;
 }
 
 #example tr:nth-child(even) {
-    background-color: #f2f2f2; /* Fondo gris alternado para filas pares */
+    background-color: #f2f2f2;
 }
 
 .button-container {
     display: flex;
-    justify-content: center; /* Centra horizontalmente los botones */
-    align-items: center; /* Centra verticalmente los botones */
+    justify-content: center;
+    align-items: center;
 }
 
 .editar-button, .eliminar-button {
@@ -150,7 +144,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-    text-decoration: none; /* Quita el subrayado del enlace */
+    text-decoration: none;
     
 }
 
@@ -159,18 +153,18 @@ body {
 }
 
 .editar-button:hover, .eliminar-button:hover {
-    transform: scale(1.05); /* Escala el botón al hacer hover */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
     cursor: pointer;
 }
 
 .editar-button {
-    margin-right: 10px; /* Agrega un margen a la derecha del botón "Editar" */
+    margin-right: 10px;
 }
 
 .button-row {
     display: flex;
-    justify-content: center; /* Centra horizontalmente los botones */
+    justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     margin-top: 40px;

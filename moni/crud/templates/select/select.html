@@ -38,18 +38,17 @@
             </div>
             
             <div id="text3" class="hidden-text2">
-                <h4>Aquí puedes elegir qué apartado de la administración visualizar: gestión de usuarios/comunidades/vertientes. ó todas las vertientes</h4>
+                <h4>Aquí puedes elegir qué apartado de la administración visualizar: gestión de usuarios/comunidades/vertientes/kits. ó todas las vertientes</h4>
             </div>
             <div class="rectangulo rectangulo-verde">
                 <div class="contenido-rectangulo">
                     <i class="fas fa-check"></i> 
-                    <h2><font color="white"><span class="gestion-text">Gestión</span><br> usuarios/habitantes/
-                        comunidades/vertientes</font></h2>
+                    <h2><font color="white">Gestión administrativa de vertientes</font></h2>
                         <i class="fas fa-question-circle incognito-icon" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
                 </div>
                 <div id="text1" class="hidden-text">
                     <h3>¿Para que sirve esto?</h3>
-                    <h4>esto sirve para ver las peticiones de registro de usuarios, modificar correos de contacto, comunidades, vertientes, etc.</h4>
+                    <h4>En esta opción aparecen las peticiones de registro de usuarios, modificar correos de contacto, comunidades, vertientes, etc.</h4>
                 </div>
                 <a href="{% url 'crud:index' %}">
                     <i class="bi bi-box-arrow-in-right"></i>
@@ -58,13 +57,12 @@
             <div class="rectangulo rectangulo-celeste">
                 <div class="contenido-rectangulo">
                     <i class="fas fa-check"></i> 
-                    <h2><font color="white">Visualizar todas las vertientes 
-                        monitorizadas</font></h2>
+                    <h2><font color="white">Visualización de vertientes monitorizadas</font></h2>
                         <i class="fas fa-question-circle incognito-icon" onmouseover="showText('text2')" onmouseout="hideText('text2')"></i>
                 </div>
                 <div id="text2" class="hidden-text">
                     <h3>¿Para que sirve esto?</h3>
-                    <h4>esto sirve para ver todas las vertientes de todas las comunidades monitorizadas.</h4>
+                    <h4>En esta opción sirve para ver todas las vertientes de todas las comunidades monitorizadas.</h4>
                 </div>
                 <a href="{% url 'eva:comuni' %}">
                     <i class="bi bi-box-arrow-in-right"></i>

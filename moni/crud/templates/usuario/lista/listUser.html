@@ -15,11 +15,12 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <title>Listado de Usuarios</title>
 </head>
+
 <body>
-        <!--Barra Vertical-->
-        {% include "barra_lateral_admin.html" %}
-        <!-- FIN Barra Vertical-->
-    
+    <!-- Barra Vertical -->
+    {% include "barra_lateral_admin.html" %}
+    <!-- FIN Barra Vertical -->
+
     <nav class="navbar">
         <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
         <div class="navbar-left">
@@ -42,129 +43,134 @@
             <a href="{% url 'nucleo:users_massive_upload' %}" class="custom-button">
                 <i class="bi bi-plus-circle"></i> Carga masiva Habitante
             </a>
-            </div>
-    <div class="vertientes-container">
-        <div class="card-body">
-            <table id="example" class="display">
-                <thead>
-                    <tr>
-
-                        <th><div class="separador">RUT</div></th>
-                        <th><div class="separador">Nombre</div></th>
-                        <th><div class="separador">Apellido</div></th>
-                        <th><div class="separador">Correo</div></th>
-                        <th><div class="separador">Edad</div></th>
-                        <th><div class="separador">Género</div></th>
-                        <th><div class="separador">Comunidad</div></th>
-                        <th><div class="separador">Tipo</div></th>
-                        <th><div class="separador">Opciones</div></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for objeto in listaUsuarios %}
-                    {% if objeto.is_active %}
+        </div>
+        <div class="vertientes-container">
+            <div class="card-body">
+                <table id="example" class="display">
+                    <thead>
                         <tr>
-
-                            <td><div class="separador">{{ objeto.username }}</div></td>
-                            <td><div class="separador">{{ objeto.first_name }}</div></td>
-                            <td><div class="separador">{{ objeto.last_name }}</div></td>
-                            <td><div class="separador">{{ objeto.email }}</div></td>
-                            <td><div class="separador">{{ objeto.edad }}</div></td>
-                            <td><div class="separador">{{ objeto.gender }}</div></td>
-                            <td><div class="separador">{{ objeto.comunidad }}</div></td>
-                            <td><div class="separador">{{ objeto.tipo }}</div></td>
-                            <td>
-                                <div class="button-container">
-                                  <label onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</label>
-                                   {% if not objeto.is_staff %}
-                                  <a href="#" class="eliminar-button" data-url="{% url 'crud:deactuser' objeto.id  %}"> Desactivar
-                                    
-                                </a>
-                                   {% endif %}
-                                </div>
-                            </td>
+                            <th><div class="separador">RUT</div></th>
+                            <th><div class="separador">Nombre</div></th>
+                            <th><div class="separador">Apellido</div></th>
+                            <th><div class="separador">Correo</div></th>
+                            <th><div class="separador">Edad</div></th>
+                            <th><div class="separador">Género</div></th>
+                            <th><div class="separador">Comunidad</div></th>
+                            <th><div class="separador">Tipo</div></th>
+                            <th><div class="separador">Opciones</div></th>
                         </tr>
-                        {% endif %}
+                    </thead>
+                    <tbody>
+                        {% for objeto in listaUsuarios %}
+                            {% if objeto.is_active %}
+                                <tr>
+                                    <td><div class="separador">{{ objeto.username }}</div></td>
+                                    <td><div class="separador">{{ objeto.first_name }}</div></td>
+                                    <td><div class="separador">{{ objeto.last_name }}</div></td>
+                                    <td><div class="separador">{{ objeto.email }}</div></td>
+                                    <td><div class="separador">{{ objeto.edad }}</div></td>
+                                    <td><div class="separador">{{ objeto.gender }}</div></td>
+                                    <td><div class="separador">{{ objeto.comunidad }}</div></td>
+                                    <td><div class="separador">{{ objeto.tipo }}</div></td>
+                                    <td>
+                                        <div class="button-container">
+                                            <label onclick="window.location.href='{% url 'crud:updateuser' objeto.id %}'" class="editar-button">Editar</label>
+                                            {% if not objeto.is_staff %}
+                                                <a href="#" class="eliminar-button" data-url="{% url 'crud:deactuser' objeto.id  %}"> Desactivar</a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div id="confirmarBorradoModalover" class="modaloverlay">
-    	<div class="modal">
-            <h2>¿Estás seguro de desactivar a este usuario? </h2>
-            <h2><div class="separador">
-      	<div class="modal-buttons">
-        		<button id="siBorrar" class="modal-button modal-button-danger">Desactivar</button>
-        		<button id="noBorrar" class="modal-button modal-button-secondary">Cancelar</button>
-		</div>
-	</div>
-</div>
-    <script>
-        new DataTable('#example', {
-            columnDefs: [
-                {
-                targets: 8,
-                orderable: false,
-                },
-            ],
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            }
-        });
-        const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
-    const modalover = document.getElementById('confirmarBorradoModalover');
-    const siBorrarBoton = document.getElementById('siBorrar');
-    const noBorrarBoton = document.getElementById('noBorrar');
-    let urlEliminar = '';
-    
-    eliminarEnlaces.forEach((enlace) => {
-        enlace.addEventListener('click', (event) => {
-            event.preventDefault();
-            urlEliminar = event.currentTarget.getAttribute('data-url');
-            modalover.style.display = 'block';
-        });
-    });
-    
-    siBorrarBoton.addEventListener('click', () => {
-        if (urlEliminar !== '') {
-            window.location.href = urlEliminar; // Redirigir para eliminar la publicación
-        }
-    });
-    
-    noBorrarBoton.addEventListener('click', () => {
-        modalover.style.display = 'none'; // Cerrar la modal
-    });
-    </script>
 
+    <div id="confirmarBorradoModalover" class="modaloverlay">
+        <div class="modal">
+            <h2>¿Estás seguro de desactivar a este usuario?</h2>
+            <div class="separador">
+                <div class="modal-buttons">
+                    <button id="siBorrar" class="modal-button modal-button-danger">Desactivar</button>
+                    <button id="noBorrar" class="modal-button modal-button-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            new DataTable('#example', {
+                columnDefs: [{
+                    targets: 4,
+                    orderable: false,
+                }],
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+    
+            const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
+            const modalover = document.getElementById('confirmarBorradoModalover');
+            const siBorrarBoton = document.getElementById('siBorrar');
+            const noBorrarBoton = document.getElementById('noBorrar');
+            let idEliminar = '';
+    
+            eliminarEnlaces.forEach((enlace) => {
+                enlace.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    idEliminar = event.currentTarget.getAttribute('data-id');
+                    modalover.style.display = 'block';
+                });
+            });
+    
+            siBorrarBoton.addEventListener('click', () => {
+                // Aquí podrías realizar una solicitud al servidor para eliminar el elemento
+                if (idEliminar !== '') {
+                    const elementoAEliminar = document.querySelector(`[data-id="${idEliminar}"]`);
+                    // Eliminar el elemento visualmente
+                    elementoAEliminar.parentNode.removeChild(elementoAEliminar);
+                    modalover.style.display = 'none';
+                }
+            });
+    
+            noBorrarBoton.addEventListener('click', () => {
+                modalover.style.display = 'none';
+            });
+        });
+    </script>
+    
 
 </body>
+
 </html>
 
 <style>
-    #example th:nth-child(9){
-    text-align: center;
-}
+    #example th:nth-child(9) {
+        text-align: center;
+    }
 </style>

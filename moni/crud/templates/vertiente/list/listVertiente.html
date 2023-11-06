@@ -15,9 +15,11 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <title>Listado de Vertientes</title>
 </head>
+
 <body>
+    <!-- Barra Vertical -->
     {% include "barra_lateral_admin.html" %}
-    
+    <!-- FIN Barra Vertical -->
     <nav class="navbar">
         <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
         <div class="navbar-left">
@@ -31,16 +33,15 @@
     </nav>
     
     <div class="container-main">
-        
         <h1 class="main-heading">Administración de Vertientes</h1>
         <div class="button-row">
-        <a href="{% url 'crud:newvert' %}" class="custom-button">
-            <i class="bi bi-plus-circle"></i> Crear nueva Vertiente
-        </a>
-        <br> <!-- Salto de línea -->
-        <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="custom-button">
-            <i class="bi bi-plus-circle"></i> Carga masiva Vertiente
-        </a>
+            <a href="{% url 'crud:newvert' %}" class="custom-button">
+                <i class="bi bi-plus-circle"></i> Crear nueva Vertiente
+            </a>
+            <br> <!-- Salto de línea -->
+            <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="custom-button">
+                <i class="bi bi-plus-circle"></i> Carga masiva Vertiente
+            </a>
         </div>
         
         <div class="vertientes-container">
@@ -48,7 +49,6 @@
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>
-                            
                             <th><div class="separador">Nombre</div></th>
                             <th><div class="separador">Descripción</div></th>
                             <th><div class="separador">Ubicación</div></th>
@@ -58,103 +58,104 @@
                     </thead>
                     <tbody>
                         {% for objeto in listaVertiente %}
-                        <tr>
-                            
-                            <td>{{ objeto.nombre }}</td>
-                            <td>{{ objeto.desc }}</td>
-                            <td>{{ objeto.ubicación }}</td>
-                            <td>{{ objeto.comunidad }}</td>
-                            <td>
-                                <div class="button-container">
-                                    <div class="col-lg-6">
-                                        <label onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button">Editar</label>
-                                        {% if not objeto.is_staff %}
-                                        <a href="#" class="eliminar-button" data-url="{% url 'crud:deletevert' objeto.id  %}"> Eliminar
-                                    
-                                        </a>
-                                        {% endif %}
+                            <tr>
+                                <td>{{ objeto.nombre }}</td>
+                                <td>{{ objeto.desc }}</td>
+                                <td>{{ objeto.ubicación }}</td>
+                                <td>{{ objeto.comunidad }}</td>
+                                <td>
+                                    <div class="button-container">
+                                        <div class="col-lg-6">
+                                            <label onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button">Editar</label>
+                                            {% if not objeto.is_staff %}
+                                            <a href="#" class="eliminar-button" data-url="{% url 'crud:deletevert' objeto.id  %}"> Eliminar
+                                            </a>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
-            
         </div>
     </div>
+    
     <div id="confirmarBorradoModalover" class="modaloverlay">
-    	<div class="modal">
-            <h2>¿Estás seguro de Eliminar a esta Vertiente? </h2>
-            <h2><div class="separador">
-      	<div class="modal-buttons">
-        		<button id="siBorrar" class="modal-button modal-button-danger">Eliminar</button>
-        		<button id="noBorrar" class="modal-button modal-button-secondary">Cancelar</button>
-		</div>
-	</div>
-</div>
+        <div class="modal">
+            <h2>¿Estás seguro de Eliminar a esta Vertiente?</h2>
+            <div class="separador">
+                <div class="modal-buttons">
+                    <button id="siBorrar" class="modal-button modal-button-danger">Eliminar</button>
+                    <button id="noBorrar" class="modal-button modal-button-secondary">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script>
-        new DataTable('#example', {
-            columnDefs: [
-                { "orderable": false, "targets": 4 }
-            ],
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        document.addEventListener("DOMContentLoaded", function () {
+            new DataTable('#example', {
+                columnDefs: [
+                    { "orderable": false, "targets": 4 }
+                ],
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
                 }
-            }
+            });
+
+            const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
+            const modalover = document.getElementById('confirmarBorradoModalover');
+            const siBorrarBoton = document.getElementById('siBorrar');
+            const noBorrarBoton = document.getElementById('noBorrar');
+            let urlEliminar = '';
+            
+            eliminarEnlaces.forEach((enlace) => {
+                enlace.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    urlEliminar = event.currentTarget.getAttribute('data-url');
+                    modalover.style.display = 'block';
+                });
+            });
+            
+            siBorrarBoton.addEventListener('click', () => {
+                if (urlEliminar !== '') {
+                    window.location.href = urlEliminar; 
+                }
+            });
+            
+            noBorrarBoton.addEventListener('click', () => {
+                modalover.style.display = 'none';
+            });
         });
-    const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
-    const modalover = document.getElementById('confirmarBorradoModalover');
-    const siBorrarBoton = document.getElementById('siBorrar');
-    const noBorrarBoton = document.getElementById('noBorrar');
-    let urlEliminar = '';
-    
-    eliminarEnlaces.forEach((enlace) => {
-        enlace.addEventListener('click', (event) => {
-            event.preventDefault();
-            urlEliminar = event.currentTarget.getAttribute('data-url');
-            modalover.style.display = 'block';
-        });
-    });
-    
-    siBorrarBoton.addEventListener('click', () => {
-        if (urlEliminar !== '') {
-            window.location.href = urlEliminar; 
-        }
-    });
-    
-    noBorrarBoton.addEventListener('click', () => {
-        modalover.style.display = 'none';
-    });
     </script>
-
-
 </body>
 </html>
 
 <style>
     #example th:nth-child(5), #example td:nth-child(5) {
-    text-align: center;
-}
+        text-align: center;
+    }
 </style>
