@@ -7,7 +7,13 @@ from queue import Queue  # Para manejar una cola de mensajes
 
 # Importa el modelo 'datos', 'kit' y 'vertiente' de la aplicación 'nucleo'
 from nucleo.models import vertiente, kit, datos
-
+#Correo
+import moni.settings as setting
+from django.template.loader import render_to_string
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from user.models import User
 
 
 # Crear una cola global para almacenar los mensajes recibidos de MQTT
@@ -66,6 +72,54 @@ class MQTTMiddleware:
         else:
             print("No se suscribirá al tópico debido a un error en la conexión.")
 
+
+    def send_email(self, user,informacion,problemas,otros):
+        data={}
+        try:
+            # Definir la URL base de tu sitio
+            base_url = "http://127.0.0.1:8000/"
+
+            # Definir la ruta específica de la vista que deseas vincular
+            ruta = "/inicio/"
+
+            # Crear la URL completa
+            absolute_url = base_url + ruta
+            
+
+
+            mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
+            mailServer.starttls()
+            mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
+        
+            email_to=user.email
+            mensaje=MIMEMultipart()
+            mensaje['From']=setting.EMAIL_HOST_USER
+            mensaje['To']=email_to
+            mensaje['Subject']='Obtención de datos'
+
+
+            content=render_to_string('alert_email.html', {
+                'user':user,
+                'informacion':informacion,
+                'problemas':problemas,
+                'otros':otros,
+                'link_home':absolute_url
+                
+                
+            })
+            mensaje.attach(MIMEText(content,'html'))
+        
+            mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
+            print('Correo enviado correctamente')
+        
+        except Exception as e:
+            print('MALO EMAIL')
+            data['error']=str(e)
+            print(data)
+        
+        return data
+
+
     def save_data(self,data):
         # Comparar data[mac] con el atributo mac de la entidad kit para asignar el id de la vertiente correspondiente
         # Recuperar el ID (Direccion MAC) del mensaje recibido
@@ -94,6 +148,10 @@ class MQTTMiddleware:
         vertiente_id = data_kit.vertiente_id
         vertiente_instance = vertiente.objects.get(id=vertiente_id)
 
+        #Obtiene la comunidad para determinar a los habitantes avisados
+        vert_com=vertiente_instance.comunidad
+        com_id=int(vert_com.id)
+        alerted_user=User.objects.filter(comunidad_id=com_id)
     
 
         # mostrar cual es el dato que falta
@@ -111,6 +169,75 @@ class MQTTMiddleware:
             print("Falta la MAC")
 
         print("Datos válidos")
+
+
+
+        #Se asignan variables a utilizar como apoyo.
+        dict_problemas={}
+        problema=0
+
+        caudal=data["caudal"]
+        caudal_str=str(caudal)
+        pH=data["pH"]
+        pH_str=str(pH)
+        conductividad=data["conductividad"]
+        conductividad_str=str(conductividad)
+        turbiedad=data["turbiedad"]
+        turbiedad_str=str(turbiedad)
+        temperatura=data["temperatura"]
+        temperatura_str=str(temperatura)
+        humedad=data["humedad"]
+        humedad_str=str(humedad)
+
+        
+
+        #Revisión y almacenaje de problemas en dict_problemas
+        if caudal>700:
+            dict_problemas['Caudal']=caudal_str+' L/m'+'  ( El caudal debe tener un flujo menor a 700 L/m )'
+            problema=problema+1
+        if pH<6 or pH>8.5:
+            dict_problemas['pH']=pH_str+' pH'+'  ( El pH debe encontrarse dentro del rango 6-8.5 )'
+            problema=problema+1
+        if conductividad>1500:
+            dict_problemas['Conductividad']=conductividad_str+' µS/cm'+'  ( La conductividad debe ser menor a 1500 µS/cm )'
+            problema=problema+1
+        if turbiedad>5:
+            dict_problemas['Turbiedad']=turbiedad_str+' NTU'+'  ( La turbiedad debe ser igual o menor a 5 NTU )'
+            problema=problema+1
+        if temperatura<20 or temperatura>30:
+            dict_problemas['Temperatura']=temperatura_str+' °C'+'  ( La temperatura debe estar dentro del rango de 20-30°C )'
+            problema=problema+1
+        if humedad>60:
+            dict_problemas['Humedad']=humedad_str+' %'+'  ( La humedad debe ser menor o igual al 60 % )'
+            problema=problema+1
+        
+
+        #Revisión de problemas
+        if problema>=1:
+            #Se guardan todos los datos recopilados
+            informacion={
+            'Caudal':caudal_str+' L/m',
+            'pH':pH_str+' pH',
+            'Conductividad':conductividad_str+' µS/cm',
+            'Turbiedad':turbiedad_str+' NTU',
+            'Temperatura':temperatura_str+' °C',
+            'Humedad':humedad_str+' %'
+            }
+
+            #Se guardan el nombre de la vertiente analizada
+            vert_nombre=vertiente_instance.nombre
+            otros={
+                'vertiente_nombre':vert_nombre
+            }
+        
+
+            #Se envian correos a todos los habitantes de la comunidad con la vertiente en problemas
+            for user_advice in alerted_user:
+                self.send_email(user_advice, informacion,dict_problemas, otros)
+
+
+        
+        
 
         # Guardar los datos
         dato = datos(

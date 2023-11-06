@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from nucleo.models import *
 from user.models import User
-from crud.forms import VertienteForm, UpdateForm
+from crud.forms import VertienteForm, UpdateForm, UpdateFormPerfil
 from nucleo.models import datos
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import render
@@ -116,9 +116,18 @@ def detector(request):
 @method_decorator(login_required,name='dispatch')
 class ActualizarPerfil(UpdateView):
     model = User
-    form_class = UpdateForm
+    form_class = UpdateFormPerfil
     template_name = 'perfil/miPerfil.html'
     success_url = reverse_lazy('habi:detect')
+
+    
+    def form_valid(self, form):
+        # Asigna el grupo basado en el valor seleccionado en el campo "Rol"
+        user = form.save(commit=False)
+        nueva_contraseña = form.cleaned_data['nueva_contraseña']
+        user.set_password(nueva_contraseña)  # Establece la nueva contraseña
+        user.save()
+        return super().form_valid(form)
 
 #DATOS
 

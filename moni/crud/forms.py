@@ -242,4 +242,77 @@ class UpdateForm(ModelForm):
     
     
 
+class UpdateFormPerfil(ModelForm):
     
+    email = forms.CharField(validators=[validators.EmailValidator(message="El correo electrónico debe ser válido.")])
+    nueva_contraseña = forms.CharField(max_length=100)
+    confirmar_contraseña = forms.CharField(max_length=100)
+    class Meta:
+        model= User
+        fields=['username','first_name','last_name','email',
+                'edad','comunidad']
+        labels={
+            'username':'RUT',
+            'first_name':'Nombre',
+            'last_name':'Apellido',
+            'email':'Correo electronico',
+            'edad':'Edad',
+            
+        }
+        widgets={
+            'username':TextInput( 
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Escriba su rut con el formato: (203627904)'
+
+                }
+            ),
+            'first_name':TextInput( 
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Pedro'
+
+                }
+            ),
+            'last_name':TextInput( 
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Muñoz'
+
+                }
+            ),
+            'email':TextInput( 
+                attrs={
+                    'class':'form-control',
+                    'placeholder':'Pedromuñoz@gmail.com'
+
+                }
+            )
+            
+        }
+
+
+    def __init__(self, *args, **kwargs):
+        super(UpdateFormPerfil, self).__init__(*args, **kwargs)
+        self.fields['comunidad'].required = True
+        self.fields['username'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['edad'].required = True
+        self.fields['email'].required = True
+        
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        validate_rut(username)  # Llama a la función de validación personalizada
+        return username
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        nueva_contraseña = cleaned_data.get("nueva_contraseña")
+        confirmar_contraseña = cleaned_data.get("confirmar_contraseña")
+
+        if nueva_contraseña != confirmar_contraseña:
+            raise forms.ValidationError("Las contraseñas no coinciden")
+
+        

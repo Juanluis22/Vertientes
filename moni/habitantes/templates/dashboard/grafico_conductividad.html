@@ -13,13 +13,21 @@
     <title>Gráfico de conductividad</title>   
 </head>
 <body>
+    {% if user_type == "admin" %}
     <!--Barra Vertical-->
     {% include "barra_lateral_admin.html" %}
     <!-- FIN Barra Vertical-->
-
     <!--Barra Superior-->
     {% include "barra_superior_admin.html" %}
     <!--FIN Barra Superior-->
+{% else %}
+    <!--Barra Vertical-->
+    {% include "barra_lateral_habitante.html" %}
+    <!-- FIN Barra Vertical-->
+    <!--Barra Superior-->
+    {% include "barra_superior_habitante.html" %}
+    <!--FIN Barra Superior-->
+{% endif %}
 
     <div class="container">
 
