@@ -135,7 +135,7 @@ def sse_datos(request, objecto_id):
             s = f"event: new-data\ndata: {json.dumps(model_to_dict(ultimo_dato))}\n\n"
             #print(ultimo_dato)  # Esto imprimirá la representación del objeto
             #print(model_to_dict(ultimo_dato))  # Esto imprimirá la versión diccionario del objeto
-            time.sleep(5)
+            time.sleep(4)
 
             yield s
             #time.sleep(1)  # Puedes ajustar el tiempo de espera según lo necesites
