@@ -55,8 +55,9 @@ class Indice(TemplateView):
         perfil_usuario=Profile.objects.get(user_id=id_user)
         grupo_usuario=perfil_usuario.group
         tipo_usuario=str(grupo_usuario)
+        print(tipo_usuario)
         
-        if tipo_usuario=='Administrador' or 'Usuario':
+        if tipo_usuario=='Administrador':
             print('Admitido')
             return super().get(request, *args, **kwargs)
         print('No admitido')
