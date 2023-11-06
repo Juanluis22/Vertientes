@@ -40,10 +40,11 @@ urlpatterns = [
     path("actualizacion_kit/<int:pk>/", ActualizarKit.as_view(), name='updatekit'),
 
     #Eliminación
-    path("eliminar_comunidad/<int:pk>/", EliminarComunidad.as_view(), name='deletecom'),
-    path("eliminar_usuario/<int:pk>/", EliminarUsuario.as_view(), name='deleteUser'),
-    path("eliminar_vertiente/<int:pk>/", EliminarVertiente.as_view(), name='deletevert'),
-    path("eliminar_kit/<int:pk>/", EliminarKit.as_view(), name='deletekit'),
+
+    path("eliminar_comunidad/<int:pk>/", eliminar_comunidad, name='deletecom'),
+    path("eliminar_usuario/<int:pk>/", eliminar_peticion, name='deleteUser'),
+    path("eliminar_vertiente/<int:pk>/", eliminar_vertiente, name='deletevert'),
+    path("eliminar_kit/<int:pk>/", eliminar_kit, name='deletekit'),
 
 
 

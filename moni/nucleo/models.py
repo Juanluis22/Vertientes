@@ -57,7 +57,7 @@ class kit(models.Model):
     # ubicacion=models.CharField(max_length=200,verbose_name='Ubicación',null=True, blank=True)
 
     def __str__(self):
-        return self.modelo
+        return str(self.modelo)
     
     class Meta:
         verbose_name='Kit'

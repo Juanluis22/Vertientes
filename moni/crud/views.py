@@ -252,29 +252,13 @@ class ActualizarPeticiones(UpdateView):
 
 
 
-    
-@method_decorator(login_required,name='dispatch')
-class EliminarUsuario(DeleteView):
-    model=User
-    template_name='usuario/delete/deleteUser.html'
-    success_url=reverse_lazy('crud:listpet')
 
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
+def eliminar_peticion(request, pk):
+    pet_eliminado=User.objects.get(id=pk)
+    pet_eliminado.delete()
 
-
-
+    return redirect('crud:listpet') 
 
 
 
@@ -378,25 +362,14 @@ class ActualizarComunidad(UpdateView):
         print('No admitido')
         return redirect('nucleo:inicio')
     
-@method_decorator(login_required,name='dispatch')
-class EliminarComunidad(DeleteView):
-    model=comunidad
-    template_name='comunidad/delete/deleteComu.html'
-    success_url=reverse_lazy('crud:listcom')
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
 
+
+def eliminar_comunidad(request, pk):
+    com_eliminado=comunidad.objects.get(id=pk)
+    com_eliminado.delete()
+
+    return redirect('crud:listcom') 
 
 
 
@@ -537,28 +510,13 @@ class ActualizarVertiente(UpdateView):
 
 
 
+
+
+def eliminar_vertiente(request, pk):
+    vert_eliminado=vertiente.objects.get(id=pk)
+    vert_eliminado.delete()
     
-@method_decorator(login_required,name='dispatch')    
-class EliminarVertiente(DeleteView):
-    model=vertiente
-    template_name='vertiente/delete/deleteVert.html'
-    success_url=reverse_lazy('crud:listvert')
-
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-
-
-
+    return redirect('crud:listvert') 
 
 
 
@@ -705,31 +663,15 @@ class ActualizarKit(UpdateView):
         print('No admitido')
         return redirect('nucleo:inicio')
 
-#Vista para eliminar kit
+#Función para eliminar kit
 
-@method_decorator(login_required,name='dispatch')
-class EliminarKit(DeleteView):
-    model=kit
-    template_name='kit/delete/deleteKit.html'
-    success_url=reverse_lazy('crud:listkit')
+def eliminar_kit(request, pk):
+    
+    kit_eliminado=kit.objects.get(id=pk)
+    kit_eliminado.delete()
+    
 
-
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-
-
-
-
+    return redirect('crud:listkit') 
 
 
 
