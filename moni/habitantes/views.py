@@ -125,8 +125,11 @@ class ActualizarPerfil(UpdateView):
         # Asigna el grupo basado en el valor seleccionado en el campo "Rol"
         user = form.save(commit=False)
         nueva_contraseña = form.cleaned_data['nueva_contraseña']
-        user.set_password(nueva_contraseña)  # Establece la nueva contraseña
-        user.save()
+        if nueva_contraseña!="":
+            user.set_password(nueva_contraseña)  # Establece la nueva contraseña
+            user.save()
+            print(user.password)
+        
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
