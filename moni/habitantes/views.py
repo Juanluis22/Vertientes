@@ -57,6 +57,7 @@ def filtro(request, object_id):
 @login_required
 def revision_autoridad(request, objecto_id):
     print("ID del objeto vertinetes: ", objecto_id)
+    #print("ID del objeto vertinetes: ", objecto_id)
     # Obtiene el objeto vertiente con el ID especificado o devuelve un error 404 si no se encuentra
     vertiente_obj = get_object_or_404(vertiente, pk=objecto_id)
     
