@@ -134,8 +134,9 @@
         var currentRange = document.getElementById('dateRange').value;
 
         document.getElementById('dateRange').addEventListener('change', function() {
-            currentRange = this.value;
-        });
+                currentRange = this.value;
+                this.form.submit(); // Tu código aquí
+            });
 
 
         // Crear el gráfico de línea

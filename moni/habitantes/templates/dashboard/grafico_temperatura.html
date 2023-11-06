@@ -7,10 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
     <link rel="stylesheet" href="{% static 'css/grafico.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resumen.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Gráfico de temperatura</title>
+
+    <link rel="stylesheet" href="{% static 'css/vertientes.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 <body>
     {% if user_type == "admin" %}
@@ -29,33 +33,88 @@
             <!--FIN Barra Superior-->
         {% endif %}
     
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 chart-container" style="color: rgb(0, 0, 0); font-weight: bold;">
-                <h2>Comunidad: {{ veriente_comunidad  }}</h2>
-                <h2>Vertiente: {{ veriente_nombre }}</h2>
-                <h3>Ubicación: {{ veriente_ubicacion }}</h3>
+        <div class="vertientes-container" style="">
+            
+            <!-- Header de Bienvenida-->
+            <div class="vertientes-header" style="background-image: url('/static/img/imagen_heade_datos.png');border-radius: 30px;padding: 20px;margin-top: 10px;">
+                <div class="title-section" style="color: white; text-align: left;">
+                    <h1 class="card-title" style="font-weight: bold;">
+                        Bienvenido al monitorio remoto de vertientes
+                    </h1>
+                    <h2>Comunidad: {{ veriente_comunidad }}</h2>
+                    <h2>Vertiente: {{ veriente_nombre }}</h2>
+                    <h3>Ubicación: {{ veriente_ubicacion }}</h3>
+                </div>
+                <div class="info-icon">
+                    <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
+                    <div id="text1" class="hidden-text" style="color: white; text-align: left;">
+                        <p>Aquí puedes ver en detalle todas las mediciones a la vertiente que has escogido</p>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6 chart-container">
-                <canvas id="lineChart" width="400" height="400" style="background-color: white;"></canvas>
-            </div>
-            <div class="container">
-                <form method="get" style="margin-left: 150px; margin-top:15px;">
-                    <label for="dateRange">Selecciona un rango de fechas:</label>
-                    <select id="dateRange" name="date_range">
-                        <option value="all">Todos los datos</option>
-                        <option value="today">Hoy</option>
-                        <option value="yesterday">Ayer</option>
-                        <option value="thisWeek">Esta semana</option>
-                        <option value="thisMonth">Este mes</option>
-                        <option value="thisYear">Este año</option>
-                    </select>
-                </form>
+
+            
+            <div class="dashboard-section">
+                
+                <div class="container">
+                    <form method="get"style="margin-left: 150px; margin-top:-10px; margin-bottom:-50px">
+                        <label for="dateRange">Selecciona un rango de fechas:</label>
+                        <select id="dateRange" name="date_range">
+                            <option value="all">Todos los datos</option>
+                            <option value="today">Hoy</option>
+                            <option value="yesterday">Ayer</option>
+                            <option value="thisWeek">Esta semana</option>
+                            <option value="thisMonth">Este mes</option>
+                            <option value="thisYear">Este año</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="container">
+                    <!-- Agregar la clase chart-container y el margen izquierdo -->
+                    <canvas id="lineChart"width="900px"height="400px"style="background-color: white"></canvas>
+                </div>
+
+                <div id="data-container" data-datajson="{{ data_json }}"></div>
+
+                <div class="container">
+                    <div class="resumen">
+                        <!-- Card para el Resumen Exploratorio -->
+                        <div class="card">
+                            <div class="card-header" >
+                                Resumen Exploratorio de Datos
+                            </div>
+                            <div class="card-body">
+                                <div class="row"> <!-- Añadido contenedor de fila -->
+                
+                                    <div class="col"> <!-- Columna para Medidas de Tendencia Central -->
+                                        <h5 class="card-title">Medidas de Tendencia Central</h5>
+                                        <p class="card-text">Media (promedio): <span id="media"></span></p>
+                                        <p class="card-text">Mediana: <span id="mediana"></span></p>
+                                    </div>
+                
+                                    <div class="col"> <!-- Columna para Medidas de Dispersión -->
+                                        <h5 class="card-title">Medidas de Dispersión</h5>
+                                        <p class="card-text">Rango: <span id="rango"></span></p>
+                                        <p class="card-text">Varianza: <span id="varianza"></span></p>
+                                        <p class="card-text">Desviación Estándar: <span id="desviacionEstandar"></span></p>
+                                    </div>
+                
+                                    <div class="col"> <!-- Columna para Valores -->
+                                        <h5 class="card-title">Valores</h5>
+                                        <p class="card-text">Mínimo: <span id="minimo"></span></p>
+                                        <p class="card-text">Máximo: <span id="maximo"></span></p>
+                                        <p class="card-text">Número total de observaciones: <span id="observaciones"></span></p>
+                                    </div>
+                
+                                </div> <!-- Fin del contenedor de fila -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-    
-    <div id="data-container" data-datajson="{{ data_json }}"></div>
     
     <script>
         // Obtener el elemento con los datos JSON
@@ -142,8 +201,9 @@
         var currentRange = document.getElementById('dateRange').value;
     
         document.getElementById('dateRange').addEventListener('change', function() {
-            currentRange = this.value;
-        });
+                currentRange = this.value;
+                this.form.submit(); // Tu código aquí
+            });
     
         // Crear el gráfico de línea
         var lineChart = new Chart(ctx, {
@@ -151,6 +211,33 @@
             data: chartData,
             options: chartOptions
         });
+
+        // Función para actualizar el resumen exploratorio de datos
+        function actualizarResumenExploratorio() {
+            // Obtener los datos desde el atributo 'data-json'
+            var dataFromDjango = JSON.parse(document.getElementById('data-container').getAttribute('data-datajson'));
+            var values = dataFromDjango.values.map(Number); // Asegurarse de que los valores sean números
+            
+            // Calcula las estadísticas
+            var sum = values.reduce((a, b) => a + b, 0);
+            var media = sum / values.length;
+            var sortedValues = values.slice().sort((a,b) => a - b);
+            var mid = Math.floor(sortedValues.length / 2);
+            var mediana = sortedValues.length % 2 === 0 ? (sortedValues[mid - 1] + sortedValues[mid]) / 2 : sortedValues[mid];
+            var rango = Math.max(...sortedValues) - Math.min(...sortedValues);
+            var varianza = sortedValues.reduce((a, b) => a + Math.pow(b - media, 2), 0) / sortedValues.length;
+            var desviacionEstandar = Math.sqrt(varianza);
+            
+            // Actualiza los valores en la tarjeta
+            document.getElementById('media').textContent = media.toFixed(2);
+            document.getElementById('mediana').textContent = mediana.toFixed(2);
+            document.getElementById('rango').textContent = rango.toFixed(2);
+            document.getElementById('varianza').textContent = varianza.toFixed(2);
+            document.getElementById('desviacionEstandar').textContent = desviacionEstandar.toFixed(2);
+            document.getElementById('minimo').textContent = Math.min(...sortedValues).toFixed(2);
+            document.getElementById('maximo').textContent = Math.max(...sortedValues).toFixed(2);
+            document.getElementById('observaciones').textContent = sortedValues.length;
+        }
     
         var eventSource;
     
@@ -167,13 +254,18 @@
             eventSource = new EventSource(eventSourceUrl);
             
             eventSource.onmessage = function(event) {
-                console.log(event.data);
                 var newData = JSON.parse(event.data);
-    
+                
                 // Actualizar los datos del gráfico
                 lineChart.data.labels = newData.labels;
                 lineChart.data.datasets[0].data = newData.values;
-                lineChart.update();  // Refrescar el gráfico con los nuevos datos
+                lineChart.update();
+                
+                // Actualiza el atributo data-datajson con los nuevos datos
+                dataContainer.setAttribute('data-datajson', JSON.stringify(newData));
+            
+                // Llama a actualizarResumenExploratorio para refrescar el resumen con los nuevos datos
+                actualizarResumenExploratorio();
             };
         }
     
