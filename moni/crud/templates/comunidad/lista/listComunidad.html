@@ -60,8 +60,8 @@
                         <tr>
                             <td>{{ objeto.nombre }}</td>
                             <td>{{ objeto.ubicación }}</td>
-                            <td> </td>
-                            <td> </td> 
+                            <td>{{ objeto.encargado }}</td>
+                            <td>{{ objeto.contacto_encargado }}</td> 
                             <td>
                                 <div class="button-container">
                                     <label onclick="window.location.href='{% url 'crud:updatecom' objeto.id %}'" class="editar-button">Editar</label>
