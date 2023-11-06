@@ -300,7 +300,8 @@ class UpdateFormPerfil(ModelForm):
         self.fields['last_name'].required = True
         self.fields['edad'].required = True
         self.fields['email'].required = True
-        
+        self.fields['confirmar_contraseña'].required = False
+        self.fields['nueva_contraseña'].required = False        
 
     def clean_username(self):
         username = self.cleaned_data['username']
