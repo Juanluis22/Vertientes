@@ -4,6 +4,8 @@ from datetime import datetime
 # Create your models here.
 class comunidad(models.Model):
     nombre=models.CharField(max_length=150,verbose_name='Nombre')
+    encargado=models.CharField(max_length=100,verbose_name='Encargado',null=False, blank=False)
+    contacto_encargado=models.CharField(max_length=100,verbose_name='Contacto del encargado',null=False, blank=False)
     vertientes=models.PositiveIntegerField(default=0,null=True, blank=True)
     ubicación=models.CharField(max_length=200,verbose_name='Ubicación',null=True, blank=True)
     latitud=models.FloatField(null=True, blank=True)

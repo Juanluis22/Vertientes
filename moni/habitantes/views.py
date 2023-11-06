@@ -128,6 +128,11 @@ class ActualizarPerfil(UpdateView):
         user.set_password(nueva_contraseña)  # Establece la nueva contraseña
         user.save()
         return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['user_id']=self.kwargs['pk']
+        return context
 
 #DATOS
 
