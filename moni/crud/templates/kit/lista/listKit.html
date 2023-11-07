@@ -35,16 +35,16 @@
         <h1 class="main-heading">Administración de Kit's</h1>
         <div class="button-row">
             <a href="{% url 'crud:newkit' %}" class="custom-button">
-                <i class="bi bi-plus-circle"></i> Crear nuevo Kit
+                <i class="bi bi-plus-circle" style="margin: 2px;"></i> Crear nuevo Kit
             </a>
             <br> 
             <a href="{% url 'nucleo:kit_massive_upload' %}" class="custom-button">
-                <i class="bi bi-plus-circle"></i> Carga masiva Kit
+                <i class="bi bi-plus-circle" style="margin: 2px;"></i> Carga masiva Kit
             </a>
         </div>
 
         <div class="vertientes-container">
-            <div class="card-body">
+            <div class="table-container">
                 <table id="example" class="display">
                     <thead>
                         <tr>
@@ -65,9 +65,7 @@
                             <td>
                                 <div class="button-container">
                                     <label onclick="window.location.href='{% url 'crud:updatekit' objeto.id %}'" class="editar-button">Editar</label>
-                                    <a href="#" class="eliminar-button" data-url="{% url 'crud:deletekit' objeto.id  %}"> Eliminar
-                                    
-                                    </a>
+                                    <a href="#" class="eliminar-button" data-url="{% url 'crud:deletekit' objeto.id  %}"> Eliminar </a>
                                 </div>
                             </td>
                         </tr>

@@ -15,6 +15,12 @@ body {
     padding-top: 60px;
 }
 
+.vertientes-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .main-heading {
     font-size: 25px;
     padding-top: 2%;
@@ -58,8 +64,6 @@ body {
 }
 
 .dataTables_wrapper {
-    width: 1200px;
-    padding-right: 10px;
     margin: 0 auto;
 }
 
@@ -110,7 +114,6 @@ body {
     border: none;
     background: none;
     padding: 10px;
-    
     background-color: #3393B7;
 }
 
@@ -129,6 +132,17 @@ body {
     background-color: #f2f2f2;
 }
 
+.table-container {
+    overflow-x: auto;
+    width: 1200px;
+    margin: 0 auto;   
+}
+
+#example {
+    width: 100%;
+    -webkit-column-break-after: auto;
+}
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -145,7 +159,6 @@ body {
     transition: background-color 0.3s, color 0.3s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     text-decoration: none;
-    
 }
 
 .editar-button:hover, .eliminar-button:hover {
@@ -166,7 +179,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     margin-top: 40px;
     gap: 15px;
     font-size: 18px
@@ -201,12 +214,16 @@ body {
 .dataTables_wrapper .dataTables_filter {
     margin-top: 0.5em;
     margin-left: 10px;
+
+}
+.custom-button{
+    display: inline-block;
+    padding: 15px 25px;
 }
 }
 
 @media screen and (max-width: 1350px){
     .container-main {
-        width: 1200px;
         padding-left: 110px;
         padding-top: 60px;
     }

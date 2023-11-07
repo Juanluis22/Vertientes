@@ -36,16 +36,16 @@
         <h1 class="main-heading">Administración de Vertientes</h1>
         <div class="button-row">
             <a href="{% url 'crud:newvert' %}" class="custom-button">
-                <i class="bi bi-plus-circle"></i> Crear nueva Vertiente
+                <i class="bi bi-plus-circle" style="margin: 2px;"></i> Crear nueva Vertiente
             </a>
             <br> <!-- Salto de línea -->
             <a href="{% url 'nucleo:vertiente_massive_upload' %}" class="custom-button">
-                <i class="bi bi-plus-circle"></i> Carga masiva Vertiente
+                <i class="bi bi-plus-circle" style="margin: 2px;"></i> Carga masiva Vertiente
             </a>
         </div>
         
         <div class="vertientes-container">
-            <div class="card-body">
+            <div class="table-container">
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>
@@ -65,13 +65,10 @@
                                 <td>{{ objeto.comunidad }}</td>
                                 <td>
                                     <div class="button-container">
-                                        <div class="col-lg-6">
                                             <label onclick="window.location.href='{% url 'crud:updatevert' objeto.id %}'" class="editar-button">Editar</label>
                                             {% if not objeto.is_staff %}
-                                            <a href="#" class="eliminar-button" data-url="{% url 'crud:deletevert' objeto.id  %}"> Eliminar
-                                            </a>
+                                            <a href="#" class="eliminar-button" data-url="{% url 'crud:deletevert' objeto.id  %}"> Eliminar</a>
                                             {% endif %}
-                                        </div>
                                     </div>
                                 </td>
                             </tr>
