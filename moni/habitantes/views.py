@@ -81,7 +81,7 @@ def filtro(request, object_id):
 
 
 @login_required
-def revision_autoridad(request, objecto_id):
+def revision_admin(request, objecto_id):
     print("ID del objeto vertinetes: ", objecto_id)
     #print("ID del objeto vertinetes: ", objecto_id)
     # Obtiene el objeto vertiente con el ID especificado o devuelve un error 404 si no se encuentra
@@ -103,6 +103,30 @@ def revision_autoridad(request, objecto_id):
     
     # Renderiza la plantilla 'dashboard_autoridad.html' con el diccionario de datos y devuelve la respuesta
     return render(request, 'dashboard/dashboard_admin.html', data)
+
+@login_required
+def revision_autoridad(request, objecto_id):
+    print("ID del objeto vertinetes: ", objecto_id)
+    #print("ID del objeto vertinetes: ", objecto_id)
+    # Obtiene el objeto vertiente con el ID especificado o devuelve un error 404 si no se encuentra
+    vertiente_obj = get_object_or_404(vertiente, pk=objecto_id)
+    
+    # Obtiene el último dato registrado para esta vertiente (asumiendo que estás usando la fecha para ordenar)
+    ultimo_dato = datos.objects.filter(vertiente=vertiente_obj).order_by('-fecha').first()
+    
+    comunidad_info = vertiente_obj.comunidad
+    
+    # Crea un diccionario con toda la información que se pasará a la plantilla
+    data = {
+        #'ultimo_dato': ultimo_dato,           # El último dato registrado para esta vertiente
+        'vertiente': vertiente_obj,
+        'comunidad': comunidad_info,
+        'ubicación': vertiente_obj.ubicación,
+        'objecto_id': objecto_id
+    }
+    
+    # Renderiza la plantilla 'dashboard_autoridad.html' con el diccionario de datos y devuelve la respuesta
+    return render(request, 'dashboard/dashboard_autoridad.html', data)
 
 
 #fusionar ambos def revision
@@ -222,10 +246,19 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
 
     #Comprobar si el usuario es admin o habitante
     user = request.user
-    if user.is_staff:
+    id_us=user.id
+    print(id_us)
+    ara=Profile.objects.get(user_id=id_us)
+    ba=ara.group
+    print(ba)
+    ba_str=str(ba)
+    
+    if ba_str=="Administrador":
         user_type = "admin"
-    else:
+    elif ba_str=="Usuario":
         user_type = "habitante"
+    elif ba_str=="Autoridad":
+        user_type="Autoridad"
 
 
     date_range = request.GET.get('date_range', 'all')
