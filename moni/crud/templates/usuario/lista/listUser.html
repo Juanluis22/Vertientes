@@ -133,34 +133,29 @@
                     }
                 }
             });
-    
-            const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
-            const modalover = document.getElementById('confirmarBorradoModalover');
-            const siBorrarBoton = document.getElementById('siBorrar');
-            const noBorrarBoton = document.getElementById('noBorrar');
-            let idEliminar = '';
-    
-            eliminarEnlaces.forEach((enlace) => {
-                enlace.addEventListener('click', (event) => {
-                    event.preventDefault();
-                    idEliminar = event.currentTarget.getAttribute('data-id');
-                    modalover.style.display = 'block';
-                });
+        });
+        const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
+        const modalover = document.getElementById('confirmarBorradoModalover');
+        const siBorrarBoton = document.getElementById('siBorrar');
+        const noBorrarBoton = document.getElementById('noBorrar');
+        let urlEliminar = '';
+
+        eliminarEnlaces.forEach((enlace) => {
+            enlace.addEventListener('click', (event) => {
+                event.preventDefault();
+                urlEliminar = event.currentTarget.getAttribute('data-url');
+                modalover.style.display = 'block';
             });
-    
-            siBorrarBoton.addEventListener('click', () => {
-                // Aquí podrías realizar una solicitud al servidor para eliminar el elemento
-                if (idEliminar !== '') {
-                    const elementoAEliminar = document.querySelector(`[data-id="${idEliminar}"]`);
-                    // Eliminar el elemento visualmente
-                    elementoAEliminar.parentNode.removeChild(elementoAEliminar);
-                    modalover.style.display = 'none';
-                }
-            });
-    
-            noBorrarBoton.addEventListener('click', () => {
-                modalover.style.display = 'none';
-            });
+        });
+
+        siBorrarBoton.addEventListener('click', () => {
+            if (urlEliminar !== '') {
+                window.location.href = urlEliminar;
+            }
+        });
+
+        noBorrarBoton.addEventListener('click', () => {
+            modalover.style.display = 'none';
         });
     </script>
     
