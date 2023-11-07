@@ -6,22 +6,33 @@ from nucleo.models import comunidad
 from user.models import Profile
 # Create your views here.
 
-#Selector de comunidades para el admin
-@method_decorator(login_required,name='dispatch')
-class Comunidades(ListView):
-    model = comunidad  # Especifica el modelo que deseas mostrar en la lista
-    template_name = 'selector/comuni.html'  # Nombre de la plantilla a utilizar
+@method_decorator(login_required, name='dispatch')
+class ComunidadesAdmin(ListView):
+    model = comunidad
     context_object_name = 'listaComunidades'
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador' or tipo_usuario=='Autoridad':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
+    def get_template_names(self):
+        perfil_usuario = Profile.objects.get(user_id=self.request.user.id)
+        if perfil_usuario.group.name == 'Administrador':
+            return ['selector/comuni.html']
+        else:
+            return ['nucleo:inicio']  # o cualquier otra plantilla que quieras mostrar si no es admin
+
+    def get_queryset(self):
+        # Asegúrate de filtrar la lista de comunidades si es necesario
+        return super().get_queryset()
+
+class ComunidadesAutoridad(ListView):
+    model = comunidad
+    context_object_name = 'listaComunidades'
+
+    def get_template_names(self):
+        perfil_usuario = Profile.objects.get(user_id=self.request.user.id)
+        if perfil_usuario.group.name == 'Autoridad':
+            return ['selector/comuni_autoridad.html']
+        else:
+            return ['nucleo:inicio']  # o cualquier otra plantilla que quieras mostrar si no es autoridad
+
+    def get_queryset(self):
+        # Asegúrate de filtrar la lista de comunidades si es necesario
+        return super().get_queryset()

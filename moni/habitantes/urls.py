@@ -10,7 +10,13 @@ urlpatterns = [
     path("vertientes/<int:objecto_id>/", revision_autoridad, name='verti_autoridad'),
     path("vertiente/<int:objecto_id>/<int:objecto_id_2>/", revision, name='verti'),
     path("detector/", detector, name='detect'),
+    path("vertientes_autoridad/<int:objecto_id>/", revision_autoridad, name='vertientes_autoridad'),
+
+
+
+
     
+
     # Gráficos
     path('grafico/<str:tipo_grafico>/<int:vertiente_id>/', views.grafico_generico, name='grafico_generico'),
     

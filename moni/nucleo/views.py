@@ -262,7 +262,7 @@ def revision(request):
         if profile.group_id == 2:
             return redirect('habi:detect')  # Redirige al perfil del usuario
         if profile.group_id == 3:
-            return redirect('eva:comuni')  # Redirige al perfil del autoridad
+            return redirect('eva:comuni_autoridad')  # Redirige al perfil del autoridad
     else:
         return redirect('nucleo:login')  # Redirige al formulario de inicio de sesión
     

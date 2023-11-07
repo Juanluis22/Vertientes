@@ -675,39 +675,39 @@ def eliminar_kit(request, pk):
 
 
 
-
-
-
-
-
-
-
-
-
-
-@method_decorator([csrf_exempt, login_required],name='dispatch')
-class mapa_general(CreateView):
+@method_decorator([csrf_exempt, login_required], name='dispatch')
+class MapaGeneral(CreateView):
     model = vertiente
     form_class = VertienteForm
     template_name = 'mapa_general/map.html'
 
-    #def get_success_url(self):
-    #    return reverse('crud:listvert') 
-    
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        print(id_user)
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        print(tipo_usuario)
-        
-        if tipo_usuario=='Administrador' or tipo_usuario=='Autoridad':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
+    def dispatch(self, request, *args, **kwargs):
+        usuario = request.user
+        perfil_usuario = Profile.objects.get(user_id=usuario.id)
+        grupo_usuario = perfil_usuario.group
+        tipo_usuario = str(grupo_usuario)
+
+        if tipo_usuario == 'Administrador':
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            return redirect('nucleo:inicio')
+
+@method_decorator([csrf_exempt, login_required], name='dispatch')
+class MapaAutoridad(CreateView):
+    model = vertiente
+    form_class = VertienteForm
+    template_name = 'mapa_general/map_autoridad.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        usuario = request.user
+        perfil_usuario = Profile.objects.get(user_id=usuario.id)
+        grupo_usuario = perfil_usuario.group
+        tipo_usuario = str(grupo_usuario)
+
+        if tipo_usuario == 'Autoridad':
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            return redirect('nucleo:inicio')
 
 
 

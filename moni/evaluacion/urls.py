@@ -6,6 +6,6 @@ app_name='eva'
 urlpatterns = [
     
     #selector de comunidades para el admin
-    path("selector/", Comunidades.as_view(), name='comuni'),
-
+    path('admin/comunidades/', ComunidadesAdmin.as_view(), name='comuni'),
+    path('autoridad/comunidades/', ComunidadesAutoridad.as_view(), name='comuni_autoridad'),
 ]

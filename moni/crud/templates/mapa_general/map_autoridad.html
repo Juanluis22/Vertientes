@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <link rel="stylesheet" href="{% static 'css/Gestion usuarios.css' %}">
+        <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+        <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>Mapa</title>
+
+    </head>
+    
+    <body>
+      {% include "barra_lateral_autoridad.html" %}
+        
+        <nav class="navbar">
+          <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
+            <div class="navbar-left">
+                <span class="hidro-tech">HidroTech</span>
+            </div>
+            <div class="navbar-center">
+                <div class="admin-box">Vista Autoridad</div>
+            </div>
+            <a href="{% url 'eva:comuni_autoridad' %}" class="volverr">Volver</a>
+            <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+        </nav>
+        
+
+        <div class="contenido-rectangulo3">
+            <div class="contenido-rectangulo4">
+                <h1>
+                    Vista satelital de todas las vertientes
+                    <i class="fas fa-info-circle" onmouseover="showText('infoText')" onmouseout="hideText('infoText')"></i>
+                </h1>
+                <div id="infoText" class="hidden-textsas">
+                  <p>Esta página muestra una vista satelital de todas las comunidades registradas y sus vertientes.</p>
+                  <p>En el mapa, puedes encontrar la ubicación de las comunidades.</p>
+                  <p>Puedes filtrar por el nombre de la comunidad y se te mostrarán las vertientes asociadas a esta.</p>
+                  
+                </div>
+            </div>
+            <div class="form-mapasera">
+              <form method="post">
+                {{ form.errors }}
+            <div class="card-body">
+              {% csrf_token %}
+              {% for field in form.visible_fields %}
+              <div class="form-group">
+                <div class="form-group {% if field.name == 'nombre' or field.name == 'desc' or field.name == 'ubicación' or field.name == 'latitud' or field.name == 'longitud' %}hidden{% endif %}">
+                <label for="email">{{ field.label }}  </label>
+                {{ field }}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </form>
+        </div>
+            <div class="contendos">
+            <div id="map" class="rectangulos-container2"> 
+              {{ vertientes|json_script:"vertientes_json" }}
+              {{ comunidades|json_script:"comunidades_json" }}
+              <input type="hidden" name="action" value="listo">
+            <div id="map" class="rectangulos-container2"></div>
+        </div>
+        <div class="rectangulo rectangulo-verde2">
+            <div class="contenidorectanguloverde">
+              <div class="item">
+                <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Tu imagen">
+                <span class="gestion-text" style="color: white; font-size: 23px;">Muestra el lugar donde se encuentra la comunidad</span>
+            </div>
+            <div class="item">
+                <img src="https://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Tu imagen">
+                <span class="gestion-text" style="color: white; font-size: 23px;">Muestra el lugar donde se encuentra la vertiente</span>
+            </div>
+        </div>
+    </div>
+ 
+<script>
+  function showText(textId) {
+    var textElement = document.getElementById(textId);
+    textElement.style.display = 'block';
+  }
+function hideText(textId) {
+  var textElement = document.getElementById(textId);
+  textElement.style.display = 'none';
+  }
+
+  var lati = -36.084726;
+  var longi = -71.217422;
+  var map=L.map('map').setView([lati, longi],11);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="http://www.google.cl/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent);
+  let comunidades = JSON.parse(document.getElementById('comunidades_json').textContent);
+  var currentMarker = null;
+  let marcador = null;
+  let vmarcador = null;
+  var marcadoresGroup = L.layerGroup().addTo(map);
+  var marcadoresGroup2 = L.layerGroup().addTo(map);
+  var marcadoresGroup3 = L.layerGroup().addTo(map);
+
+  map.on('click', function(event) {
+    if (currentMarker) {
+    map.removeLayer(currentMarker);
+    }
+
+    currentMarker=L.marker([event.latlng.lat,event.latlng.lng]).addTo(map);
+    console.log(event.latlng);
+    var latlng = event.latlng;
+    var latitudField = document.getElementById('id_latitud');
+    var longitudField = document.getElementById('id_longitud');
+
+    if (latitudField && longitudField) {
+    // Actualiza los campos
+    latitudField.value = latlng.lat;
+    longitudField.value = latlng.lng;
+      }
+    else{
+      console.log('xdd');
+    }
+  });
+
+  comunidades.forEach(comunidad => { 
+  var icono=L.icon({
+  iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png', 
+  iconAnchor: [12, 41],  
+  popupAnchor: [1, -34]    
+  } )
+  marcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(marcadoresGroup)
+  nombre=comunidad.nombre.toString()
+  marcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
+  });
+  $(function(){
+    $('select[name="comunidad"]').on('change', function(){  
+      var id=$(this).val();
+      console.log(id)
+      $.ajax({
+              url:window.location.pathname,
+              type:'POST',
+              data:{
+                  'action':'seaid',
+                  'id':id
+              },
+              dataType:'json',
+      }).done(function(data){
+        console.log('weno');
+        lati=data[0]
+        longi=data[1]
+        map.setView([lati,longi]);
+        comunidades.forEach(comunidad => { 
+        marcadoresGroup.clearLayers();
+        var icono=L.icon({
+        iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        iconAnchor: [12, 41],  
+        popupAnchor: [1, -34]  
+        } )
+        if(comunidad.id==id){
+          if(marcadoresGroup3){
+            marcadoresGroup3.clearLayers();
+          }
+          console.log('ENTRO')
+          vmarcador=L.marker([comunidad.latitud, comunidad.longitud ],{icon:icono}).addTo(marcadoresGroup3)
+          nombre=comunidad.nombre.toString()
+          vmarcador.bindTooltip('Comunidad: '+ nombre).openTooltip()
+        }
+      });
+      
+      marcadoresGroup2.clearLayers();
+      vertientes.forEach(vertiente => { 
+        if (vertiente.comunidad_id==id){
+          var icono=L.icon({
+            iconUrl: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',  
+            iconAnchor: [12, 41],  
+            popupAnchor: [1, -34]  
+             } )
+            marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(marcadoresGroup2)
+            nombre=vertiente.nombre.toString()
+            marcador.bindTooltip('vertiente: '+ nombre).openTooltip()
+          }
+          });
+      }).fail(function(data){
+        error=data['error']
+        console.log(error);
+      }).always(function(data){
+        console.log('siempre');       
+      });
+    })
+
+  });
+</script>
+</body>
+</html>

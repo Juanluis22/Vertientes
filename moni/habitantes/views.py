@@ -23,6 +23,12 @@ from django.http import StreamingHttpResponse
 from django.utils import timezone
 from django.http import HttpResponseNotFound
 from django.http import Http404
+from django.contrib.auth.models import Group
+from user.models import Profile
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.models import Group
+
+
 
 
 # Create your views here.
@@ -35,6 +41,13 @@ class Vertiente(ListView):
     context_object_name = 'listaVertientes'
 
 @method_decorator(login_required,name='dispatch')
+class Vertiente(ListView):
+    model = vertiente  # Especifica el modelo que deseas mostrar en la lista
+    template_name = 'vertientes/vertientes_autoridad.html'  # Nombre de la plantilla a utilizar
+    context_object_name = 'listaVertientes'
+
+
+@method_decorator(login_required,name='dispatch')
 class VerVertientes(DetailView):
     model = comunidad
     template_name = 'vertientes/vertientes.html'
@@ -43,16 +56,29 @@ class VerVertientes(DetailView):
 
 @login_required
 def filtro(request, object_id):
+    # Obtener el objeto de la comunidad
+    obj_id = get_object_or_404(comunidad, pk=object_id)
+    id_foranea = obj_id.id
 
-    obj_id=get_object_or_404(comunidad,pk=object_id)
-    #print(obj_id)
-    id_foranea=obj_id.id
-    #print(id_foranea)
+    # Obtener las vertientes asociadas a la comunidad
+    objetos = vertiente.objects.filter(comunidad_id=id_foranea)
 
-    objetos=vertiente.objects.filter(comunidad_id=id_foranea)
-    #print(objetos)
+    # Obtener el perfil del usuario actual
+    perfil_usuario = Profile.objects.get(user=request.user)
 
-    return render(request, 'vertientes/vertientes.html', {'objetos': objetos})
+    # Verificar el grupo del perfil de usuario para decidir qué plantilla usar
+    if perfil_usuario.group.name == 'Administrador':
+        template_name = 'vertientes/vertientes.html'
+    elif perfil_usuario.group.name == 'Autoridad':
+        template_name = 'vertientes/vertientes_autoridad.html'
+    else:
+        # Si no es ni admin ni autoridad, puedes manejar como creas conveniente
+        # Por ahora, renderizamos la misma plantilla de admin
+        template_name = 'vertientes/vertientes.html'  # Puedes cambiar esto si es necesario
+
+    # Renderizar la plantilla correspondiente
+    return render(request, template_name, {'objetos': objetos})
+
 
 @login_required
 def revision_autoridad(request, objecto_id):
@@ -76,7 +102,8 @@ def revision_autoridad(request, objecto_id):
     }
     
     # Renderiza la plantilla 'dashboard_autoridad.html' con el diccionario de datos y devuelve la respuesta
-    return render(request, 'dashboard/dashboard_autoridad.html', data)
+    return render(request, 'dashboard/dashboard_admin.html', data)
+
 
 #fusionar ambos def revision
 @login_required
@@ -186,7 +213,7 @@ def filtrar_datos_por_fecha(request, vertiente_id, atributo, date_range):
         return datos.objects.filter(vertiente_id=vertiente_id, fecha__range=[start_year, today]).values_list('fecha', atributo)
     else:
         return datos.objects.filter(vertiente_id=vertiente_id).values_list('fecha', atributo)
-
+    
 def generar_respuesta(request, vertiente_id, atributo, template_name):
     #Comprobar el tipo de usuario
 
@@ -199,8 +226,6 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
         user_type = "admin"
     else:
         user_type = "habitante"
-
-    
 
 
     date_range = request.GET.get('date_range', 'all')
@@ -228,9 +253,9 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
         'user_id':id_user
     }
     
-    return render(request, template_name, context)
-
+    return render(request, template_name,context)
 @login_required
+
 def grafico_generico(request, vertiente_id, tipo_grafico):
     TIPOS_GRAFICO = {
         "caudal": "caudal",
