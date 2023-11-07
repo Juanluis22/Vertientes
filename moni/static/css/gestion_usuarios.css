@@ -12,7 +12,6 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 2%;
-    background-color: #B0E2FF;
 }
 .vertientes-container img {
     position: absolute;
@@ -27,22 +26,10 @@ body {
 .vertientes-header {
     text-align: center;
     padding: 30px 0;
-    background-color: #B0E2FF;
     color: rgb(0, 0, 0);
 }
 
-
-.rectangulos-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin-top: 30px;
-}
-
-
-
-.row1, .row2 {
+.row1, .row2, .row3 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,114 +49,13 @@ body {
     align-items: center;
     box-sizing: border-box;
 }
-.rectangulos-container2 {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
 
-    justify-content: space-between;
-    margin-bottom: 20px;
-    gap: 2px;
-    width: 50%;
-    height: calc(100vh - 50vh);
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top:20px;
-    border: 5px solid #3393B7;
-}
 
-.contenido-rectangulo3 {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-    margin-left:140px;
-    margin-top:80px;
-}
-.contenido-rectangulo4 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: -140px;
 
-}
-.contendos {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    margin-left:120px;
-    align-items: center;
-
-}
-.form-mapasera {
-    display: flex;
-    flex-direction: row;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    margin-left:139px;
-    align-items: left;
-
-}
-.contenidorectanguloverde {
-    flex-direction: row;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    margin-bottom: 20px;
-    width:100%;
-    align-items: left;
-
-}
-@media (max-width: 1000px) {
-    .rectangulo-container2 {
-        flex-basis: 100%;
-    }
-
-    /* Alinea los cuadros al centro verticalmente */
-    .contenido-rectangulo3 {
-        flex-basis: 100%;
-    }
-    .contenido-rectangulo4 {
-        flex-basis: 100%;
-    }
-    .contendos {
-        flex-basis: 100%;
-    }
-    .rectangulo-verde {
-        flex-basis: 100%;
-    }
-}
-.hidden-textsas {
-    position: absolute;
-    display: none;
-    width: 40%;
-    top:180px;
-    background: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: -30px;
-    margin-left: 10px;
-    z-index: 1000;
-
-}
-.rectangulo-container {
-    display: flex;
-    align-items: center; 
-    flex-basis: calc(50% - 2px);
-    margin-bottom: 2px;
-}
-
-.rectangulo-container i {
-    font-size: 30px;
-    color: #0E7FE7;
-    margin-right: 10px;
-    cursor: pointer;
-}
 .rectangulo-verde {
     background-color: #16536A;
+    width: 100%;
+    max-width: 440px;
 }
 
 .rectangulo-celeste {
@@ -181,26 +67,6 @@ body {
     max-width: 440px;
 
 }
-.rectangulo2 {
-    position: relative;
-
-    width: 600px; 
-    height: 180px; 
-    margin: 20px;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.rectangulo-verde2 {
-    background-color:  #16536A;
-    margin-top:30px;
-    margin-left:20px;
-    width:30%;
-    background-color: #16536A;
-    padding: 20px;
-}
-
 
 .contenido-rectangulo {
     display: flex;
@@ -367,12 +233,18 @@ body {
             font-size: 20px;
             margin-right: 10px;
         }
-        .rectangle-kit {
+        .rectangulo-kit {
             width: 80%;
         }
     
         /* Cualquier otro estilo específico para este punto de vista */
     }
+    @media (max-width: 767px) {
+        .row1, .row2,.row3 {
+            flex-direction: column;
+        }
+    }
+    
 
 @media (min-width:576px) and ( max-width: 767px) {
     /* Este es un punto de interrupción común para teléfonos móviles en modo retrato */
