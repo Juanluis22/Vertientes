@@ -156,7 +156,7 @@ h1 {
 #contenedorseña {
     display: flex;
     max-height: 50%;
-    margin-top: 10rem;
+    margin-top: 5rem;
     flex: 1;
     flex-grow: 1;
     justify-content: center;

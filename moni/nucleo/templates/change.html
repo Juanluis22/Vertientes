@@ -8,46 +8,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperar Contraseña</title>
     <style>
+        .error { color: red; } 
+        .messages { margin-bottom: 15px; } 
     </style>
 </head>
 <body>
     <nav class="navbar">
         <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="page1.html"></a></li>
-            <li class="nav-item"><a href="#"></a></li>
-            <li class="nav-item"><a href="#"></a></li>
-            <li class="nav-item"><a href="#"></a></li>
         </ul>
         <a href="{% url 'nucleo:login' %}" class="cerrar-sesion">Volver</a>
     </nav>
-    <main>
-    <div id="contenedorseña">
-        <div id="formulario">
-            <h2 id="tituloseña">Cambio de Contraseña</h2>
-            <form method="post">
-                {% csrf_token %}
-                <div style="display: flex; justify-content: space-between;">
-                    <div >
-                        
-                        {{ form.password }}
-                    </div>
-                    <div style="margin-left: 10px;">
-                        
-                        {{ form.confirmPassword }}
-                    </div>
-                </div>
-                <p id="recordatorio">Proporcione la nueva contraseña que desea utilizar para la actualización.</p>
-                <button id="botonRecuperar" type="submit">Recuperar</button>
-            </form>
+
+    <!-- Bloque para mostrar mensajes de Django -->
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
         </div>
         
-    </div>
+    {% endif %}
+    <main>
+        <div id="contenedorseña">
+            <div id="formulario">
+                <h2 id="tituloseña">Cambio de Contraseña</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            {{ form.password }}
+                            {% if form.password.errors %}
+                                <div class="error">{{ form.password.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                        <div style="margin-left: 10px;">
+                            {{ form.confirmPassword }}
+                            {% if form.confirmPassword.errors %}
+                                <div class="error">{{ form.confirmPassword.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if form.non_field_errors %}
+                        <div class="error">
+                            {{ form.non_field_errors.as_text }}
+                        </div>
+                    {% endif %}
+                    <p id="recordatorio">Proporcione la nueva contraseña que desea utilizar para la actualización.</p>
+                    <button id="botonRecuperar" type="submit">Recuperar</button>
+                </form>
+            </div>
+        </div>
     </main>
+
     <footer class="footer">
         <p>&copy; 2023 U. Autónoma. Todos los derechos reservados.</p>
     </footer>
 </body>
 </html>
-
-
