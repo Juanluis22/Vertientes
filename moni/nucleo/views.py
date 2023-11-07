@@ -17,7 +17,7 @@ from crud.forms import UserForm
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from user.models import User
-from nucleo.models import comunidad, vertiente, datos
+from nucleo.models import comunidad, vertiente, datos,kit
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from nucleo.forms import TestForm, ResetPasswordForm, ChangePasswordForm
@@ -491,6 +491,97 @@ def vertiente_import_file(request):
     wb.save(response)
     return response
 
+####kit
+@login_required
+def kit_massive_upload(request):
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+    template_name = 'kit_massive_upload.html'
+    return render(request,template_name,{'profiles':profiles})
+@login_required
+def kit_massive_upload_save(request):
+    
+    profiles = Profile.objects.get(user_id = request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+    error_message = None
+    if request.method == 'POST':
+        try:
+            print(request.FILES['myfile'])
+            data = pd.read_excel(request.FILES['myfile'], skiprows=1)
+            df = pd.DataFrame(data)
+            acc = 0
+            for index, row in df.iterrows():
+                acc += 1
+                modelo = int(row.iloc[0])  # Primera columna
+                mac = str(row.iloc[1])    # Segunda columna
+                is_active = str(row.iloc[2])  # Tercera columna
+                vertiente_id = (row.iloc[3])  # Cuarta columna
+                if pd.isna(vertiente_id):
+                    # Si está vacía, detén la iteración
+                    break
+                vertiente_id = int(vertiente_id)
+                vertient = vertiente.objects.get(pk=vertiente_id)  
+                kit_save = kit(
+                    modelo = modelo,
+                    mac = mac,
+                    is_active = is_active,
+                    vertiente = vertient,
+                    )
+                kit_save.save()
+
+        
+            return redirect('nucleo:kit_massive_upload')
+        except Exception as e:
+                # Manejar la excepción aquí y mostrar un mensaje de error
+                error_message = f"Error al procesar el archivo: {str(e)}"
+                # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
+                # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
+                return render(request, 'kit_massive_upload.html', {'error_message': error_message})
+@login_required   
+def kit_import_file(request):
+    profiles = Profile.objects.get(user_id=request.user.id)
+    if profiles.group_id != 1:
+        return redirect('nucleo:login')
+    vertys = vertiente.objects.values('id', 'nombre')
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="Lista_de_kit.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('carga_masiva')
+    row_num = 0
+    columns = ['Modelo', 'Direccion Mac', '¿Esta activo?', 'ID de la Vertiente']
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+    font_style = xlwt.XFStyle()
+    date_format = xlwt.XFStyle()
+    date_format.num_format_str = 'dd/MM/yyyy'
+    row_num=+1
+    for col_num in range(4):
+        if col_num == 0:
+            ws.write(row_num, col_num , 'ej: 5555', font_style)
+        if col_num == 1:
+            ws.write(row_num, col_num , 'ej: 00:1e:c2:9e:28:6b', font_style)
+        if col_num == 2:
+            ws.write(row_num, col_num , 'ej: true', font_style)
+        if col_num == 3:
+            ws.write(row_num, col_num , 'ej: 1', font_style)
+    row_num = 0
+    columns = ['ID de Comunidad','Nombre de la Vertiente']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num +6, columns[col_num], font_style)
+
+    for ver in vertys:
+        row_num += 1
+        
+        ws.write(row_num, 6, ver['id'])
+        ws.write(row_num, 7, ver['nombre'])
+    
+
+    wb.save(response)
+    return response
 
 
 
