@@ -147,8 +147,10 @@ class ActualizarUsuario(UpdateView):
         tipo = form.cleaned_data['tipo']
         if tipo == '1':
             user.profile.group_id = 2  # Usuario
-        else:
+        elif tipo == '2':
             user.profile.group_id = 3  # Autoridad
+        elif tipo == '3':
+            user.profile.group_id = 1  # Admin
         user.profile.save()
         return super().form_valid(form)
     
@@ -228,7 +230,7 @@ def activar_estado(request, pk):
     print('Correo enviado correctamente')
     
 
-    return redirect('crud:listauser') 
+    return redirect('crud:listpet') 
 
 
 def desactivar_estado(request, pk):

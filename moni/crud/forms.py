@@ -186,6 +186,7 @@ class UpdateForm(ModelForm):
     ROLES = (
         (1, 'Usuario'),
         (2, 'Autoridad'),
+        (3, 'Administrador')
     )
     email = forms.CharField(validators=[validators.EmailValidator(message="El correo electrónico debe ser válido.")])
     tipo = forms.ChoiceField(choices=ROLES, label='Rol')
