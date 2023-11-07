@@ -1,0 +1,765 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0; /* Aquí, mantenemos el color de fondo del primer archivo, ya que no se especifica en el segundo */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; /* Añadido del segundo archivo */
+    justify-content: center; /* Añadido del segundo archivo */
+}
+
+/* Header y Navegación */
+header, .navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.logo img, .logo {
+    width: 100px; /* Estilo del primer CSS */
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+/* La clase .logo tiene dimensiones diferentes en los dos archivos. Puedes elegir uno u otro, o personalizarlo más tarde. */
+
+.login-button a, .cerrar-sesion {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00a4e4;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    font-size: 14px;
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-left: 10px; /* Añadido del segundo archivo */
+}
+
+.login-button a:hover, .cerrar-sesion:hover {
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Secciones Main, Info, y Formularios */
+/* ... (aquí incluirías el resto de las reglas del primer archivo, asegurándote de que no haya duplicados con el segundo archivo) ... */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+main {
+    padding: 20px;
+    flex-grow: 1;
+}
+.welcome-section {
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.welcome-bg {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 15px;
+}
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.start-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00a4e4;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    font-size: 14px;
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.start-button:hover {
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+.info-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.info-box {
+    height: max-content;
+    background-color: white;
+    width: 300px;
+    padding: 20px;
+    margin: 0 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+.info-box p{
+    background-color: rgba(101, 211, 255, 0.178);
+    border-radius: 10%;
+    padding-top: 20%;
+    padding-bottom: 20%;
+    margin-bottom: 0;
+}
+
+/* Barra de navegación adicional del segundo archivo */
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0; 
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.nav-item a:hover {
+    color: #1caa23; 
+}
+
+/* Formularios adicionales del segundo archivo */
+#contenedor {
+    background-size: cover;
+    background-position: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#contenedorseña {
+    display: flex;
+    max-height: 50%;
+    margin-top: 10rem;
+    flex: 1;
+    flex-grow: 1;
+    justify-content: center;
+}
+#tituloseña {
+    font-size: 20px;
+    margin-bottom: -80px;
+    text-align: center;
+}
+#titulo {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center; 
+}
+#formulario {
+    background-color: #f0f0f0; 
+    border-radius: 15px;
+    padding: 35px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    max-width: 30%; 
+    gap: 100px; 
+}
+#formularioregister{
+    background-color: #f0f0f0; 
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 40%; 
+}
+#formulariologin {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+    max-width: 400px; 
+}
+#formulario form {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 25%;
+    flex: 1;
+    margin: 5%;
+}
+#imagen {
+    width: 25rem;
+    border-radius: 0px 15px 15px 0px;
+}
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+#boton-registrarse {
+    padding: 10px 18px; 
+    font-size: 18px; 
+    width: auto; 
+
+}
+
+button#botonIngresar{
+    width: 50%;
+    align-items: center;
+    text-align: center;
+}
+#botonRecuperar {
+    padding: 13px 17px;
+    background-color: #6fbf73;
+    color: #fff;
+    margin-top: 10px;
+}
+button#botonRecuperar {
+    font-size: 18px; 
+    }
+:hover#botonRecuperar{
+    background-color: #1fa4d9;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+#enlaceVolver {
+    font-size: 12px;
+    margin-top: 10px;
+}
+#recordatorio {
+    font-size: 20px;
+    color: #777;
+    margin-top: 5px;
+}
+#registro{
+    margin-top: 5%;
+    align-items: center;
+    text-align: center;
+}
+:hover.botonb{
+    background-color: #1fa4d9;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+:hover.botona{
+    background-color: #1fa4d9;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+#ingreso{
+    margin-top: 5%;
+    align-items: center;
+    text-align: center;
+}
+
+#enlaceOlvido {
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-align: center; 
+}
+.botona {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+/* ... (aquí incluirías los estilos de los formularios y otros elementos específicos del segundo archivo) ... */
+
+/* Footer */
+footer, .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.login-container h1 {
+    font-size: 36px;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de la página de login y otros adicionales del segundo archivo */
+/* ... (aquí incluirías el resto de las reglas específicas del segundo archivo que no estén ya presentes) ... */
+
+/* Media queries y otros estilos específicos */
+/* ... (aquí combinarías las media queries de ambos archivos, asegurándote de fusionar reglas cuando sea necesario) ... */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px; 
+    margin: 8px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    font-size: 15px; 
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: #5b9dd9; 
+}
+
+@media screen and (max-width: 480px) {
+    .info-box:nth-child(1) {
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .info-box:nth-child(2) {
+        margin-top: 15px;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    .info-box:nth-child(3) {
+        margin-top: 15px;
+    }
+}
+
+.info-box p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.info-box img {
+    border-radius: 10%;
+    border-style: double;
+    min-height: 198px;
+}
+
+@media screen and (max-width: 480px) {
+    .info-box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        flex: 1;
+    }
+
+    .info-box p {
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0px;
+    }
+}
+
+.info-box:nth-child(2) img {
+    margin: 0 auto;
+    display: block;
+    max-height: 60%;
+    max-width: 88%;
+}
+
+.info-box h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.info-box p {
+    font-size: 15px;
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+img {
+    max-width: 100%;
+    max-height: 200px;
+}
+
+.info-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00a4e4;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    font-size: 14px;
+    border: 2px solid #d0f2ff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.info-button:hover {
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+/*Pagina anidados*/
+
+/* Estilos para el encabezado de vertientes */
+.vertientes-header {
+    text-align: center; 
+}
+
+.vertientes-header h1{
+    text-align: center; 
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+.izquierda{
+    display: flex;
+}
+/* Estilos para dispositivos pequeños (móviles) */
+@media (max-width: 600px) {
+    .logo{
+        width: 100px;
+    }
+}
+/* Estilos para el contenedor de vertientes */
+.vertientes-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    height: 100%; 
+    margin: auto;
+}
+/* Estilos para el contenedor de búsqueda */
+.vertientes-buscar {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    margin: 20px auto; 
+    max-width: 600px; 
+    padding: 20px; 
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+    background-color: #eaf7ff; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    justify-content: center;
+    text-align: center;
+}
+/* Estilos para cada elemento de búsqueda */
+.buscar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 15px;
+}
+
+/* Estilos para el botón "Ir" */
+.ir {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: auto; 
+    margin-left: auto; 
+    margin-right: 0; 
+    display: block; 
+}
+.ir:hover {
+    background-color: #1caa23;
+}
+
+/* Estilos para los parámetros de la vertiente */
+.parametros-columnas {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.columna {
+    flex: 1;
+    min-width: 50%
+}
+.parametro {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #B0E2FF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.parametro:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
+    cursor: pointer; 
+}
+.parametro h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.parametro p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.vertientes-datos{
+    text-align: center; 
+}
+/* Estilos para el pie de página */
+.vertientes-footer {
+    text-align: center;
+    background-color: #eaf7ff; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin: 20px auto; 
+    max-width: 600px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 80px;
+}
+@media (max-width: 520px) {
+    
+    .vertientes-buscar {
+        flex-direction: column; 
+        align-items: center; 
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .buscar{
+        text-align: center;
+        align-items: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 190px;
+    }
+    /* Estilos para vertientes-footer en dispositivos móviles */
+    .vertientes-footer {
+        text-align: center;
+        align-items: center;
+        width: 225px;
+        padding: 0px 20px;
+    }
+    .parametros-columnas{
+        flex-direction: column; 
+        align-items: center;
+    }
+    .parametro{
+        align-items: center;
+    }
+    .columna{
+        flex: 1;
+        min-width: 100%
+    }
+    element.style{
+        padding: 0px;
+        margin: 0px;
+    }
+    select:not(:-internal-list-box) {
+        overflow: visible !important;
+        margin-bottom: 1000px;
+    }
+}
+.calidad-mala {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; 
+    background-color: #D40202 !important; 
+    color: white !important; 
+    margin: 0px 0px;
+    margin-top: -16px;
+}
+/* Estilos para cuando el agua está en buenas condiciones mio */
+.calidad-buena {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; 
+    background-color: #87D91F !important; 
+    color: white !important; 
+    margin: 0px 0px;
+    margin-top: -16px;
+}
+.calidad-no-seleccionada {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; 
+    background-color: #1f51d9 !important; 
+    color: white !important; 
+    margin: 0px 10px;
+    margin-top: -16px;
+}   
+div.estado-vertiente{
+    background-color: #1c4eaa00;
+}
+/* Estilo para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center; 
+    align-items: center; 
+    z-index: 999; 
+}
+
+.modal.active {
+    opacity: 1; 
+    pointer-events: auto; 
+}
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 10px solid #0E7FE7;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    border-radius: 15px;
+    font-weight: bold; 
+}
+@media (max-width: 520px) {
+ 
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: 10px solid #0E7FE7; 
+        width: 60%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        text-align: center;
+        position: relative;
+        border-radius: 15px;
+        font-weight: bold; 
+    }
+}
+.modal.active .modal-content {
+    transform: scale(1); 
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+} 
+
+/* Estilo para la unidad al lado de datosContainer */
+.parametro .row {
+    display: flex;
+    align-items: center;
+}
+.parametro .unidad {
+    margin-left: 5px; 
+}
+
+.filtro-comunidad,
+.filtro-vertiente,
+.form-group select { /* Esto apuntará a los selectores dentro de .form-group */
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+/* Estilos para los desplegables cuando están enfocados (resaltados) */
+.form-group select:focus {
+    outline: none; 
+    border-color: #1c4eaa; 
+    box-shadow: 0 0 5px rgba(28, 73, 170, 0.616); 
+}
+
+.filtro-comunidad{
+    width: max-content;
+}
+
+.filtro-vertiente{
+    width: max-content;
+}
+
+label{
+    font-size: 18px; 
+    font-weight: bold; 
+    margin-bottom: 10px;
+}
