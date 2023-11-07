@@ -6,8 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-        <link rel="stylesheet" href="{% static 'css/massive_upload.css' %}">
-        <link rel="stylesheet" href="{% static 'css/Gestion_usuarios.css' %}">
+        <link rel="stylesheet" href="{% static 'css/crud_admin.css' %}">
         <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
@@ -17,10 +16,11 @@
         <title>Carga Masiva de Kits</title>
     </head>
     <body>
-            <!--Barra Vertical-->
+
     {% include "barra_lateral_admin.html" %}
-    <!-- FIN Barra Vertical-->
+
         <nav class="navbar">
+            <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
             <div class="navbar-left">
                 <span class="hidro-tech">HidroTech</span>
             </div>
@@ -36,7 +36,7 @@
 <main role="main">
     <div class="container col-12 mt-3">
         <div class="col-12  mt-3 border">
-            <h3>Carga Masiva de Kits</h3>
+            <h1>Carga Masiva de Kits</h1>
             {% if error_message %}
             <h3> 
     {{ error_message }}

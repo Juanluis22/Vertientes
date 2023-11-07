@@ -8,11 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
         <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
-        <link rel="stylesheet" href="{% static 'css/crear.css' %}">
-        <link rel="stylesheet" href="{% static 'css/Gestion_usuarios.css' %}">
+        <link rel="stylesheet" href="{% static 'css/crud_admin.css' %}">
         <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <!--extra-->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <title>Crear Vertiente</title>
@@ -34,10 +32,10 @@
       </nav>
 
       <div class="center-container">
-        <div class="vertientes-container">
+        <div class="vertientes-containerr">
             <div class="center-div">
                 <div class="card-header">
-                    <h3 class="card-title">Editar vertiente</h3>
+                    <h3 class="card-title">Crear nueva vertiente</h3>
                 </div>
                 <div class="contenido-rectangulo">
                     <div id="mensaje-error" class="mensaje-error"></div>
@@ -193,13 +191,10 @@
             var longitud = document.getElementById('id_longitud');
             var errorMessageContainer = document.getElementById('mensaje-error');
     
-            
             errorMessageContainer.innerHTML = '';
             errorMessageContainer.style.display = 'none'; 
-    
             var errores = false;
     
-            
             if (!nombreComunidad.value.trim()) {
                 errorMessageContainer.innerHTML += '<p>Por favor, llene el campo del nombre de la comunidad.</p>';
                 errores = true;
@@ -234,8 +229,6 @@
          window.location.href = "{% url 'crud:listvert' %}";
          },  2000); 
 }
-   
     </script>
 </body>
 </html>
-

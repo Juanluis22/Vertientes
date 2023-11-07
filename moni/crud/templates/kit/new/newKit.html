@@ -1,122 +1,110 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <link rel="stylesheet" href="{% static 'css/crear.css' %}">
-        <link rel="stylesheet" href="{% static 'css/Gestion_usuarios.css' %}">
-        <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/crud_admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <title>Crear Kit</title>
+</head>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <title>Crear Kit</title>
-      </head>
-
-    <body>
-      {% include "barra_lateral_admin.html" %}
-      
-      <nav class="navbar">
+<body>
+    {% include "barra_lateral_admin.html" %}
+    <nav class="navbar">
         <img src="https://cdn-ua.hostingreactor.com/ua_www/cache/wp-content/uploads/2020/12/Logo_svg.svg" alt="Logo" class="logo">
-          <div class="navbar-left">
-              <span class="hidro-tech">HidroTech</span>
-          </div>
-          <div class="navbar-center">
-              <div class="admin-box">Vista Administrador</div>
-          </div>
-          <a href="{% url 'crud:listkit' %}" class="volverr">Volver</a>
-          <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
-      </nav>
-    
+        <div class="navbar-left">
+            <span class="hidro-tech">HidroTech</span>
+        </div>
+        <div class="navbar-center">
+            <div class="admin-box">Vista Administrador</div>
+        </div>
+        <a href="{% url 'crud:listkit' %}" class="volverr">Volver</a>
+        <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
+    </nav>
+
     <div class="center-container">
-    <div class="vertientes-container">
+        <div class="vertientes-containerr">
             <div class="center-div">
-              <div class="card-header">
-              <h3 class="card-title">Nuevo Kit</h3>
-              </div>
-              <form method="post" onsubmit="return enviarFormulario();">
-              <div class="card-body">
-              <div class="form-group">
-                {{ form.errors }}
-              {% csrf_token %}
-              
-              {% for field in form %}
-              <div class="form-group">
-                <label for="email">{{ field.label }} :</label>
-                {{ field }}
-              </div>
-              
-              {% endfor %}
-              </div>
-              </div>
-              <div class="card-footer">
-              <button type="submit"  class="btn btn-success">Crear</button>
-              <a href="{% url 'crud:listkit' %}" class="button">
-              <button type="button" class="btn btn-danger">Cancelar</button>
-              </a>
-              </div>
-              <input type="hidden" name="action" value="listo">
-              </form>
-              </div>
-      </div>
+                <div class="card-header">
+                    <h3 class="card-title">Crear nuevo Kit</h3>
+                </div>
+                <form method="post" onsubmit="return enviarFormulario();">
+                    <div class="card-body">
+                        <div class="form-group">
+                            {{ form.errors }}
+                            {% csrf_token %}
+
+                            {% for field in form %}
+                            <div class="form-group">
+                                <label for="email">{{ field.label }} :</label>
+                                {{ field }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Crear</button>
+                        <a href="{% url 'crud:listkit' %}" class="button">
+                            <button type="button" class="btn btn-danger">Cancelar</button>
+                        </a>
+                    </div>
+                    <input type="hidden" name="action" value="listo">
+                </form>
+            </div>
+        </div>
     </div>
+
     <script>
-      $(function() {
-        $('select[name="comunidad"]').on('change', function() {
-            var id = $(this).val();
-            var select_vertiente = $('select[name="vertiente"]');
-            var options = '<option value="">------</option>';
-            $.ajax({
-                url: window.location.pathname,
-                type: 'POST',
-                data: {
-                    'action': 'search_comunidad_id',
-                    'id': id
-                },
-                dataType: 'json',
-            }).done(function(data) {
-                $.each(data, function(key, value) {
-                    options += '<option value="' + value.id + '">' + value.name + '</option>';
-                });
-                select_vertiente.html(options);
-
-            }).fail(function(data_error) {}).always(function(data) {});
+        $(function () {
+            $('select[name="comunidad"]').on('change', function () {
+                var id = $(this).val();
+                var select_vertiente = $('select[name="vertiente"]');
+                var options = '<option value="">------</option>';
+                $.ajax({
+                    url: window.location.pathname,
+                    type: 'POST',
+                    data: {
+                        'action': 'search_comunidad_id',
+                        'id': id
+                    },
+                    dataType: 'json',
+                }).done(function (data) {
+                    $.each(data, function (key, value) {
+                        options += '<option value="' + value.id + '">' + value.name + '</option>';
+                    });
+                    select_vertiente.html(options);
+                }).fail(function (data_error) {}).always(function (data) {});
+            });
         });
-    });
 
+        function mostrarMensaje() {
+            var mensaje = document.createElement("div");
+            mensaje.className = "aviso";
+            mensaje.innerText = "Se ha creado correctamente el kit";
+            document.body.appendChild(mensaje);
 
-
-
-      function mostrarMensaje() {
-        var mensaje = document.createElement("div");
-        mensaje.className = "aviso";
-        mensaje.innerText = "Se ha creado correctamente el kit";
-        document.body.appendChild(mensaje);
-    
-        setTimeout(function() {
-          window.location.href = "{% url 'crud:listkit' %}";
-        }, 2000);
-      }
-    
-      function enviarFormulario() {
-        // Verifica si el formulario es válido antes de mostrar el mensaje y enviarlo
-        if (document.forms[0].checkValidity()) {
-          mostrarMensaje();
-          setTimeout(function() {
-            document.forms[0].submit();
-          }, 2000);
-          return false;
+            setTimeout(function () {
+                window.location.href = "{% url 'crud:listkit' %}";
+            }, 2000);
         }
-        // Si el formulario no es válido, no hagas nada y muestra los errores al usuario
-        return false;
-      }
 
-
-
-</script>
-    </body>
+        function enviarFormulario() {
+            if (document.forms[0].checkValidity()) {
+                mostrarMensaje();
+                setTimeout(function () {
+                    document.forms[0].submit();
+                }, 2000);
+                return false;
+            }
+            return false;
+        }
+    </script>
+</body>
 </html>
