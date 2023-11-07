@@ -39,6 +39,13 @@
     <div class="container col-12 mt-3">
         <div class="col-12  mt-3 border">
             <h3>Carga Masiva de Habitantes</h3>
+            {% if error_message %}
+            <h3> 
+    {{ error_message }}
+    
+</h3>
+<a href="{% url 'crud:listauser' %}" class="accederr">Volver</a>
+{% endif %}
             {%if profiles.group_id == 1 %}
             <div class="col-12">
                 <form action="{% url 'nucleo:users_massive_upload_save' %}" method="post" enctype="multipart/form-data">
@@ -48,7 +55,7 @@
                             <input type="file" name="myfile" class="form-control border border-danger" required>
                         </div>
                         <div class="col-12 col-sm-3">
-                            <a class="accederr"type="submit">Cargar</a>
+                            <button class="accederr"type="submit">Cargar</button>
                         </div>
                     </div>
                 </form>

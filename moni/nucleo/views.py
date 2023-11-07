@@ -280,32 +280,38 @@ def users_massive_upload_save(request):
         return redirect('nucleo:login')
 
     if request.method == 'POST':
-        #try:
-        print(request.FILES['myfile'])
-        data = pd.read_excel(request.FILES['myfile'], skiprows=1)
-        df = pd.DataFrame(data)
-        acc = 0
-        for item in df.itertuples():
-            acc += 1
-            username = str(item[1])            
-            first_name = str(item[2])
-            last_name = str(item[3])
-            is_active = bool(item[4])
-            email = str(item[5])
-            COMUNIDAD_DEFAULT = comunidad.objects.get(id=1)
-            user_save = User(
-                username = username,
-                first_name = first_name,
-                last_name = last_name,
-                email= email,
-                is_active=is_active,
-                comunidad = COMUNIDAD_DEFAULT
-                )
-            user_save.save()
-            profile = Profile(user=user_save, group_id=2)
-            profile.save()
-       
-        return redirect('nucleo:users_massive_upload')
+        try:
+            print(request.FILES['myfile'])
+            data = pd.read_excel(request.FILES['myfile'], skiprows=1)
+            df = pd.DataFrame(data)
+            acc = 0
+            for item in df.itertuples():
+                acc += 1
+                username = str(item[1])            
+                first_name = str(item[2])
+                last_name = str(item[3])
+                is_active = bool(item[4])
+                email = str(item[5])
+                COMUNIDAD_DEFAULT = comunidad.objects.get(id=1)
+                user_save = User(
+                    username = username,
+                    first_name = first_name,
+                    last_name = last_name,
+                    email= email,
+                    is_active=is_active,
+                    comunidad = COMUNIDAD_DEFAULT
+                    )
+                user_save.save()
+                profile = Profile(user=user_save, group_id=2)
+                profile.save()
+        
+            return redirect('nucleo:users_massive_upload')
+        except Exception as e:
+                    # Manejar la excepción aquí y mostrar un mensaje de error
+                    error_message = f"Error al procesar el archivo: {str(e)}"
+                    # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
+                    # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
+                    return render(request, 'users_massive_upload.html', {'error_message': error_message})
 @login_required
 def users_import_file(request):
     profiles = Profile.objects.get(user_id = request.user.id)
@@ -329,7 +335,7 @@ def users_import_file(request):
         row_num += 1
         for col_num in range(7): 
             if col_num == 0:
-                ws.write(row_num, col_num, 'ej: 205916402' , font_style)
+                ws.write(row_num, col_num, 'ej: 123456789' , font_style)
             if col_num == 1:
                 ws.write(row_num, col_num, 'ej:Juan', font_style)
             if col_num == 2:
@@ -355,23 +361,29 @@ def comunity_massive_upload_save(request):
         return redirect('nucleo:login')
 
     if request.method == 'POST':
-        #try:
-        print(request.FILES['myfile'])
-        data = pd.read_excel(request.FILES['myfile'], skiprows=1)
-        df = pd.DataFrame(data)
-        acc = 0
-        for item in df.itertuples():
-            acc += 1
-            nombre = str(item[1])            
-            vertientes = int(item[2])
-            ubicación = str(item[3])
-            comunity_save = comunidad(
-                nombre = nombre,
-                vertientes = vertientes,
-                ubicación = ubicación,
-                )
-            comunity_save.save()
-        return redirect('nucleo:comunity_massive_upload')
+        try:
+            print(request.FILES['myfile'])
+            data = pd.read_excel(request.FILES['myfile'], skiprows=1)
+            df = pd.DataFrame(data)
+            acc = 0
+            for item in df.itertuples():
+                acc += 1
+                nombre = str(item[1])            
+                vertientes = int(item[2])
+                ubicación = str(item[3])
+                comunity_save = comunidad(
+                    nombre = nombre,
+                    vertientes = vertientes,
+                    ubicación = ubicación,
+                    )
+                comunity_save.save()
+            return redirect('nucleo:comunity_massive_upload')
+        except Exception as e:
+                # Manejar la excepción aquí y mostrar un mensaje de error
+                error_message = f"Error al procesar el archivo: {str(e)}"
+                # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
+                # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
+                return render(request, 'comunity_massive_upload.html', {'error_message': error_message})
 @login_required    
 def comunity_import_file(request):
     profiles = Profile.objects.get(user_id = request.user.id)
@@ -416,32 +428,38 @@ def vertiente_massive_upload_save(request):
         return redirect('nucleo:login')
 
     if request.method == 'POST':
-        #try:
-        print(request.FILES['myfile'])
-        data = pd.read_excel(request.FILES['myfile'], skiprows=1)
-        df = pd.DataFrame(data)
-        acc = 0
-        for index, row in df.iterrows():
-            acc += 1
-            nombre = str(row.iloc[0])  # Primera columna
-            desc = str(row.iloc[1])    # Segunda columna
-            ubicación = str(row.iloc[2])  # Tercera columna
-            comunidad_id = (row.iloc[3])  # Cuarta columna
-            if pd.isna(comunidad_id):
-                # Si está vacía, detén la iteración
-                break
-            comunidad_id = int(comunidad_id)
-            comunida = comunidad.objects.get(pk=comunidad_id)  
-            vertiente_save = vertiente(
-                nombre = nombre,
-                desc = desc,
-                ubicación = ubicación,
-                comunidad = comunida,
-                )
-            vertiente_save.save()
+        try:
+            print(request.FILES['myfile'])
+            data = pd.read_excel(request.FILES['myfile'], skiprows=1)
+            df = pd.DataFrame(data)
+            acc = 0
+            for index, row in df.iterrows():
+                acc += 1
+                nombre = str(row.iloc[0])  # Primera columna
+                desc = str(row.iloc[1])    # Segunda columna
+                ubicación = str(row.iloc[2])  # Tercera columna
+                comunidad_id = (row.iloc[3])  # Cuarta columna
+                if pd.isna(comunidad_id):
+                    # Si está vacía, detén la iteración
+                    break
+                comunidad_id = int(comunidad_id)
+                comunida = comunidad.objects.get(pk=comunidad_id)  
+                vertiente_save = vertiente(
+                    nombre = nombre,
+                    desc = desc,
+                    ubicación = ubicación,
+                    comunidad = comunida,
+                    )
+                vertiente_save.save()
 
-       
-        return redirect('nucleo:vertiente_massive_upload')
+        
+            return redirect('nucleo:vertiente_massive_upload')
+        except Exception as e:
+            # Manejar la excepción aquí y mostrar un mensaje de error
+            error_message = f"Error al procesar el archivo: {str(e)}"
+            # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
+            # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
+            return render(request, 'vertiente_massive_upload.html', {'error_message': error_message})
 @login_required   
 def vertiente_import_file(request):
     profiles = Profile.objects.get(user_id=request.user.id)
