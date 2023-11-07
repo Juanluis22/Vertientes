@@ -7,9 +7,11 @@ app_name='habi'
 urlpatterns = [
     #selector de comunidades para el admin
     path("lista_vertientes/<int:object_id>/", filtro, name='listvert'),
-    path("vertientes/<int:objecto_id>/", revision_autoridad, name='verti_admin'),
+    path("vertientes_admin/<int:objecto_id>/", revision_admin, name='verti_admin'),
     path("vertiente/<int:objecto_id>/<int:objecto_id_2>/", revision, name='verti'),
     path("detector/", detector, name='detect'),
+
+    path("vertientes/<int:objecto_id>/", revision_autoridad, name='verti_autoridad'),
     
 
 
