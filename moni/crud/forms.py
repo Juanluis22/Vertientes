@@ -45,7 +45,7 @@ def validate_rut(value):
         value = value.replace('-', '')  # Elimina guiones
         
         if len(value)>9:
-            raise ValidationError('RUT invalido, ingrese un RUT de 9 digitos maximo')
+            raise ValidationError('RUT inválido, ingrese un RUT de 9 digitos maximo')
 
         if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
             raise ValidationError('Rut inválido')
@@ -197,7 +197,7 @@ class UpdateForm(ModelForm):
             'username':'RUT',
             'first_name':'Nombre',
             'last_name':'Apellido',
-            'email':'Correo electronico',
+            'email':'Correo electrónico',
             'edad':'Edad',
             'is_active':'Estado',
         }
@@ -272,7 +272,7 @@ class UpdateFormPerfil(ModelForm):
             'username':'RUT',
             'first_name':'Nombre',
             'last_name':'Apellido',
-            'email':'Correo electronico',
+            'email':'Correo electrónico',
             'edad':'Edad',
             
         }
