@@ -24,14 +24,26 @@
     <!--Barra Superior-->
     {% include "barra_superior_admin.html" %}
     <!--FIN Barra Superior-->
-{% else %}
+{% elif user_type == "habitante" %}
     <!--Barra Vertical-->
     {% include "barra_lateral_habitante.html" %}
     <!-- FIN Barra Vertical-->
     <!--Barra Superior-->
     {% include "barra_superior_habitante.html" %}
+
     <!--FIN Barra Superior-->
-{% endif %}
+
+{% elif user_type == "Autoridad" %}
+    <!--Barra Vertical-->
+    {% include "barra_lateral_autoridad.html" %}
+    <!-- FIN Barra Vertical-->
+    <!--Barra Superior-->
+    {% include "barra_superior_autoridad.html" %}
+
+    <!--FIN Barra Superior-->
+
+
+{%endif%}
 
         <div class="vertientes-container" style="">
             
