@@ -1,5 +1,6 @@
 from django.urls import path
 from crud.views import *
+from .views import MapaGeneral, MapaAutoridad
 
 app_name='crud'
 
@@ -58,8 +59,8 @@ urlpatterns = [
     
     
     #Mapa General
-    path("mapa/admin/", MapaGeneral.as_view(), name='mapa_general'),
-    path("mapa/autoridad/", MapaAutoridad.as_view(), name='mapa_autoridad'),
+    path("mapa_admin", MapaGeneral.as_view(), name='mapa_general'),
+    path("mapa_autoridad/", MapaAutoridad.as_view(), name='mapa_autoridad'),
 
 
 

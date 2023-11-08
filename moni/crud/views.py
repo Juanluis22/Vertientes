@@ -693,6 +693,32 @@ class MapaGeneral(CreateView):
             return super().dispatch(request, *args, **kwargs)
         else:
             return redirect('nucleo:inicio')
+        
+    def post(self, request, *args, **kwargs):
+        data={}
+        
+        action=request.POST['action']
+        
+        if action=='seaid':
+            comu=comunidad.objects.filter(id=request.POST['id'])
+            for i in comu:
+                data[0]=i.latitud
+                data[1]=i.longitud
+                
+        elif action=='listo':
+            return super().post(request, *args, **kwargs)
+        return JsonResponse(data, safe=False)
+    
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
+        
+        comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
+        context={'comunidades':comunidades,'vertientes':vertientes}
+        
+        context['form']=VertienteForm()
+        
+        return context
 
 @method_decorator([csrf_exempt, login_required], name='dispatch')
 class MapaAutoridad(CreateView):
