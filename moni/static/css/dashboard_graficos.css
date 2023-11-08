@@ -1,32 +1,10 @@
-/* Estilos generales y otros estilos */
-.navbar {
-    background-color: #3393B7;
-    color: white; /* Color del texto en el Navbar */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 10px 20px;
-height: 40px;
-z-index: 1;
-box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF;  
 }
 
-
-.navbar-center {
-    flex: 1; /* Toma el espacio restante */
-    text-align: center;
-    font-weight: bold;
-}
-
-.navbar-nav {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
 
 .nav-item a {
     align-items: center;
@@ -56,17 +34,6 @@ box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
     color: #ffffff;
 }
 
-/* Estilo de la barra lateral izquierda */
-.vertical-bar {
-    background-color: #3393B7;
-    width: 110px; 
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-   
-}
 
 /* Estilo de "HidroTech" en el Navbar */
 .hidro-tech {
@@ -87,15 +54,12 @@ box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
     height: 100%;
 }
 
-
-/* Estilo de los enlaces de la barra lateral */
 .sidebar-nav {
     list-style: none;
     padding: 7px;
     margin-top: 80px;
 }
 
-/* Estilo de los enlaces de la barra lateral */
 .sidebar-nav {
     list-style: none;
     padding: 1px;
@@ -132,14 +96,7 @@ box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
     fill:#0E7FE7;
 }
 /* Estilo del Navbar */
-.navbar {
-    background-color: #3393B7;
-    color: black;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
+
 
 /* Estilo del botón "Cerrar Sesión" */
 .cerrar-sesion {
@@ -157,12 +114,6 @@ box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
     color: #ffffff;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #B0E2FF;  
-}
 @media (max-width: 1200px) {
     .vertical-bar {
         width: 100%; 
@@ -185,10 +136,7 @@ body {
         margin-left: 10px; 
         margin-right: 10px; 
     }
-    .navbar {
-        padding-right: 0;
-        padding-left: 0;
-    }
+
     
 }
 
@@ -213,8 +161,6 @@ body {
     align-items: flex-start; 
     margin-top: 30px;
 }
-
-
 
 .rectangulo {
     position: relative;
@@ -271,7 +217,6 @@ body {
     border: 8px solid #0E7FE7; 
 }
 
-
 .cuadrado-blanco h2 {
     font-size: 24px;
 }
@@ -304,8 +249,6 @@ body {
     box-shadow: 0 0 10px rgba(250, 2, 2, 0.89);
     border-radius: 25px;
 }
-
-/* Estilos generales */
 .container {
     max-width: 960px;
     margin: 0 auto;
@@ -313,14 +256,12 @@ body {
     text-align: center;
 }
 
-/* Estilos para el gráfico */
 .chart-container {
     margin-left: 120px;
     margin-top: 85px;
 }
 
 #lineChart {
-    /* Estilos para el contenedor del gráfico */
     background-color: white;
     padding: 20px;
     border: 1px solid #ccc;
@@ -345,13 +286,10 @@ body {
     background-color: #f2f2f2;
 }
 
-/* Resaltado al pasar el cursor sobre filas de la tabla dentro de #lineChart */
 #lineChart tr:hover {
     background-color: #f5f5f5;
 }
 
-
-/* Estilos para el formulario de fechas */
 form {
     margin-left: 150px;
     margin-top: 15px;
@@ -386,7 +324,6 @@ button:hover {
     background-color: #666;
 }
 
-/* Estilos para el contenedor de datos */
 #data-container {
     display: none;
 }
@@ -437,14 +374,12 @@ button:hover {
     display: block;
 }
 
-
-/* Estilo para la fila que contiene los botones */
 .row-boton {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-/* Estilo para cada botón */
+
 .boton-cuadrado {
     width: 150px;
     height: 150px;
@@ -459,23 +394,22 @@ button:hover {
     color: black;
     text-align: center;
 }
-/* Estilo para los iconos dentro de los botones */
+
 .boton-cuadrado i {
     font-size: 24px;
     margin-bottom: 10px;
 }
-/* Estilo para los enlaces "Ver Gráfico" dentro de los botones */
+
 .boton-cuadrado a {
     text-decoration: none;
     color: #A6E3E9;
     font-weight: bold;
     transition: color 0.3s;
 }
-/* Cambia el color del enlace al pasar el cursor sobre él */
+
 .boton-cuadrado a:hover {
     color: #fd1d1d;
 }
-
 
 .dashboard-section {
     display: flex;
@@ -571,14 +505,11 @@ button:hover {
     display: block;
 }
 
-/* Estilos para la sección de datos dentro de cada tarjeta */
 .data-section {
     padding: 20px;
     background-color: #f0f4f8; 
     border-bottom: 1px solid #e0e0e0; 
 }
-
-/* Estilos para la sección del gráfico dentro de cada tarjeta */
 .graph-section {
     padding: 20px;
     background-color: #ffffff; 
@@ -589,7 +520,6 @@ button:hover {
     margin: 0; 
 }
 
-/* Estilos para la sección de resumen */
 .resumen {
     display: flex;
     justify-content: center;
@@ -597,7 +527,6 @@ button:hover {
     padding: 20px 0;
 }
 
-/* Estilos para las tarjetas (cards) */
 .card {
     background-color: white;
     border-radius: 10px;
@@ -607,7 +536,6 @@ button:hover {
     overflow: hidden;
 }
 
-/* Estilos para el encabezado de la tarjeta */
 .card-header {
     background-color: #f7f7f7;
     padding: 10px 15px;
@@ -615,12 +543,10 @@ button:hover {
     border-bottom: 1px solid #e5e5e5;
 }
 
-/* Estilos para el cuerpo de la tarjeta */
 .card-body {
     padding: 20px 15px;
 }
 
-/* Estilos para el título de la tarjeta */
 .card-title {
     margin-bottom: 20px;
     font-size: 18px;
@@ -628,12 +554,10 @@ button:hover {
     padding-bottom: 10px;
 }
 
-/* Estilos para el texto dentro de la tarjeta */
 .card-text {
     margin-bottom: 10px;
 }
 
-/* Estilos adicionales para filas y columnas (flex) */
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -649,7 +573,6 @@ button:hover {
     box-sizing: border-box;
 }
 
-/* Alineación del texto dentro de las columnas */
 .col .card-text {
     text-align: left;
 }

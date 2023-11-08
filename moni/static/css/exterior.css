@@ -1,20 +1,18 @@
-/* Estilos generales */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0; /* Aquí, mantenemos el color de fondo del primer archivo, ya que no se especifica en el segundo */
+    background-color: #f0f0f0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat; /* Añadido del segundo archivo */
-    justify-content: center; /* Añadido del segundo archivo */
+    background-repeat: no-repeat;
+    justify-content: center;
 }
 
-/* Header y Navegación */
 header, .navbar {
     background-color: #333;
     color: #fff;
@@ -25,13 +23,11 @@ header, .navbar {
 }
 
 .logo img, .logo {
-    width: 100px; /* Estilo del primer CSS */
+    width: 100px;
     height: auto;
     margin: 0;
     padding: 0;
 }
-
-/* La clase .logo tiene dimensiones diferentes en los dos archivos. Puedes elegir uno u otro, o personalizarlo más tarde. */
 
 .login-button a, .cerrar-sesion {
     display: inline-block;
@@ -45,7 +41,7 @@ header, .navbar {
     font-size: 14px;
     border: 2px solid #d0f2ff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    margin-left: 10px; /* Añadido del segundo archivo */
+    margin-left: 10px;
 }
 
 .login-button a:hover, .cerrar-sesion:hover {
@@ -54,7 +50,6 @@ header, .navbar {
 }
 
 /* Secciones Main, Info, y Formularios */
-/* ... (aquí incluirías el resto de las reglas del primer archivo, asegurándote de que no haya duplicados con el segundo archivo) ... */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -226,7 +221,6 @@ button {
     padding: 10px 18px; 
     font-size: 18px; 
     width: auto; 
-
 }
 
 button#botonIngresar{
@@ -296,7 +290,6 @@ button#botonRecuperar {
     text-align: center; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-/* ... (aquí incluirías los estilos de los formularios y otros elementos específicos del segundo archivo) ... */
 
 /* Footer */
 footer, .footer {
@@ -323,11 +316,6 @@ footer, .footer {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos de la página de login y otros adicionales del segundo archivo */
-/* ... (aquí incluirías el resto de las reglas específicas del segundo archivo que no estén ya presentes) ... */
-
-/* Media queries y otros estilos específicos */
-/* ... (aquí combinarías las media queries de ambos archivos, asegurándote de fusionar reglas cuando sea necesario) ... */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -466,7 +454,6 @@ img {
         width: 100px;
     }
 }
-/* Estilos para el contenedor de vertientes */
 .vertientes-contenedor {
     display: flex;
     flex-direction: column;
@@ -475,7 +462,6 @@ img {
     height: 100%; 
     margin: auto;
 }
-/* Estilos para el contenedor de búsqueda */
 .vertientes-buscar {
     display: flex;
     flex-direction: row; 
@@ -490,7 +476,6 @@ img {
     justify-content: center;
     text-align: center;
 }
-/* Estilos para cada elemento de búsqueda */
 .buscar {
     display: flex;
     flex-direction: column;
@@ -499,7 +484,6 @@ img {
     padding: 0px 15px;
 }
 
-/* Estilos para el botón "Ir" */
 .ir {
     background-color: #333;
     color: white;
@@ -516,7 +500,6 @@ img {
     background-color: #1caa23;
 }
 
-/* Estilos para los parámetros de la vertiente */
 .parametros-columnas {
     display: flex;
     justify-content: center;
@@ -590,7 +573,6 @@ img {
         margin-bottom: 15px;
         width: 190px;
     }
-    /* Estilos para vertientes-footer en dispositivos móviles */
     .vertientes-footer {
         text-align: center;
         align-items: center;
@@ -632,7 +614,6 @@ img {
     margin: 0px 0px;
     margin-top: -16px;
 }
-/* Estilos para cuando el agua está en buenas condiciones mio */
 .calidad-buena {
     text-align: center;
     padding: 20px;
@@ -724,7 +705,6 @@ div.estado-vertiente{
     cursor: pointer;
 } 
 
-/* Estilo para la unidad al lado de datosContainer */
 .parametro .row {
     display: flex;
     align-items: center;
@@ -735,7 +715,7 @@ div.estado-vertiente{
 
 .filtro-comunidad,
 .filtro-vertiente,
-.form-group select { /* Esto apuntará a los selectores dentro de .form-group */
+.form-group select {
     width: 100%;
     padding: 3px;
     border: 1px solid #ccc;

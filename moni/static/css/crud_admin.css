@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF;
+}
 /* Crear de administrador */
 .center-div {
     display: flex;
@@ -131,7 +137,8 @@
     z-index: 9999;
     font-size: 20px;
     font-family: Arial, sans-serif;
-} .hidden {
+} 
+.hidden {
 display: none;
 }
 @media screen and (max-width: 1200px) {
@@ -144,12 +151,6 @@ display: none;
 }
 
 /* Tablas de administrador */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #B0E2FF;
-}
 .container-main{
     align-items: center;
     text-align: center;
