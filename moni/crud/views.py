@@ -631,14 +631,15 @@ class ActualizarKit(UpdateView):
                     data.append({'id':i.id, 'name': i.nombre, })
                     
             elif action=='listo':
-                comu_id=request.POST.get('comunidad')
-                comunid= comunidad.objects.get(id=comu_id)
-                form = KitForm(request.POST)
+                comu_id = request.POST.get('comunidad')
+                obj_id = self.kwargs['pk']
+                comunid = comunidad.objects.get(id=comu_id)
+                kit_instance = kit.objects.get(id=obj_id)
+                form = KitForm(request.POST, instance=kit_instance)
                 form.fields['vertiente'].queryset = vertiente.objects.filter(comunidad=comunid)
-                kit_instance = form.save(commit=False)
-                
-                # Guardar el objeto en la base de datos
-                kit_instance.save()
+    
+                if form.is_valid():
+                    form.save()  
                 return HttpResponseRedirect('/administracion/lista_kit/')
             else:
                 data['error']='Ha ocurrido un error'
