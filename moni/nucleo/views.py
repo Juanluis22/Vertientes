@@ -287,19 +287,30 @@ def users_massive_upload_save(request):
             acc = 0
             for item in df.itertuples():
                 acc += 1
-                username = str(item[1])            
+                username = (item[1])
+                if pd.isna(username):
+                    # Si está vacía, detén la iteración
+                    break
+                usernamed = int(username)       
                 first_name = str(item[2])
                 last_name = str(item[3])
-                is_active = bool(item[4])
-                email = str(item[5])
-                COMUNIDAD_DEFAULT = comunidad.objects.get(id=1)
+                gender = str(item[4])
+                is_active = bool(item[5])
+                email = str(item[6])
+                comunidad_id = (item[7])
+                if pd.isna(comunidad_id):
+                    # Si está vacía, detén la iteración
+                    break
+                comunidad_id = int(comunidad_id)
+                comunida = comunidad.objects.get(pk=comunidad_id) 
                 user_save = User(
-                    username = username,
+                    username = usernamed,
                     first_name = first_name,
                     last_name = last_name,
-                    email= email,
+                    gender=gender,
                     is_active=is_active,
-                    comunidad = COMUNIDAD_DEFAULT
+                    email= email,
+                    comunidad = comunida
                     )
                 user_save.save()
                 profile = Profile(user=user_save, group_id=2)
@@ -307,23 +318,20 @@ def users_massive_upload_save(request):
         
             return redirect('nucleo:users_massive_upload')
         except Exception as e:
-                    # Manejar la excepción aquí y mostrar un mensaje de error
                     error_message = f"Error al procesar el archivo: {str(e)}"
-                    # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
-                    # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
                     return render(request, 'users_massive_upload.html', {'error_message': error_message})
 @login_required
 def users_import_file(request):
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
-
         return redirect('nucleo:login')
+    communities = comunidad.objects.values('id', 'nombre')
     response = HttpResponse(content_type='application/ms-excel')
-    response['Content-Disposition'] = 'attachment; filename="Lista_de_Usuarios.xls"'
+    response['Content-Disposition'] = 'attachment; filename="Lista_de_Habitantes.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('carga_masiva')
     row_num = 0
-    columns = ['Rut', 'Primer nombre', 'Apellido', 'Estado', 'Correo Electronico']
+    columns = ['Rut', 'Primer nombre', 'Apellido','Género', 'Estado', 'Correo Electronico','ID de Comunidad']
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
     for col_num in range(len(columns)):
@@ -341,10 +349,24 @@ def users_import_file(request):
             if col_num == 2:
                 ws.write(row_num, col_num, 'ej:Torres', font_style)
             if col_num == 3:
-                ws.write(row_num, col_num, 'ej:true', font_style)
+                ws.write(row_num, col_num, 'ej:Masculino', font_style)
             if col_num == 4:
+                ws.write(row_num, col_num, 'ej:true', font_style)
+            if col_num == 5:
                 ws.write(row_num, col_num, 'ej:JuanTorres@gmail.com', font_style)
+            if col_num == 6:
+                ws.write(row_num, col_num, 'ej:1', font_style)
+    row_num = 0
+    columns = ['ID de Comunidad','Nombre de la Comunidad']
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num +8, columns[col_num], font_style)
 
+    for community in communities:
+        row_num += 1
+        ws.write(row_num, 8, community['id'])
+        ws.write(row_num, 9, community['nombre'])
+        
+    
     wb.save(response)
     return response
 @login_required
@@ -369,20 +391,23 @@ def comunity_massive_upload_save(request):
             for item in df.itertuples():
                 acc += 1
                 nombre = str(item[1])            
-                vertientes = int(item[2])
-                ubicación = str(item[3])
+                ubicación = str(item[2])
+                encargado=str(item[3])
+                contacto_encargado=(item[4])
+                if pd.isna(contacto_encargado):
+                    # Si está vacía, detén la iteración
+                    break
+                contacto_encargador = int(contacto_encargado)
                 comunity_save = comunidad(
                     nombre = nombre,
-                    vertientes = vertientes,
+                    encargado=encargado,
+                    contacto_encargado=contacto_encargador,
                     ubicación = ubicación,
                     )
                 comunity_save.save()
             return redirect('nucleo:comunity_massive_upload')
         except Exception as e:
-                # Manejar la excepción aquí y mostrar un mensaje de error
                 error_message = f"Error al procesar el archivo: {str(e)}"
-                # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
-                # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
                 return render(request, 'comunity_massive_upload.html', {'error_message': error_message})
 @login_required    
 def comunity_import_file(request):
@@ -395,7 +420,7 @@ def comunity_import_file(request):
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('carga_masiva')
     row_num = 0
-    columns = ['nombre', 'cantidad de vertientes', 'ubicación']
+    columns = ['Nombre de la comunidad', 'Ubicación','Nombre del encargado','Número de contacto del encargado']
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
     for col_num in range(len(columns)):
@@ -409,9 +434,11 @@ def comunity_import_file(request):
             if col_num == 0:
                 ws.write(row_num, col_num, 'ej:Comunidad1' , font_style)
             if col_num == 1:
-                ws.write(row_num, col_num, 'ej:5', font_style)
+                ws.write(row_num, col_num, 'ej:Las Torres', font_style)
             if col_num == 2:
-                ws.write(row_num, col_num, 'ej:Torres', font_style)
+                ws.write(row_num, col_num, 'ej:Juan', font_style)
+            if col_num == 3:
+                ws.write(row_num, col_num, 'ej:56911111111', font_style)
     wb.save(response)
     return response  
 @login_required
@@ -455,10 +482,7 @@ def vertiente_massive_upload_save(request):
         
             return redirect('nucleo:vertiente_massive_upload')
         except Exception as e:
-            # Manejar la excepción aquí y mostrar un mensaje de error
             error_message = f"Error al procesar el archivo: {str(e)}"
-            # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
-            # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
             return render(request, 'vertiente_massive_upload.html', {'error_message': error_message})
 @login_required   
 def vertiente_import_file(request):
@@ -466,7 +490,7 @@ def vertiente_import_file(request):
     if profiles.group_id != 1:
         return redirect('nucleo:login')
 
-    # Get all communities and their IDs and names
+
     communities = comunidad.objects.values('id', 'nombre')
 
     response = HttpResponse(content_type='application/ms-excel')
@@ -480,7 +504,7 @@ def vertiente_import_file(request):
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style)
-    # Example data for vertientes
+
     font_style = xlwt.XFStyle()
     date_format = xlwt.XFStyle()
     date_format.num_format_str = 'dd/MM/yyyy'
@@ -489,21 +513,22 @@ def vertiente_import_file(request):
         if col_num == 0:
             ws.write(row_num, col_num , 'ej: Vertiente1', font_style)
         if col_num == 1:
-            ws.write(row_num, col_num , 'ej: esta vertiente pertenece a Pedro', font_style)
+            ws.write(row_num, col_num , 'ej: Esta vertiente pertenece a Pedro ', font_style)
         if col_num == 2:
             ws.write(row_num, col_num , 'ej: las Torres', font_style)
         if col_num == 3:
             ws.write(row_num, col_num , 'ej: 1', font_style)
-    # Add additional columns for vertientes
+
     row_num = 0
-    columns = ['Nombre de la Comunidad', 'ID de Comunidad']
+    columns = ['ID de Comunidad','Nombre de la Comunidad']
     for col_num in range(len(columns)):
         ws.write(row_num, col_num +6, columns[col_num], font_style)
 
     for community in communities:
         row_num += 1
-        ws.write(row_num, 6, community['nombre'])
-        ws.write(row_num, 7, community['id'])
+        ws.write(row_num, 6, community['id'])
+        ws.write(row_num, 7, community['nombre'])
+        
     
 
     wb.save(response)
@@ -552,10 +577,7 @@ def kit_massive_upload_save(request):
         
             return redirect('nucleo:kit_massive_upload')
         except Exception as e:
-                # Manejar la excepción aquí y mostrar un mensaje de error
                 error_message = f"Error al procesar el archivo: {str(e)}"
-                # Puedes redirigir a una página de error o mostrar el mensaje en la misma página.
-                # Por ejemplo, puedes renderizar una plantilla de error con el mensaje.
                 return render(request, 'kit_massive_upload.html', {'error_message': error_message})
 @login_required   
 def kit_import_file(request):
@@ -568,7 +590,7 @@ def kit_import_file(request):
     wb = xlwt.Workbook(encoding='utf-8')
     ws = wb.add_sheet('carga_masiva')
     row_num = 0
-    columns = ['Modelo', 'Direccion Mac', '¿Esta activo?', 'ID de la Vertiente']
+    columns = ['Modelo', 'Dirección Mac', '¿Está activo?', 'ID de la Vertiente']
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
     for col_num in range(len(columns)):
