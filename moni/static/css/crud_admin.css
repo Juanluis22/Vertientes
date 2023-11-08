@@ -36,7 +36,7 @@
 .form-group label {
     font-weight: bold;
 }
-#id_nombre, #id_ubicación, #id_desc, #id_username, #id_first_name, #id_last_name, #id_email, #id_encargado, #id_contacto_encargado, #id_mac{
+#id_nombre, #id_ubicación, #id_desc, #id_username, #id_first_name, #id_last_name, #id_email, #id_encargado, #id_contacto_encargado, #id_mac, #id_nueva_contraseña, #id_confirmar_contraseña{
     width: 90%;
 }
 .form-group input[type="text"],
