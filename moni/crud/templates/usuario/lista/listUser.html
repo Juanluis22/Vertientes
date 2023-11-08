@@ -134,28 +134,28 @@
                 }
             });
         });
-        const eliminarEnlaces = document.querySelectorAll('.eliminar-button');
+        const eliminarEnlaces = document.querySelector('.vertientes-container');
         const modalover = document.getElementById('confirmarBorradoModalover');
         const siBorrarBoton = document.getElementById('siBorrar');
         const noBorrarBoton = document.getElementById('noBorrar');
         let urlEliminar = '';
-
-        eliminarEnlaces.forEach((enlace) => {
-            enlace.addEventListener('click', (event) => {
+        
+        eliminarEnlaces.addEventListener('click', (event) => {
+            if (event.target.classList.contains('eliminar-button')) {
                 event.preventDefault();
-                urlEliminar = event.currentTarget.getAttribute('data-url');
+                urlEliminar = event.target.getAttribute('data-url');
                 modalover.style.display = 'block';
-            });
-        });
-
-        siBorrarBoton.addEventListener('click', () => {
-            if (urlEliminar !== '') {
-                window.location.href = urlEliminar;
             }
         });
-
+        
+        siBorrarBoton.addEventListener('click', () => {
+            if (urlEliminar !== '') {
+                window.location.href = urlEliminar; 
+            }
+        });
+        
         noBorrarBoton.addEventListener('click', () => {
-            modalover.style.display = 'none';
+            modalover.style.display = 'none'; 
         });
     </script>
     
