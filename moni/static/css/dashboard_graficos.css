@@ -72,9 +72,9 @@ box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
 .hidro-tech {
     color: #ffffff;
     font-weight: bold;
-    font-size: 20px; 
-    margin-left: 70px; 
-    margin-right: 0; 
+    font-size: 20px;
+    margin-left: 11px;
+    margin-right: 0;
 }
 
 /* Estilo del rectángulo azul para "Vista Administrador" */
@@ -92,11 +92,22 @@ box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
 .sidebar-nav {
     list-style: none;
     padding: 7px;
-    margin-top: 50px;
+    margin-top: 80px;
+}
+
+/* Estilo de los enlaces de la barra lateral */
+.sidebar-nav {
+    list-style: none;
+    padding: 1px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column; 
+    text-align: center;
 }
 
 .sidebar-nav .nav-item {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    align-items: center;
 }
 
 .sidebar-nav a {
@@ -106,10 +117,13 @@ box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
     transition: color 0.3s;
     margin-left: px;
 }
-
-.sidebar-nav a:hover {
-    color: #fd1d1d; 
+.logo {
+    width: 100px;
+    height: auto;
+    margin: 0;
+    padding: 0;
 }
+
 /* Estilo de los iconos en la barra lateral */
 .sidebar-nav i {
     font-size: 1.8rem; 
@@ -377,7 +391,7 @@ button:hover {
     display: none;
 }
 .vertientes-container {
-    margin-top: 40px;  
+    margin-top: 110px;  
 }
 
 .vertientes-header {
