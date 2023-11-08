@@ -6,7 +6,7 @@ from user.choices import gender_choices, rango_etario
 class User(AbstractUser):
     edad = models.CharField(choices=rango_etario, default='No informado', verbose_name='Rango etario')
     comunidad=models.ForeignKey(comunidad, on_delete=models.SET_NULL, null=True, blank=True)
-    tipo=models.CharField(max_length=1,null=True,verbose_name='Tipo',default='a')
+    tipo=models.CharField(max_length=1,null=True,verbose_name='Tipo',default='1')
     is_active = models.BooleanField(default=False)
     token=models.UUIDField(primary_key=False, editable=False, null=True, blank=True )
     gender = models.CharField(choices=gender_choices, default='No informado', verbose_name='Sexo')
