@@ -1,0 +1,641 @@
+/* Estilos generales y otros estilos */
+.navbar {
+    background-color: #3393B7;
+    color: white; /* Color del texto en el Navbar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 10px 20px;
+height: 40px;
+z-index: 1;
+box-shadow: 0px 0 5px rgba(0, 0, 0, 1);
+}
+
+
+.navbar-center {
+    flex: 1; /* Toma el espacio restante */
+    text-align: center;
+    font-weight: bold;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item a {
+    align-items: center;
+    place-items: center;
+    margin: auto;
+    width: 80px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.nav-item .nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+}
+
+.icon-on-top {
+    font-size: 24px;
+    margin-bottom: 0px;
+}
+
+.nav-item a:hover {
+    color: #ffffff;
+}
+
+/* Estilo de la barra lateral izquierda */
+.vertical-bar {
+    background-color: #3393B7;
+    width: 110px; 
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+   
+}
+
+/* Estilo de "HidroTech" en el Navbar */
+.hidro-tech {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 20px; 
+    margin-left: 70px; 
+    margin-right: 0; 
+}
+
+/* Estilo del rectángulo azul para "Vista Administrador" */
+.admin-box {
+    background-color: #16536A; 
+    color: white; 
+    padding: 21px 10px;
+    border-radius: 0px 0px 10px 10px;
+    display: inline-block;
+    height: 100%;
+}
+
+
+/* Estilo de los enlaces de la barra lateral */
+.sidebar-nav {
+    list-style: none;
+    padding: 7px;
+    margin-top: 50px;
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 30px;
+}
+
+.sidebar-nav a {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    transition: color 0.3s;
+    margin-left: px;
+}
+
+.sidebar-nav a:hover {
+    color: #fd1d1d; 
+}
+/* Estilo de los iconos en la barra lateral */
+.sidebar-nav i {
+    font-size: 1.8rem; 
+    margin-right: 0px;
+    color: #ffffff; 
+    fill:#0E7FE7;
+}
+/* Estilo del Navbar */
+.navbar {
+    background-color: #3393B7;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Estilo del botón "Cerrar Sesión" */
+.cerrar-sesion {
+    background-color: #3393B7; 
+    color: white;
+    font-weight: bold;
+    border: 2px solid #3393B7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.cerrar-sesion:hover {
+    background-color: #16536A;
+    color: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF;  
+}
+@media (max-width: 1200px) {
+    .vertical-bar {
+        width: 100%; 
+        height: auto; 
+    }
+    
+    .sidebar-nav {
+        flex-direction: row; 
+        justify-content: space-around; 
+    }
+
+    .sidebar-nav .nav-item {
+        margin-bottom: 0; 
+    }
+
+    .sidebar-nav a {
+        margin: 0 10px; 
+    }
+    .hidro-tech {
+        margin-left: 10px; 
+        margin-right: 10px; 
+    }
+    .navbar {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    
+}
+
+/* Estilos de la página de vertientes */
+.vertientes-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #B0E2FF;
+}
+
+.vertientes-header {
+    text-align:left;
+    padding: 50px 0;
+    background-color: #B0E2FF; 
+    color: rgb(0, 0, 0);
+}
+
+.rectangulos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    margin-top: 30px;
+}
+
+
+
+.rectangulo {
+    position: relative;
+    width: 600px;
+    height: 150px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 25px; 
+    padding-right: 40px; 
+}
+.rectangulo-verde {
+    background-color: #87D91F; 
+}
+
+.rectangulo-rojo {
+    background-color: #e71c1c; 
+}
+
+.contenido-rectangulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.contenido-rectangulo p {
+    margin: 0;
+    font-size: 18px;
+    text-align: center; 
+    flex: 1; 
+}
+.contenido-rectangulo i:first-child {
+    font-size: 30px;
+    margin-right: 10px;
+}
+
+.rectangulo i {
+    font-size: 30px;
+    color: rgb(247, 241, 241);
+}
+
+.cuadrado-blanco {
+    position: absolute;
+    top: 300px;
+    right: 100px; 
+    width: 300px;
+    height: 250px; 
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+    border: 8px solid #0E7FE7; 
+}
+
+
+.cuadrado-blanco h2 {
+    font-size: 24px;
+}
+
+.boton-mismo-icono {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.boton-mismo-icono i {
+    font-size: 30px;
+    color: #0E7FE7;
+}
+.fa-lightbulb {
+    color: #fdd835; 
+    font-size: 24px; 
+    cursor: pointer;
+    margin-left: 10px; 
+}
+.hidden-text {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 999;
+    margin-top: -30px; 
+    margin-left: 10px; 
+    box-shadow: 0 0 10px rgba(250, 2, 2, 0.89);
+    border-radius: 25px;
+}
+
+/* Estilos generales */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Estilos para el gráfico */
+.chart-container {
+    margin-left: 120px;
+    margin-top: 85px;
+}
+
+#lineChart {
+    /* Estilos para el contenedor del gráfico */
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#lineChart table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#lineChart th,
+#lineChart td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#lineChart th {
+    background-color: #f2f2f2;
+}
+
+/* Resaltado al pasar el cursor sobre filas de la tabla dentro de #lineChart */
+#lineChart tr:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* Estilos para el formulario de fechas */
+form {
+    margin-left: 150px;
+    margin-top: 15px;
+    align-items: flex-start;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+select, button {
+    margin-bottom: 10px;
+}
+
+select {
+    padding: 8px;
+    width: 200px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #666;
+}
+
+/* Estilos para el contenedor de datos */
+#data-container {
+    display: none;
+}
+.vertientes-container {
+    margin-top: 40px;  
+}
+
+.vertientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f4f8;  
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.title-section {
+    flex: 1;
+}
+
+.title-section h1, .title-section h2 {
+    margin: 5px 0;
+}
+
+.info-icon {
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.hidden-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 100;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.incognito-icon:hover + .hidden-text {
+    display: block;
+}
+
+
+/* Estilo para la fila que contiene los botones */
+.row-boton {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+/* Estilo para cada botón */
+.boton-cuadrado {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+}
+/* Estilo para los iconos dentro de los botones */
+.boton-cuadrado i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+/* Estilo para los enlaces "Ver Gráfico" dentro de los botones */
+.boton-cuadrado a {
+    text-decoration: none;
+    color: #A6E3E9;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+/* Cambia el color del enlace al pasar el cursor sobre él */
+.boton-cuadrado a:hover {
+    color: #fd1d1d;
+}
+
+
+.dashboard-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; 
+}
+
+.dashboard-card {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 150px;
+    text-align: center;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+}
+
+.dashboard-link {
+    text-decoration: none;
+    color: #007BFF; 
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.dashboard-link:hover {
+    color: #0056b3; 
+}
+
+.vertientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0; 
+}
+
+.title-container {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.title-container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.title-container h2 {
+    font-size: 20px;
+    color: #555;
+}
+
+.info-container {
+    position: relative;
+}
+
+.incognito-icon {
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.hidden-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 10; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.incognito-icon:hover + .hidden-text {
+    display: block;
+}
+
+/* Estilos para la sección de datos dentro de cada tarjeta */
+.data-section {
+    padding: 20px;
+    background-color: #f0f4f8; 
+    border-bottom: 1px solid #e0e0e0; 
+}
+
+/* Estilos para la sección del gráfico dentro de cada tarjeta */
+.graph-section {
+    padding: 20px;
+    background-color: #ffffff; 
+    text-align: center;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1); 
+}
+.graph-section h4 {
+    margin: 0; 
+}
+
+/* Estilos para la sección de resumen */
+.resumen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+/* Estilos para las tarjetas (cards) */
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Estilos para el encabezado de la tarjeta */
+.card-header {
+    background-color: #f7f7f7;
+    padding: 10px 15px;
+    font-weight: 600;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Estilos para el cuerpo de la tarjeta */
+.card-body {
+    padding: 20px 15px;
+}
+
+/* Estilos para el título de la tarjeta */
+.card-title {
+    margin-bottom: 20px;
+    font-size: 18px;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 10px;
+}
+
+/* Estilos para el texto dentro de la tarjeta */
+.card-text {
+    margin-bottom: 10px;
+}
+
+/* Estilos adicionales para filas y columnas (flex) */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col {
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+    padding-right: 15px;
+    padding-left: 15px;
+    box-sizing: border-box;
+}
+
+/* Alineación del texto dentro de las columnas */
+.col .card-text {
+    text-align: left;
+}

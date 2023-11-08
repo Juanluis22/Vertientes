@@ -1,3 +1,4 @@
+/* Estilos generales para el cuerpo de la página */
 body {
     margin: 0;
     padding: 0;
@@ -5,7 +6,7 @@ body {
     background-color: #B0E2FF;
 }
 
-
+/* Estilos para el contenedor de vertientes */
 .vertientes-container {
     position: relative;
     max-width: 960px;
@@ -13,6 +14,8 @@ body {
     padding: 50px;
     background-color: #B0E2FF;
 }
+
+/* Estilos para la imagen dentro del contenedor de vertientes */
 .vertientes-container img {
     position: absolute;
     top: 50%;
@@ -23,6 +26,7 @@ body {
     max-width: 60%;
 }
 
+/* Estilos para el encabezado de la sección de vertientes */
 .vertientes-header {
     text-align: center;
     padding: 30px 0;
@@ -30,6 +34,7 @@ body {
     color: rgb(0, 0, 0);
 }
 
+/* Estilos para el contenedor de rectángulos */
 .rectangulos-container {
     display: flex;
     flex-direction: column;
@@ -37,8 +42,7 @@ body {
     margin-top: 30px;
 }
 
-
-
+/* Estilos para los rectángulos */
 .rectangulo {
     position: relative;
     width: 600px;
@@ -47,20 +51,22 @@ body {
     display: flex;
     align-items: center;
     margin-left: -10px;
-    margin-top: 10px; 
+    margin-top: 10px;
     border-radius: 25px;
     padding-right: 40px;
 }
+
+/* Estilos para el rectángulo verde */
 .rectangulo-verde {
     background-color: #16536A;
 }
 
+/* Estilos para el rectángulo celeste (misma clase que rectangulo-verde) */
 .rectangulo-celeste {
     background-color: #16536A;
 }
 
-
-
+/* Estilos para el contenido dentro de los rectángulos */
 .contenido-rectangulo {
     display: flex;
     justify-content: space-between;
@@ -69,23 +75,27 @@ body {
     padding: 0 10px;
 }
 
+/* Estilos para el texto dentro de los rectángulos */
 .contenido-rectangulo p {
     margin: 1;
     font-size: 18px;
     text-align: center;
     flex: 1;
 }
+
+/* Estilos para los íconos dentro de los rectángulos */
 .contenido-rectangulo i:first-child {
     font-size: 30px;
     margin-right: 10px;
 }
 
+/* Estilos generales para los íconos */
 .rectangulo i {
     font-size: 50px;
     color: rgb(247, 241, 241);
 }
 
-
+/* Estilos para el ícono de pregunta (fa-question-circle) */
 .fa-question-circle {
     color: #16536A;
     font-size: 24px;
@@ -94,16 +104,18 @@ body {
     margin-right: 40px;
 }
 
+/* Estilos para los botones con el mismo ícono */
 .boton-mismo-icono {
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 
+/* Estilos para los íconos dentro de los botones */
 .boton-mismo-icono i {
     font-size: 30px;
     color: rgb(12, 70, 231);
-} 
+}
 
 .hidden-text {
     display: none;
@@ -263,4 +275,87 @@ body {
     height: auto;
      
     }
+}
+
+/* Estilos para el las tablas de selecionar comunidad y vertiente (6) */
+.table-container {
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    padding: 20px;
+    margin-left: 6px;
+}
+.vertientes-container{
+    margin-top: 60px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background-color: #16536A;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #F5F5F5;
+}
+tr:hover {
+    background-color: #E1E1E1;
+}
+.search-box {
+    margin: 20px 0;
+    margin-left: 12px;
+}
+input[type="text"] {
+    padding: 5px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+}
+button {
+    background-color: #3393B7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.volver {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #16536A;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.ver-vertientes-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #16536A;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.ver-vertientes-button:hover {
+    background-color: #1e6fae;
+}
+
+/* Estilos para la paginación */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+.pagination a {
+    color: #fff;
+    background-color: #16536A;
+    padding: 8px 16px;
+    text-decoration: none;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
