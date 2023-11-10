@@ -88,11 +88,12 @@ class Prueba(TemplateView):
 @method_decorator(login_required,name='dispatch')
 class NuevoUser(CreateView):
     model = User
-    form_class = UserForm
+    form_class = UserFormCRUD
     template_name = 'usuario/new/newUsuario.html'
 
     def get_success_url(self):
         return reverse('crud:listauser')
+    
     
     def get(self, request, *args, **kwargs):
         usuario=request.user
@@ -132,6 +133,8 @@ class ListaUsuarios(ListView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
+    
+    
 
 
 @method_decorator(login_required,name='dispatch')
@@ -145,11 +148,11 @@ class ActualizarUsuario(UpdateView):
         # Asigna el grupo basado en el valor seleccionado en el campo "Rol"
         user = form.save(commit=False)
         tipo = form.cleaned_data['tipo']
-        if tipo == '1':
+        if tipo == 'Usuario':
             user.profile.group_id = 2  # Usuario
-        elif tipo == '2':
+        elif tipo == 'Autoridad':
             user.profile.group_id = 3  # Autoridad
-        elif tipo == '3':
+        elif tipo == 'Administrador':
             user.profile.group_id = 1  # Admin
         user.profile.save()
         return super().form_valid(form)
