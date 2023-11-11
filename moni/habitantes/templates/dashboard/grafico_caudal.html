@@ -8,12 +8,20 @@
               rel="stylesheet">
               <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
               <link rel="stylesheet" href="{% static 'css/dashboard_graficos.css' %}">
+              
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="icon"
               href="https://cdn-icons-png.flaticon.com/512/826/826923.png"
               type="image/png">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!--DataTABLE-->
+        <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+        
+    
         <title>Gráfico de caudal</title>
 
 
@@ -124,17 +132,94 @@
                                     </div>
                 
                                 </div> <!-- Fin del contenedor de fila -->
+
+
+                                
                             </div>
+                            
                         </div>
+                        
                     </div>
+                    
+
+                        <div class="card-header"> 
+                            <div class="datatable"> 
+                            <table id="example" class="display">
+                                <thead>
+                                    <tr>
+                                        <th><div class="separador">caudal</div></th>
+                                        <th><div class="separador">ph</div></th>
+                                        <th><div class="separador">conductividad</div></th>
+                                        <th><div class="separador">turbiedad</div></th>
+                                        <th><div class="separador">temperatura</div></th>
+                                        <th><div class="separador">humedad</div></th>
+                                        <th><div class="separador">fecha</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for objeto in vert_data %}
+                                        <tr>
+                                            <td>{{ objeto.caudal }}</td>
+                                            <td>{{ objeto.pH }}</td>
+                                            <td>{{ objeto.conductividad }}</td>
+                                            <td>{{ objeto.turbiedad }}</td>
+                                            <td>{{ objeto.temperatura }}</td>
+                                            <td>{{ objeto.humedad }}</td>
+                                            <td>{{ objeto.fecha }}</td>
+                                            
+                                            
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+
+                        </div>
+                    
+                    
+                    
                 </div>
                 
             </div>
+            
         </div>
+        
         
        
 
         <script>
+            new DataTable('#example', {
+                
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+
+            
+
+
+
             // Obtener el elemento con los datos JSON
             var dataContainer = document.getElementById('data-container');
             

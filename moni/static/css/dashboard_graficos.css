@@ -5,6 +5,26 @@ body {
     background-color: #B0E2FF;  
 }
 
+/* Agrega un fondo a la tabla */
+.datatable {
+    background-color: #f4f4f4; /* Cambia este color según tus preferencias */
+    width: 100%;
+  }
+  
+  /* Estilo para las celdas de la tabla */
+  .datatable td, .datatable th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    color: #333; /* Cambia este color según tus preferencias */
+  }
+  
+  /* Estilo para el encabezado de la tabla */
+  .datatable th {
+    background-color: #4CAF50; /* Cambia este color según tus preferencias */
+    color: white;
+  }
+
 
 .nav-item a {
     align-items: center;

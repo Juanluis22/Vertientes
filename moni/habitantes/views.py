@@ -243,7 +243,8 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
 
     #Recuperar el id del usuario 
     id_user=request.user.id
-
+    vert_data=datos.objects.filter(vertiente_id=vertiente_id)
+    
     #Comprobar si el usuario es admin o habitante
     user = request.user
     id_us=user.id
@@ -283,7 +284,8 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
         'veriente_nombre': vertiente_obj.nombre,
         'id_vertiente': vertiente_id,
         'user_type': user_type,
-        'user_id':id_user
+        'user_id':id_user,
+        'vert_data':vert_data
     }
     
     return render(request, template_name,context)
@@ -304,7 +306,9 @@ def grafico_generico(request, vertiente_id, tipo_grafico):
         raise Http404("Tipo de gráfico no válido")
 
     atributo = TIPOS_GRAFICO[tipo_grafico]
+    
 
+    
     return generar_respuesta(request, vertiente_id, atributo, f'dashboard/grafico_{tipo_grafico}.html')
 
 @login_required
