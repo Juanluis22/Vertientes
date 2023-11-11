@@ -209,9 +209,9 @@ def activar_todo(request):
         user.is_active = True
         #EMAIL
         email=user.email
-        print(email)
+        
         usuario=user
-        print(usuario)
+        
     
 
 

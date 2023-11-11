@@ -109,6 +109,10 @@ function hideText(textId) {
   var marcadoresGroup = L.layerGroup().addTo(map);
   var marcadoresGroup2 = L.layerGroup().addTo(map);
   var marcadoresGroup3 = L.layerGroup().addTo(map);
+  function onMarkerClick(e, idi) {
+    let id=idi
+    window.location.href = `/monitoreo/vertientes_admin/${id}/`;
+    }
 
   map.on('click', function(event) {
     if (currentMarker) {
@@ -187,6 +191,9 @@ function hideText(textId) {
             marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(marcadoresGroup2)
             nombre=vertiente.nombre.toString()
             marcador.bindTooltip('vertiente: '+ nombre).openTooltip()
+            marcador.on('click', function(e){
+                onMarkerClick(e,vertiente.id)
+                })
           }
           });
       }).fail(function(data){
