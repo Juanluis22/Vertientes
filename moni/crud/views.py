@@ -204,9 +204,41 @@ class ListaPeticion(ListView):
 
 def activar_todo(request):
     user_bloqued=User.objects.filter(is_active=False)
+
     for user in user_bloqued:
         user.is_active = True
+        #EMAIL
+        email=user.email
+        print(email)
+        usuario=user
+        print(usuario)
+    
+
+
+        mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
+        mailServer.starttls()
+        mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
+        
+        email_to=email
+        mensaje=MIMEMultipart()
+        mensaje['From']=setting.EMAIL_HOST_USER
+        mensaje['To']=email_to
+        mensaje['Subject']='Petición aprobada'
+
+
+        content=render_to_string('usuario/otros/accept_email.html', {
+            'user':usuario,
+        })
+        mensaje.attach(MIMEText(content,'html'))
+        
+        mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
+        print('Correo enviado correctamente')
+
+
         user.save()
+
+
+
 
     return redirect('crud:listauser') 
 
