@@ -1,5 +1,6 @@
 from typing import Any
 from django import http
+from django.utils import timezone
 import smtplib
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, TemplateView, UpdateView, DeleteView
@@ -807,10 +808,43 @@ class MapaGeneral(CreateView):
     
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
+        
+
+        vert=vertiente.objects.all()
+
+        mi_fecha = datetime(2000, 9, 24, 15, 30, 0)
+        fecha= timezone.make_aware(mi_fecha)
+        lista_de_datos = []
+
+        vertientes_list = list(vert.values())
+
+        for a in vert:
+
+            b=a.id
+            for i in datos.objects.filter(vertiente_id=b):
+                    
+
+                    #Se comparan las fechas para escoger la más actual, luego se guarda el registro más actual en la lista data.
+                    if fecha<=i.fecha:
+
+                        
+                        fecha_sin_formato=i.fecha
+                        fecha_formateada= f'{fecha_sin_formato.day}/{fecha_sin_formato.month}/{fecha_sin_formato.year}'
+                        
+                        
+                        fecha=i.fecha
+                        ver=i.vertiente
+                        ver_id=ver.id
+
+                        nuevo_diccionario = {"id": i.id, "caudal": i.caudal, "pH": i.pH, "conductividad": i.conductividad, "turbiedad": i.turbiedad, "temperatura": i.temperatura, "humedad": i.humedad,"vertiente_id":ver_id, "fecha_formateada": fecha_formateada}
+                        lista_de_datos.append(nuevo_diccionario)
+
+
+
+
         
         comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
-        context={'comunidades':comunidades,'vertientes':vertientes}
+        context={'comunidades':comunidades,'vertientes':vertientes_list,'data_vert':lista_de_datos}
         
         context['form']=VertienteForm()
         
@@ -852,10 +886,40 @@ class MapaAutoridad(CreateView):
     
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
-        
+
+        vert=vertiente.objects.all()
+
+        mi_fecha = datetime(2000, 9, 24, 15, 30, 0)
+        fecha= timezone.make_aware(mi_fecha)
+        lista_de_datos = []
+
+        vertientes_list = list(vert.values())
+
+        for a in vert:
+
+            b=a.id
+            for i in datos.objects.filter(vertiente_id=b):
+                    
+
+                    #Se comparan las fechas para escoger la más actual, luego se guarda el registro más actual en la lista data.
+                    if fecha<=i.fecha:
+
+                        
+                        fecha_sin_formato=i.fecha
+                        fecha_formateada= f'{fecha_sin_formato.day}/{fecha_sin_formato.month}/{fecha_sin_formato.year}'
+                        
+                        
+                        fecha=i.fecha
+                        ver=i.vertiente
+                        ver_id=ver.id
+
+                        nuevo_diccionario = {"id": i.id, "caudal": i.caudal, "pH": i.pH, "conductividad": i.conductividad, "turbiedad": i.turbiedad, "temperatura": i.temperatura, "humedad": i.humedad,"vertiente_id":ver_id, "fecha_formateada": fecha_formateada}
+                        lista_de_datos.append(nuevo_diccionario)
+
+
         comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
-        context={'comunidades':comunidades,'vertientes':vertientes}
+
+        context={'comunidades':comunidades,'vertientes':vertientes_list,'data_vert':lista_de_datos}
         
         context['form']=VertienteForm()
         
