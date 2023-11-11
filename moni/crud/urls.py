@@ -53,6 +53,9 @@ urlpatterns = [
     #Activación
     path("activación/<int:pk>/", activar_estado, name='activaruser'),
 
+    #Activación total
+    path("activación_total/", activar_todo, name='active_all'),
+
     #Desactivación
     path("desactivar/<int:pk>/", desactivar_estado, name='deactuser'),
 

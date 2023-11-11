@@ -202,6 +202,16 @@ class ListaPeticion(ListView):
 
 
 
+def activar_todo(request):
+    user_bloqued=User.objects.filter(is_active=False)
+    for user in user_bloqued:
+        user.is_active = True
+        user.save()
+
+    return redirect('crud:listauser') 
+
+
+
 def activar_estado(request, pk):
     registro = get_object_or_404(User, pk=pk)
     profiles = Profile.objects.get(user_id = request.user.id)
