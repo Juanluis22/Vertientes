@@ -95,6 +95,8 @@ class NuevoUser(CreateView):
         return reverse('crud:listauser')
     
     
+    
+    
     def get(self, request, *args, **kwargs):
         usuario=request.user
         id_user=usuario.id
@@ -113,6 +115,8 @@ class NuevoUser(CreateView):
         # Establece el campo 'is_active' en True
         form.instance.is_active = True
         return super().form_valid(form)
+
+
 
 
 @method_decorator(login_required,name='dispatch')
@@ -301,6 +305,20 @@ class NuevaComunidad(CreateView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
+    
+    def form_valid(self, form):
+        # Objeto sin guardar aún
+        obj = form.save(commit=False)
+        
+        ultimo_id = comunidad.objects.all().aggregate(models.Max('id'))['id__max']
+        
+        if ultimo_id is None:
+            obj.pk=1
+        else:
+            obj.pk=ultimo_id+1
+
+        obj.save()
+        return super().form_valid(form)
 
 
     def get_context_data(self, **kwargs):
@@ -400,6 +418,25 @@ class NuevaVertiente(CreateView):
 
     def get_success_url(self):
         return reverse('crud:listvert') 
+    
+
+    def form_valid(self, form):
+        # Objeto sin guardar aún
+        obj = form.save(commit=False)
+        print('obj')
+        print(obj)
+        print('fin obj')
+        ultimo_id = vertiente.objects.all().aggregate(models.Max('id'))['id__max']
+        print('ultimo_id')
+        print(ultimo_id)
+        print('fin ultimo_id')
+        if ultimo_id is None:
+            obj.pk=1
+        else:
+            obj.pk=ultimo_id+1
+
+        obj.save()
+        return super().form_valid(form)
     
 
     def get(self, request, *args, **kwargs):
@@ -563,6 +600,8 @@ class NuevoKit(CreateView):
         return reverse('crud:listkit')
     
 
+    
+
     def post(self, request, *args, **kwargs):
         data=[]
         data_error={}
@@ -582,6 +621,17 @@ class NuevoKit(CreateView):
                 form = KitForm(request.POST)
                 form.fields['vertiente'].queryset = vertiente.objects.filter(comunidad=comunid)
                 kit_instance = form.save(commit=False)
+
+
+                ultimo_id = kit.objects.all().aggregate(models.Max('id'))['id__max']
+                print('ultimo_id')
+                print(ultimo_id)
+                print('fin ultimo_id')
+                if ultimo_id is None:
+                    kit_instance.pk=1
+                else:
+                    kit_instance.pk=ultimo_id+1
+                
                 
                 # Guardar el objeto en la base de datos
                 kit_instance.save()
