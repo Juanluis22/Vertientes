@@ -119,9 +119,20 @@ $("#formularioregister").submit(function(evt) {
     let last_name = $("#id_last_name").val();
     let email = $("#id_email").val();
     let pass1 = $("#id_password").val();
-    console.log(pass1)
     let pass2 = $("#id_confirmar_contraseña").val();
-    console.log(pass2)
+    let a=rut.length;
+    console.log(a)
+    if (rut.length>12 || rut.length<6 ) {
+        console.log('EXTENSION')
+        evt.preventDefault();
+        Swal.fire({
+        title: 'RUT invalido',
+        text: 'El tamaño del rut no es correcto',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+            })
+
+    }
     
     
     const resultado = validarRut(rut);
@@ -133,13 +144,16 @@ $("#formularioregister").submit(function(evt) {
     
 
     if (resultado==false){
-            evt.preventDefault();
-            Swal.fire({
-            title: 'RUT invalido',
-            text: 'Porfavor, revise el campo',
-            icon: 'error',
-            confirmButtonText: 'Aceptar'
+        
+            
+                evt.preventDefault();
+                Swal.fire({
+                title: 'RUT invalido',
+                text: 'Porfavor, revise el campo',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
             })
+            
     }
     if (resultado_nombre==true){
             evt.preventDefault();
