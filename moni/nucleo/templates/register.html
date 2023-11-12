@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/exterior.css' %}">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Registro y Login</title>
     <style>
     </style>
@@ -41,4 +43,152 @@
     </footer>
         
 </body>
+<script>
+    //VALIDACIONES 
+
+    function validarRut(rut) {
+  // Eliminar puntos y guiones
+  rut = rut.replace(/\./g, "").replace(/-/g, "").toUpperCase();
+
+  // Separar número y dígito verificador
+  const numRut = rut.slice(0, -1);
+  const dv = rut.slice(-1);
+
+  // Calcular dígito verificador esperado
+  let suma = 0;
+  let mul = 2;
+
+  for (let i = numRut.length - 1; i >= 0; i--) {
+    suma += parseInt(numRut.charAt(i)) * mul;
+    mul = mul === 7 ? 2 : mul + 1;
+  }
+
+  const resultado = suma % 11 === 0 ? 0 : 11 - (suma % 11);
+
+  // Verificar dígito verificador
+  if (resultado === 10 && dv === "K") {
+    return true;
+  } else if (resultado === parseInt(dv)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function validarNombre(first_name) {
+    var regex = /^[0-9]+$/;
+    if (regex.test(first_name)) {
+                
+                return true;
+    }
+
+}
+function validarApellido(last_name) {
+    var regex = /^[0-9]+$/;
+    if (regex.test(last_name)) {
+                
+                return true;
+    }
+    
+}
+function validarEmail(email) {
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regex.test(email)) {
+                
+                return false;
+    }
+    
+}
+function comparadorPass(pass1,pass2) {
+    
+    if (pass1!=pass2) {
+                return false;
+    }
+    
+}
+
+
+ 
+
+
+
+$("#formularioregister").submit(function(evt) {
+    
+    let rut = $("#id_username").val();
+    let first_name = $("#id_first_name").val();
+    let last_name = $("#id_last_name").val();
+    let email = $("#id_email").val();
+    let pass1 = $("#id_password").val();
+    console.log(pass1)
+    let pass2 = $("#id_confirmar_contraseña").val();
+    console.log(pass2)
+    
+    
+    const resultado = validarRut(rut);
+    const resultado_nombre = validarNombre(first_name);
+    const resultado_apellido = validarApellido(last_name);
+    const resultado_email = validarEmail(email);
+    const comparador = comparadorPass(pass1,pass2);
+    
+    
+
+    if (resultado==false){
+            evt.preventDefault();
+            Swal.fire({
+            title: 'RUT invalido',
+            text: 'Porfavor, revise el campo',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+            })
+    }
+    if (resultado_nombre==true){
+            evt.preventDefault();
+            
+            
+            Swal.fire({
+            title: 'Nombre invalido',
+            text: 'Su nombre no puede contener numeros',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+            })
+            
+    }
+    if (resultado_apellido==true){
+            evt.preventDefault();
+            
+            Swal.fire({
+            title: 'Apellido invalido',
+            text: 'Su apellido no puede contener numeros',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+            })
+    }
+    if (resultado_email==false){
+            evt.preventDefault();
+            
+            Swal.fire({
+            title: 'Email invalido',
+            text: 'Revise su email',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+            })
+    }
+    if (comparador==false){
+            evt.preventDefault();
+            
+            Swal.fire({
+            title: 'Contraseñas no coinciden',
+            text: 'Revise sus contraseñas',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+            })
+    }
+
+
+
+            
+    
+    
+});
+</script>
 </html>

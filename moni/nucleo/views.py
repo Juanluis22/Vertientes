@@ -223,7 +223,7 @@ class Registro(CreateView):
             else:
                 if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
                     print('RUT INVALIDO')
-                if value_pass1 != value_pass2:
+                elif value_pass1 != value_pass2:
                     print('Contraseñas no coinciden')
                 else:
                     form=request.POST['email']
