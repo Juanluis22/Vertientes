@@ -1,17 +1,17 @@
 /**################################# dashboard y graficos ##################################################*/
 
 /* Agrega un fondo a la tabla */
-.midatatable {
+.datatable {
     background-color: #f4f4f4; 
     width: 100%;
   }
-  .midatatable tr:hover {
+  .datatable tr:hover {
     background-color: #B0E2FF; 
     cursor: pointer;
 }
   
   /* Estilo para las celdas de la tabla */
-  .midatatable td, .datatable th {
+  .datatable td, .datatable th {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -24,7 +24,7 @@
   }
   
   /* Estilo para el encabezado de la tabla */
-  .midatatable th {
+  .datatable th {
     background-color: #16536A; 
     color: white;
     text-shadow: 0px 1px 1px black; 
