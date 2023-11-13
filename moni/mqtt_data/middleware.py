@@ -14,6 +14,7 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from user.models import User
+from crud.forms import *
 
 
 # Crear una cola global para almacenar los mensajes recibidos de MQTT
@@ -236,7 +237,7 @@ class MQTTMiddleware:
                 self.send_email(user_advice, informacion,dict_problemas, otros)
 
 
-        
+        ultimo_id = datos.objects.all().aggregate(models.Max('id'))['id__max']
         
 
         # Guardar los datos
@@ -252,6 +253,8 @@ class MQTTMiddleware:
             kit=data_kit,
             vertiente=vertiente_instance
         )
+
+        dato.id=ultimo_id+1
         dato.save()
         print("Datos guardados exitosamente")
 
