@@ -37,14 +37,14 @@
         <h1 class="main-heading">Administración de Peticiones</h1>
         <div class="button-row">
             <a href="{% url 'crud:listauser' %}" class="custom-button">
-                <i class="bi bi-plus-circle" style="margin: 2px;"></i> Habitantes Registrados
+                <i class="bi bi-plus-circle" style="margin: 3px;"></i> Ir a Habitantes Registrados
             </a>
             <a href="{% url 'crud:active_all' %}" class="custom-button">
-                <i class="bi bi-plus-circle" style="margin: 2px;"></i> Activar todos
+                <i class="bi bi-plus-circle" style="margin: 3px;"></i> Aceptar a todos Habitantes
             </a>
         </div>
-        <div class="vertientes-container">
-            <div class="table-container">
+        <div class="vertientes-container-list">
+            <div class="table-container-list">
                 <table id="example" class="display" style="width:100%">
                     <thead>
                         <tr>
@@ -86,7 +86,7 @@
         </div>
     </div>
     <div id="confirmarBorradoModalover" class="modaloverlay">
-        <div class="modal">
+        <div class="modal-list">
             <h2>¿Estás seguro de Eliminar a este Usuario?</h2>
             <div class="separador">
                 <div class="modal-buttons">

@@ -44,8 +44,8 @@
                 <i class="bi bi-plus-circle" style="margin: 2px;"></i> Carga masiva Habitante
             </a>
         </div>
-        <div class="vertientes-container">
-            <div class="table-container">
+        <div class="vertientes-container-list">
+            <div class="table-container-list">
                 <table id="example" class="display">
                     <thead>
                         <tr>
@@ -90,7 +90,7 @@
     </div>
 
     <div id="confirmarBorradoModalover" class="modaloverlay">
-        <div class="modal">
+        <div class="modal-list">
             <h2>¿Estás seguro de desactivar a este usuario?</h2>
             <div class="separador">
                 <div class="modal-buttons">
@@ -134,7 +134,7 @@
                 }
             });
         });
-        const eliminarEnlaces = document.querySelector('.vertientes-container');
+        const eliminarEnlaces = document.querySelector('.vertientes-container-list');
         const modalover = document.getElementById('confirmarBorradoModalover');
         const siBorrarBoton = document.getElementById('siBorrar');
         const noBorrarBoton = document.getElementById('noBorrar');
