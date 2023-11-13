@@ -613,7 +613,7 @@ def kit_import_file(request):
         if col_num == 3:
             ws.write(row_num, col_num , 'ej: 1', font_style)
     row_num = 0
-    columns = ['ID de Comunidad','Nombre de la Vertiente']
+    columns = ['ID de Vertiente','Nombre de la Vertiente']
     for col_num in range(len(columns)):
         ws.write(row_num, col_num +6, columns[col_num], font_style)
 
