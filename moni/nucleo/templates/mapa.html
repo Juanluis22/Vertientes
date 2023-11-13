@@ -6,7 +6,7 @@
         <title>Mapa</title>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
+        <link rel="stylesheet" href="{% static 'css/monitoreo.css' %}">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -15,28 +15,6 @@
         <link rel="stylesheet" href="ruta/a/font-awesome.min.css">
         <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
     </head>
-    <style>
-        @media (min-width: 760px) and (max-width: 1300px) {
-          .contenido-rectangulo3 {
-            height: auto;
-            margin-top: 20%;
-            margin-left: 0%;
-          }
-        }
-        @media (max-width: 750px) {
-            .contenido-rectangulo3 {
-                margin-top: 200px;
-              }
-              .contenido-rectangulo4 {
-              align-items: start;
-    margin-left: 20px;
-}
-.contendos{
-    margin-left: 0px;
-  }
-
-            }
-      </style>
       
 
     <body>
@@ -72,7 +50,7 @@
         {{ data|json_script:"data_json" }}
         {{ user_id|json_script:"userid_json" }}
     </div>
-        <div class="rectangulo rectangulo-verde2">
+        <div class="mapa rectangulo-verde2">
             <img src="https://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Tu imagen">
                 <img src="https://maps.google.com/mapfiles/ms/icons/yellow-dot.png" alt="Tu imagen">
                 <img src="https://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Tu imagen">

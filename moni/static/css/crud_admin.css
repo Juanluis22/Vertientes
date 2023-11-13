@@ -1,9 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #B0E2FF;
-}
 /* Crear de administrador */
 .center-div {
     display: flex;
@@ -105,7 +99,7 @@ body {
     display: inline-block; 
     vertical-align: top; 
 }
-.contenido-rectangulo {
+.contenido-rectangulo-list {
     display: flex;
     position: sticky;
     justify-content: space-between;
@@ -126,18 +120,6 @@ body {
     font-size: 20px;
     font-family: Arial, sans-serif;
 }
-.aviso {
-    position: fixed;
-    top: 7.5cm; 
-    margin-left: 14cm; 
-    background-color: #3393B7;
-    color: #FFFFFF;
-    padding: 50px;
-    border-radius: 30px;
-    z-index: 9999;
-    font-size: 20px;
-    font-family: Arial, sans-serif;
-} 
 .hidden {
 display: none;
 }
@@ -146,7 +128,8 @@ display: none;
         display: flex;
         flex-direction: column;
         margin-top: 200px;
-        margin-left:0px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 }
 
@@ -160,7 +143,7 @@ display: none;
     padding-left: 110px;
     padding-top: 60px;
 }
-.vertientes-container {
+.vertientes-container-list {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -192,8 +175,13 @@ display: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 .acceder:hover, .carga:hover, .volver:hover {
+    display: inline-block;
+    padding: 10px 20px;
     background-color: #16536A;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
 }
 #example {
     width: 100%;
@@ -258,7 +246,7 @@ display: none;
 #example tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-.table-container {
+.table-container-list {
     overflow-x: auto;
     width: 1200px;
     margin: 0 auto;   
@@ -324,7 +312,7 @@ display: none;
 }
 
 /* Modal de Eliminar y desactivar */
-.modal {
+.modal-list {
     background-color: #fff;
     border-radius: 5px;
     padding: 20px;
@@ -375,9 +363,6 @@ display: none;
 }
 #showModal:checked ~ .modal-overlay {
     display: flex;
-}
-#showModal:checked ~ .modal-overlay .modal {
-    display: block;
 }
 
 @media screen and (max-width: 640px){
@@ -475,11 +460,11 @@ input[type="file"] {
     border-radius: 5px;
     margin-top: 20px;
     margin-bottom: 20px;
-    }
-    .accederr:hover {
-        background-color: #16536A;
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-    }
+}
+.accederr:hover {
+    background-color: #16536A;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
 #example {
   background-color: white;
 }#example-td {
