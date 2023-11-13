@@ -47,21 +47,21 @@
 
 {%endif%}
 
-        <div class="vertientes-container" style="">
+<div class="dash-container" style="">
             
-            <!-- Header de Bienvenida-->
-            <div class="vertientes-header" style="background-image: url('/static/img/imagen_heade_datos.png');border-radius: 30px;padding: 20px;margin-top: 10px;">
-                <div class="title-section" style="color: white; text-align: left;">
-                    <h1 class="card-title" style="font-weight: bold;">
+    <!-- Header de Bienvenida-->
+    <div class="dash-header" style="background-image: url('/static/img/imagen_heade_datos.png');border-radius: 30px;padding: 20px;margin-top: 10px;">
+        <div class="title-section1" style="color: white; text-align: left;">
+            <h1 class="card-titles" style="font-weight: bold;">
                         Bienvenido al monitorio remoto de vertientes
                     </h1>
                     <h2>Comunidad: {{ veriente_comunidad }}</h2>
                     <h2>Vertiente: {{ veriente_nombre }}</h2>
                     <h3>Ubicación: {{ veriente_ubicacion }}</h3>
                 </div>
-                <div class="info-icon">
-                    <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
-                    <div id="text1" class="hidden-text" style="color: white; text-align: left;">
+                <div class="info-icono">
+                    <i class="fas fa-lightbulb incognito-icono" style="color: yellow;" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
+                    <div id="text1" class="hidden-texto" style="color: white; text-align: left;">
                         <p>Aquí puedes ver en detalle todas las mediciones a la vertiente que has escogido</p>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
             
             <div class="dashboard-section">
                 
-                <div class="container">
+                <div class="container-grafico">
                     <form method="get"style="margin-left: 150px; margin-top:-10px; margin-bottom:-50px">
                         <label for="dateRange">Selecciona un rango de fechas:</label>
                         <select id="dateRange" name="date_range">
@@ -84,49 +84,55 @@
                     </form>
                 </div>
 
-                <div class="container">
+                <div class="container-grafico">
                     <!-- Agregar la clase chart-container y el margen izquierdo -->
                     <canvas id="lineChart"width="900px"height="400px"style="background-color: white"></canvas>
                 </div>
 
                 <div id="data-container" data-datajson="{{ data_json }}"></div>
 
-                <div class="container">
+                <div class="container-grafico">
                     <div class="resumen">
                         <!-- Card para el Resumen Exploratorio -->
-                        <div class="card">
-                            <div class="card-header" >
+                        <div class="carte">
+                            <div class="carte-header" >
                                 Resumen Exploratorio de Datos
                             </div>
-                            <div class="card-body">
-                                <div class="row"> <!-- Añadido contenedor de fila -->
+                            <div class="carte-body">
+                                <div class="roww"> <!-- Añadido contenedor de fila -->
                 
                                     <div class="col"> <!-- Columna para Medidas de Tendencia Central -->
-                                        <h5 class="card-title">Medidas de Tendencia Central</h5>
-                                        <p class="card-text">Media (promedio): <span id="media"></span></p>
-                                        <p class="card-text">Mediana: <span id="mediana"></span></p>
+                                        <h5 class="carte-titles">Medidas de Tendencia Central</h5>
+                                        <p class="carte-text">Media (promedio): <span id="media"></span></p>
+                                        <p class="carte-text">Mediana: <span id="mediana"></span></p>
                                     </div>
                 
                                     <div class="col"> <!-- Columna para Medidas de Dispersión -->
-                                        <h5 class="card-title">Medidas de Dispersión</h5>
-                                        <p class="card-text">Rango: <span id="rango"></span></p>
-                                        <p class="card-text">Varianza: <span id="varianza"></span></p>
-                                        <p class="card-text">Desviación Estándar: <span id="desviacionEstandar"></span></p>
+                                        <h5 class="carte-titles">Medidas de Dispersión</h5>
+                                        <p class="carte-text">Rango: <span id="rango"></span></p>
+                                        <p class="carte-text">Varianza: <span id="varianza"></span></p>
+                                        <p class="carte-text">Desviación Estándar: <span id="desviacionEstandar"></span></p>
                                     </div>
                 
                                     <div class="col"> <!-- Columna para Valores -->
-                                        <h5 class="card-title">Valores</h5>
-                                        <p class="card-text">Mínimo: <span id="minimo"></span></p>
-                                        <p class="card-text">Máximo: <span id="maximo"></span></p>
-                                        <p class="card-text">Número total de observaciones: <span id="observaciones"></span></p>
+                                        <h5 class="carte-titles">Valores</h5>
+                                        <p class="carte-text">Mínimo: <span id="minimo"></span></p>
+                                        <p class="carte-text">Máximo: <span id="maximo"></span></p>
+                                        <p class="carte-text">Número total de observaciones: <span id="observaciones"></span></p>
                                     </div>
                 
                                 </div> <!-- Fin del contenedor de fila -->
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card-header"> 
+
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+
+                        <div class="carte-header"> 
                         <div class="datatable"> 
                         <table id="example" class="display">
                             <thead>
