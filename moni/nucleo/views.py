@@ -291,7 +291,9 @@ def users_massive_upload_save(request):
                 if pd.isna(username):
                     # Si está vacía, detén la iteración
                     break
-                usernamed = int(username)       
+                usernamed = int(username)
+                usernamer = str(username)
+                last_four_digits = usernamer[-4:]       
                 first_name = str(item[2])
                 last_name = str(item[3])
                 gender = str(item[4])
@@ -312,6 +314,8 @@ def users_massive_upload_save(request):
                     email= email,
                     comunidad = comunida
                     )
+                print(last_four_digits)
+                user_save.set_password(last_four_digits)
                 user_save.save()
                 profile = Profile(user=user_save, group_id=2)
                 profile.save()
