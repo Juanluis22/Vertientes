@@ -645,6 +645,36 @@ img {
     margin: 0px 10px;
     margin-top: -16px;
 }   
+.calidad-animal {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; 
+    background-color: #8702d4 !important; 
+    color: white !important; 
+    margin: 0px 0px;
+    margin-top: -16px;
+}
+.calidad-riego {
+    text-align: center;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 600px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold; 
+    background-color: #026ed4 !important; 
+    color: white !important; 
+    margin: 0px 0px;
+    margin-top: -16px;
+}
 div.estado-vertiente{
     background-color: #1c4eaa00;
 }

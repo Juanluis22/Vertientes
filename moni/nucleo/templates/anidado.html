@@ -207,6 +207,12 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
         if (pH >= 6.5 && pH <= 8.5 && conductividad <= 500 && turbiedad <= 5) {
             calidad = "Óptimas condiciones";
             claseCSS = "calidad-buena";
+        } else if (pH >= 6 && pH <= 9 && conductividad <= 1000 && turbiedad <= 10) {
+            calidad = "Buena para consumo animal";
+            claseCSS = "calidad-animal";
+        } else if (pH >= 6 && pH <= 9 && conductividad <= 1500 && turbiedad <= 20) {
+            calidad = "Buena solo para riego vegetal";
+            claseCSS = "calidad-riego";
         } else {
             calidad = "Malas condiciones";
             claseCSS = "calidad-mala";
@@ -217,7 +223,7 @@ function evaluarCalidadAgua(pH, conductividad, turbiedad) {
         claseCSS = "calidad-no-seleccionada";
     }
     // Aplica la clase CSS al elemento que muestra la calidad del agua
-    $("#calidadAgua").removeClass("calidad-mala calidad-buena calidad-no-seleccionada").addClass(claseCSS);
+    $("#calidadAgua").removeClass("calidad-mala calidad-buena calidad-animal calidad-riego calidad-no-seleccionada").addClass(claseCSS);
 
     return calidad;
 }
