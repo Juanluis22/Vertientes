@@ -1,0 +1,212 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #B0E2FF; /* Color celeste */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Estilos de la barra de navegación */
+.logo {
+    width: 110px; /* Ajusta el tamaño de la imagen */
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0; /* Elimina el relleno predeterminado de la lista */
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+
+.nav-item a:hover {
+    color: #1caa23; /* Cambia el color al pasar el cursor sobre el enlace */
+}
+
+.cerrar-sesion {
+display: inline-block;
+padding: 10px 20px;
+color: #fff;
+text-decoration: none;
+border-radius: 5px;
+font-weight: bold;
+transition: background-color 0.3s;
+font-size: 14px;
+border: 2px solid #d0f2ff;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+margin-left: 10px;
+}
+
+.cerrar-sesion:hover {
+background-color: #0077b3;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+/* Estilos para dispositivos pequeños (móviles) */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .navbar-nav {
+        margin-top: 10px;
+        gap: 10px;
+    }
+
+    .logo {
+        margin-bottom: 10px;
+    }
+}
+
+#contenedor {
+    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
+    background-size: cover;
+    background-position: center;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formulariologin {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+    max-width: 400px; /* Limita el ancho del formulario */
+}
+
+.formulario form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#titulo {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center; /* Centra el título horizontalmente */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px 0px 5px 5px;
+    margin: 10px 0px 10px 0px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none; /* Elimina el contorno predeterminado al enfocar el elemento */
+    box-shadow: 0 0 5px rgba(102, 168, 255, 0.616); /* Agrega una sombra al enfocar */
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #1c4eaa; /* Cambia el color del borde al enfocar */
+}
+
+button#botonIngresar{
+    width: 50%;
+    align-items: center;
+    text-align: center;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+:hover.botonb{
+    background-color: #1fa4d9;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+:hover.botona{
+    background-color: #1fa4d9;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#ingreso{
+    margin-top: 5%;
+    align-items: center;
+    text-align: center;
+}
+
+#enlaceOlvido {
+    font-size: 12px;
+    margin-bottom: 10px;
+    text-align: center; /* Centra el enlace horizontalmente */
+}
+
+.botona {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center; /* Centra el botón de registro horizontalmente */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el pie de página */
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: white;
+}
+/* Estilos de la página de login */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.login-container h1 {
+    font-size: 36px;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,262 @@
+body {
+    display: flex;
+    justify-content: center;            
+    margin: 0;
+    padding: 0;
+    background-image: url('https://chileestuyo.cl/wp-content/uploads/2021/03/Laguna-Cuellar-scaled.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos de la barra de navegación */
+.logo {
+width: 110px; 
+height: auto;
+margin: 0;
+padding: 0;
+}
+.navbar {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0; 
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s;
+}
+.nav-item a:hover {
+    color: #1caa23; 
+}
+
+.cerrar-sesion {
+display: inline-block;
+padding: 10px 20px;
+color: #fff;
+text-decoration: none;
+border-radius: 5px;
+font-weight: bold;
+transition: background-color 0.3s;
+font-size: 14px;
+border: 2px solid #d0f2ff;
+box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+margin-left: 10px;
+}
+.cerrar-sesion:hover {
+    background-color: #0077b3;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    }
+    
+    main{
+    flex-grow: 1;
+    }
+    #contenedor {
+        background-size: cover;
+        background-position: center;
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #contenedorseña {
+        display: flex;
+        max-height: 50%;
+        margin-top: 10rem;
+        flex: 1;
+        flex-grow: 1;
+        justify-content: center;
+    }
+    #tituloseña {
+        font-size: 20px;
+        margin-bottom: -80px;
+        text-align: center;
+    }
+    #titulo {
+        font-size: 18px;
+        margin-bottom: 10px;
+        text-align: center; 
+    }
+    #formulario {
+        background-color: #f0f0f0; 
+        border-radius: 15px;
+        padding: 35px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        
+        max-width: 30%; 
+        gap: 100px; 
+    }
+    #formularioregister{
+        background-color: #f0f0f0; 
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex: 1;
+        max-width: 40%; 
+    }
+    #formulariologin {
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 5px;
+        max-width: 400px; 
+    }
+    #formulario form {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 25%;
+        flex: 1;
+        margin: 5%;
+    }
+    #imagen {
+        width: 25rem;
+        border-radius: 0px 15px 15px 0px;
+    }
+    button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: #fff;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    #boton-registrarse {
+        padding: 10px 18px; 
+        font-size: 18px; 
+        width: auto; 
+
+    }
+    
+    button#botonIngresar{
+        width: 50%;
+        align-items: center;
+        text-align: center;
+    }
+    #botonRecuperar {
+        padding: 13px 17px;
+        background-color: #6fbf73;
+        color: #fff;
+        margin-top: 10px;
+    }
+    button#botonRecuperar {
+        font-size: 18px; 
+        }
+    :hover#botonRecuperar{
+        background-color: #1fa4d9;
+        color: #fff;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    #enlaceVolver {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    #recordatorio {
+        font-size: 20px;
+        color: #777;
+        margin-top: 5px;
+    }
+    #registro{
+        margin-top: 5%;
+        align-items: center;
+        text-align: center;
+    }
+    :hover.botonb{
+        background-color: #1fa4d9;
+        color: #fff;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    :hover.botona{
+        background-color: #1fa4d9;
+        color: #fff;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    #ingreso{
+        margin-top: 5%;
+        align-items: center;
+        text-align: center;
+    }
+    
+    #enlaceOlvido {
+        font-size: 12px;
+        margin-bottom: 10px;
+        text-align: center; 
+    }
+    .botona {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    .footer {
+        text-align: center;
+        padding: 20px 0;
+        background-color: #333;
+        color: white;
+    }
+    /* Estilos de la página de login */
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f2f2f2;
+    }
+    
+    .login-container h1 {
+        font-size: 36px;
+        text-align: center;
+        padding: 20px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 12px; 
+    margin: 8px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    font-size: 15px; 
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: #5b9dd9; 
+}

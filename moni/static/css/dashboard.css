@@ -1,0 +1,199 @@
+.vertientes-container {
+    margin-top: 40px;  
+}
+
+.vertientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f4f8;  
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.title-section {
+    flex: 1;
+}
+
+.title-section h1, .title-section h2 {
+    margin: 5px 0;
+}
+
+.info-icon {
+    position: relative;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.hidden-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 100;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.incognito-icon:hover + .hidden-text {
+    display: block;
+}
+
+
+/* Estilo para la fila que contiene los botones */
+.row-boton {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+/* Estilo para cada botón */
+.boton-cuadrado {
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+}
+/* Estilo para los iconos dentro de los botones */
+.boton-cuadrado i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+/* Estilo para los enlaces "Ver Gráfico" dentro de los botones */
+.boton-cuadrado a {
+    text-decoration: none;
+    color: #A6E3E9;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+/* Cambia el color del enlace al pasar el cursor sobre él */
+.boton-cuadrado a:hover {
+    color: #fd1d1d;
+}
+
+
+.dashboard-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; 
+}
+
+.dashboard-card {
+    background-color: #f7f7f7;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 150px;
+    text-align: center;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+}
+
+.dashboard-link {
+    text-decoration: none;
+    color: #007BFF; 
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.dashboard-link:hover {
+    color: #0056b3; 
+}
+
+.vertientes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0; 
+}
+
+.title-container {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.title-container h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.title-container h2 {
+    font-size: 20px;
+    color: #555;
+}
+
+.info-container {
+    position: relative;
+}
+
+.incognito-icon {
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.hidden-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 10; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.incognito-icon:hover + .hidden-text {
+    display: block;
+}
+
+/* Estilos para la sección de datos dentro de cada tarjeta */
+.data-section {
+    padding: 20px;
+    background-color: #f0f4f8; 
+    border-bottom: 1px solid #e0e0e0; 
+}
+
+/* Estilos para la sección del gráfico dentro de cada tarjeta */
+.graph-section {
+    padding: 20px;
+    background-color: #ffffff; 
+    text-align: center;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.1); 
+}
+.graph-section h4 {
+    margin: 0; 
+}
+

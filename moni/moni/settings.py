@@ -91,9 +91,9 @@ WSGI_APPLICATION = 'moni.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME":"monibd",
+        "NAME":"moni",
         "USER":"postgres",
-        "PASSWORD":"1234",
+        "PASSWORD":"jexu1324@",
         "HOST":"localhost",
         "PORT":"5432",
     }
