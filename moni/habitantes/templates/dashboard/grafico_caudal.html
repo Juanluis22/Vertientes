@@ -6,14 +6,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
               rel="stylesheet">
-              <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
-              <link rel="stylesheet" href="{% static 'css/dashboard_graficos.css' %}">
+              <link rel="stylesheet" href="{% static 'css/visualizacion.css' %}">
+              <link rel="stylesheet" href="{% static 'css/nabvar.css' %}">
+              
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <link rel="icon"
               href="https://cdn-icons-png.flaticon.com/512/826/826923.png"
               type="image/png">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <!--DataTABLE-->
+        <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+        
+    
         <title>Gráfico de caudal</title>
 
 
@@ -47,21 +55,21 @@
 
    {%endif%}
 
-        <div class="vertientes-container" style="">
+        <div class="dash-container" style="">
             
             <!-- Header de Bienvenida-->
-            <div class="vertientes-header" style="background-image: url('/static/img/imagen_heade_datos.png');border-radius: 30px;padding: 20px;margin-top: 10px;">
-                <div class="title-section" style="color: white; text-align: left;">
-                    <h1 class="card-title" style="font-weight: bold;">
+            <div class="dash-header" style="background-image: url('/static/img/imagen_heade_datos.png');border-radius: 30px;padding: 20px;margin-top: 10px;">
+                <div class="title-section1" style="color: white; text-align: left;">
+                    <h1 class="card-titles" style="font-weight: bold;">
                         Bienvenido al monitorio remoto de vertientes
                     </h1>
                     <h2>Comunidad: {{ veriente_comunidad }}</h2>
                     <h2>Vertiente: {{ veriente_nombre }}</h2>
                     <h3>Ubicación: {{ veriente_ubicacion }}</h3>
                 </div>
-                <div class="info-icon">
-                    <i class="fas fa-lightbulb incognito-icon" style="color: yellow;" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
-                    <div id="text1" class="hidden-text" style="color: white; text-align: left;">
+                <div class="info-icono">
+                    <i class="fas fa-lightbulb incognito-icono" style="color: yellow;" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
+                    <div id="text1" class="hidden-texto" style="color: white; text-align: left;">
                         <p>Aquí puedes ver en detalle todas las mediciones a la vertiente que has escogido</p>
                     </div>
                 </div>
@@ -72,7 +80,7 @@
             
             <div class="dashboard-section">
                 
-                <div class="container">
+                <div class="container-grafico">
                     <form method="get"style="margin-left: 150px; margin-top:-10px; margin-bottom:-50px">
                         <label for="dateRange">Selecciona un rango de fechas:</label>
                         <select id="dateRange" name="date_range">
@@ -86,55 +94,132 @@
                     </form>
                 </div>
 
-                <div class="container">
+                <div class="container-grafico">
                     <!-- Agregar la clase chart-container y el margen izquierdo -->
                     <canvas id="lineChart"width="900px"height="400px"style="background-color: white"></canvas>
                 </div>
 
                 <div id="data-container" data-datajson="{{ data_json }}"></div>
 
-                <div class="container">
+                <div class="container-grafico">
                     <div class="resumen">
                         <!-- Card para el Resumen Exploratorio -->
-                        <div class="card">
-                            <div class="card-header" >
+                        <div class="carte">
+                            <div class="carte-header" >
                                 Resumen Exploratorio de Datos
                             </div>
-                            <div class="card-body">
-                                <div class="row"> <!-- Añadido contenedor de fila -->
+                            <div class="carte-body">
+                                <div class="roww"> <!-- Añadido contenedor de fila -->
                 
                                     <div class="col"> <!-- Columna para Medidas de Tendencia Central -->
-                                        <h5 class="card-title">Medidas de Tendencia Central</h5>
-                                        <p class="card-text">Media (promedio): <span id="media"></span></p>
-                                        <p class="card-text">Mediana: <span id="mediana"></span></p>
+                                        <h5 class="carte-titles">Medidas de Tendencia Central</h5>
+                                        <p class="carte-text">Media (promedio): <span id="media"></span></p>
+                                        <p class="carte-text">Mediana: <span id="mediana"></span></p>
                                     </div>
                 
                                     <div class="col"> <!-- Columna para Medidas de Dispersión -->
-                                        <h5 class="card-title">Medidas de Dispersión</h5>
-                                        <p class="card-text">Rango: <span id="rango"></span></p>
-                                        <p class="card-text">Varianza: <span id="varianza"></span></p>
-                                        <p class="card-text">Desviación Estándar: <span id="desviacionEstandar"></span></p>
+                                        <h5 class="carte-titles">Medidas de Dispersión</h5>
+                                        <p class="carte-text">Rango: <span id="rango"></span></p>
+                                        <p class="carte-text">Varianza: <span id="varianza"></span></p>
+                                        <p class="carte-text">Desviación Estándar: <span id="desviacionEstandar"></span></p>
                                     </div>
                 
                                     <div class="col"> <!-- Columna para Valores -->
-                                        <h5 class="card-title">Valores</h5>
-                                        <p class="card-text">Mínimo: <span id="minimo"></span></p>
-                                        <p class="card-text">Máximo: <span id="maximo"></span></p>
-                                        <p class="card-text">Número total de observaciones: <span id="observaciones"></span></p>
+                                        <h5 class="carte-titles">Valores</h5>
+                                        <p class="carte-text">Mínimo: <span id="minimo"></span></p>
+                                        <p class="carte-text">Máximo: <span id="maximo"></span></p>
+                                        <p class="carte-text">Número total de observaciones: <span id="observaciones"></span></p>
                                     </div>
                 
                                 </div> <!-- Fin del contenedor de fila -->
+
+
+                                
                             </div>
+                            
                         </div>
+                        
                     </div>
+                    
+
+                        <div class="carte-header"> 
+                            <div class="datatable"> 
+                            <table id="example" class="display">
+                                <thead>
+                                    <tr>
+                                        <th><div class="separador">caudal</div></th>
+                                        <th><div class="separador">ph</div></th>
+                                        <th><div class="separador">conductividad</div></th>
+                                        <th><div class="separador">turbiedad</div></th>
+                                        <th><div class="separador">temperatura</div></th>
+                                        <th><div class="separador">humedad</div></th>
+                                        <th><div class="separador">fecha</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for objeto in vert_data %}
+                                        <tr>
+                                            <td>{{ objeto.caudal }}</td>
+                                            <td>{{ objeto.pH }}</td>
+                                            <td>{{ objeto.conductividad }}</td>
+                                            <td>{{ objeto.turbiedad }}</td>
+                                            <td>{{ objeto.temperatura }}</td>
+                                            <td>{{ objeto.humedad }}</td>
+                                            <td>{{ objeto.fecha }}</td>
+                                            
+                                            
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+
+                        </div>
+                    
+                    
+                    
                 </div>
                 
             </div>
+            
         </div>
+        
         
        
 
         <script>
+             new DataTable('#example', {
+                
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+
+            
+
+
+
             // Obtener el elemento con los datos JSON
             var dataContainer = document.getElementById('data-container');
             
@@ -183,12 +268,12 @@
                     y: {
                         title: {
                             display: true,
-                            text: 'Caudal'
+                            text: 'Caudal (L/m)'
                         },
                         ticks: {
                             // Añadir unidades de medida a los ticks del eje Y
                             callback: function(value, index, values) {
-                                return value + ' L/m';
+                                return value + ' ';
                             },
                             // Establecer el valor máximo del eje Y
                             max: 30

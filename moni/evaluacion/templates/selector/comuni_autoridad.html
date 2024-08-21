@@ -6,9 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{% static 'css/select_com_vert.css' %}">
-    <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
+    <link rel="stylesheet" href="{% static 'css/visualizacion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nabvar.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="ruta/a/font-awesome.min.css"> 
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
@@ -31,11 +30,11 @@
         <a href="{% url 'nucleo:logout' %}" class="cerrar-sesion">Cerrar Sesión</a>
     </nav>
     
-    <div class="vertientes-container">
-        <div class="vertientes-header">
+    <div class="visual-container">
+        <div class="visual-header">
             <h1>
                 Seleccione una comunidad
-                <i class="fas fa-lightbulb incognito-icon" onmouseover="showText('text3')" onmouseout="hideText('text3')"></i>
+                <i class="fas fa-lightbulb incognito-icono" style="color: yellow;" onmouseover="showText('text3')" onmouseout="hideText('text3')"></i>
             </h1>
         </div>
         <div class="search-box">
@@ -49,7 +48,7 @@
             <p>Aquí puedes elegir qué comunidad revisar y ver las vertientes asociadas a cada una. Para más detalles, pulsa el botón:</p>
             <h3>Ver Vertientes</h3>
         </div>
-        <div class="table-container">
+        <div class="table-visual">
             <table id="communityTable">
                 <thead>
                     <tr>

@@ -1,5 +1,6 @@
 from typing import Any
 from django import http
+from django.utils import timezone
 import smtplib
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, TemplateView, UpdateView, DeleteView
@@ -88,11 +89,14 @@ class Prueba(TemplateView):
 @method_decorator(login_required,name='dispatch')
 class NuevoUser(CreateView):
     model = User
-    form_class = UserForm
+    form_class = UserFormCRUD
     template_name = 'usuario/new/newUsuario.html'
 
     def get_success_url(self):
         return reverse('crud:listauser')
+    
+    
+    
     
     def get(self, request, *args, **kwargs):
         usuario=request.user
@@ -114,6 +118,8 @@ class NuevoUser(CreateView):
         return super().form_valid(form)
 
 
+
+
 @method_decorator(login_required,name='dispatch')
 class ListaUsuarios(ListView):
     model = User  # Especifica el modelo que deseas mostrar en la lista
@@ -132,6 +138,8 @@ class ListaUsuarios(ListView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
+    
+    
 
 
 @method_decorator(login_required,name='dispatch')
@@ -145,11 +153,11 @@ class ActualizarUsuario(UpdateView):
         # Asigna el grupo basado en el valor seleccionado en el campo "Rol"
         user = form.save(commit=False)
         tipo = form.cleaned_data['tipo']
-        if tipo == '1':
+        if tipo == 'Usuario':
             user.profile.group_id = 2  # Usuario
-        elif tipo == '2':
+        elif tipo == 'Autoridad':
             user.profile.group_id = 3  # Autoridad
-        elif tipo == '3':
+        elif tipo == 'Administrador':
             user.profile.group_id = 1  # Admin
         user.profile.save()
         return super().form_valid(form)
@@ -192,6 +200,48 @@ class ListaPeticion(ListView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
+
+
+
+def activar_todo(request):
+    user_bloqued=User.objects.filter(is_active=False)
+
+    for user in user_bloqued:
+        user.is_active = True
+        #EMAIL
+        email=user.email
+        
+        usuario=user
+        
+    
+
+
+        mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
+        mailServer.starttls()
+        mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
+        
+        email_to=email
+        mensaje=MIMEMultipart()
+        mensaje['From']=setting.EMAIL_HOST_USER
+        mensaje['To']=email_to
+        mensaje['Subject']='Petición aprobada'
+
+
+        content=render_to_string('usuario/otros/accept_email.html', {
+            'user':usuario,
+        })
+        mensaje.attach(MIMEText(content,'html'))
+        
+        mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
+        print('Correo enviado correctamente')
+
+
+        user.save()
+
+
+
+
+    return redirect('crud:listauser') 
 
 
 
@@ -298,6 +348,20 @@ class NuevaComunidad(CreateView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
+    
+    def form_valid(self, form):
+        # Objeto sin guardar aún
+        obj = form.save(commit=False)
+        
+        ultimo_id = comunidad.objects.all().aggregate(models.Max('id'))['id__max']
+        
+        if ultimo_id is None:
+            obj.pk=1
+        else:
+            obj.pk=ultimo_id+1
+
+        obj.save()
+        return super().form_valid(form)
 
 
     def get_context_data(self, **kwargs):
@@ -397,6 +461,25 @@ class NuevaVertiente(CreateView):
 
     def get_success_url(self):
         return reverse('crud:listvert') 
+    
+
+    def form_valid(self, form):
+        # Objeto sin guardar aún
+        obj = form.save(commit=False)
+        print('obj')
+        print(obj)
+        print('fin obj')
+        ultimo_id = vertiente.objects.all().aggregate(models.Max('id'))['id__max']
+        print('ultimo_id')
+        print(ultimo_id)
+        print('fin ultimo_id')
+        if ultimo_id is None:
+            obj.pk=1
+        else:
+            obj.pk=ultimo_id+1
+
+        obj.save()
+        return super().form_valid(form)
     
 
     def get(self, request, *args, **kwargs):
@@ -560,6 +643,8 @@ class NuevoKit(CreateView):
         return reverse('crud:listkit')
     
 
+    
+
     def post(self, request, *args, **kwargs):
         data=[]
         data_error={}
@@ -579,6 +664,17 @@ class NuevoKit(CreateView):
                 form = KitForm(request.POST)
                 form.fields['vertiente'].queryset = vertiente.objects.filter(comunidad=comunid)
                 kit_instance = form.save(commit=False)
+
+
+                ultimo_id = kit.objects.all().aggregate(models.Max('id'))['id__max']
+                print('ultimo_id')
+                print(ultimo_id)
+                print('fin ultimo_id')
+                if ultimo_id is None:
+                    kit_instance.pk=1
+                else:
+                    kit_instance.pk=ultimo_id+1
+                
                 
                 # Guardar el objeto en la base de datos
                 kit_instance.save()
@@ -712,10 +808,43 @@ class MapaGeneral(CreateView):
     
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
+        
+
+        vert=vertiente.objects.all()
+
+        mi_fecha = datetime(2000, 9, 24, 15, 30, 0)
+        fecha= timezone.make_aware(mi_fecha)
+        lista_de_datos = []
+
+        vertientes_list = list(vert.values())
+
+        for a in vert:
+
+            b=a.id
+            for i in datos.objects.filter(vertiente_id=b):
+                    
+
+                    #Se comparan las fechas para escoger la más actual, luego se guarda el registro más actual en la lista data.
+                    if fecha<=i.fecha:
+
+                        
+                        fecha_sin_formato=i.fecha
+                        fecha_formateada= f'{fecha_sin_formato.day}/{fecha_sin_formato.month}/{fecha_sin_formato.year}'
+                        
+                        
+                        fecha=i.fecha
+                        ver=i.vertiente
+                        ver_id=ver.id
+
+                        nuevo_diccionario = {"id": i.id, "caudal": i.caudal, "pH": i.pH, "conductividad": i.conductividad, "turbiedad": i.turbiedad, "temperatura": i.temperatura, "humedad": i.humedad,"vertiente_id":ver_id, "fecha_formateada": fecha_formateada}
+                        lista_de_datos.append(nuevo_diccionario)
+
+
+
+
         
         comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
-        context={'comunidades':comunidades,'vertientes':vertientes}
+        context={'comunidades':comunidades,'vertientes':vertientes_list,'data_vert':lista_de_datos}
         
         context['form']=VertienteForm()
         
@@ -757,10 +886,40 @@ class MapaAutoridad(CreateView):
     
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
-        
+
+        vert=vertiente.objects.all()
+
+        mi_fecha = datetime(2000, 9, 24, 15, 30, 0)
+        fecha= timezone.make_aware(mi_fecha)
+        lista_de_datos = []
+
+        vertientes_list = list(vert.values())
+
+        for a in vert:
+
+            b=a.id
+            for i in datos.objects.filter(vertiente_id=b):
+                    
+
+                    #Se comparan las fechas para escoger la más actual, luego se guarda el registro más actual en la lista data.
+                    if fecha<=i.fecha:
+
+                        
+                        fecha_sin_formato=i.fecha
+                        fecha_formateada= f'{fecha_sin_formato.day}/{fecha_sin_formato.month}/{fecha_sin_formato.year}'
+                        
+                        
+                        fecha=i.fecha
+                        ver=i.vertiente
+                        ver_id=ver.id
+
+                        nuevo_diccionario = {"id": i.id, "caudal": i.caudal, "pH": i.pH, "conductividad": i.conductividad, "turbiedad": i.turbiedad, "temperatura": i.temperatura, "humedad": i.humedad,"vertiente_id":ver_id, "fecha_formateada": fecha_formateada}
+                        lista_de_datos.append(nuevo_diccionario)
+
+
         comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
-        context={'comunidades':comunidades,'vertientes':vertientes}
+
+        context={'comunidades':comunidades,'vertientes':vertientes_list,'data_vert':lista_de_datos}
         
         context['form']=VertienteForm()
         

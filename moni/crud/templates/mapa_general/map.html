@@ -5,8 +5,8 @@
         <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-        <link rel="stylesheet" href="{% static 'css/navasi.css' %}">
         <link rel="stylesheet" href="{% static 'css/mapa.css' %}">
+        <link rel="stylesheet" href="{% static 'css/nabvar.css' %}">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -66,20 +66,25 @@
             <div class="contendos">
             <div id="map" class="rectangulos-container2"> 
               {{ vertientes|json_script:"vertientes_json" }}
+              {{ data_vert|json_script:"data_json" }}
               {{ comunidades|json_script:"comunidades_json" }}
               <input type="hidden" name="action" value="listo">
             <div id="map" class="rectangulos-container2"></div>
         </div>
-        <div class="rectangulo rectangulo-verde2">
+        <div class="mapa rectangulo-verde2">
             <div class="contenidorectanguloverde">
               <div class="item">
-                <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Tu imagen">
+                <img src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" alt="Tu imagen">
                 <span class="gestion-text" style="color: white; font-size: 23px;">Muestra el lugar donde se encuentra la comunidad</span>
             </div>
             <div class="item">
-                <img src="https://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Tu imagen">
-                <span class="gestion-text" style="color: white; font-size: 23px;">Muestra el lugar donde se encuentra la vertiente</span>
+              <img src="https://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Tu imagen">
+              <img src="https://maps.google.com/mapfiles/ms/icons/yellow-dot.png" alt="Tu imagen">
+              <img src="https://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Tu imagen">
+              <span class="gestion-text" style="color: white; font-size: 23px;">Muestra el estado de la vertiente</span>
             </div>
+            <img src="https://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Tu imagen">
+            <span class="gestion-text" style="color: white; font-size: 23px;">La vertiente no contiene datos</span>
         </div>
     </div>
  
@@ -103,12 +108,17 @@ function hideText(textId) {
 
   let vertientes = JSON.parse(document.getElementById('vertientes_json').textContent);
   let comunidades = JSON.parse(document.getElementById('comunidades_json').textContent);
+  let datos_vert = JSON.parse(document.getElementById('data_json').textContent)
   var currentMarker = null;
   let marcador = null;
   let vmarcador = null;
   var marcadoresGroup = L.layerGroup().addTo(map);
   var marcadoresGroup2 = L.layerGroup().addTo(map);
   var marcadoresGroup3 = L.layerGroup().addTo(map);
+  function onMarkerClick(e, idi) {
+    let id=idi
+    window.location.href = `/monitoreo/vertientes_admin/${id}/`;
+    }
 
   map.on('click', function(event) {
     if (currentMarker) {
@@ -133,7 +143,7 @@ function hideText(textId) {
 
   comunidades.forEach(comunidad => { 
   var icono=L.icon({
-  iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png', 
+  iconUrl: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png', 
   iconAnchor: [12, 41],  
   popupAnchor: [1, -34]    
   } )
@@ -161,7 +171,7 @@ function hideText(textId) {
         comunidades.forEach(comunidad => { 
         marcadoresGroup.clearLayers();
         var icono=L.icon({
-        iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        iconUrl: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
         iconAnchor: [12, 41],  
         popupAnchor: [1, -34]  
         } )
@@ -179,6 +189,10 @@ function hideText(textId) {
       marcadoresGroup2.clearLayers();
       vertientes.forEach(vertiente => { 
         if (vertiente.comunidad_id==id){
+          id_vert=vertiente.id
+
+
+
           var icono=L.icon({
             iconUrl: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',  
             iconAnchor: [12, 41],  
@@ -187,6 +201,95 @@ function hideText(textId) {
             marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(marcadoresGroup2)
             nombre=vertiente.nombre.toString()
             marcador.bindTooltip('vertiente: '+ nombre).openTooltip()
+            marcador.on('click', function(e){
+                onMarkerClick(e,vertiente.id)
+                })
+
+
+                datos_vert.forEach(dato => {
+            a=dato.vertiente_id
+            if(a==id_vert){
+              estado=0
+              problema=0
+              caudal=dato.caudal
+              ph=dato.pH
+              conductividad=dato.conductividad
+              turbiedad=dato.turbiedad
+              temperatura=dato.temperatura
+              humedad=dato.humedad
+
+              if(caudal>10 || caudal<2 ){
+                problema=problema+1
+            
+                }if(ph>7 || ph<4 ){
+                problema=problema+1
+            
+                }if(conductividad>10 || conductividad<5 ){
+                problema=problema+1
+            
+                }if(turbiedad>23){
+                problema=problema+1
+            
+                }if(temperatura>50 || temperatura<2 ){
+                problema=problema+1
+            
+                }if(humedad>10 || humedad<2 ){
+                problema=problema+1
+            
+                }
+                if(problema>=2){
+                estado=3
+                }if(problema<2 && problema>0){
+                estado=2
+                }if(problema==0){
+                estado=1
+                }
+
+                if(estado==1){
+                var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',  // Ruta de la imagen del marcador
+                iconAnchor: [12, 41],  // Punto de anclaje del icono
+                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                })
+                }else if(estado==2){
+                var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',  // Ruta de la imagen del marcador
+                iconAnchor: [12, 41],  // Punto de anclaje del icono
+                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                })
+                }else if(estado==3){
+                var icono=L.icon({
+                iconUrl: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',  // Ruta de la imagen del marcador
+                iconAnchor: [12, 41],  // Punto de anclaje del icono
+                popupAnchor: [1, -34]  // Punto de anclaje del mensaje emergente
+                })
+                } 
+                
+                
+                marcador=L.marker([vertiente.latitud, vertiente.longitud ],{icon:icono}).addTo(marcadoresGroup2)
+                nombre=vertiente.nombre.toString()
+                marcador.bindTooltip('vertiente: '+ nombre).openTooltip()
+                marcador.on('click', function(e){
+                onMarkerClick(e,vertiente.id)
+                  })
+              
+
+            }
+
+          })
+            
+
+
+
+
+
+
+
+
+
+
+
+
           }
           });
       }).fail(function(data){
