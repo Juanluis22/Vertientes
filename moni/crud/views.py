@@ -66,8 +66,6 @@ class Indice(TemplateView):
     
     
 
-
-
 #USER
 
 #Indice para User
@@ -293,9 +291,6 @@ def desactivar_estado(request, pk):
     registro.save()
 
     return redirect('crud:listauser') 
-
-
-
 
 
 
