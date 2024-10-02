@@ -1,0 +1,419 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/visualizacion.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nabvar.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/826/826923.png" type="image/png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!--DataTABLE-->
+    <link href="https://cdn.datatables.net/v/dt/dt-1.13.6/datatables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.0.2/dist/chartjs-plugin-annotation.min.js"></script>
+    <script src='https://cdn.plot.ly/plotly-2.34.0.min.js'></script>
+
+
+
+    <title>Gráfico de pH</title>
+   
+</head>
+<body>
+    {% if user_type == "admin" %}
+    <!--Barra Vertical-->
+    {% include "barra_lateral_admin.html" %}
+    <!-- FIN Barra Vertical-->
+    <!--Barra Superior-->
+    {% include "barra_superior_admin.html" %}
+    <!--FIN Barra Superior-->
+{% elif user_type == "habitante" %}
+    <!--Barra Vertical-->
+    {% include "barra_lateral_habitante.html" %}
+    <!-- FIN Barra Vertical-->
+    <!--Barra Superior-->
+    {% include "barra_superior_habitante.html" %}
+
+    <!--FIN Barra Superior-->
+
+{% elif user_type == "Autoridad" %}
+    <!--Barra Vertical-->
+    {% include "barra_lateral_autoridad.html" %}
+    <!-- FIN Barra Vertical-->
+    <!--Barra Superior-->
+    {% include "barra_superior_autoridad.html" %}
+
+    <!--FIN Barra Superior-->
+
+
+{%endif%}
+    
+        
+<div class="dash-container" style="">
+            
+    <!-- Header de Bienvenida-->
+    <div class="dash-header" style="background-image: url('/static/img/imagen_heade_datos.png');border-radius: 30px;padding: 20px;margin-top: 10px;">
+        <div class="title-section1" style="color: white; text-align: left;">
+            <h1 class="card-titles" style="font-weight: bold;">
+                Bienvenido al monitorio remoto de vertientes
+            </h1>
+            <h2>Comunidad: {{ veriente_comunidad }}</h2>
+            <h2>Vertiente: {{ veriente_nombre }}</h2>
+            <h3>Ubicación: {{ veriente_ubicacion }}</h3>
+        </div>
+        <div class="info-icono">
+            <i class="fas fa-lightbulb incognito-icono" style="color: yellow;" onmouseover="showText('text1')" onmouseout="hideText('text1')"></i>
+            <div id="text1" class="hidden-texto" style="color: white; text-align: left;">
+                <p>Aquí puedes ver en detalle todas las mediciones a la vertiente que has escogido</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+    <div class="dashboard-section">
+        
+        <div class="container-grafico">
+            <h1>Gráfico de pH con error estandar</h1>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" id="fecha_inicio" name="fecha_inicio" placeholder="Fecha de inicio">
+                <input type="text" id="fecha_fin" name="fecha_fin" placeholder="Fecha de fin">
+                <button type="submit">Actualizar Gráfico</button>
+            </form>
+
+            
+        </div>
+
+        
+
+        <div class="container-grafico">
+            <div id="myChart"width="900px"height="400px"style="background-color: white"></div>
+            <!-- Agregar la clase chart-container y el margen izquierdo -->
+            
+        </div>
+
+        <div id="data-container" data-datajson="{{ data_json }}"></div>
+
+        <div class="container-grafico">
+            <div class="resumen">
+                <!-- Card para el Resumen Exploratorio -->
+                <div class="carte">
+                    <div class="carte-header" >
+                        Resumen Exploratorio de Datos
+                    </div>
+                    <div class="carte-body">
+                        <div class="roww"> <!-- Añadido contenedor de fila -->
+        
+                            <div class="col"> <!-- Columna para Medidas de Tendencia Central -->
+                                <h5 class="carte-titles">Medidas de Tendencia Central</h5> 
+                                <p class="carte-text">Media (promedio): <span id="media"> {{average_ph}} </span></p>
+                                <p class="carte-text">Mediana: <span id="mediana"> {{median_ph}} </span></p>
+                            </div>
+                            
+                            <div class="col"> <!-- Columna para Medidas de Dispersión -->
+                                <h5 class="carte-titles">Medidas de Dispersión</h5>
+                                <p class="carte-text">Rango: <span id="rango"> {{ph_range}} </span></p>
+                                <p class="carte-text">Varianza: <span id="varianza"> {{ph_variance}} </span></p>
+                                <p class="carte-text">Desviación Estándar: <span id="desviacionEstandar"> {{ph_std_dev}} </span></p>
+                            </div>
+        
+                            <div class="col"> <!-- Columna para Valores -->
+                                <h5 class="carte-titles">Valores</h5>
+                                <p class="carte-text">Mínimo: <span id="minimo"> {{ph_min_rounded}} </span></p>
+                                <p class="carte-text">Máximo: <span id="maximo"> {{ph_max_rounded}} </span></p>
+                                <p class="carte-text">Número total de observaciones: <span id="observaciones"> {{num_elements}} </span></p>
+                            </div>
+        
+                        </div> <!-- Fin del contenedor de fila -->
+
+
+                        
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+
+                <div class="carte-header"> 
+                        <div class="datatable"> 
+                        <table id="example" class="display">
+                            <thead>
+                                <tr>
+                                    <th><div class="separador">Caudal (l/m)</div></th>
+                                    <th><div class="separador">pH (pH)</div></th>
+                                    <th><div class="separador">Conductividad (µS/cm)</div></th>
+                                    <th><div class="separador">Turbiedad (NTU)</div></th>
+                                    <th><div class="separador">Temperatura (C°)</div></th>
+                                    <th><div class="separador">Humedad (%)</div></th>
+                                    <th><div class="separador">Fecha</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for objeto in vert_data %}
+                                    <tr>
+                                        <td>{{ objeto.caudal }}</td>
+                                        <td>{{ objeto.pH }}</td>
+                                        <td>{{ objeto.conductividad }}</td>
+                                        <td>{{ objeto.turbiedad }}</td>
+                                        <td>{{ objeto.temperatura }}</td>
+                                        <td>{{ objeto.humedad }}</td>
+                                        <td>{{ objeto.fecha }}</td>
+                                        
+                                        
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                flatpickr("#fecha_inicio", {
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i:S",
+                });
+                flatpickr("#fecha_fin", {
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i:S",
+                });
+        
+                var fechas = {{ fechas|safe }};
+                var atributo = "{{ atributo|escapejs }}";
+                var unidad = "{{ unidad_medida|escapejs }}";
+                var upper_bounds = {{ upper_bounds|safe }};
+                var lower_bounds = {{ lower_bounds|safe }};
+                var ph_vals = {{ ph_vals|safe }}; // Si usas los promedios de pH como valor central
+        
+                var data = [
+                    {
+                        x: fechas,
+                        y: ph_vals,
+                        error_y: {
+                            type: 'data',
+                            symmetric: false,
+                            array: upper_bounds.map((upper, i) => upper - ph_vals[i]),
+                            arrayminus: ph_vals.map((ph, i) => ph - lower_bounds[i])
+                        },
+                        mode: 'markers',
+                        type: 'scatter'
+                    }
+                ];
+        
+                var layout = {
+                    title: 'Análisis de pH con Rango Sigma (Error estandar de la media)',
+                    xaxis: {
+                        title: 'Fecha'
+                    },
+                    yaxis: {
+                        title: 'Valor de ' + atributo +' ' + unidad
+                    }
+                };
+        
+                Plotly.newPlot('myChart', data, layout);
+            });
+        </script>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <script>
+
+
+        new DataTable('#example', {
+                
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+
+
+        var dataContainer = document.getElementById('data-container');
+        var dataFromDjango = JSON.parse(dataContainer.getAttribute('data-datajson'));
+        var labels = dataFromDjango.labels;
+        var values = dataFromDjango.values;
+        var ctx = document.getElementById('lineChart').getContext('2d');
+    
+        var chartData = {
+            labels: labels,
+            datasets: [{
+                label: 'pH',
+                data: values,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 3,
+                fill: false
+            }]
+        };
+    
+        var chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: [{
+                    type: 'time',
+                    time: {
+                        unit: 'day',
+                        tooltipFormat: 'DD/MM/YYYY',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Fecha'
+                    },
+                    gridLines: {
+                        color: 'rgba(0, 0, 0, 0.1)',
+                        lineWidth: 4
+                    }
+                }],
+                y: {
+                    title: {
+                        display: true,
+                        text: 'pH'
+                    },
+                    gridLines: {
+                        color: 'rgba(0, 0, 0, 0.1)',
+                        lineWidth: 4
+                    }
+                }
+            }
+        };
+    
+        var currentRange = document.getElementById('dateRange').value;
+        document.getElementById('dateRange').addEventListener('change', function() {
+                currentRange = this.value;
+                this.form.submit(); // Tu código aquí
+            });
+    
+        var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: chartOptions
+        });
+
+        // Función para actualizar el resumen exploratorio de datos
+        function actualizarResumenExploratorio() {
+            // Obtener los datos desde el atributo 'data-json'
+            var dataFromDjango = JSON.parse(document.getElementById('data-container').getAttribute('data-datajson'));
+            var values = dataFromDjango.values.map(Number); // Asegurarse de que los valores sean números
+            
+            // Calcula las estadísticas
+            var sum = values.reduce((a, b) => a + b, 0);
+            var media = sum / values.length;
+            var sortedValues = values.slice().sort((a,b) => a - b);
+            var mid = Math.floor(sortedValues.length / 2);
+            var mediana = sortedValues.length % 2 === 0 ? (sortedValues[mid - 1] + sortedValues[mid]) / 2 : sortedValues[mid];
+            var rango = Math.max(...sortedValues) - Math.min(...sortedValues);
+            var varianza = sortedValues.reduce((a, b) => a + Math.pow(b - media, 2), 0) / sortedValues.length;
+            var desviacionEstandar = Math.sqrt(varianza);
+            
+            // Actualiza los valores en la tarjeta
+            document.getElementById('media').textContent = media.toFixed(2);
+            document.getElementById('mediana').textContent = mediana.toFixed(2);
+            document.getElementById('rango').textContent = rango.toFixed(2);
+            document.getElementById('varianza').textContent = varianza.toFixed(2);
+            document.getElementById('desviacionEstandar').textContent = desviacionEstandar.toFixed(2);
+            document.getElementById('minimo').textContent = Math.min(...sortedValues).toFixed(2);
+            document.getElementById('maximo').textContent = Math.max(...sortedValues).toFixed(2);
+            document.getElementById('observaciones').textContent = sortedValues.length;
+        }
+    
+        var eventSource;
+        function startSSE() {
+            if (eventSource) {
+                eventSource.close();
+            }
+            
+            var objectId = {{ id_vertiente }};
+            const tipoGrafico = 'pH';
+            const currentRange = document.getElementById('dateRange').value;
+            const eventSourceUrl = "/monitoreo/sse_grafico/" + objectId + "/" + tipoGrafico + "/" + currentRange + "/";
+    
+            eventSource = new EventSource(eventSourceUrl);
+            
+            eventSource.onmessage = function(event) {
+                var newData = JSON.parse(event.data);
+                
+                // Actualizar los datos del gráfico
+                lineChart.data.labels = newData.labels;
+                lineChart.data.datasets[0].data = newData.values;
+                lineChart.update();
+                
+                // Actualiza el atributo data-datajson con los nuevos datos
+                dataContainer.setAttribute('data-datajson', JSON.stringify(newData));
+            
+                // Llama a actualizarResumenExploratorio para refrescar el resumen con los nuevos datos
+                actualizarResumenExploratorio();
+            };
+        }
+    
+        document.getElementById('dateRange').addEventListener('change', startSSE);
+    
+        var urlParams = new URLSearchParams(window.location.search);
+        var dateRangeParam = urlParams.get('date_range') || 'all';
+        document.getElementById('dateRange').value = dateRangeParam;
+    
+        startSSE();
+    </script>
+    
+    </body>
+    </html>
+    
+
+
+    

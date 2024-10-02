@@ -27,8 +27,9 @@ from django.contrib.auth.models import Group
 from user.models import Profile
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import Group
-
-
+from django.db.models import Avg, StdDev, Func, Count, F
+from django.db.models.functions import TruncDay, Sqrt
+import statistics
 
 
 # Create your views here.
@@ -309,7 +310,7 @@ def grafico_generico(request, vertiente_id, tipo_grafico):
     
 
     
-    return generar_respuesta(request, vertiente_id, atributo, f'dashboard/grafico_{tipo_grafico}.html')
+    return grafico_mejorado(request,vertiente_id,atributo)
 
 @login_required
 def sse_grafico(request, vertiente_id, tipo_grafico, date_range):
@@ -333,6 +334,347 @@ def sse_grafico(request, vertiente_id, tipo_grafico, date_range):
     response['Cache-Control'] = 'no-cache'
     return response
 
+
+
+
+def grafico_mejorado(request,vertiente_id,atributo):
+
+
+    #Recuperar el id del usuario 
+    id_user=request.user.id
+
+
+    #Comprobar si el usuario es admin o habitante
+    user = request.user
+    id_us=user.id
+    print(id_us)
+    ara=Profile.objects.get(user_id=id_us)
+    ba=ara.group
+    print(ba)
+    ba_str=str(ba)
+    
+    if ba_str=="Administrador":
+        user_type = "admin"
+    elif ba_str=="Usuario":
+        user_type = "habitante"
+    elif ba_str=="Autoridad":
+        user_type="Autoridad"
+
+
+
+    print("request.method IGUAL A:")
+    print(request.method)
+
+    print("atributo es IGUAL A:")
+    print(atributo)
+
+    if atributo=="pH":
+        unidad_medida="(pH)"
+    elif atributo=="caudal":
+        unidad_medida="(l/m)"
+    elif atributo=="temperatura":
+        unidad_medida="(°C)"
+    elif atributo=="conductividad":
+        unidad_medida="(µS/cm)"
+    elif atributo=="turbiedad":
+        unidad_medida="(NTU)"
+    elif atributo=="humedad":
+        unidad_medida="(%)"
+    
+
+
+
+    hoy = timezone.localdate()
+
+
+    if request.method == 'GET':
+            # Manejar solicitud GET: obtener registros con id = 1
+            data = datos.objects.filter(fecha__date=hoy, vertiente_id=vertiente_id)
+            data_list = list(data.values())  # Convertir los objetos QuerySet a una lista de diccionarios
+
+            # Preparar los datos para el gráfico (asumiendo que 'pH' es el atributo a graficar)
+            fechas = [d['fecha'].strftime('%Y-%m-%d %H:%M:%S') for d in data_list]
+            ph_vals = [d[atributo] for d in data_list]
+            ph_stddevs=0
+
+            cantidad_valores=len(ph_vals)
+            
+
+            # Calculando el promedio
+            longitud_valores=len(ph_vals)
+            
+            if longitud_valores==0:
+                ph_vals.append(0)
+                average_ph_rounded=0
+            else:
+                average_ph = statistics.mean(ph_vals)
+                average_ph_rounded = round(average_ph, 2)
+                
+
+            
+
+            # Calculando la mediana
+            median_ph = statistics.median(ph_vals)
+
+            # Calculando la varianza
+            if cantidad_valores>=2:
+                ph_variance = statistics.variance(ph_vals)
+            else:
+                ph_variance=0
+
+            ph_variance_rounded = round(ph_variance, 2)
+
+            # Calculando la desv estandar
+            if cantidad_valores>=2:
+                ph_std_dev = statistics.stdev(ph_vals)
+            else:
+                ph_std_dev=0
+            
+
+            ph_std_dev_rounded = round(ph_std_dev, 2)
+
+            # Calculando el rango
+            ph_range = max(ph_vals) - min(ph_vals)
+
+            ph_range_rounded = round(ph_range, 2)
+
+            ph_max = max(ph_vals) 
+            ph_max_rounded = round(ph_max, 2)
+
+            ph_min = min(ph_vals)
+            ph_min_rounded = round(ph_min, 2)
+
+            num_elements=len(ph_vals)
+
+            num_ceros = len(ph_vals)
+            lower_bounds = []
+            upper_bounds = []
+            for _ in range(num_ceros):
+                lower_bounds.append(0)
+                upper_bounds.append(0)
+
+            context = {
+            'fechas': fechas,
+            'ph_vals': ph_vals,
+            'ph_stddevs': ph_stddevs,
+            'user_type': user_type,
+            'user_id':id_user,
+            'average_ph':average_ph_rounded,
+            'ph_variance':ph_variance_rounded,
+            'ph_std_dev':ph_std_dev_rounded,
+            'ph_range':ph_range_rounded,
+            'median_ph':median_ph,
+            'ph_max_rounded':ph_max_rounded,
+            'ph_min_rounded':ph_min_rounded,
+            'num_elements':num_elements,
+            'lower_bounds' : lower_bounds,
+            'upper_bounds' : upper_bounds,
+            'unidad_medida':unidad_medida,
+            'atributo':atributo
+            }
+
+            return render(request, 'dashboard/grafico_mejorado.html', context)
+            
+            
+        
+    elif request.method == 'POST':
+            # Recibir las fechas del formulario
+            fecha_inicio = request.POST.get('fecha_inicio')
+            fecha_fin = request.POST.get('fecha_fin')
+
+            print("FECHA INICIO")
+            print(fecha_inicio)
+            print("FECHA FINAL")
+            print(fecha_fin)
+
+            fecha_inicio = datetime.strptime(fecha_inicio, '%Y-%m-%d %H:%M:%S')
+            fecha_fin = datetime.strptime(fecha_fin, '%Y-%m-%d %H:%M:%S')
+
+            
+            if fecha_inicio.day==fecha_fin.day:
+
+                data = datos.objects.filter(fecha__date=fecha_inicio, vertiente_id=vertiente_id)
+                data_list = list(data.values())  # Convertir los objetos QuerySet a una lista de diccionarios
+
+                # Preparar los datos para el gráfico (asumiendo que 'pH' es el atributo a graficar)
+                fechas = [d['fecha'].strftime('%Y-%m-%d %H:%M:%S') for d in data_list]
+                ph_vals = [d[atributo] for d in data_list]
+                ph_stddevs=0
+
+                cantidad_valores=len(ph_vals)
+
+                # Calculando el promedio
+                average_ph = statistics.mean(ph_vals)
+
+                average_ph_rounded = round(average_ph, 2)
+
+                # Calculando la mediana
+                median_ph = statistics.median(ph_vals)
+
+                # Calculando la varianza
+                # Calculando la varianza
+                if cantidad_valores>=2:
+                    ph_variance = statistics.variance(ph_vals)
+                else:
+                    ph_variance=0
+
+                ph_variance_rounded = round(ph_variance, 2)
+
+                # Calculando la desv estandar
+                if cantidad_valores>=2:
+                    ph_std_dev = statistics.stdev(ph_vals)
+                else:
+                    ph_std_dev=0
+
+                ph_std_dev_rounded = round(ph_std_dev, 2)
+
+                # Calculando el rango
+                ph_range = max(ph_vals) - min(ph_vals)
+
+                ph_range_rounded = round(ph_range, 2)
+
+                ph_max = max(ph_vals) 
+                ph_max_rounded = round(ph_max, 2)
+
+                ph_min = min(ph_vals)
+                ph_min_rounded = round(ph_min, 2)
+
+                # Imprimir el resultado
+                print("La mediana de pH es:", median_ph)
+
+                num_elements=len(ph_vals)
+
+                num_ceros = len(ph_vals)
+                lower_bounds = []
+                upper_bounds = []
+                for _ in range(num_ceros):
+                    lower_bounds.append(0)
+                    upper_bounds.append(0)
+
+
+
+                context = {
+                'fechas': fechas,
+                'ph_vals': ph_vals,
+                'ph_stddevs': ph_stddevs,
+                'user_type': user_type,
+                'user_id':id_user,
+                'average_ph':average_ph_rounded,
+                'ph_variance':ph_variance_rounded,
+                'ph_std_dev':ph_std_dev_rounded,
+                'ph_range':ph_range_rounded,
+                'median_ph':median_ph,
+                'ph_max_rounded':ph_max_rounded,
+                'ph_min_rounded':ph_min_rounded,
+                'num_elements':num_elements,
+                'lower_bounds': lower_bounds,
+                'upper_bounds': upper_bounds,
+                'unidad_medida':unidad_medida,
+                'atributo':atributo
+
+                }
+
+                return render(request, 'dashboard/grafico_mejorado.html', context)
+            else:
+                data = datos.objects.filter(
+                fecha__range=(fecha_inicio, fecha_fin),
+                vertiente_id=vertiente_id
+                ).annotate(
+                    dia=TruncDay('fecha')  # Truncar la fecha al día
+                ).values(
+                    'dia'  # Agrupar por día truncado
+                ).annotate(
+                    count=Count(atributo),
+                    avg_value=Avg(atributo),
+                    stddev_value=StdDev(atributo)  # Calcular el promedio del atributo
+
+                ).annotate(
+                 lower_bound=F('avg_value') - 3 * F('stddev_value'),  # Límite inferior del intervalo de 3-sigma
+                 upper_bound=F('avg_value') + 3 * F('stddev_value'),
+                ).order_by('dia')
+
+
+            print("data")
+            print(data)
+            fechas = [d['dia'].strftime('%Y-%m-%d') for d in data]  # Solo la fecha
+            ph_vals = [d['avg_value'] for d in data]
+            ph_stddevs = [d['stddev_value'] for d in data]
+            lower_bounds = [d['lower_bound'] for d in data]
+            upper_bounds = [d['upper_bound'] for d in data]
+
+            print("fechas")
+            print(fechas)
+
+            print("ph_vals")
+            print(ph_vals)
+
+            # Calculando el promedio
+            average_ph = statistics.mean(ph_vals)
+
+            average_ph_rounded = round(average_ph, 2)
+
+            # Calculando la mediana
+            median_ph = statistics.median(ph_vals)
+
+            # Calculando la varianza
+            ph_variance = statistics.variance(ph_vals)
+
+            ph_variance_rounded = round(ph_variance, 2)
+
+            # Calculando la desv estandar
+            ph_std_dev = statistics.stdev(ph_vals)
+
+            ph_std_dev_rounded = round(ph_std_dev, 2)
+
+            # Calculando el rango
+            ph_range = max(ph_vals) - min(ph_vals)
+
+            ph_range_rounded = round(ph_range, 2)
+
+            ph_max = max(ph_vals) 
+            ph_max_rounded = round(ph_max, 2)
+
+            ph_min = min(ph_vals)
+            ph_min_rounded = round(ph_min, 2)
+
+            # Imprimir el resultado
+            print("La mediana de pH es:", median_ph)
+
+            num_elements=len(ph_vals)
+
+            
+
+            # Imprimir el resultado
+            print("El promedio de pH es:", average_ph_rounded)
+
+
+            print("ph_stddevs")
+            print(ph_stddevs)
+
+            
+            context = {
+                'fechas': fechas,
+                'ph_vals': ph_vals,
+                'ph_stddevs': ph_stddevs,
+                'user_type': user_type,
+                'user_id':id_user,
+                'average_ph':average_ph_rounded,
+                'ph_variance':ph_variance_rounded,
+                'ph_std_dev':ph_std_dev_rounded,
+                'ph_range':ph_range_rounded,
+                'median_ph':median_ph,
+                'ph_max_rounded':ph_max_rounded,
+                'ph_min_rounded':ph_min_rounded,
+                'num_elements':num_elements,
+                'lower_bounds': lower_bounds,
+                'upper_bounds': upper_bounds,
+                'unidad_medida':unidad_medida,
+                'atributo':atributo
+            }
+
+            return render(request, 'dashboard/grafico_mejorado.html', context)
+
+ 
 
     
     
