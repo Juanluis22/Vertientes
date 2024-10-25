@@ -17,33 +17,11 @@ from email.mime.text import MIMEText
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import redirect
-from functools import wraps
+from user.utils import admin_required, enviar_correo
 
-
-def check_user_type(user, required_type):
-    """
-    Verifica si el usuario tiene el tipo requerido.
-    """
-    return user.tipo_usuario == required_type
-
-def user_type_required(required_type):
-    """
-    Decorador para verificar el tipo de usuario.
-    """
-    def decorator(view_func):
-        @wraps(view_func)
-        def _wrapped_view(request, *args, **kwargs):
-            if check_user_type(request.user, required_type):
-                print('Admitido')
-                return view_func(request, *args, **kwargs)
-            print('No admitido')
-            return redirect('nucleo:inicio')
-        return _wrapped_view
-    return decorator
 
 # Selector admin
-@method_decorator(login_required, name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class Select(TemplateView):
     """
     Vista para seleccionar opciones específicas para administradores.
@@ -52,45 +30,11 @@ class Select(TemplateView):
         template_name (str): La plantilla que se va a utilizar.
         context_object_name (str): El nombre del contexto que se va a utilizar.
     """
-    
     template_name = 'select/select.html'
     context_object_name = 'listaUser'
-
-    def get(self, request, *args, **kwargs):
-        """
-        Maneja las solicitudes GET para la selección de opciones.
-
-        Args:
-            request (HttpRequest): La solicitud HTTP.
-            *args: Argumentos adicionales.
-            **kwargs: Argumentos clave adicionales.
-
-        Returns:
-            HttpResponse: La respuesta HTTP.
-        """
-        # Obtener el usuario actual
-        usuario = request.user
-        id_user = usuario.id
-        
-        # Obtener el perfil del usuario actual
-        perfil_usuario = Profile.objects.get(user_id=id_user)
-        
-        # Obtener el grupo del usuario actual
-        grupo_usuario = perfil_usuario.group
-        tipo_usuario = str(grupo_usuario)
-        
-        # Verificar si el usuario es un administrador
-        if tipo_usuario == 'Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        
-        # Si no es administrador, redirigir al inicio
-        print('No admitido')
-        return redirect('nucleo:inicio')
-        
         
 #Indice principal
-@method_decorator(login_required,name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class Indice(TemplateView):
     """
     Vista de índice que requiere autenticación de usuario.
@@ -112,23 +56,7 @@ class Indice(TemplateView):
     template_name = 'index/index.html'  
     context_object_name = 'listaUser'
 
-    
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        print(tipo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-    
-    
-#USER
+###################################USER##################################
 #Indice para User
 @method_decorator(login_required,name='dispatch')
 class IndiceUser(TemplateView):
@@ -167,7 +95,7 @@ class Prueba(TemplateView):
 
 
 #Vista para crear un nuevo User
-@method_decorator(login_required,name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class NuevoUser(CreateView):
     """
     Vista para la creación de un nuevo usuario.
@@ -196,25 +124,12 @@ class NuevoUser(CreateView):
     def get_success_url(self):
         return reverse('crud:listauser')
     
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-    
     def form_valid(self, form):
         # Establece el campo 'is_active' en True
         form.instance.is_active = True
         return super().form_valid(form)
 
-@method_decorator(login_required,name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class ListaUsuarios(ListView):
     """
     Vista basada en clase para listar usuarios.
@@ -237,20 +152,8 @@ class ListaUsuarios(ListView):
     template_name = 'usuario/lista/listUser.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaUsuarios' 
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
 
-@method_decorator(login_required,name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class ActualizarUsuario(UpdateView):
     """
     Vista para actualizar un usuario existente.
@@ -292,22 +195,9 @@ class ActualizarUsuario(UpdateView):
         user.profile.save()
         return super().form_valid(form)
     
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-    
 
-#PETICIONES PARA USUARIOS
-@method_decorator(login_required,name='dispatch')
+###################################PETICIONES PARA USUARIOS##################################
+@method_decorator([login_required, admin_required], name='dispatch')
 class ListaPeticion(ListView):
     """
     Vista basada en clases para listar peticiones de usuarios.
@@ -323,20 +213,6 @@ class ListaPeticion(ListView):
     model = User  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'usuario/lista/listPeticiones.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaUsuarios' 
-
-    
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
 
 def activar_todo(request):
     """
@@ -361,31 +237,9 @@ def activar_todo(request):
 
     for user in user_bloqued:
         user.is_active = True
-        #EMAIL
-        email=user.email
-        usuario=user
-        
-        mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
-        mailServer.starttls()
-        mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
-        
-        email_to=email
-        mensaje=MIMEMultipart()
-        mensaje['From']=setting.EMAIL_HOST_USER
-        mensaje['To']=email_to
-        mensaje['Subject']='Petición aprobada'
-
-
-        content=render_to_string('usuario/otros/accept_email.html', {
-            'user':usuario,
-        })
-        mensaje.attach(MIMEText(content,'html'))
-        
-        mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
-        print('Correo enviado correctamente')
-
+        enviar_correo(user.email, 'Petición aprobada', 'usuario/otros/accept_email.html', {'user': user})
         user.save()
-    return redirect('crud:listauser') 
+    return redirect('crud:listauser')
 
 def activar_estado(request, pk):
     """
@@ -404,36 +258,22 @@ def activar_estado(request, pk):
     - Redirige a la lista de peticiones.
     """
     registro = get_object_or_404(User, pk=pk)
-    profiles = Profile.objects.get(user_id = request.user.id)
+    profiles = Profile.objects.get(user_id=request.user.id)
     if profiles.group_id != 1:
         return redirect('nucleo:login')
     
     registro.is_active = True
     registro.save()
 
-    #EMAIL
-    email=registro.email
-    usuario=registro
+    # Enviar correo electrónico de confirmación
+    enviar_correo(
+        email_to=registro.email,
+        subject='Petición aprobada',
+        template_name='usuario/otros/accept_email.html',
+        context={'user': registro}
+    )
     
-    mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
-    mailServer.starttls()
-    mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
-        
-    email_to=email
-    mensaje=MIMEMultipart()
-    mensaje['From']=setting.EMAIL_HOST_USER
-    mensaje['To']=email_to
-    mensaje['Subject']='Petición aprobada'
-
-    content=render_to_string('usuario/otros/accept_email.html', {
-        'user':usuario,
-    })
-    mensaje.attach(MIMEText(content,'html'))
-        
-    mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
-    print('Correo enviado correctamente')
-    
-    return redirect('crud:listpet') 
+    return redirect('crud:listpet')
 
 def desactivar_estado(request, pk):
     """
@@ -477,7 +317,7 @@ def eliminar_peticion(request, pk):
     return redirect('crud:listpet') 
 
 
-#COMUNIDAD
+###################################COMUNIDAD##################################
 #Indice para Comunidad
 @method_decorator(login_required,name='dispatch')
 class IndiceCom(TemplateView):
@@ -492,7 +332,7 @@ class IndiceCom(TemplateView):
     context_object_name = 'listaUser'
 
 #Vista para crear una nueva Comunidad
-@method_decorator(login_required,name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class NuevaComunidad(CreateView):
     """
     Vista para la creación de una nueva comunidad.
@@ -517,19 +357,6 @@ class NuevaComunidad(CreateView):
     model = comunidad
     form_class = ComunidadForm
     template_name = 'comunidad/new/newComunidad.html'
-
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
     
     def form_valid(self, form):
         # Objeto sin guardar aún
@@ -556,7 +383,7 @@ class NuevaComunidad(CreateView):
         return reverse('crud:listcom')
 
 #Vista para poder ver una lista de las comunidades
-@method_decorator(login_required,name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class ListaComunidad(ListView):
     """
     Clase ListaComunidad que hereda de ListView para mostrar una lista de objetos del modelo 'comunidad'.
@@ -572,20 +399,7 @@ class ListaComunidad(ListView):
     template_name = 'comunidad/lista/listComunidad.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaComunidad' 
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-
-@method_decorator(login_required,name='dispatch')      
+@method_decorator([login_required, admin_required], name='dispatch')     
 class ActualizarComunidad(UpdateView):
     """
     Vista para actualizar una comunidad.
@@ -613,20 +427,8 @@ class ActualizarComunidad(UpdateView):
         context['comunidades'] = comunidades
         
         return context
-    
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
 
+@method_decorator([login_required, admin_required], name='dispatch')
 def eliminar_comunidad(request, pk):
     """
     Elimina una comunidad específica basada en su clave primaria (pk).
@@ -642,7 +444,7 @@ def eliminar_comunidad(request, pk):
     return redirect('crud:listcom') 
 
 
-#VERTIENTE
+##################################VERTIENTE##################################
 #Indice para Vertiente
 @method_decorator(login_required,name='dispatch')
 class IndiceVert(TemplateView):
@@ -660,7 +462,7 @@ class IndiceVert(TemplateView):
     context_object_name = 'listaUser'
 
 #Vista para crear una nueva Vertiente
-@method_decorator([csrf_exempt, login_required],name='dispatch')
+@method_decorator([csrf_exempt, login_required, admin_required], name='dispatch')
 class NuevaVertiente(CreateView):
     """
     Vista para crear una nueva instancia del modelo 'vertiente'.
@@ -678,8 +480,6 @@ class NuevaVertiente(CreateView):
         Retorna la URL a la que se redirige después de que el formulario se haya enviado correctamente.
     form_valid(form):
         Lógica adicional para manejar el formulario válido. Asigna un ID único a la nueva instancia del modelo antes de guardarla.
-    get(request, *args, **kwargs):
-        Controla las solicitudes GET. Verifica si el usuario tiene permisos de administrador antes de permitir el acceso.
     post(request, *args, **kwargs):
         Controla las solicitudes POST. Realiza acciones específicas basadas en el valor de 'action' en los datos POST.
     get_context_data(**kwargs):
@@ -710,19 +510,6 @@ class NuevaVertiente(CreateView):
         obj.save()
         return super().form_valid(form)
     
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-    
     def post(self, request, *args, **kwargs):
         data={}
         
@@ -748,7 +535,7 @@ class NuevaVertiente(CreateView):
         return context
 
 #Vista para poder ver una lista de las vertientes
-@method_decorator(login_required,name='dispatch')
+@method_decorator([login_required, admin_required], name='dispatch')
 class ListaVertiente(ListView):
     """
     Clase ListaVertiente que hereda de ListView para mostrar una lista de objetos del modelo 'vertiente'.
@@ -763,20 +550,8 @@ class ListaVertiente(ListView):
     template_name = 'vertiente/list/listVertiente.html' # Nombre de la plantilla a utilizar
     context_object_name = 'listaVertiente' 
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
 
-@method_decorator([csrf_exempt, login_required],name='dispatch')
+@method_decorator([csrf_exempt, login_required, admin_required], name='dispatch')
 class ActualizarVertiente(UpdateView):
     """
     ActualizarVertiente es una vista basada en clases que permite actualizar una instancia del modelo vertiente.
@@ -789,8 +564,6 @@ class ActualizarVertiente(UpdateView):
             Devuelve la URL a la que se redirige después de una actualización exitosa.
         get(self, request, *args, **kwargs):
             Maneja las solicitudes GET. Verifica si el usuario tiene permisos de administrador antes de permitir el acceso a la vista.
-        post(self, request, *args, **kwargs):
-            Maneja las solicitudes POST. Realiza acciones específicas basadas en el valor de 'action' en los datos POST.
         get_context_data(self, **kwargs):
             Añade datos adicionales al contexto de la plantilla, incluyendo listas de vertientes y comunidades.
     """
@@ -800,19 +573,6 @@ class ActualizarVertiente(UpdateView):
     
     def get_success_url(self):
         return reverse('crud:listvert')
-    
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
 
     def post(self, request, *args, **kwargs):
         data={}
@@ -851,29 +611,16 @@ def eliminar_vertiente(request, pk):
     
     return redirect('crud:listvert') 
 
-#KIT
+###################################KIT##################################
 #Vista para lista de kit
-@method_decorator(login_required,name='dispatch')  
+@method_decorator([login_required, admin_required], name='dispatch')
 class ListaKit(ListView):
     model=kit
     template_name='kit/lista/listKit.html'
     context_object_name = 'listaKit' 
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-
 #Vista para nuevo kit
-@method_decorator([csrf_exempt, login_required],name='dispatch')
+@method_decorator([csrf_exempt,login_required, admin_required], name='dispatch')
 class NuevoKit(CreateView):
     model=kit
     form_class = KitForm
@@ -882,9 +629,6 @@ class NuevoKit(CreateView):
     def get_success_url(self):
         return reverse('crud:listkit')
     
-
-    
-
     def post(self, request, *args, **kwargs):
         data=[]
         data_error={}
@@ -928,27 +672,13 @@ class NuevoKit(CreateView):
 
         return JsonResponse(data, safe=False)
 
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
-    
 #Vista para actualizar kit
-@method_decorator([csrf_exempt, login_required],name='dispatch')
+@method_decorator([csrf_exempt,login_required, admin_required], name='dispatch')
 class ActualizarKit(UpdateView):
     model = kit
     form_class = KitForm
     template_name = 'kit/update/updateKit.html'
     
-
     def get_success_url(self):
         return reverse('crud:listkit')
     
@@ -983,22 +713,6 @@ class ActualizarKit(UpdateView):
 
 
         return JsonResponse(data, safe=False)
-
-
-
-    
-    def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
-        
-        if tipo_usuario=='Administrador':
-            print('Admitido')
-            return super().get(request, *args, **kwargs)
-        print('No admitido')
-        return redirect('nucleo:inicio')
 
 #Función para eliminar kit
 def eliminar_kit(request, pk):
@@ -1159,6 +873,3 @@ class MapaAutoridad(CreateView):
         context['form']=VertienteForm()
         
         return context
-
-
-
