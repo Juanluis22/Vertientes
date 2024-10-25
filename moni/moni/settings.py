@@ -30,6 +30,9 @@ ALLOWED_HOSTS = ['*']  # Permite todas las conexiones de host
 # Definición de la aplicación
 
 INSTALLED_APPS = [
+    'rest_framework' , # Aplicación de REST Framework
+    'rest_framework.authtoken',# Para autenticación basada en tokens
+    'rest_framework_simplejwt', # Para autenticación basada en JWT (JSON Web Token) para la API
     'django.contrib.admin',  # Aplicación de administración de Django
     'django.contrib.auth',  # Aplicación de autenticación de Django
     'django.contrib.contenttypes',  # Aplicación de tipos de contenido de Django
@@ -37,12 +40,35 @@ INSTALLED_APPS = [
     'django.contrib.messages',  # Aplicación de mensajes de Django
     'django.contrib.staticfiles',  # Aplicación de archivos estáticos de Django
     # APPS
+    'api',
     'crud',  # Aplicación personalizada 'crud'
     'nucleo',  # Aplicación personalizada 'nucleo'
     'user',  # Aplicación personalizada 'user'
     'evaluacion',  # Aplicación personalizada 'evaluacion'
     'habitantes',  # Aplicación personalizada 'habitantes'
 ]
+
+# Configuración de Django REST Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 
 MIDDLEWARE = [
     # No Borrar
@@ -87,9 +113,9 @@ WSGI_APPLICATION = 'moni.wsgi.application'  # Configuración de la aplicación W
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",  # Motor de base de datos PostgreSQL
-        "NAME": "moni",  # Nombre de la base de datos
+        "NAME": "AquaCircuitBD",  # Nombre de la base de datos
         "USER": "postgres",  # Usuario de la base de datos
-        "PASSWORD": "jexu1324@",  # Contraseña de la base de datos
+        "PASSWORD": "Eduardo1",  # Contraseña de la base de datos
         "HOST": "localhost",  # Host de la base de datos
         "PORT": "5432",  # Puerto de la base de datos
     }
@@ -117,11 +143,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'es-cl'  # Código de idioma
-
 TIME_ZONE = 'UTC'  # Zona horaria
-
 USE_I18N = True  # Habilita la internacionalización
-
 USE_TZ = True  # Habilita el uso de zonas horarias
 
 # Archivos estáticos (CSS, JavaScript, Imágenes)
@@ -138,12 +161,9 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'  # Tipo de campo de clave primaria predeterminado
-
 AUTH_USER_MODEL = 'user.User'  # Modelo de usuario personalizado
-
 LOGIN_URL = 'nucleo:login'  # URL de inicio de sesión
 LOGIN_REDIRECT_URL = 'nucleo:revision'  # URL de redirección después de iniciar sesión
-
 LOGOUT_REDIRECT_URL = 'nucleo:login'  # URL de redirección después de cerrar sesión
 
 # Configuración de correo electrónico

@@ -1,3 +1,2 @@
-from django.shortcuts import render
+# moni/user/views.py
 
-# Create your views here.

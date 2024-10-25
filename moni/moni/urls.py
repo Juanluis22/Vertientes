@@ -17,14 +17,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from nucleo.views import Inicio
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('admin/', admin.site.urls),
+    #path('api/', include('api.urls')),
     path("",Inicio.as_view() ),
     path("inicio/", include('nucleo.urls')),
     path("administracion/", include('crud.urls')),
     path("evaluacion/", include('evaluacion.urls')),
     path("monitoreo/", include('habitantes.urls')),
-
     path('mqtt_data/', include('mqtt_data.urls')),    # Incluye las URLs de la app mqtt_data
 ]

@@ -61,6 +61,15 @@ class Profile(models.Model):
         blank=True, 
         default='Si'
     )
+    
+    objects = models.Manager()  # Add this line to ensure 'objects' manager exists
 
     class Meta:
+        """
+        Meta class for specifying model options.
+
+        Attributes:
+            ordering (list): Specifies the default ordering for the model's objects, 
+                             in this case, by the 'username' field of the related 'user' model.
+        """
         ordering = ['user__username']

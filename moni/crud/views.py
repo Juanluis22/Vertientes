@@ -17,34 +17,97 @@ from email.mime.text import MIMEText
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
+from django.shortcuts import redirect
+from functools import wraps
 
-#Selector admin
-@method_decorator(login_required,name='dispatch')
+
+def check_user_type(user, required_type):
+    """
+    Verifica si el usuario tiene el tipo requerido.
+    """
+    return user.tipo_usuario == required_type
+
+def user_type_required(required_type):
+    """
+    Decorador para verificar el tipo de usuario.
+    """
+    def decorator(view_func):
+        @wraps(view_func)
+        def _wrapped_view(request, *args, **kwargs):
+            if check_user_type(request.user, required_type):
+                print('Admitido')
+                return view_func(request, *args, **kwargs)
+            print('No admitido')
+            return redirect('nucleo:inicio')
+        return _wrapped_view
+    return decorator
+
+# Selector admin
+@method_decorator(login_required, name='dispatch')
 class Select(TemplateView):
+    """
+    Vista para seleccionar opciones específicas para administradores.
+
+    Atributos:
+        template_name (str): La plantilla que se va a utilizar.
+        context_object_name (str): El nombre del contexto que se va a utilizar.
+    """
     
-    template_name = 'select/select.html'  
+    template_name = 'select/select.html'
     context_object_name = 'listaUser'
 
-    
     def get(self, request, *args, **kwargs):
-        usuario=request.user
-        id_user=usuario.id
-        perfil_usuario=Profile.objects.get(user_id=id_user)
-        grupo_usuario=perfil_usuario.group
-        tipo_usuario=str(grupo_usuario)
+        """
+        Maneja las solicitudes GET para la selección de opciones.
+
+        Args:
+            request (HttpRequest): La solicitud HTTP.
+            *args: Argumentos adicionales.
+            **kwargs: Argumentos clave adicionales.
+
+        Returns:
+            HttpResponse: La respuesta HTTP.
+        """
+        # Obtener el usuario actual
+        usuario = request.user
+        id_user = usuario.id
         
-        if tipo_usuario=='Administrador':
+        # Obtener el perfil del usuario actual
+        perfil_usuario = Profile.objects.get(user_id=id_user)
+        
+        # Obtener el grupo del usuario actual
+        grupo_usuario = perfil_usuario.group
+        tipo_usuario = str(grupo_usuario)
+        
+        # Verificar si el usuario es un administrador
+        if tipo_usuario == 'Administrador':
             print('Admitido')
             return super().get(request, *args, **kwargs)
+        
+        # Si no es administrador, redirigir al inicio
         print('No admitido')
         return redirect('nucleo:inicio')
         
-
+        
 #Indice principal
-
 @method_decorator(login_required,name='dispatch')
 class Indice(TemplateView):
+    """
+    Vista de índice que requiere autenticación de usuario.
+    Esta vista hereda de `TemplateView` y se asegura de que el usuario esté autenticado
+    antes de permitir el acceso. Dependiendo del tipo de usuario, se permite o deniega
+    el acceso a la plantilla especificada.
+    Decoradores:
+        @method_decorator(login_required, name='dispatch'): Requiere que el usuario esté autenticado.
+    Atributos:
+        template_name (str): Ruta de la plantilla HTML a renderizar.
+        context_object_name (str): Nombre del contexto que se pasará a la plantilla.
+    Métodos:
+        get(request, *args, **kwargs): Maneja las solicitudes GET. Verifica el tipo de usuario
+        y permite o deniega el acceso a la vista basada en el grupo al que pertenece el usuario.
+        Si el usuario pertenece al grupo 'Administrador', se permite el acceso; de lo contrario,
+        se redirige al usuario a la página de inicio.
+    """
     
     template_name = 'index/index.html'  
     context_object_name = 'listaUser'
@@ -65,19 +128,39 @@ class Indice(TemplateView):
         return redirect('nucleo:inicio')
     
     
-
 #USER
-
 #Indice para User
 @method_decorator(login_required,name='dispatch')
 class IndiceUser(TemplateView):
+    """
+    Vista basada en clase para mostrar el índice de usuarios.
+    Atributos:
+    ----------
+    template_name : str
+        Ruta al archivo de plantilla HTML que se utilizará para renderizar la vista.
+    context_object_name : str
+        Nombre del contexto que se pasará a la plantilla HTML.
+    Métodos heredados:
+    ------------------
+    get_context_data(**kwargs):
+        Método para obtener el contexto adicional que se pasará a la plantilla.
+    """
     
     template_name = 'usuario/index/index.html'  
     context_object_name = 'listaUser'
-
-
-
 class Prueba(TemplateView):
+    """
+    Vista basada en clase que hereda de TemplateView para renderizar una plantilla específica.
+    Atributos:
+    ----------
+    template_name : str
+        Ruta de la plantilla HTML que se renderizará.
+    context_object_name : str
+        Nombre del contexto que se pasará a la plantilla.
+    Métodos:
+    --------
+    No se definen métodos adicionales en esta clase.
+    """
     
     template_name = 'usuario/new/prueba.html'  
     context_object_name = 'listaUser'
@@ -86,15 +169,32 @@ class Prueba(TemplateView):
 #Vista para crear un nuevo User
 @method_decorator(login_required,name='dispatch')
 class NuevoUser(CreateView):
+    """
+    Vista para la creación de un nuevo usuario.
+    Esta vista utiliza la clase `CreateView` para manejar la creación de un nuevo usuario en el sistema.
+    Requiere que el usuario esté autenticado para acceder a esta vista.
+    Decoradores:
+        @method_decorator(login_required, name='dispatch'): Requiere que el usuario esté autenticado.
+    Atributos:
+        model (User): Modelo de usuario que se va a crear.
+        form_class (UserFormCRUD): Formulario utilizado para la creación del usuario.
+        template_name (str): Ruta de la plantilla HTML para la creación del usuario.
+    Métodos:
+        get_success_url(self):
+            Retorna la URL a la que se redirige después de que el formulario se ha enviado correctamente.
+        get(self, request, *args, **kwargs):
+            Maneja las solicitudes GET. Verifica si el usuario autenticado pertenece al grupo 'Administrador'.
+            Si es así, permite el acceso a la vista de creación de usuario. De lo contrario, redirige al inicio.
+        form_valid(self, form):
+            Maneja el formulario cuando es válido. Establece el campo 'is_active' del usuario en True antes de guardar.
+            Retorna la respuesta de la superclase.
+    """
     model = User
     form_class = UserFormCRUD
     template_name = 'usuario/new/newUsuario.html'
 
     def get_success_url(self):
         return reverse('crud:listauser')
-    
-    
-    
     
     def get(self, request, *args, **kwargs):
         usuario=request.user
@@ -109,17 +209,30 @@ class NuevoUser(CreateView):
         print('No admitido')
         return redirect('nucleo:inicio')
     
-
     def form_valid(self, form):
         # Establece el campo 'is_active' en True
         form.instance.is_active = True
         return super().form_valid(form)
 
-
-
-
 @method_decorator(login_required,name='dispatch')
 class ListaUsuarios(ListView):
+    """
+    Vista basada en clase para listar usuarios.
+    Atributos:
+    ----------
+    model : Model
+        Especifica el modelo que se desea mostrar en la lista.
+    template_name : str
+        Nombre de la plantilla a utilizar para renderizar la vista.
+    context_object_name : str
+        Nombre del contexto que se pasará a la plantilla.
+    Métodos:
+    --------
+    get(request, *args, **kwargs)
+        Maneja la solicitud GET para la vista. Verifica el tipo de usuario y 
+        permite el acceso solo si el usuario es un 'Administrador'. De lo contrario, 
+        redirige al usuario a la página de inicio.
+    """
     model = User  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'usuario/lista/listUser.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaUsuarios' 
@@ -136,12 +249,31 @@ class ListaUsuarios(ListView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
-    
-    
-
 
 @method_decorator(login_required,name='dispatch')
 class ActualizarUsuario(UpdateView):
+    """
+    Vista para actualizar un usuario existente.
+    Atributos:
+    ----------
+    model : User
+        Modelo que se va a actualizar.
+    form_class : UpdateForm
+        Formulario que se utiliza para actualizar el usuario.
+    template_name : str
+        Ruta de la plantilla HTML que se utiliza para renderizar la vista.
+    success_url : str
+        URL a la que se redirige después de una actualización exitosa.
+    Métodos:
+    --------
+    form_valid(form):
+        Asigna el grupo al usuario basado en el valor seleccionado en el campo "Rol" del formulario.
+        Guarda el perfil del usuario y llama al método form_valid del padre.
+    get(request, *args, **kwargs):
+        Verifica si el usuario actual es un administrador.
+        Si es administrador, permite el acceso a la vista.
+        Si no es administrador, redirige al usuario a la página de inicio.
+    """
     model = User
     form_class = UpdateForm
     template_name = 'usuario/update/updateUser.html'
@@ -174,13 +306,20 @@ class ActualizarUsuario(UpdateView):
         return redirect('nucleo:inicio')
     
 
-
-
-
 #PETICIONES PARA USUARIOS
-
 @method_decorator(login_required,name='dispatch')
 class ListaPeticion(ListView):
+    """
+    Vista basada en clases para listar peticiones de usuarios.
+    Decoradores:
+        @method_decorator(login_required, name='dispatch'): Requiere que el usuario esté autenticado para acceder a la vista.
+    Atributos:
+        model (User): Especifica el modelo que se desea mostrar en la lista.
+        template_name (str): Nombre de la plantilla a utilizar.
+        context_object_name (str): Nombre del contexto que se pasará a la plantilla.
+    Métodos:
+        get(self, request, *args, **kwargs): Maneja las solicitudes GET. Verifica el tipo de usuario y permite el acceso solo si el usuario es un Administrador. Redirige a la página de inicio si el usuario no está autorizado.
+    """
     model = User  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'usuario/lista/listPeticiones.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaUsuarios' 
@@ -199,21 +338,33 @@ class ListaPeticion(ListView):
         print('No admitido')
         return redirect('nucleo:inicio')
 
-
-
 def activar_todo(request):
+    """
+    Activa todas las cuentas de usuario que están desactivadas y envía un correo electrónico de notificación a cada usuario.
+    Args:
+        request (HttpRequest): La solicitud HTTP que activa la función.
+    Funcionalidad:
+        - Filtra los usuarios que están desactivados (is_active=False).
+        - Para cada usuario desactivado:
+            - Activa la cuenta del usuario (is_active=True).
+            - Envía un correo electrónico de notificación utilizando las configuraciones de correo electrónico definidas en el proyecto.
+            - Guarda los cambios en la base de datos.
+        - Redirige a la vista 'crud:listauser' después de activar todas las cuentas.
+    Correo Electrónico:
+        - Utiliza el servidor SMTP configurado en las configuraciones del proyecto.
+        - El correo electrónico contiene un mensaje HTML renderizado desde la plantilla 'usuario/otros/accept_email.html'.
+        - El asunto del correo es 'Petición aprobada'.
+    Returns:
+        HttpResponseRedirect: Redirige a la vista 'crud:listauser'.
+    """
     user_bloqued=User.objects.filter(is_active=False)
 
     for user in user_bloqued:
         user.is_active = True
         #EMAIL
         email=user.email
-        
         usuario=user
         
-    
-
-
         mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
         mailServer.starttls()
         mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
@@ -233,17 +384,25 @@ def activar_todo(request):
         mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
         print('Correo enviado correctamente')
 
-
         user.save()
-
-
-
-
     return redirect('crud:listauser') 
 
-
-
 def activar_estado(request, pk):
+    """
+    Activa el estado de un usuario y envía un correo electrónico de confirmación.
+    Parámetros:
+    request (HttpRequest): La solicitud HTTP que contiene la información del usuario.
+    pk (int): La clave primaria del usuario cuyo estado se va a activar.
+    Retorna:
+    HttpResponseRedirect: Redirige a la página de inicio de sesión si el usuario no tiene permisos,
+                          o a la lista de peticiones si el correo se envía correctamente.
+    Comportamiento:
+    - Obtiene el registro del usuario basado en la clave primaria (pk).
+    - Verifica si el perfil del usuario tiene permisos para activar el estado.
+    - Activa el estado del usuario.
+    - Envía un correo electrónico de confirmación al usuario.
+    - Redirige a la lista de peticiones.
+    """
     registro = get_object_or_404(User, pk=pk)
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
@@ -256,8 +415,6 @@ def activar_estado(request, pk):
     email=registro.email
     usuario=registro
     
-
-
     mailServer=smtplib.SMTP(setting.EMAIL_HOST, setting.EMAIL_PORT)
     mailServer.starttls()
     mailServer.login(setting.EMAIL_HOST_USER, setting.EMAIL_HOST_PASSWORD)
@@ -268,7 +425,6 @@ def activar_estado(request, pk):
     mensaje['To']=email_to
     mensaje['Subject']='Petición aprobada'
 
-
     content=render_to_string('usuario/otros/accept_email.html', {
         'user':usuario,
     })
@@ -277,11 +433,22 @@ def activar_estado(request, pk):
     mailServer.sendmail(setting.EMAIL_HOST_USER,email_to,mensaje.as_string())
     print('Correo enviado correctamente')
     
-
     return redirect('crud:listpet') 
 
-
 def desactivar_estado(request, pk):
+    """
+    Desactiva el estado de un usuario específico.
+    Este método busca un usuario por su clave primaria (pk) y desactiva su cuenta
+    estableciendo el atributo `is_active` a False. Solo los usuarios con un perfil
+    de grupo específico (group_id = 1) tienen permiso para realizar esta acción.
+    Si el usuario no tiene permiso, será redirigido a la página de inicio de sesión.
+    Args:
+        request (HttpRequest): La solicitud HTTP que contiene los datos del usuario.
+        pk (int): La clave primaria del usuario que se desea desactivar.
+    Returns:
+        HttpResponse: Redirige a la lista de usuarios si la operación es exitosa,
+                      de lo contrario, redirige a la página de inicio de sesión.
+    """
     registro = get_object_or_404(User, pk=pk)
     profiles = Profile.objects.get(user_id = request.user.id)
     if profiles.group_id != 1:
@@ -292,41 +459,61 @@ def desactivar_estado(request, pk):
 
     return redirect('crud:listauser') 
 
-
-
 class ActualizarPeticiones(UpdateView):
     pass
 
-
-
-
-
 def eliminar_peticion(request, pk):
+    """
+    Elimina una petición de usuario basada en su clave primaria (pk).
+    Args:
+        request (HttpRequest): El objeto de solicitud HTTP.
+        pk (int): La clave primaria del usuario a eliminar.
+    Returns:
+        HttpResponseRedirect: Redirige a la lista de peticiones después de eliminar el usuario.
+    """
     pet_eliminado=User.objects.get(id=pk)
     pet_eliminado.delete()
 
     return redirect('crud:listpet') 
 
 
-
-
-
-
 #COMUNIDAD
-
 #Indice para Comunidad
 @method_decorator(login_required,name='dispatch')
 class IndiceCom(TemplateView):
+    """
+    IndiceCom is a Django TemplateView that renders the 'comunidad/index/index.html' template.
+    Attributes:
+        template_name (str): The path to the template that will be rendered.
+        context_object_name (str): The name of the context variable to be used in the template.
+    """
    
     template_name = 'comunidad/index/index.html'  
     context_object_name = 'listaUser'
 
-
-
-
 #Vista para crear una nueva Comunidad
 @method_decorator(login_required,name='dispatch')
 class NuevaComunidad(CreateView):
+    """
+    Vista para la creación de una nueva comunidad.
+    Decoradores:
+        @method_decorator(login_required, name='dispatch'): Requiere que el usuario esté autenticado.
+    Atributos:
+        model (comunidad): Modelo de la comunidad.
+        form_class (ComunidadForm): Formulario para la creación de la comunidad.
+        template_name (str): Ruta de la plantilla HTML para la creación de la comunidad.
+    Métodos:
+        get(self, request, *args, **kwargs):
+            Maneja las solicitudes GET. Verifica si el usuario tiene permisos de administrador.
+            Si es administrador, permite el acceso a la vista de creación de comunidad.
+            Si no, redirige al usuario a la página de inicio.
+        form_valid(self, form):
+            Maneja la validación del formulario. Asigna un ID único a la nueva comunidad antes de guardarla.
+        get_context_data(self, **kwargs):
+            Añade al contexto una lista de comunidades y el formulario de creación de comunidad.
+        get_success_url(self):
+            Devuelve la URL de redirección después de que el formulario se haya enviado correctamente.
+    """
     model = comunidad
     form_class = ComunidadForm
     template_name = 'comunidad/new/newComunidad.html'
@@ -358,7 +545,6 @@ class NuevaComunidad(CreateView):
         obj.save()
         return super().form_valid(form)
 
-
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
@@ -366,18 +552,25 @@ class NuevaComunidad(CreateView):
         context['form']=ComunidadForm()
         return context
 
-
     def get_success_url(self):
         return reverse('crud:listcom')
-
 
 #Vista para poder ver una lista de las comunidades
 @method_decorator(login_required,name='dispatch')
 class ListaComunidad(ListView):
+    """
+    Clase ListaComunidad que hereda de ListView para mostrar una lista de objetos del modelo 'comunidad'.
+    Atributos:
+        model (Model): Especifica el modelo que se desea mostrar en la lista.
+        template_name (str): Nombre de la plantilla HTML a utilizar.
+        context_object_name (str): Nombre del contexto que se pasará a la plantilla.
+    Métodos:
+        get(self, request, *args, **kwargs): Maneja la solicitud GET para la vista. Verifica el tipo de usuario y permite
+        el acceso solo si el usuario es un 'Administrador'. De lo contrario, redirige al usuario a la página de inicio.
+    """
     model = comunidad  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'comunidad/lista/listComunidad.html'  # Nombre de la plantilla a utilizar
     context_object_name = 'listaComunidad' 
-
 
     def get(self, request, *args, **kwargs):
         usuario=request.user
@@ -394,11 +587,23 @@ class ListaComunidad(ListView):
 
 @method_decorator(login_required,name='dispatch')      
 class ActualizarComunidad(UpdateView):
+    """
+    Vista para actualizar una comunidad.
+    Decoradores:
+        @method_decorator(login_required, name='dispatch'): Requiere que el usuario esté autenticado para acceder a esta vista.
+    Atributos de clase:
+        model (comunidad): El modelo que se va a actualizar.
+        form_class (ComunidadForm): El formulario que se utiliza para actualizar el modelo.
+        template_name (str): La plantilla que se utiliza para renderizar la vista.
+    Métodos:
+        get_success_url(self): Retorna la URL a la que se redirige después de una actualización exitosa.
+        get_context_data(self, **kwargs): Agrega una lista de comunidades al contexto.
+        get(self, request, *args, **kwargs): Verifica si el usuario tiene permisos de administrador antes de permitir el acceso a la vista.
+    """
     model = comunidad
     form_class = ComunidadForm
     template_name = 'comunidad/update/updateComu.html'
     
-
     def get_success_url(self):
         return reverse('crud:listcom')
     
@@ -409,7 +614,6 @@ class ActualizarComunidad(UpdateView):
         
         return context
     
-
     def get(self, request, *args, **kwargs):
         usuario=request.user
         id_user=usuario.id
@@ -422,34 +626,65 @@ class ActualizarComunidad(UpdateView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
-    
-
-
 
 def eliminar_comunidad(request, pk):
+    """
+    Elimina una comunidad específica basada en su clave primaria (pk).
+    Args:
+        request (HttpRequest): La solicitud HTTP que desencadena la eliminación.
+        pk (int): La clave primaria de la comunidad que se desea eliminar.
+    Returns:
+        HttpResponseRedirect: Redirige a la vista de lista de comunidades después de la eliminación.
+    """
     com_eliminado=comunidad.objects.get(id=pk)
     com_eliminado.delete()
 
     return redirect('crud:listcom') 
 
 
-
-
-
 #VERTIENTE
-
-
 #Indice para Vertiente
 @method_decorator(login_required,name='dispatch')
 class IndiceVert(TemplateView):
+    """
+    Clase IndiceVert que hereda de TemplateView.
+    Atributos:
+    -----------
+    template_name : str
+        Ruta de la plantilla HTML que se utilizará para renderizar la vista.
+    context_object_name : str
+        Nombre del objeto de contexto que se pasará a la plantilla.
+    """
     
     template_name = 'vertiente/index/index.html'  
     context_object_name = 'listaUser'
 
-
 #Vista para crear una nueva Vertiente
 @method_decorator([csrf_exempt, login_required],name='dispatch')
 class NuevaVertiente(CreateView):
+    """
+    Vista para crear una nueva instancia del modelo 'vertiente'.
+    Atributos:
+    ----------
+    model : vertiente
+        El modelo que se utilizará en la vista.
+    form_class : VertienteForm
+        El formulario que se utilizará para crear una nueva instancia del modelo.
+    template_name : str
+        La plantilla que se utilizará para renderizar la vista.
+    Métodos:
+    --------
+    get_success_url():
+        Retorna la URL a la que se redirige después de que el formulario se haya enviado correctamente.
+    form_valid(form):
+        Lógica adicional para manejar el formulario válido. Asigna un ID único a la nueva instancia del modelo antes de guardarla.
+    get(request, *args, **kwargs):
+        Controla las solicitudes GET. Verifica si el usuario tiene permisos de administrador antes de permitir el acceso.
+    post(request, *args, **kwargs):
+        Controla las solicitudes POST. Realiza acciones específicas basadas en el valor de 'action' en los datos POST.
+    get_context_data(**kwargs):
+        Agrega datos adicionales al contexto de la plantilla, incluyendo listas de 'vertientes' y 'comunidades'.
+    """
     model = vertiente
     form_class = VertienteForm
     template_name = 'vertiente/new/newVertiente.html'
@@ -457,7 +692,6 @@ class NuevaVertiente(CreateView):
     def get_success_url(self):
         return reverse('crud:listvert') 
     
-
     def form_valid(self, form):
         # Objeto sin guardar aún
         obj = form.save(commit=False)
@@ -476,7 +710,6 @@ class NuevaVertiente(CreateView):
         obj.save()
         return super().form_valid(form)
     
-
     def get(self, request, *args, **kwargs):
         usuario=request.user
         id_user=usuario.id
@@ -494,7 +727,6 @@ class NuevaVertiente(CreateView):
         data={}
         
         action=request.POST['action']
-        print('AAAALOOO')
         print(action)
         if action=='seaid':
             comu=comunidad.objects.filter(id=request.POST['id'])
@@ -509,10 +741,8 @@ class NuevaVertiente(CreateView):
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         vertientes=list(vertiente.objects.values('id','nombre','latitud','longitud','comunidad_id')[:100])
-        
         comunidades=list(comunidad.objects.values('id','nombre','vertientes','ubicación','latitud','longitud')[:100])
         context={'comunidades':comunidades,'vertientes':vertientes}
-        
         context['form']=VertienteForm()
         
         return context
@@ -520,6 +750,15 @@ class NuevaVertiente(CreateView):
 #Vista para poder ver una lista de las vertientes
 @method_decorator(login_required,name='dispatch')
 class ListaVertiente(ListView):
+    """
+    Clase ListaVertiente que hereda de ListView para mostrar una lista de objetos del modelo 'vertiente'.
+    Atributos:
+        model (Model): Especifica el modelo que se desea mostrar en la lista.
+        template_name (str): Nombre de la plantilla a utilizar.
+        context_object_name (str): Nombre del contexto que se pasará a la plantilla.
+    Métodos:
+        get(self, request, *args, **kwargs): Maneja la solicitud GET. Verifica el tipo de usuario y permite o deniega el acceso a la vista.
+    """
     model = vertiente  # Especifica el modelo que deseas mostrar en la lista
     template_name = 'vertiente/list/listVertiente.html' # Nombre de la plantilla a utilizar
     context_object_name = 'listaVertiente' 
@@ -539,15 +778,29 @@ class ListaVertiente(ListView):
 
 @method_decorator([csrf_exempt, login_required],name='dispatch')
 class ActualizarVertiente(UpdateView):
+    """
+    ActualizarVertiente es una vista basada en clases que permite actualizar una instancia del modelo vertiente.
+    Atributos:
+        model (Model): El modelo que se va a actualizar.
+        form_class (Form): El formulario que se utiliza para actualizar el modelo.
+        template_name (str): La plantilla que se utiliza para renderizar la vista.
+    Métodos:
+        get_success_url(self):
+            Devuelve la URL a la que se redirige después de una actualización exitosa.
+        get(self, request, *args, **kwargs):
+            Maneja las solicitudes GET. Verifica si el usuario tiene permisos de administrador antes de permitir el acceso a la vista.
+        post(self, request, *args, **kwargs):
+            Maneja las solicitudes POST. Realiza acciones específicas basadas en el valor de 'action' en los datos POST.
+        get_context_data(self, **kwargs):
+            Añade datos adicionales al contexto de la plantilla, incluyendo listas de vertientes y comunidades.
+    """
     model = vertiente
     form_class = VertienteForm
     template_name = 'vertiente/update/updateVert.html'
     
-
     def get_success_url(self):
         return reverse('crud:listvert')
     
-
     def get(self, request, *args, **kwargs):
         usuario=request.user
         id_user=usuario.id
@@ -560,9 +813,6 @@ class ActualizarVertiente(UpdateView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
-
-    
-
 
     def post(self, request, *args, **kwargs):
         data={}
@@ -586,24 +836,23 @@ class ActualizarVertiente(UpdateView):
         context['comunidades'] = comunidades
         context['vertientes'] = vertientes
         return context
-    
-
-
-
-
 
 def eliminar_vertiente(request, pk):
+    """
+    Elimina una vertiente específica de la base de datos.
+    Args:
+        request (HttpRequest): La solicitud HTTP que desencadena la eliminación.
+        pk (int): La clave primaria de la vertiente que se desea eliminar.
+    Returns:
+        HttpResponseRedirect: Redirige a la vista de lista de vertientes después de eliminar la vertiente.
+    """
     vert_eliminado=vertiente.objects.get(id=pk)
     vert_eliminado.delete()
     
     return redirect('crud:listvert') 
 
-
-
 #KIT
-
 #Vista para lista de kit
-
 @method_decorator(login_required,name='dispatch')  
 class ListaKit(ListView):
     model=kit
@@ -622,10 +871,6 @@ class ListaKit(ListView):
             return super().get(request, *args, **kwargs)
         print('No admitido')
         return redirect('nucleo:inicio')
-
-
-
-
 
 #Vista para nuevo kit
 @method_decorator([csrf_exempt, login_required],name='dispatch')
@@ -696,8 +941,6 @@ class NuevoKit(CreateView):
         print('No admitido')
         return redirect('nucleo:inicio')
     
-
-
 #Vista para actualizar kit
 @method_decorator([csrf_exempt, login_required],name='dispatch')
 class ActualizarKit(UpdateView):
@@ -758,7 +1001,6 @@ class ActualizarKit(UpdateView):
         return redirect('nucleo:inicio')
 
 #Función para eliminar kit
-
 def eliminar_kit(request, pk):
     
     kit_eliminado=kit.objects.get(id=pk)
@@ -766,8 +1008,6 @@ def eliminar_kit(request, pk):
     
 
     return redirect('crud:listkit') 
-
-
 
 @method_decorator([csrf_exempt, login_required], name='dispatch')
 class MapaGeneral(CreateView):

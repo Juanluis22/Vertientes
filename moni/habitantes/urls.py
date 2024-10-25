@@ -1,4 +1,4 @@
-from django.urls import path  # Importa la función path para definir rutas de URL
+from django.urls import path, include  # Importa la función path para definir rutas de URL
 from habitantes.views import *  # Importa todas las vistas desde habitantes.views
 from habitantes import views  # Importa el módulo views desde habitantes
 

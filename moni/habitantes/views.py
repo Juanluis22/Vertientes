@@ -190,7 +190,6 @@ class ActualizarPerfil(UpdateView):
         return context
 
 #DATOS
-
 @login_required
 def sse_datos(request, objecto_id):
     print("enviando data mediante SSE .....")
@@ -215,7 +214,6 @@ def sse_datos(request, objecto_id):
     return response
 
 #GRAFICOS
-
 def filtrar_datos_por_fecha(request, vertiente_id, atributo, date_range):
     # No se necesitacesta línea ya que date_range ahora es un argumento
     # date_range = request.GET.get('date_range', 'all')
@@ -290,8 +288,8 @@ def generar_respuesta(request, vertiente_id, atributo, template_name):
     }
     
     return render(request, template_name,context)
-@login_required
 
+@login_required
 def grafico_generico(request, vertiente_id, tipo_grafico):
     TIPOS_GRAFICO = {
         "caudal": "caudal",
@@ -333,9 +331,6 @@ def sse_grafico(request, vertiente_id, tipo_grafico, date_range):
     response = StreamingHttpResponse(event_stream(), content_type="text/event-stream")
     response['Cache-Control'] = 'no-cache'
     return response
-
-
-
 
 def grafico_mejorado(request,vertiente_id,atributo):
 

@@ -34,3 +34,5 @@ tzdata
 wheel
 xlwt
 xlrd
+rest_framework
+djangorestframework-simplejwt

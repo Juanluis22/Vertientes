@@ -99,7 +99,6 @@ class ResetPasswordView(FormView):
         pass
         return HttpResponseRedirect(self.success_url)
     
-
 #Cambio de contraseña
 class ChangePasswordView(FormView):
     form_class=ChangePasswordForm
@@ -130,7 +129,6 @@ class ChangePasswordView(FormView):
 
         return super().post(request, *args, **kwargs)
 
-
 #Vista para iniciar sesion
 class InicioSesion(LoginView):
     template_name = 'login.html'
@@ -142,7 +140,7 @@ class InicioSesion(LoginView):
         form.errors['username'] = 'Usuario o contraseña inválidos'  # Mensaje de error personalizado
         return render(self.request, self.template_name, {'form': form})  # Retorna la página de inicio de sesión con los errores del formulario
 
-
+#Vista para registrar usuario
 class Registro(CreateView):
     model = User  # Modelo asociado a la vista
     form_class = UserForm  # Formulario asociado a la vista
@@ -220,7 +218,7 @@ class Registro(CreateView):
 
         return super().post(request, *args, **kwargs)
 
-
+#Vista para cerrar sesion
 class Cerrarsesion(RedirectView):
     # Especifica el nombre del patrón de URL al que se redirige después de cerrar sesión
     pattern_name = 'nucleo:login'
@@ -248,8 +246,7 @@ def revision(request):
         if profile.group_id == 3:
             return redirect('eva:comuni_autoridad')  # Redirige al perfil del autoridad
     else:
-        return redirect('nucleo:login')  # Redirige al formulario de inicio de sesión
-    
+        return redirect('nucleo:login')  # Redirige al formulario de inicio de sesión 
 @login_required
 def users_massive_upload(request):
     profiles = Profile.objects.get(user_id = request.user.id)
@@ -677,7 +674,6 @@ class Select_anidado(TemplateView):
         context['title'] = 'SELECT ANIDADOS'  # Título de la página
         context['form'] = TestForm()  # Formulario que se utilizará en la plantilla
         return context
-
 
 @login_required
 def mapa(request, objecto_id):
