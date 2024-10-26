@@ -1,3 +1,5 @@
+#crud/urls.py
+
 from django.urls import path
 from crud.views import *
 from .views import MapaGeneral, MapaAutoridad
@@ -9,15 +11,12 @@ urlpatterns = [
     #Selector
     path("selector/", Select.as_view(), name='select'),
 
-
     #index
     path("indice/", Indice.as_view(), name='index'),
-
 
     #indice general
     path("indiceComunidad/", IndiceCom.as_view(), name='indcom'),
     path("indiceVertiente/", IndiceVert.as_view(), name='indvert'),
-
 
     #Listas
     path("lista_comunidad/", ListaComunidad.as_view(), name='listcom'),
@@ -26,13 +25,11 @@ urlpatterns = [
     path("lista_peticiones/", ListaPeticion.as_view(), name='listpet'),
     path("lista_kit/", ListaKit.as_view(), name='listkit'),
     
-
     #Creación
     path("nueva_comunidad/", NuevaComunidad.as_view(), name='newcom'),
     path("nuevo_user/", NuevoUser.as_view(), name='newuser'),
     path("nueva_vertiente/", NuevaVertiente.as_view(), name='newvert'),
     path("nuevo_kit/", NuevoKit.as_view(), name='newkit'),
-
 
     #Actualizacion
     path("actualizacion_usuarios/<int:pk>/", ActualizarUsuario.as_view(), name='updateuser'),
@@ -41,14 +38,10 @@ urlpatterns = [
     path("actualizacion_kit/<int:pk>/", ActualizarKit.as_view(), name='updatekit'),
 
     #Eliminación
-
     path("eliminar_comunidad/<int:pk>/", eliminar_comunidad, name='deletecom'),
     path("eliminar_usuario/<int:pk>/", eliminar_peticion, name='deleteUser'),
     path("eliminar_vertiente/<int:pk>/", eliminar_vertiente, name='deletevert'),
     path("eliminar_kit/<int:pk>/", eliminar_kit, name='deletekit'),
-
-
-
 
     #Activación
     path("activación/<int:pk>/", activar_estado, name='activaruser'),
@@ -59,19 +52,9 @@ urlpatterns = [
     #Desactivación
     path("desactivar/<int:pk>/", desactivar_estado, name='deactuser'),
 
-    
-    
     #Mapa General
     path("mapa_admin", MapaGeneral.as_view(), name='mapa_general'),
     path("mapa_autoridad/", MapaAutoridad.as_view(), name='mapa_autoridad'),
-
-
-
-
-
-    
-    
-
     #Prueba
     path("prueba/", Prueba.as_view(), name='prueba'),
 

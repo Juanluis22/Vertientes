@@ -1,3 +1,4 @@
+# crud/forms.py
 from django.forms import *
 from django.contrib.auth.forms import UserCreationForm
 from nucleo.models import *
@@ -39,7 +40,6 @@ class KitForm(ModelForm):
         model= kit
         fields = ['modelo', 'mac', 'is_active', 'comunidad', 'vertiente']
 
-
 def validate_rut(value):
         value = value.replace('.', '')  # Elimina puntos
         value = value.replace('-', '')  # Elimina guiones
@@ -49,12 +49,6 @@ def validate_rut(value):
 
         if not value[:-1].isdigit() or value[-1].lower() not in '0123456789k':
             raise ValidationError('Rut inválido')
-        
-        
-        
-
-
-
 
 class UserForm(ModelForm):
     email = forms.CharField(validators=[validators.EmailValidator(message="El correo electrónico debe ser válido.")])
@@ -81,10 +75,6 @@ class UserForm(ModelForm):
             'edad': '',
             'password': '*Le recomendamos escribir una contraseña sencilla, como pueden ser, los últimos 4 digitos de su RUT.',
         }
-        
-
-
-
         widgets={
             'username':TextInput( 
                 attrs={
@@ -93,8 +83,6 @@ class UserForm(ModelForm):
 
                 }
             ), 
-            
-
             'first_name':TextInput( 
                 attrs={
                     'class':'form-control',
@@ -125,8 +113,6 @@ class UserForm(ModelForm):
             ),
         }
     
-
-    
     
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
@@ -138,8 +124,6 @@ class UserForm(ModelForm):
         self.fields['email'].required = True
         self.fields['gender'].required = True
         self.fields['password'].required = True
-    
-
     
 
     def clean_username(self):
@@ -156,8 +140,6 @@ class UserForm(ModelForm):
 
         if password1 != confirmar_contraseña:
             raise forms.ValidationError("Las contraseñas no coinciden")
-
-
 
     def save(self, commit=True):
         data = {}
@@ -179,8 +161,6 @@ class UserForm(ModelForm):
                 u.save()
         else:
             data['error'] = form.errors
-
-
 
 class UpdateForm(ModelForm):
     ROLES = (
@@ -258,8 +238,6 @@ class UpdateForm(ModelForm):
         validate_rut(username)  # Llama a la función de validación personalizada
         return username
     
-    
-
 class UpdateFormPerfil(ModelForm):
     
     email = forms.CharField(validators=[validators.EmailValidator(message="El correo electrónico debe ser válido.")])
@@ -334,8 +312,6 @@ class UpdateFormPerfil(ModelForm):
         if nueva_contraseña != confirmar_contraseña:
             raise forms.ValidationError("Las contraseñas no coinciden")
 
-        
-
 
 class UserFormCRUD(ModelForm):
     ROLES = (
@@ -368,20 +344,13 @@ class UserFormCRUD(ModelForm):
             'edad': '',
             'password': '*Le recomendamos escribir una contraseña sencilla, como pueden ser, los últimos 4 digitos de su RUT.',
         }
-        
-
-
-
         widgets={
             'username':TextInput( 
                 attrs={
                     'class':'form-control',
                     'placeholder':'Escriba su rut con el formato: (203627904)'
-
                 }
             ), 
-            
-
             'first_name':TextInput( 
                 attrs={
                     'class':'form-control',
@@ -412,9 +381,6 @@ class UserFormCRUD(ModelForm):
             ),
         }
     
-
-    
-    
     def __init__(self, *args, **kwargs):
         super(UserFormCRUD, self).__init__(*args, **kwargs)
         self.fields['comunidad'].required = True
@@ -426,9 +392,6 @@ class UserFormCRUD(ModelForm):
         self.fields['gender'].required = True
         self.fields['password'].required = True
     
-
-    
-
     def clean_username(self):
         username = self.cleaned_data['username']
         validate_rut(username)  # Llama a la función de validación personalizada
@@ -443,8 +406,6 @@ class UserFormCRUD(ModelForm):
 
         if password1 != confirmar_contraseña:
             raise forms.ValidationError("Las contraseñas no coinciden")
-
-
 
     def save(self, commit=True):
         data = {}

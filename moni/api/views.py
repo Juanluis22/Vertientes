@@ -1,3 +1,4 @@
+# api/views.py
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -12,7 +13,6 @@ from rest_framework import authentication, permissions
 # Vista para usuarios
 
 # Solicitar token de autenticación
-
 class UserLogin(APIView):
     """
     UserLogin is an APIView for handling POST requests to authenticate a user.

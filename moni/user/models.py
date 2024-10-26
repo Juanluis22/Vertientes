@@ -48,7 +48,7 @@ class Profile(models.Model):
     Modelo de perfil que está relacionado uno a uno con el modelo User.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, default=1)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, default=2)
     token_app_session = models.CharField(
         max_length=240, 
         null=True, 
