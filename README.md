@@ -38,6 +38,9 @@ INSERT INTO auth_group VALUES(1, 'Administrador');
 INSERT INTO auth_group VALUES(2, 'Usuario');
 INSERT INTO user_profile VALUES(0,'No','Si',1,1)
 
+Finalmente, activar el usuario creado mediante "`python manage.py createsuperuser`" desde PGADMIN, especificamente
+en la columna "IsActive", columna Booleana que esta en FALSE por defecto, basta con dejarla en TRUE.
+
 
 
 
